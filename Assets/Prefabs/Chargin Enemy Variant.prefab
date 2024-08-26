@@ -1,0 +1,108 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1606842180458500987
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1236971472099155479, guid: 756d981fb6648af4f9a91fa736821747, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1236971472099155479, guid: 756d981fb6648af4f9a91fa736821747, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5698112
+      objectReference: {fileID: 0}
+    - target: {fileID: 1236971472099155479, guid: 756d981fb6648af4f9a91fa736821747, type: 3}
+      propertyPath: m_Color.r
+      value: 0.10166195
+      objectReference: {fileID: 0}
+    - target: {fileID: 5249163872004341964, guid: 756d981fb6648af4f9a91fa736821747, type: 3}
+      propertyPath: m_Name
+      value: Chargin Enemy Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387677891637415265, guid: 756d981fb6648af4f9a91fa736821747, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387677891637415265, guid: 756d981fb6648af4f9a91fa736821747, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387677891637415265, guid: 756d981fb6648af4f9a91fa736821747, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387677891637415265, guid: 756d981fb6648af4f9a91fa736821747, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387677891637415265, guid: 756d981fb6648af4f9a91fa736821747, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387677891637415265, guid: 756d981fb6648af4f9a91fa736821747, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387677891637415265, guid: 756d981fb6648af4f9a91fa736821747, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387677891637415265, guid: 756d981fb6648af4f9a91fa736821747, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387677891637415265, guid: 756d981fb6648af4f9a91fa736821747, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387677891637415265, guid: 756d981fb6648af4f9a91fa736821747, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1562161078116923639, guid: 756d981fb6648af4f9a91fa736821747, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5249163872004341964, guid: 756d981fb6648af4f9a91fa736821747, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1813590127125415229}
+  m_SourcePrefab: {fileID: 100100000, guid: 756d981fb6648af4f9a91fa736821747, type: 3}
+--- !u!1 &6815178556129530807 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5249163872004341964, guid: 756d981fb6648af4f9a91fa736821747, type: 3}
+  m_PrefabInstance: {fileID: 1606842180458500987}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1813590127125415229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6815178556129530807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58c5e7c7dba65c44087d9899ef47f3bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 1
+  maxWallDist: 0.5
+  moveSpeed: 3
+  maxPlayerDist: 6
+  chargeSpeed: 10
+  speed: 1
+  retreatSpeed: -1
+  retreatTimer: 0.3
+  retreatTime: 0
+  dazeTimer: 1
+  dazeTime: 0
+  collsiionDist: 0.3
+  bounceDist: 300
+  idel: 0
+  move: 0
+  hit: 0
