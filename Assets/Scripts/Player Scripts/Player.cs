@@ -75,6 +75,7 @@ public class Player : MonoBehaviour
     private KeyCode dash = KeyCode.LeftShift;
 
     private void Awake() {
+        
         //get the input system
         playerControls = new PlayerControls();
         //get the rigidbody and collider reffrences
@@ -148,27 +149,32 @@ public class Player : MonoBehaviour
             /*WALL JUMP ACTIVATE*/
             if (rightWallTouch && Input.GetKey(right) || leftWallTouch && Input.GetKey(left)) {
 
-                if (Input.GetKeyDown(jump)) {
-                    wallSliding = false;
-                    dashDirection = rightWallTouch ? -1 : 1;
-                    Jump();
-                    wallJump = true;
-
-                }
+                
 
             }
 
             if (falling) {
                 /*WALL SLIDE ACTIVATE*/
                 if (rightWallTouch && Input.GetKey(right) || leftWallTouch && Input.GetKey(left)) {
+                    wallSliding = true;
+                    
+                }
+                if (wallSliding) {
                     wallSlide();
 
-            } else {
-                rb.gravityScale = 2;
-                /*FALLING GRAVITY*/
-                rb.velocity += Vector2.up * Physics.gravity.y * (fallGravMultiplier - rb.gravityScale) * Time.deltaTime;
+                    if (Input.GetKeyDown(jump)) {
+                        wallSliding = false;
+                        dashDirection = rightWallTouch ? -1 : 1;
+                        Jump();
+                        wallJump = true;
 
-            }
+                    }
+                } else {
+                    rb.gravityScale = 2;
+                    /*FALLING GRAVITY*/
+                    rb.velocity += Vector2.up * Physics.gravity.y * (fallGravMultiplier - rb.gravityScale) * Time.deltaTime;
+
+                }
 
                 //change colliders
                 clipCollider.enabled = true;
@@ -213,7 +219,6 @@ public class Player : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && attackTime > 0.25f && !dashing && !wallSliding) {
             attackNum++;
-
             // Loop back to one after third attack
             if (attackNum > 3)
                 attackNum = 1;
@@ -267,6 +272,9 @@ public class Player : MonoBehaviour
     }
 
     private void WallJump() {
+        if (wallJumpCount == 0) {
+            Jump();
+        }
         if (wallJumpCount < wallJumpDuration) {
             rb.velocity = new Vector2(dashDirection * wallJumpSpeed * Time.fixedDeltaTime, rb.velocity.y);
             wallJumpCount += Time.deltaTime;
