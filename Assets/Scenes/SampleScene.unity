@@ -1744,6 +1744,7 @@ GameObject:
   - component: {fileID: 1309007474}
   - component: {fileID: 1309007473}
   - component: {fileID: 1309007475}
+  - component: {fileID: 1309007476}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1861,6 +1862,8 @@ MonoBehaviour:
   jumpGravMultiplier: 20
   jumpVelocity: 5
   jumpHeight: 3
+  dashDurCount: 0
+  dashing: 0
 --- !u!70 &1309007471
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -2013,6 +2016,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   MAX_HEALTH: 100
+--- !u!114 &1309007476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309007464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb7c01455a7b374ab3968741bcf4026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1328372060
 GameObject:
   m_ObjectHideFlags: 0

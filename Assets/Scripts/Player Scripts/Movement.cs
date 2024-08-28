@@ -90,36 +90,11 @@ public class Movement : MonoBehaviour
         rb.velocity = Vector2.up * jumpVelocity;
         rb.gravityScale = 2;
     }
-    public void Dash() {
-        if (dashDurCount < dashduration) {
-            rb.velocity += Vector2.right * dashSpeed * direction;
-            dashDurCount += Time.deltaTime;
-        }
-        if (dashDurCount >= dashduration) {
-            dashDurCount = 0;
-            dashCount = 0;
-            dashing = false;
-        }
-    }
-    IEnumerator DDash() {
+    
+    //DAMAGE VISUAL
+    
 
-        yield return null;
-    }
-    public void Hurt() {
-        if (colorCounter >= colorChangeSpeed && colorCounter < colorChangeSpeed * 2) {
-            sr.color = hurtColor / 255;
-            colorCounter += Time.deltaTime;
-        } else if (colorCounter >= colorChangeSpeed * 2) {
-            //colorCounter = 0;
-            sr.color = Color.white;
-        } else {
-            sr.color = Color.white;
-            colorCounter += Time.deltaTime;
-        }
-    }
-    public void die() {
-        Destroy(gameObject);
-    }
+    
 
 
     

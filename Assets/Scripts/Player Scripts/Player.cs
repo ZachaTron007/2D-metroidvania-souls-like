@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
     private float dashCool = 0.7f;
     private float dashCount;
     private float dashduration = 0.13f;
-    private float dashDurCount;
+    [SerializeField] private float dashDurCount;
     //kyoteTime
     private float kyoteTime = 0.1f;
     private float kyoteTimer;
@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
     private int doubleJump = 0;
     private bool rightWallTouch = false;
     private bool leftWallTouch = false;
-    private bool dashing = false;
+    [SerializeField] private bool dashing = false;
     private bool leftGround = false;
     private bool attacking = false;
     private bool falling = false;
@@ -68,6 +68,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 moveVetcor;
     private SpriteRenderer sr;
+    //private DashScript Dash;
     //buttons
     private KeyCode jump = KeyCode.Space;
     private KeyCode left = KeyCode.A;
@@ -246,9 +247,10 @@ public class Player : MonoBehaviour
     private void FixedUpdate() {
         //actualy moves you left and right using physics
         /*DASHING*/
-        if (dashing) {
-            Dash();
-            
+        if (dashing&&dashDurCount==0) {
+            Debug.Log("dashing");
+            StartCoroutine(DDash());
+            dashDurCount = 1;
         } else if (wallJump) {
             /*WALL JUMPING*/
             WallJump();
@@ -295,16 +297,17 @@ public class Player : MonoBehaviour
         rb.velocity = Vector2.up * jumpVelocity;
         rb.gravityScale = 2;
     }
-    private void Dash() {
-        if (dashDurCount < dashduration) {
+    IEnumerator DDash() {
+        Invoke("dashReset", 2);
+        while (dashing) {
             rb.velocity += Vector2.right * dashSpeed * direction;
-            dashDurCount += Time.deltaTime;
+            yield return null;
         }
-        if (dashDurCount >= dashduration) {
-            dashDurCount = 0;
-            dashCount = 0;
-            dashing = false;
-        }
+        yield return null;
+    }
+    private void dashReset() {
+        Debug.Log("Reset");
+        dashing = false;
     }
     private void Hurt() {
         if (colorCounter >= colorChangeSpeed && colorCounter < colorChangeSpeed * 2) {

@@ -7,6 +7,7 @@ public class Health1 : MonoBehaviour
 {
     [SerializeField] private int health = 100;
     [SerializeField] private int MAX_HEALTH = 100;
+    private Vector4 hurtColor = new Vector4(255, 62, 62, 255);
 
     // Update is called once per frame
     private void Awake() {
@@ -17,8 +18,7 @@ public class Health1 : MonoBehaviour
     {
 
         if (health <= 0) {
-            Debug.Log("You died");
-            Destroy(gameObject);
+           die();
         }
     }
 
@@ -29,6 +29,7 @@ public class Health1 : MonoBehaviour
             if (health < 0) {
                 health = 0;
             }
+            //StartCoroutine(Hurt());
         }
 
     }
@@ -40,5 +41,17 @@ public class Health1 : MonoBehaviour
             }
         }
 
+    }
+
+    IEnumerator Hurt(SpriteRenderer sr) {
+        sr.color = hurtColor / 255;
+        yield return new WaitForSeconds(2);
+        sr.color = Color.white;
+        yield return null;
+    }
+
+    public void die() {
+        Debug.Log("You died");
+        Destroy(gameObject);
     }
 }
