@@ -17,7 +17,6 @@ public class Player : MonoBehaviour
     private BoxCollider2D mainCollider;
     private CapsuleCollider2D clipCollider;
     //movements
-    [SerializeField] private int health = 50;
     [SerializeField] private float moveSpeed = 250;
     private float direction = 1;
     private int dashDirection = 1;
@@ -32,26 +31,19 @@ public class Player : MonoBehaviour
     private float wallJumpDuration = 0.3f;
     private float stayDuration = 0.2f;
     private float wallJumpCount;
-    //hurt
-    private float colorChangeSpeed = 0.7f;
-    private float colorCounter;
-    private Vector4 hurtColor = new Vector4(255, 62, 62, 255);
-    private bool hurt = false;
     //wallslide and dash
     private float wallSlideSpeed = 3;
-    private float dashSpeed = 6;
     private float dashCool = 0.7f;
     private float dashCount;
-    private float dashduration = 0.13f;
     [SerializeField] private float dashDurCount;
     //kyoteTime
     private float kyoteTime = 0.1f;
     private float kyoteTimer;
     //attacks
     private int attackNum;
-    private float attackSpeed = 5;
+
     private float attackTime;
-    private float attackReset;
+
     //states
     private bool grounded = false;
     private bool wallSliding = false;
@@ -59,16 +51,17 @@ public class Player : MonoBehaviour
     private int doubleJump = 0;
     private bool rightWallTouch = false;
     private bool leftWallTouch = false;
-    [SerializeField] private bool dashing = false;
     private bool leftGround = false;
-    private bool attacking = false;
     private bool falling = false;
     //components
     Animator animatior;
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
     private Vector2 moveVetcor;
     private SpriteRenderer sr;
-    //private DashScript Dash;
+    //scrupts
+    private dashScript Dash;
+    private Health1 health;
+    private jumpScript jumpScript;
     //buttons
     private KeyCode jump = KeyCode.Space;
     private KeyCode left = KeyCode.A;
@@ -79,6 +72,10 @@ public class Player : MonoBehaviour
         
         //get the input system
         playerControls = new PlayerControls();
+        //scripts
+        Dash = GetComponent<dashScript>();
+        health = GetComponent<Health1>();
+        jumpScript = GetComponent<jumpScript>();
         //get the rigidbody and collider reffrences
         rb = GetComponent<Rigidbody2D>();
         mainCollider = GetComponent<BoxCollider2D>();
@@ -95,7 +92,7 @@ public class Player : MonoBehaviour
         groundSensor.triggerExit.AddListener(groundSensorExit);
         rightWallSensor.triggerExit.AddListener(rightWallSensorExit);
         leftWallSensor.triggerExit.AddListener(leftWallSensorExit);
-        jumpVelocity = Mathf.Sqrt(Physics.gravity.y * rb.gravityScale * jumpHeight * -2);
+        
     }
 
     // Update is called once per frame
@@ -111,7 +108,7 @@ public class Player : MonoBehaviour
         }
 
         //Debug.Log(moveVetcor.x * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
-        if (!dashing) {
+        if (!Dash.dashing) {
             moveVetcor = move.ReadValue<Vector2>();
 
         }
@@ -140,8 +137,8 @@ public class Player : MonoBehaviour
         //the iniatal jump, you need to be in kyote time or on the ground
         dashCount += Time.deltaTime;
         /*DASH ACTIVATE*/
-        if (Input.GetKey(dash) && dashCount >= dashCool) {
-            dashing = true;
+        if (Input.GetKeyDown(dash) && dashCount >= dashCool && !Dash.dashing) {
+            StartCoroutine((Dash.dash(direction, rb)));
 
         }
 
@@ -166,7 +163,7 @@ public class Player : MonoBehaviour
                     if (Input.GetKeyDown(jump)) {
                         wallSliding = false;
                         dashDirection = rightWallTouch ? -1 : 1;
-                        Jump();
+                        jumpScript.Jump(rb);
                         wallJump = true;
 
                     }
@@ -198,7 +195,7 @@ public class Player : MonoBehaviour
 
             /*DOUBLE JUMP*/
             if (doubleJump == 0 && Input.GetKeyDown(jump)) {
-                Jump();
+                jumpScript.Jump(rb);
                 doubleJump++;
 
             }
@@ -209,16 +206,13 @@ public class Player : MonoBehaviour
             doubleJump = 0;
             
             if (Input.GetKeyDown(jump)) {
-                Jump();
+                jumpScript.Jump(rb);
             }
 
         }
 
-        /*DEATH*/
-        if (health <=0)
-            die(sr);
 
-        if (Input.GetMouseButtonDown(0) && attackTime > 0.25f && !dashing && !wallSliding) {
+        if (Input.GetMouseButtonDown(0) && attackTime > 0.25f && !Dash.dashing && !wallSliding) {
             attackNum++;
             // Loop back to one after third attack
             if (attackNum > 3)
@@ -247,10 +241,8 @@ public class Player : MonoBehaviour
     private void FixedUpdate() {
         //actualy moves you left and right using physics
         /*DASHING*/
-        if (dashing&&dashDurCount==0) {
-            Debug.Log("dashing");
-            StartCoroutine(DDash());
-            dashDurCount = 1;
+        if (Dash.dashing) {
+
         } else if (wallJump) {
             /*WALL JUMPING*/
             WallJump();
@@ -275,7 +267,7 @@ public class Player : MonoBehaviour
 
     private void WallJump() {
         if (wallJumpCount == 0) {
-            Jump();
+            jumpScript.Jump(rb);
         }
         if (wallJumpCount < wallJumpDuration) {
             rb.velocity = new Vector2(dashDirection * wallJumpSpeed * Time.fixedDeltaTime, rb.velocity.y);
@@ -291,39 +283,7 @@ public class Player : MonoBehaviour
             wallJump = false;
         }
     }
-    private void Jump() {
-        //makes the y component change
-        grounded = false;
-        rb.velocity = Vector2.up * jumpVelocity;
-        rb.gravityScale = 2;
-    }
-    IEnumerator DDash() {
-        Invoke("dashReset", 2);
-        while (dashing) {
-            rb.velocity += Vector2.right * dashSpeed * direction;
-            yield return null;
-        }
-        yield return null;
-    }
-    private void dashReset() {
-        Debug.Log("Reset");
-        dashing = false;
-    }
-    private void Hurt() {
-        if (colorCounter >= colorChangeSpeed && colorCounter < colorChangeSpeed * 2) {
-            sr.color = hurtColor / 255;
-            colorCounter += Time.deltaTime;
-        } else if (colorCounter >= colorChangeSpeed * 2) {
-            //colorCounter = 0;
-            sr.color = Color.white;
-        } else {
-            sr.color = Color.white;
-            colorCounter += Time.deltaTime;
-        }
-    }
-    private void die(SpriteRenderer sr) {
-        Destroy(gameObject);
-    }
+    
 
 
 /*COLLISIONS AND ENABLE AND DISABLE*/
@@ -355,8 +315,7 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.tag == "Spike") {
             Debug.Log("hit");
-            health--;
-            hurt = true;
+            health.Damage(1);
         }
     }
     private void OnEnable() {
@@ -367,4 +326,7 @@ public class Player : MonoBehaviour
         move = playerControls.Player.Move;
         move.Disable();
     }
+
+
+    
 }

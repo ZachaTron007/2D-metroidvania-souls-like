@@ -1251,7 +1251,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0.000000017717728, y: 0.000000073120695, z: -1.2955326e-15, w: 1}
-  m_LocalPosition: {x: 2.17, y: 3.65, z: -10}
+  m_LocalPosition: {x: 2.17, y: 0.07000029, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1745,6 +1745,7 @@ GameObject:
   - component: {fileID: 1309007473}
   - component: {fileID: 1309007475}
   - component: {fileID: 1309007476}
+  - component: {fileID: 1309007477}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1788,7 +1789,7 @@ Transform:
   m_GameObject: {fileID: 1309007464}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.17, y: 1.65, z: 0}
+  m_LocalPosition: {x: 2.17, y: -1.93, z: 0}
   m_LocalScale: {x: 0.82, y: 0.82, z: 0.82}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -1856,14 +1857,13 @@ MonoBehaviour:
   groundSensor: {fileID: 330522924}
   rightWallSensor: {fileID: 474151059}
   leftWallSensor: {fileID: 1670171689}
-  health: 50
   moveSpeed: 250
   fallGravMultiplier: 3
   jumpGravMultiplier: 20
   jumpVelocity: 5
   jumpHeight: 3
   dashDurCount: 0
-  dashing: 0
+  rb: {fileID: 0}
 --- !u!70 &1309007471
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -2028,6 +2028,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb7c01455a7b374ab3968741bcf4026, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dashing: 0
+--- !u!114 &1309007477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309007464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eccad9cc1fc6dc24b8a7ec2278a9da42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpVelocity: 5
+  jumpHeight: 3
+  grounded: 0
 --- !u!1 &1328372060
 GameObject:
   m_ObjectHideFlags: 0
@@ -2093,7 +2109,7 @@ Transform:
   m_GameObject: {fileID: 1328372060}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.17, y: 3.65, z: -10}
+  m_LocalPosition: {x: 2.17, y: 0.07000029, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

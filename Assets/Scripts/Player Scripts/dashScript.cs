@@ -1,27 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class dashScript : MonoBehaviour
 {
-    private float dashSpeed = 6;
-    private float dashduration = 0.13f;
-    private Rigidbody2D rb;
+    private float dashSpeed = 15;
+    private float dashduration = 0.2f;
+    public bool dashing;
 
     void Start() {
-        rb = GetComponent<Rigidbody2D>();
     }
 
-    IEnumerator dash(float dashduration,int direction, bool dashing) {
+    public IEnumerator dash(float direction,Rigidbody2D rb) {
         Invoke("dashReset", dashduration);
-        
+        dashing = true;
         while (dashing) {
-            rb.velocity += Vector2.right * dashSpeed * direction;
-            yield return null;
+            rb.velocity = Vector2.right * direction * dashSpeed;
+            yield return new WaitForFixedUpdate();
         }
         yield return null;
     }
+
     private void dashReset() {
-        //dashing = false;
+        dashing = false;
     }
+    
 }
