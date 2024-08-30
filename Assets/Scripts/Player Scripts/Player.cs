@@ -62,6 +62,7 @@ public class Player : MonoBehaviour
     private dashScript Dash;
     private Health1 health;
     private jumpScript jumpScript;
+    private wallActionsScript wallActions;
     //buttons
     private KeyCode jump = KeyCode.Space;
     private KeyCode left = KeyCode.A;
@@ -76,6 +77,7 @@ public class Player : MonoBehaviour
         Dash = GetComponent<dashScript>();
         health = GetComponent<Health1>();
         jumpScript = GetComponent<jumpScript>();
+        wallActions = GetComponent<wallActionsScript>();
         //get the rigidbody and collider reffrences
         rb = GetComponent<Rigidbody2D>();
         mainCollider = GetComponent<BoxCollider2D>();
@@ -245,7 +247,7 @@ public class Player : MonoBehaviour
 
         } else if (wallJump) {
             /*WALL JUMPING*/
-            WallJump();
+            StartCoroutine(wallActions.WallJump(dashDirection,rb));
             
         } else
             /*MOVE LEFT AND RIGHT*/

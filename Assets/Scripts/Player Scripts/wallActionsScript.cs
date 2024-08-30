@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class wallActionsScript : MonoBehaviour
+public class wallActionsScript : jumpScript
 {
     //wallJump
     private float wallJumpSpeed = 100;
@@ -12,18 +12,8 @@ public class wallActionsScript : MonoBehaviour
     //wallslide 
     private float wallSlideSpeed = 3;
     public bool wallSliding = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    public bool wallJump = false;
+    // Start is called before the first frame update  
     private void wallSlide(Rigidbody2D rb) {
         wallSliding = true;
         rb.gravityScale = 0;
@@ -41,16 +31,22 @@ public class wallActionsScript : MonoBehaviour
             rb.velocity = new Vector2(moveVetcor.x * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
         else
             rb.velocity = new Vector2(0, rb.velocity.y);
-
-        if (wallJumpCount >= wallJumpDuration && rb.velocity.y <= -stayDuration) {
-            wallJumpCount += Time.deltaTime;
-            wallJumpCount = 0;
-            wallJump = false;
         }
     }*/
 
-    public IEnumerator wallJump() {
-
+    public IEnumerator WallJump(float dashDirection, Rigidbody2D rb) {
+        wallJump = true;
+        Jump(rb);
+        Invoke("wallJumpReset", wallJumpDuration);
+        while (wallJump) {
+            rb.velocity = new Vector2(dashDirection * wallJumpSpeed * Time.fixedDeltaTime, rb.velocity.y);
+            wallJumpCount += Time.deltaTime;
+            yield return new WaitForFixedUpdate();
+        }
         yield return null;
+    }
+
+    private void wallJumpReset() {
+        wallJump = false;
     }
 }
