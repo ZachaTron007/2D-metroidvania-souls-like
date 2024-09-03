@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Sensors leftWallSensor;
     private BoxCollider2D mainCollider;
     private CapsuleCollider2D clipCollider;
+    [SerializeField] private GameObject attackHitbox;
     //movements
     [SerializeField] private float moveSpeed = 250;
     private float direction = 1;
@@ -23,32 +24,19 @@ public class Player : MonoBehaviour
     //Jumps
     [SerializeField] private float fallGravMultiplier = 3f;
     [SerializeField] private float jumpGravMultiplier = 20f;
-    [SerializeField] private float jumpVelocity = 5;
-    [SerializeField] private float jumpHeight = 3;
     private float terminalVelocity = 15;
-    //wallJump
-    private float wallJumpSpeed = 100;
-    private float wallJumpDuration = 0.3f;
-    private float stayDuration = 0.2f;
-    private float wallJumpCount;
-    //wallslide and dash
-    private float wallSlideSpeed = 3;
+    //dash
     private float dashCool = 0.7f;
     private float dashCount;
-    [SerializeField] private float dashDurCount;
+
     //kyoteTime
     private float kyoteTime = 0.1f;
     private float kyoteTimer;
     //attacks
     private int attackNum;
-
     private float attackTime;
-
+    public float AttackTime;
     //states
-    private bool grounded = false;
-    private bool wallSliding = false;
-    private bool wallJump = false;
-    private int doubleJump = 0;
     private bool rightWallTouch = false;
     private bool leftWallTouch = false;
     private bool leftGround = false;
@@ -130,7 +118,7 @@ public class Player : MonoBehaviour
             if (kyoteTimer >= kyoteTime) {
                 //makes it so you caqnt jump after the timer is up
                 leftGround = false;
-                grounded = false;
+                jumpScript.grounded = false;
                 kyoteTimer = 0;
 
             }
@@ -145,28 +133,21 @@ public class Player : MonoBehaviour
         }
 
         //if you arent on the ground
-        if (!grounded) {
+        if (!jumpScript.grounded) {
             /*WALL JUMP ACTIVATE*/
-            if (rightWallTouch && Input.GetKey(right) || leftWallTouch && Input.GetKey(left)) {
-
-                
-
-            }
-
             if (falling) {
                 /*WALL SLIDE ACTIVATE*/
                 if (rightWallTouch && Input.GetKey(right) || leftWallTouch && Input.GetKey(left)) {
-                    wallSliding = true;
+                    wallActions.wallSliding = true;
                     
                 }
-                if (wallSliding) {
-                    wallSlide();
+                if (wallActions.wallSliding) {
+                    wallActions.wallSlide(rb);
 
                     if (Input.GetKeyDown(jump)) {
-                        wallSliding = false;
                         dashDirection = rightWallTouch ? -1 : 1;
-                        jumpScript.Jump(rb);
-                        wallJump = true;
+                        //jumpScript.Jump(rb);
+                        StartCoroutine(wallActions.WallJump(dashDirection, rb));
 
                     }
                 } else {
@@ -195,26 +176,17 @@ public class Player : MonoBehaviour
 
             }
 
-            /*DOUBLE JUMP*/
-            if (doubleJump == 0 && Input.GetKeyDown(jump)) {
-                jumpScript.Jump(rb);
-                doubleJump++;
-
-            }
 
         } else {
             /*RESETS SHIT*/
             /*GROUNDED*/
-            doubleJump = 0;
-            
             if (Input.GetKeyDown(jump)) {
                 jumpScript.Jump(rb);
             }
 
         }
 
-
-        if (Input.GetMouseButtonDown(0) && attackTime > 0.25f && !Dash.dashing && !wallSliding) {
+        if (Input.GetMouseButtonDown(0) && attackTime > 0.25f && !Dash.dashing && !wallActions.wallSliding) {
             attackNum++;
             // Loop back to one after third attack
             if (attackNum > 3)
@@ -234,64 +206,37 @@ public class Player : MonoBehaviour
 
 
         animatior.SetBool("falling", falling);
-        animatior.SetBool("WallSliding", wallSliding);
-        animatior.SetBool("wallJumping", wallJump);
+        animatior.SetBool("WallSliding", wallActions.wallSliding);
+        animatior.SetBool("wallJumping", wallActions.wallJump);
         /*SETS RUN ANIMATION VAR*/
         animatior.SetFloat("moving", Mathf.Abs(moveVetcor.x));
-        animatior.SetBool("notJumping", grounded);
+        animatior.SetBool("notJumping", jumpScript.grounded);
     }
     private void FixedUpdate() {
         //actualy moves you left and right using physics
-        /*DASHING*/
-        if (Dash.dashing) {
-
-        } else if (wallJump) {
-            /*WALL JUMPING*/
-            StartCoroutine(wallActions.WallJump(dashDirection,rb));
-            
-        } else
+        if(!wallActions.wallJump&&!Dash.dashing) {
             /*MOVE LEFT AND RIGHT*/
             rb.velocity = new Vector2(moveVetcor.x * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
-        
-    }
-
-
-
-
-
-
-    /*FUNCTIONS*/
-    private void wallSlide() {
-        wallSliding = true;
-        rb.gravityScale = 0;
-        rb.velocity = -Vector2.up * wallSlideSpeed;
-    }
-
-    private void WallJump() {
-        if (wallJumpCount == 0) {
-            jumpScript.Jump(rb);
-        }
-        if (wallJumpCount < wallJumpDuration) {
-            rb.velocity = new Vector2(dashDirection * wallJumpSpeed * Time.fixedDeltaTime, rb.velocity.y);
-            wallJumpCount += Time.deltaTime;
-        } else if (direction == dashDirection)
-            rb.velocity = new Vector2(moveVetcor.x * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
-        else
-            rb.velocity = new Vector2(0, rb.velocity.y);
-
-        if (wallJumpCount >= wallJumpDuration && rb.velocity.y <= -stayDuration) {
-            wallJumpCount += Time.deltaTime;
-            wallJumpCount = 0;
-            wallJump = false;
         }
     }
-    
 
 
+
+
+
+
+    private void attack() {
+        Invoke("AttackEnd", AttackTime);
+        attackHitbox.SetActive(true);
+    }
+
+    private void attackEnd() {
+        attackHitbox.SetActive(false);
+    }
 /*COLLISIONS AND ENABLE AND DISABLE*/
     private void groundSensorEnter(Collider2D other) {
-        grounded = true;
-        wallSliding = false;
+        jumpScript.grounded = true;
+        wallActions.wallSliding = false;
     }
     //detects if you are not touching the floor
     private void groundSensorExit(Collider2D other) {
@@ -302,7 +247,7 @@ public class Player : MonoBehaviour
     }
     private void rightWallSensorExit(Collider2D other) {
         rightWallTouch = false;
-        wallSliding = false;
+        wallActions.wallSliding = false;
         leftGround = false;
 
     }
@@ -311,7 +256,7 @@ public class Player : MonoBehaviour
     }
     private void leftWallSensorExit(Collider2D other) {
         leftWallTouch = false;
-        wallSliding = false;
+        wallActions.wallSliding = false;
         leftGround = false;
     }
     private void OnCollisionEnter2D(Collision2D collision) {

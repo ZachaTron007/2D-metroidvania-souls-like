@@ -6,8 +6,8 @@ public class jumpScript : MonoBehaviour
 {
     [SerializeField] private float jumpVelocity = 5;
     [SerializeField] private float jumpHeight = 3;
-    private float terminalVelocity = 15;
     public bool grounded = false;
+    public int doubleJump = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +17,9 @@ public class jumpScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-             
+        if (grounded) {
+            doubleJump = 0;
+        }   
     }
 
     public void Jump(Rigidbody2D rb) {
@@ -26,6 +28,7 @@ public class jumpScript : MonoBehaviour
         grounded = false;
         rb.velocity = Vector2.up * jumpVelocity;
         rb.gravityScale = 2;
+        doubleJump += 1;
     }
 
 }

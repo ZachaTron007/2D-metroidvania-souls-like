@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 995916108520131400}
   - component: {fileID: 2782673446494161988}
   - component: {fileID: 4350333729521898866}
-  - component: {fileID: 906161274284505434}
+  - component: {fileID: 1101203130752618326}
   m_Layer: 0
   m_Name: Archer Enemy
   m_TagString: Untagged
@@ -159,7 +159,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &906161274284505434
+--- !u!114 &1101203130752618326
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,16 +168,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6061961467946571155}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58c5e7c7dba65c44087d9899ef47f3bd, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a33816146e216b449e2767439c06d17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 1
-  maxWallDist: 1
-  moveSpeed: 3
-  maxPlayerDist: 1
-  chargeSpeed: 10
-  speed: 3
-  retreatSpeed: -1
-  retreatTimer: 1
-  retreatTime: 0
+  maxDist: 1
+  speed: 1
+  fireRate: 1
+  fireCount: 0
   idel: 0
+  bullet: {fileID: 6183109657816083755, guid: e418ab0b235ee9a4bbe357cb5f79d6b1, type: 3}

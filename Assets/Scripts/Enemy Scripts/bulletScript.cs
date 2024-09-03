@@ -16,7 +16,7 @@ public class bulletScript : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         dir = player.transform.position-transform.position;
         dir.Normalize();
-        transform.rotation = Quaternion.Euler(0, 0, vectorAngle(dir) + 180);
+        transform.rotation = Quaternion.Euler(0, 0, vectorAngle(dir) + 0);
         Debug.Log("Angle: "+vectorAngle(dir));
     }
 

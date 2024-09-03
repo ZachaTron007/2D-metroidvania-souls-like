@@ -1597,6 +1597,102 @@ Transform:
   m_Children: []
   m_Father: {fileID: 825320339}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1070767532
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1070767535}
+  - component: {fileID: 1070767534}
+  - component: {fileID: 1070767533}
+  m_Layer: 0
+  m_Name: Attack Hitbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1070767533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1070767532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c19bd498cf2c3a4eafe8479170a205b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerExit:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!61 &1070767534
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1070767532}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.77, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!4 &1070767535
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1070767532}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1583818957}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1198630925
 GameObject:
   m_ObjectHideFlags: 0
@@ -1737,15 +1833,16 @@ GameObject:
   m_Component:
   - component: {fileID: 1309007468}
   - component: {fileID: 1309007466}
-  - component: {fileID: 1309007469}
   - component: {fileID: 1309007470}
+  - component: {fileID: 1309007476}
+  - component: {fileID: 1309007477}
+  - component: {fileID: 1309007478}
+  - component: {fileID: 1309007475}
+  - component: {fileID: 1309007469}
   - component: {fileID: 1309007471}
   - component: {fileID: 1309007472}
   - component: {fileID: 1309007474}
   - component: {fileID: 1309007473}
-  - component: {fileID: 1309007475}
-  - component: {fileID: 1309007476}
-  - component: {fileID: 1309007477}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1857,12 +1954,11 @@ MonoBehaviour:
   groundSensor: {fileID: 330522924}
   rightWallSensor: {fileID: 474151059}
   leftWallSensor: {fileID: 1670171689}
+  attackHitbox: {fileID: 1070767532}
   moveSpeed: 250
   fallGravMultiplier: 3
   jumpGravMultiplier: 20
-  jumpVelocity: 5
-  jumpHeight: 3
-  dashDurCount: 0
+  AttackTime: 0
   rb: {fileID: 0}
 --- !u!70 &1309007471
 CapsuleCollider2D:
@@ -2044,6 +2140,25 @@ MonoBehaviour:
   jumpVelocity: 5
   jumpHeight: 3
   grounded: 0
+  doubleJump: 0
+--- !u!114 &1309007478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309007464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 106eaa60f2199ed4fa7dc17e9a78df66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpVelocity: 5
+  jumpHeight: 3
+  grounded: 0
+  doubleJump: 0
+  wallSliding: 0
+  wallJump: 0
 --- !u!1 &1328372060
 GameObject:
   m_ObjectHideFlags: 0
@@ -2408,6 +2523,7 @@ Transform:
   - {fileID: 330522923}
   - {fileID: 474151058}
   - {fileID: 1670171688}
+  - {fileID: 1070767535}
   m_Father: {fileID: 1309007468}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1592746580
@@ -2644,6 +2760,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2658381176594302045, guid: 9ec0a7697838a3946988daa51b379a3b, type: 3}
+      propertyPath: m_Simulated
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3297352556847882350, guid: 9ec0a7697838a3946988daa51b379a3b, type: 3}
       propertyPath: m_Name
       value: Spike
@@ -2947,7 +3067,7 @@ Transform:
   m_GameObject: {fileID: 1714540823}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.09244573, y: -0.85, z: -0.050106034}
+  m_LocalPosition: {x: -0.08, y: -0.21, z: -0.050106034}
   m_LocalScale: {x: 2.41, y: 0.51, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

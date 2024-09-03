@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class charginEnemy : MonoBehaviour
+public class charginEnemy : EnemyScript
 {
-    [SerializeField] private int direction = 1;
-    [SerializeField] private float maxWallDist = 1;
     [SerializeField] private float moveSpeed = 3;
     [SerializeField] private float maxPlayerDist = 1;
     [SerializeField] private float chargeSpeed = 10;
-    [SerializeField] private float speed = 1;
     [SerializeField] private float retreatSpeed = -1;
     [SerializeField] private float retreatTimer = 1;
     [SerializeField] private float retreatTime;
@@ -22,30 +19,28 @@ public class charginEnemy : MonoBehaviour
     [SerializeField] private bool idel = true;
     [SerializeField] private bool move = true;
     [SerializeField] private bool hit=false;
-    Rigidbody2D rb;
     
 
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         idel = true;
-        rb= GetComponent<Rigidbody2D>();
         
     }
 
     void Update() {
-        
+        wallCheck();
 
         if (idel) {
             move = true;
-
+            //resets the speed after charaging
             speed = moveSpeed;
             retreatTime = 0;
-            RaycastHit2D wallHit = Physics2D.Raycast(transform.position, Vector2.right * direction, maxWallDist, 64);
+            //detecting the player
             RaycastHit2D playerHit = Physics2D.Raycast(transform.position, Vector2.right * direction, maxPlayerDist, 8);
-            if (wallHit)
-                direction *= -1;
-            if(playerHit)
+            if (playerHit) {
                 idel = false;
+            }
         }else {
             speed = retreatSpeed;
             retreatTime += Time.deltaTime;
@@ -63,7 +58,7 @@ public class charginEnemy : MonoBehaviour
                 if (hit) {
                     //Debug.Log(dazeTime);
                     if (dazeTime == 0) {
-                        Debug.Log("dazed. Can move: "+move);
+                        //Debug.Log("dazed. Can move: "+move);
                         rb.AddForce(Vector2.right * -direction * bounceDist);
                     }
                     speed = 0;

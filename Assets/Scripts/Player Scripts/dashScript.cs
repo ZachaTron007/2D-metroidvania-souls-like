@@ -9,9 +9,6 @@ public class dashScript : MonoBehaviour
     private float dashduration = 0.2f;
     public bool dashing;
 
-    void Start() {
-    }
-
     public IEnumerator dash(float direction,Rigidbody2D rb) {
         Invoke("dashReset", dashduration);
         dashing = true;
