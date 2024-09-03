@@ -193,9 +193,10 @@ public class Player : MonoBehaviour
                 attackNum = 1;
 
             // Reset Attack combo if time since last attack is too large
-            if (attackTime > 1.0f)
+            if (attackTime > 1.0f) { 
                 attackNum = 1;
-
+                Attack();
+            }
             // Call one of three attack animations "Attack1", "Attack2", "Attack3"
             animatior.SetTrigger("Attack" + attackNum);
 
@@ -225,12 +226,12 @@ public class Player : MonoBehaviour
 
 
 
-    private void attack() {
+    private void Attack() {
         Invoke("AttackEnd", AttackTime);
         attackHitbox.SetActive(true);
     }
 
-    private void attackEnd() {
+    private void AttackEnd() {
         attackHitbox.SetActive(false);
     }
 /*COLLISIONS AND ENABLE AND DISABLE*/
