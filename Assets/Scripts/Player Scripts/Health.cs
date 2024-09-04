@@ -52,7 +52,20 @@ public class Health1 : MonoBehaviour
     }
 
     public void die() {
-        Debug.Log("You died");
+        Debug.Log(gameObject.name+" died");
         Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+
+        if (collision.GetComponent<DamageScript>() != null) {
+            Debug.Log(gameObject.name + " Gets Hit");
+            Health1 health = GetComponent<Health1>();
+            DamageScript damageScript = collision.GetComponent<DamageScript>();
+            health.Damage(damageScript.damage);
+
+        } else {
+            Debug.Log("noDamageScript");
+        }
     }
 }

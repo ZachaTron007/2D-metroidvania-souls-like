@@ -6,17 +6,17 @@ public class DamageScript : MonoBehaviour
 {
     public int damage = 10 ;
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         
     }
 
     // Update is called once per frame
-    void Update()
+    void OnDisable()
     {
         
     }
-
+    /*
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.GetComponent<Health1>() != null) {
             Health1 health = collision.GetComponent<Health1>();
@@ -30,5 +30,5 @@ public class DamageScript : MonoBehaviour
             health.Damage(damage);
 
         }
-    }
+    }*/
 }

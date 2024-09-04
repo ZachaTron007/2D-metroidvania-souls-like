@@ -16,7 +16,9 @@ public class Player : MonoBehaviour
     [SerializeField] private Sensors leftWallSensor;
     private BoxCollider2D mainCollider;
     private CapsuleCollider2D clipCollider;
-    [SerializeField] private GameObject attackHitbox;
+    [SerializeField] private GameObject attack;
+    [SerializeField] private BoxCollider2D attackHitBox;
+
     //movements
     [SerializeField] private float moveSpeed = 250;
     private float direction = 1;
@@ -82,6 +84,11 @@ public class Player : MonoBehaviour
         groundSensor.triggerExit.AddListener(groundSensorExit);
         rightWallSensor.triggerExit.AddListener(rightWallSensorExit);
         leftWallSensor.triggerExit.AddListener(leftWallSensorExit);
+        //attacks
+        if (attack) {
+            //attackHitBox = attack.getComponent<BoxCollider2D>();
+            
+        }
         
     }
 
@@ -228,11 +235,11 @@ public class Player : MonoBehaviour
 
     private void Attack() {
         Invoke("AttackEnd", AttackTime);
-        attackHitbox.SetActive(true);
+        attackHitBox.enabled=true;
     }
 
     private void AttackEnd() {
-        attackHitbox.SetActive(false);
+        attackHitBox.enabled=false;
     }
 /*COLLISIONS AND ENABLE AND DISABLE*/
     private void groundSensorEnter(Collider2D other) {
