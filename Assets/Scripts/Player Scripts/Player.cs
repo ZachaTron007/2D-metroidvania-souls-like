@@ -16,8 +16,6 @@ public class Player : MonoBehaviour
     [SerializeField] private Sensors leftWallSensor;
     private BoxCollider2D mainCollider;
     private CapsuleCollider2D clipCollider;
-    [SerializeField] private GameObject attack;
-    [SerializeField] private BoxCollider2D attackHitBox;
 
     //movements
     [SerializeField] private float moveSpeed = 250;
@@ -37,7 +35,6 @@ public class Player : MonoBehaviour
     //attacks
     private int attackNum;
     private float attackTime;
-    public float AttackTime;
     //states
     private bool rightWallTouch = false;
     private bool leftWallTouch = false;
@@ -49,6 +46,8 @@ public class Player : MonoBehaviour
     private Vector2 moveVetcor;
     private SpriteRenderer sr;
     //scrupts
+    [SerializeField] private GameObject attackManager;
+    private MeleeAttack melee;
     private dashScript Dash;
     private Health1 health;
     private jumpScript jumpScript;
@@ -68,6 +67,7 @@ public class Player : MonoBehaviour
         health = GetComponent<Health1>();
         jumpScript = GetComponent<jumpScript>();
         wallActions = GetComponent<wallActionsScript>();
+        melee = attackManager.GetComponent<MeleeAttack>();
         //get the rigidbody and collider reffrences
         rb = GetComponent<Rigidbody2D>();
         mainCollider = GetComponent<BoxCollider2D>();
@@ -85,10 +85,6 @@ public class Player : MonoBehaviour
         rightWallSensor.triggerExit.AddListener(rightWallSensorExit);
         leftWallSensor.triggerExit.AddListener(leftWallSensorExit);
         //attacks
-        if (attack) {
-            //attackHitBox = attack.getComponent<BoxCollider2D>();
-            
-        }
         
     }
 
@@ -202,10 +198,10 @@ public class Player : MonoBehaviour
             // Reset Attack combo if time since last attack is too large
             if (attackTime > 1.0f) { 
                 attackNum = 1;
-                Attack();
             }
             // Call one of three attack animations "Attack1", "Attack2", "Attack3"
             animatior.SetTrigger("Attack" + attackNum);
+            melee.Attack();
 
             // Reset timer
             attackTime = 0.0f;
@@ -232,7 +228,7 @@ public class Player : MonoBehaviour
 
 
 
-
+    /*
     private void Attack() {
         Invoke("AttackEnd", AttackTime);
         attackHitBox.enabled=true;
@@ -241,6 +237,7 @@ public class Player : MonoBehaviour
     private void AttackEnd() {
         attackHitBox.enabled=false;
     }
+    */
 /*COLLISIONS AND ENABLE AND DISABLE*/
     private void groundSensorEnter(Collider2D other) {
         jumpScript.grounded = true;

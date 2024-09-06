@@ -8,11 +8,16 @@ public class Health1 : MonoBehaviour
     [SerializeField] private int health = 100;
     [SerializeField] private int MAX_HEALTH = 100;
     private Vector4 hurtColor = new Vector4(255, 62, 62, 255);
+    private Vector4 normalColor;
     private float colorChangeSpeed = 0.7f;
+    private SpriteRenderer sr;
 
     // Update is called once per frame
     private void Awake() {
         health = MAX_HEALTH;
+        sr = GetComponent<SpriteRenderer>();
+        normalColor = sr.color;
+        hurtColor /= 255;
     }
 
     void Update()
@@ -30,7 +35,7 @@ public class Health1 : MonoBehaviour
             if (health < 0) {
                 health = 0;
             }
-            //StartCoroutine(Hurt());
+            StartCoroutine(Hurt(sr));
         }
 
     }
@@ -45,9 +50,9 @@ public class Health1 : MonoBehaviour
     }
 
     IEnumerator Hurt(SpriteRenderer sr) {
-        sr.color = hurtColor / 255;
+        sr.color = hurtColor;
         yield return new WaitForSeconds(colorChangeSpeed);
-        sr.color = Color.white;
+        sr.color = normalColor;
         yield return null;
     }
 
@@ -59,13 +64,9 @@ public class Health1 : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision) {
 
         if (collision.GetComponent<DamageScript>() != null) {
-            Debug.Log(gameObject.name + " Gets Hit");
-            Health1 health = GetComponent<Health1>();
             DamageScript damageScript = collision.GetComponent<DamageScript>();
-            health.Damage(damageScript.damage);
+            Damage(damageScript.damage);
 
-        } else {
-            Debug.Log("noDamageScript");
         }
     }
 }
