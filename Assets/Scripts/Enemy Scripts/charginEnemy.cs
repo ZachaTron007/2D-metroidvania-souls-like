@@ -75,7 +75,8 @@ public class charginEnemy : EnemyScript
     }
 
     private void FixedUpdate() {
-        if(move)
-            rb.velocity = Vector2.right*direction*speed;
+        if (move) {
+            rb.velocity = Vector2.right * direction * speed;
+        }
     }
 }

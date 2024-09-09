@@ -1,4 +1,5 @@
 using Cinemachine;
+using Sirenix.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -36,10 +37,10 @@ public class Player : MonoBehaviour
     private int attackNum;
     private float attackTime;
     //states
-    private bool rightWallTouch = false;
-    private bool leftWallTouch = false;
+    [SerializeField] private bool rightWallTouch = false;
+    [SerializeField] private bool leftWallTouch = false;
     private bool leftGround = false;
-    private bool falling = false;
+    [SerializeField] private bool falling = false;
     //components
     Animator animatior;
     public Rigidbody2D rb;
@@ -78,12 +79,8 @@ public class Player : MonoBehaviour
         //listeners for the entering collisions
         //mainCollider.triggerEnter.AddListener(groundSensorEnter);
         groundSensor.triggerEnter.AddListener(groundSensorEnter);
-        rightWallSensor.triggerEnter.AddListener(rightWallSensorEnter);
-        leftWallSensor.triggerEnter.AddListener(leftWallSensorEnter);
         //listeners for the exiting collisions
         groundSensor.triggerExit.AddListener(groundSensorExit);
-        rightWallSensor.triggerExit.AddListener(rightWallSensorExit);
-        leftWallSensor.triggerExit.AddListener(leftWallSensorExit);
         //attacks
         
     }
@@ -137,13 +134,18 @@ public class Player : MonoBehaviour
 
         //if you arent on the ground
         if (!jumpScript.grounded) {
+            leftWallTouch = WallTouch(-1);
+            rightWallTouch = WallTouch(1);
             /*WALL JUMP ACTIVATE*/
             if (falling) {
+                
                 /*WALL SLIDE ACTIVATE*/
                 if (rightWallTouch && Input.GetKey(right) || leftWallTouch && Input.GetKey(left)) {
                     wallActions.wallSliding = true;
                     
                 }
+                if(!rightWallTouch && !leftWallTouch)
+                    wallActions.wallSliding = false;
                 if (wallActions.wallSliding) {
                     wallActions.wallSlide(rb);
 
@@ -217,8 +219,9 @@ public class Player : MonoBehaviour
         animatior.SetBool("notJumping", jumpScript.grounded);
     }
     private void FixedUpdate() {
+        
         //actualy moves you left and right using physics
-        if(!wallActions.wallJump&&!Dash.dashing) {
+        if (!wallActions.wallJump&&!Dash.dashing) {
             /*MOVE LEFT AND RIGHT*/
             rb.velocity = new Vector2(moveVetcor.x * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
         }
@@ -247,23 +250,7 @@ public class Player : MonoBehaviour
     private void groundSensorExit(Collider2D other) {
         leftGround = true;
     }
-    private void rightWallSensorEnter(Collider2D other) {
-        rightWallTouch = true;
-    }
-    private void rightWallSensorExit(Collider2D other) {
-        rightWallTouch = false;
-        wallActions.wallSliding = false;
-        leftGround = false;
 
-    }
-    private void leftWallSensorEnter(Collider2D other) {
-        leftWallTouch = true;
-    }
-    private void leftWallSensorExit(Collider2D other) {
-        leftWallTouch = false;
-        wallActions.wallSliding = false;
-        leftGround = false;
-    }
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.tag == "Spike") {
             Debug.Log("hit");
@@ -279,6 +266,14 @@ public class Player : MonoBehaviour
         move.Disable();
     }
 
+    private bool WallTouch(int direction) {
+        Vector2 BoxDimentions = new Vector2(.1f,.1f);
+        //hits walls
+        int layerMask = 64;
+        float distanceAdditon = 0.1f;
+        bool wallHit = Physics2D.BoxCast(transform.position, BoxDimentions, 0, Vector2.right * direction, mainCollider.size.x / 2 + distanceAdditon, layerMask);
+        return wallHit;
+    }
 
-    
+
 }
