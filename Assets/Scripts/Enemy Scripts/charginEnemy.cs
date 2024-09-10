@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
+/*
 public class charginEnemy : EnemyScript
 {
     [SerializeField] private float moveSpeed = 3;
@@ -15,6 +15,7 @@ public class charginEnemy : EnemyScript
     [SerializeField] private float dazeTime;
     [SerializeField] private float collsiionDist = .2f;
     [SerializeField] private float bounceDist = .2f;
+    private int direction;
 
     [SerializeField] private bool idel = true;
     [SerializeField] private bool move = true;
@@ -29,7 +30,7 @@ public class charginEnemy : EnemyScript
     }
 
     void Update() {
-        wallCheck();
+        direction=wallCheck(direction);
 
         if (idel) {
             move = true;
@@ -80,3 +81,4 @@ public class charginEnemy : EnemyScript
         }
     }
 }
+*/

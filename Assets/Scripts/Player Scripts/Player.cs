@@ -203,6 +203,7 @@ public class Player : MonoBehaviour
             }
             // Call one of three attack animations "Attack1", "Attack2", "Attack3"
             animatior.SetTrigger("Attack" + attackNum);
+            melee.lookDirection.x = direction;
             melee.Attack();
 
             // Reset timer

@@ -13,7 +13,7 @@ public class MeleeAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        offset.x = 0.77f;
+        offset.x = 0.87f;
         offset.y =1.27f;
         attackHitBox = GetComponent<BoxCollider2D>();
     }
