@@ -53,7 +53,7 @@ public class SwordEnemyScript : EnemyScript {
 
     // Update is called once per frame
     void Update() {
-        direction=wallCheck(direction);
+        direction=WallCheck(direction);
         moveVetcor.x = 1;
         //horizontal movement
         /*GETS DIRECTION*/
@@ -133,6 +133,17 @@ public class SwordEnemyScript : EnemyScript {
         float distanceAdditon = 0.1f;
         bool wallHit = Physics2D.BoxCast(transform.position, BoxDimentions, 0, Vector2.right * direction, mainCollider.size.x / 2 + distanceAdditon, layerMask);
         return wallHit;
+    }
+    protected int WallCheck(int dir) {
+        int layerNumber = 6;
+        int layerMask = 1 << layerNumber;
+        RaycastHit2D hit = Physics2D.Raycast(gameObject.transform.position, position, maxDist, layerMask);
+        if (hit) {
+            Debug.Log("Hitting a " + hit.collider.gameObject.name);
+            dir *= -1;
+        }
+        Debug.DrawRay(transform.position, position, Color.green, .5f);
+        return dir;
     }
 
 

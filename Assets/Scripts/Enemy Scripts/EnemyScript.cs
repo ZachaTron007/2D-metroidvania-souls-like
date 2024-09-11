@@ -8,17 +8,19 @@ public class EnemyScript : MonoBehaviour {
     protected float maxDist = .5f;
     [SerializeField] protected float speed = 1;
     protected Rigidbody2D rb;
+    [SerializeField] protected Vector2 position;
 
     
 
     protected int wallCheck(int dir) {
         int layerNumber = 6;
         int layerMask = 1 << layerNumber;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * dir, maxDist, layerMask);
+        RaycastHit2D hit = Physics2D.Raycast(gameObject.transform.position, position, maxDist, layerMask);
         if (hit) {
-            Debug.Log("Hitting a wall");
+            Debug.Log("Hitting a "+hit.collider.gameObject.name);
             dir *= -1;
         }
+        Debug.DrawRay(transform.position, position,Color.green, maxDist);
         return dir;
     }
 
