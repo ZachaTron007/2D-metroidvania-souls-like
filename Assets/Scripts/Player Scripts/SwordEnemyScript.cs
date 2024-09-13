@@ -1,5 +1,6 @@
 using Cinemachine;
 using Sirenix.Utilities;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -22,7 +23,6 @@ public class SwordEnemyScript : EnemyScript {
     [SerializeField] private bool falling = false;
     //components
     Animator animatior;
-    //public Rigidbody2D rb;
     private Vector2 moveVetcor;
     private SpriteRenderer sr;
     //scrupts
@@ -30,8 +30,11 @@ public class SwordEnemyScript : EnemyScript {
     private MeleeAttack melee;
     private Health1 health;
     private jumpScript jumpScript;
+    
+    
 
     private void Awake() {
+        
         //scripts
         health = GetComponent<Health1>();
         jumpScript = GetComponent<jumpScript>();
@@ -49,10 +52,14 @@ public class SwordEnemyScript : EnemyScript {
         groundSensor.triggerExit.AddListener(groundSensorExit);
         //attacks
 
+
     }
+
+    
 
     // Update is called once per frame
     void Update() {
+        State state = State.Idel;
         direction=WallCheck(direction);
         moveVetcor.x = 1;
         //horizontal movement
@@ -134,17 +141,7 @@ public class SwordEnemyScript : EnemyScript {
         bool wallHit = Physics2D.BoxCast(transform.position, BoxDimentions, 0, Vector2.right * direction, mainCollider.size.x / 2 + distanceAdditon, layerMask);
         return wallHit;
     }
-    protected int WallCheck(int dir) {
-        int layerNumber = 6;
-        int layerMask = 1 << layerNumber;
-        RaycastHit2D hit = Physics2D.Raycast(gameObject.transform.position, position, maxDist, layerMask);
-        if (hit) {
-            Debug.Log("Hitting a " + hit.collider.gameObject.name);
-            dir *= -1;
-        }
-        Debug.DrawRay(transform.position, position, Color.green, .5f);
-        return dir;
-    }
+    
 
 
 }

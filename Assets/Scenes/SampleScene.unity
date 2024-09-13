@@ -1057,7 +1057,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0.000000017717728, y: 0.000000073120695, z: -1.2955326e-15, w: 1}
-  m_LocalPosition: {x: 2.17, y: 0.07000029, z: -10}
+  m_LocalPosition: {x: 0, y: 2.0000002, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1114,9 +1114,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34ad0a77965941e43a79cd5fc1262350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 1
-  speed: 1
-  position: {x: 0, y: 0}
   groundSensor: {fileID: 1997474900}
   moveSpeed: 250
   rightWallTouch: 0
@@ -1691,7 +1688,7 @@ Transform:
   m_GameObject: {fileID: 1328372060}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.17, y: 0.07000029, z: -10}
+  m_LocalPosition: {x: 0, y: 2.0000002, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2698,11 +2695,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3221665841039631346, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.17
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3221665841039631346, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.93
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3221665841039631346, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: m_LocalPosition.z
