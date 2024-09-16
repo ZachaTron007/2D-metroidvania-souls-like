@@ -4,32 +4,52 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyScript : MonoBehaviour {
-    protected float maxDist = .5f;
+    protected float maxDist = .3f;
     protected Rigidbody2D rb;
+    protected BoxCollider2D boxCollider;
 
     protected enum State {
         Idel,
-        Attack
+        Attack,
+        Agro
     }
 
-    protected int WallCheck(int dir) {
+    protected int WallCheck(int direction) {
         //layers to hit
         int layerNumber = 6;
-        //trasnforms that number into a layer mask
-        int layerMask = 1 << layerNumber;
-        Vector3 startPosition = gameObject.transform.position + new Vector3(0f, .5f, 0f);
-        Vector2 rayDirection = new Vector2(dir, 0f);
-        RaycastHit2D hit = Physics2D.Raycast(startPosition, rayDirection, maxDist, layerMask);
+        RaycastHit2D hit = ShootRay(direction, layerNumber, maxDist);
         if (hit) {
-            Debug.Log("Hitting a " + hit.collider.gameObject.name);
-            dir *= -1;
+            direction *= -1;
         }
-
-        Debug.DrawRay(startPosition, rayDirection, Color.green, .5f);
-        return dir;
+        
+        return direction;
     }
 
-    /*private void FixedUpdate() {
-        rb.velocity = Vector2.right * direction * speed;
-    }*/
+    protected bool WithinAgroRange(int direction) {
+        float distance = 5;
+        //layers to hit
+        int layerNumber = 3;
+        RaycastHit2D hit = ShootRay(direction, layerNumber, distance);
+
+        return hit;
+    }
+    protected bool WithinAttackRange(int direction) {
+        float distance = .5f;
+        //layers to hit
+        int layerNumber = 3;
+        RaycastHit2D hit = ShootRay(direction, layerNumber, distance);
+
+        return hit;
+    }
+
+    protected RaycastHit2D ShootRay(int direction,int layerNumber,float dist) {
+        //trasnforms that number into a layer mask
+        int layerMask = 1 << layerNumber;
+        Vector3 startPosition = gameObject.transform.position + new Vector3(transform.localScale.x/2 * direction,gameObject.transform.localScale.y / 2,0);
+        Vector2 rayDirection = new Vector2(direction, 0f);
+        RaycastHit2D hit = Physics2D.Raycast(startPosition, rayDirection, dist, layerMask);
+        Debug.DrawRay(startPosition,rayDirection,Color.green,.1f);
+        return hit;
+    }
+
 }
