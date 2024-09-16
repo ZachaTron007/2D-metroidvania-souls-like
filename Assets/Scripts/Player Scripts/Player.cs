@@ -37,10 +37,13 @@ public class Player : MonoBehaviour
     private int attackNum;
     private float attackTime;
     //states
-    [SerializeField] private bool rightWallTouch = false;
-    [SerializeField] private bool leftWallTouch = false;
+    private bool rightWallTouch = false;
+    private bool leftWallTouch = false;
     private bool leftGround = false;
-    [SerializeField] private bool falling = false;
+    private bool falling = false;
+    [SerializeField] private bool blocking = false;
+    //[SerializeField] private bool blood = false;
+
     //components
     Animator animatior;
     public Rigidbody2D rb;
@@ -58,6 +61,22 @@ public class Player : MonoBehaviour
     private KeyCode left = KeyCode.A;
     private KeyCode right = KeyCode.D;
     private KeyCode dash = KeyCode.LeftShift;
+    private int blockButton = 0;
+    //string literals
+    private const string ISMOVING = "moving";
+    private const string ISFALLING = "falling";
+    private const string ISWALLSLIDING = "WallSliding";
+    private const string ISWALLJUMPING = "wallJumping";
+    private const string NOTJUMPING = "notJumping";
+    private const string ATTACKING = "Attack";
+    private const string BLOCKING = "blocking";
+    private const string PARRY = "parry";
+
+    private enum State {
+        moving,
+        falling,
+        dashing,
+    }
 
     private void Awake() {
         
@@ -188,6 +207,9 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(jump)) {
                 jumpScript.Jump(rb);
             }
+            if (Input.GetMouseButton(1)) {
+                blocking = true;
+            }
 
         }
 
@@ -202,7 +224,7 @@ public class Player : MonoBehaviour
                 attackNum = 1;
             }
             // Call one of three attack animations "Attack1", "Attack2", "Attack3"
-            animatior.SetTrigger("Attack" + attackNum);
+            animatior.SetTrigger(ATTACKING + attackNum);
             melee.lookDirection.x = direction;
             melee.Attack();
 
@@ -211,14 +233,15 @@ public class Player : MonoBehaviour
         }
         attackTime += Time.deltaTime;
 
-
-        animatior.SetBool("falling", falling);
-        animatior.SetBool("WallSliding", wallActions.wallSliding);
-        animatior.SetBool("wallJumping", wallActions.wallJump);
+        animatior.SetBool(BLOCKING, blocking);
+        animatior.SetBool(ISFALLING, falling);
+        animatior.SetBool(ISWALLSLIDING, wallActions.wallSliding);
+        animatior.SetBool(ISWALLJUMPING, wallActions.wallJump);
         /*SETS RUN ANIMATION VAR*/
-        animatior.SetFloat("moving", Mathf.Abs(moveVetcor.x));
-        animatior.SetBool("notJumping", jumpScript.grounded);
-    }
+        animatior.SetFloat(ISMOVING, Mathf.Abs(moveVetcor.x));
+        animatior.SetBool(NOTJUMPING, jumpScript.grounded);
+        
+}
     private void FixedUpdate() {
         
         //actualy moves you left and right using physics
