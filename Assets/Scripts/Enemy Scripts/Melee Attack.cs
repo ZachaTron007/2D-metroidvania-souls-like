@@ -8,8 +8,10 @@ public class MeleeAttack : MonoBehaviour
     private BoxCollider2D attackHitBox;
     private float attackTime = .25f;
     [SerializeField] private float knockback = 5f;
+    
     [SerializeField] private Vector2 offset;
     public Vector2 lookDirection;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -38,4 +40,5 @@ public class MeleeAttack : MonoBehaviour
         Vector2 dir = lookDirection*offset;
         return dir;
     }
+    
 }

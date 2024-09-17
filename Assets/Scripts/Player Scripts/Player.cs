@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
     private bool leftWallTouch = false;
     private bool leftGround = false;
     private bool falling = false;
-    [SerializeField] private bool blocking = false;
+    
     //[SerializeField] private bool blood = false;
 
     //components
@@ -61,7 +61,7 @@ public class Player : MonoBehaviour
     private KeyCode left = KeyCode.A;
     private KeyCode right = KeyCode.D;
     private KeyCode dash = KeyCode.LeftShift;
-    private int blockButton = 0;
+    
     //string literals
     private const string ISMOVING = "moving";
     private const string ISFALLING = "falling";
@@ -69,7 +69,6 @@ public class Player : MonoBehaviour
     private const string ISWALLJUMPING = "wallJumping";
     private const string NOTJUMPING = "notJumping";
     private const string ATTACKING = "Attack";
-    private const string BLOCKING = "blocking";
     private const string PARRY = "parry";
 
     private enum State {
@@ -157,13 +156,13 @@ public class Player : MonoBehaviour
             rightWallTouch = WallTouch(1);
             /*WALL JUMP ACTIVATE*/
             if (falling) {
-                
+
                 /*WALL SLIDE ACTIVATE*/
                 if (rightWallTouch && Input.GetKey(right) || leftWallTouch && Input.GetKey(left)) {
                     wallActions.wallSliding = true;
-                    
+
                 }
-                if(!rightWallTouch && !leftWallTouch)
+                if (!rightWallTouch && !leftWallTouch)
                     wallActions.wallSliding = false;
                 if (wallActions.wallSliding) {
                     wallActions.wallSlide(rb);
@@ -207,12 +206,7 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(jump)) {
                 jumpScript.Jump(rb);
             }
-            if (Input.GetMouseButton(1)) {
-                blocking = true;
-            }
-
         }
-
         if (Input.GetMouseButtonDown(0) && attackTime > 0.25f && !Dash.dashing && !wallActions.wallSliding) {
             attackNum++;
             // Loop back to one after third attack
@@ -233,7 +227,7 @@ public class Player : MonoBehaviour
         }
         attackTime += Time.deltaTime;
 
-        animatior.SetBool(BLOCKING, blocking);
+        
         animatior.SetBool(ISFALLING, falling);
         animatior.SetBool(ISWALLSLIDING, wallActions.wallSliding);
         animatior.SetBool(ISWALLJUMPING, wallActions.wallJump);
@@ -298,6 +292,6 @@ public class Player : MonoBehaviour
         bool wallHit = Physics2D.BoxCast(transform.position, BoxDimentions, 0, Vector2.right * direction, mainCollider.size.x / 2 + distanceAdditon, layerMask);
         return wallHit;
     }
-
+    
 
 }
