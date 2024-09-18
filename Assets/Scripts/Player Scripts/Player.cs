@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
     //[SerializeField] private bool blood = false;
 
     //components
-    Animator animatior;
+    public Animator animatior;
     public Rigidbody2D rb;
     private Vector2 moveVetcor;
     private SpriteRenderer sr;
@@ -209,7 +209,7 @@ public class Player : MonoBehaviour
             health.Block(animatior);
         }
         health.StopBlocking(animatior);
-        if (Input.GetMouseButtonDown(0) && attackTime > 0.25f && !Dash.dashing && !wallActions.wallSliding) {
+        if (Input.GetMouseButtonDown(0) && attackTime > 0.35f && !Dash.dashing && !wallActions.wallSliding) {
             attackNum++;
             // Loop back to one after third attack
             if (attackNum > 3)

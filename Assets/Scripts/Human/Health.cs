@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public class Health1 : MonoBehaviour {
+    private Player player;
+
     [SerializeField] private int health = 100;
     [SerializeField] private int MAX_HEALTH = 100;
     private Vector4 hurtColor = new Vector4(255, 62, 62, 255);
@@ -20,6 +22,7 @@ public class Health1 : MonoBehaviour {
 
     // Update is called once per frame
     private void Awake() {
+        player = GetComponent<Player>();
         health = MAX_HEALTH;
         sr = GetComponent<SpriteRenderer>();
         normalColor = sr.color;
@@ -73,6 +76,11 @@ public class Health1 : MonoBehaviour {
                 Damage(damageScript.damage);
 
             }
+        } else if(canParry){
+            player.animatior.SetTrigger(BLOCKPARRY);
+            blocking = false;
+            Debug.Log("Parry");
+            
         }
     }
 
@@ -81,7 +89,7 @@ public class Health1 : MonoBehaviour {
             animatior.SetBool(BLOCKING, true);
             float parryWindow = 1;
             canParry = true;
-            Invoke("Parry", parryWindow);
+            Invoke("ParryWindowEnd", parryWindow);
             blocking = true;
         }
         /*
