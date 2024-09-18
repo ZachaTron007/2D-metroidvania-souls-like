@@ -71,9 +71,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5249163872004341964, guid: 756d981fb6648af4f9a91fa736821747, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1813590127125415229}
-    - targetCorrespondingSourceObject: {fileID: 5249163872004341964, guid: 756d981fb6648af4f9a91fa736821747, type: 3}
-      insertIndex: -1
       addedObject: {fileID: -7012918156135576452}
   m_SourcePrefab: {fileID: 100100000, guid: 756d981fb6648af4f9a91fa736821747, type: 3}
 --- !u!1 &6815178556129530807 stripped
@@ -81,34 +78,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5249163872004341964, guid: 756d981fb6648af4f9a91fa736821747, type: 3}
   m_PrefabInstance: {fileID: 1606842180458500987}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1813590127125415229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6815178556129530807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58c5e7c7dba65c44087d9899ef47f3bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  direction: 1
-  maxDist: 1
-  speed: 1
-  moveSpeed: 3
-  maxPlayerDist: 6
-  chargeSpeed: 10
-  retreatSpeed: -1
-  retreatTimer: 0.3
-  retreatTime: 0
-  dazeTimer: 1
-  dazeTime: 0
-  collsiionDist: 1.1
-  bounceDist: 300
-  idel: 0
-  move: 0
-  hit: 0
 --- !u!114 &-7012918156135576452
 MonoBehaviour:
   m_ObjectHideFlags: 0

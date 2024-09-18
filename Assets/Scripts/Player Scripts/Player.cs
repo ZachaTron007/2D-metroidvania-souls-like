@@ -206,7 +206,9 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(jump)) {
                 jumpScript.Jump(rb);
             }
+            health.Block(animatior);
         }
+        health.StopBlocking(animatior);
         if (Input.GetMouseButtonDown(0) && attackTime > 0.25f && !Dash.dashing && !wallActions.wallSliding) {
             attackNum++;
             // Loop back to one after third attack

@@ -67,11 +67,12 @@ public class Health1 : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
+        if (!blocking) {
+            if (collision.GetComponent<DamageScript>() != null) {
+                DamageScript damageScript = collision.GetComponent<DamageScript>();
+                Damage(damageScript.damage);
 
-        if (collision.GetComponent<DamageScript>() != null) {
-            DamageScript damageScript = collision.GetComponent<DamageScript>();
-            Damage(damageScript.damage);
-
+            }
         }
     }
 

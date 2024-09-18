@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1236971472099155479}
   - component: {fileID: 4208233065171900699}
   - component: {fileID: 2353080325730467885}
-  - component: {fileID: 1562161078116923639}
   - component: {fileID: 7014211389077689278}
   m_Layer: 0
   m_Name: Walking Enemy
@@ -160,21 +159,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &1562161078116923639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5249163872004341964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 273fa1bcf56e696429ac067d9a0c9f3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  direction: 1
-  maxDist: 0.5
-  speed: 2
 --- !u!114 &7014211389077689278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,3 +173,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   MAX_HEALTH: 100
+  blocking: 0
+  canParry: 0
