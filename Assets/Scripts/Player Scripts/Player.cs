@@ -6,6 +6,7 @@ using System.Threading;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -96,15 +97,17 @@ public class Player : MonoBehaviour
 
         //listeners for the entering collisions
         //mainCollider.triggerEnter.AddListener(groundSensorEnter);
-        groundSensor.triggerEnter.AddListener(groundSensorEnter);
+        //groundSensor.triggerEnter.AddListener(groundSensorEnter);
         //listeners for the exiting collisions
-        groundSensor.triggerExit.AddListener(groundSensorExit);
+        //groundSensor.triggerExit.AddListener(groundSensorExit);
         //attacks
         
     }
 
     // Update is called once per frame
     void Update() {
+        GroundTouch();
+        Debug.Log(GroundTouch());
         //horizontal movement
         /*GETS DIRECTION*/
         if (rb.velocity.y != 0) {
@@ -180,16 +183,12 @@ public class Player : MonoBehaviour
 
                 }
 
-                //change colliders
-                clipCollider.enabled = true;
-                mainCollider.enabled = false;
 
             }
             if (!falling && !Input.GetKey(jump)) {
                 //changes the y velocity by the jump multiplier
                 rb.velocity += Vector2.up * Physics.gravity.y * (jumpGravMultiplier - rb.gravityScale) * Time.deltaTime;
-                clipCollider.enabled = false;
-                mainCollider.enabled = true;
+                
 
             }
 
@@ -198,7 +197,13 @@ public class Player : MonoBehaviour
                 rb.velocity = -Vector2.up * terminalVelocity;
 
             }
-
+            if(rb.velocity.y > 0){
+                clipCollider.enabled = true;
+                mainCollider.enabled = false;
+            } else {
+                clipCollider.enabled = false;
+                mainCollider.enabled = true;
+            }
 
         } else {
             /*RESETS SHIT*/
@@ -235,7 +240,7 @@ public class Player : MonoBehaviour
         animatior.SetBool(ISWALLJUMPING, wallActions.wallJump);
         /*SETS RUN ANIMATION VAR*/
         animatior.SetFloat(ISMOVING, Mathf.Abs(moveVetcor.x));
-        animatior.SetBool(NOTJUMPING, jumpScript.grounded);
+        
         
 }
     private void FixedUpdate() {
@@ -261,7 +266,7 @@ public class Player : MonoBehaviour
         attackHitBox.enabled=false;
     }
     */
-/*COLLISIONS AND ENABLE AND DISABLE*/
+/*COLLISIONS AND ENABLE AND DISABLE
     private void groundSensorEnter(Collider2D other) {
         jumpScript.grounded = true;
         wallActions.wallSliding = false;
@@ -270,7 +275,7 @@ public class Player : MonoBehaviour
     private void groundSensorExit(Collider2D other) {
         leftGround = true;
     }
-
+*/
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.tag == "Spike") {
             Debug.Log("hit");
@@ -289,11 +294,29 @@ public class Player : MonoBehaviour
     private bool WallTouch(int direction) {
         Vector2 BoxDimentions = new Vector2(.1f,.1f);
         //hits walls
-        int layerMask = 64;
+        int layerNumber = 6;
+        int layerMask = 1 << layerNumber;
         float distanceAdditon = 0.1f;
         bool wallHit = Physics2D.BoxCast(transform.position, BoxDimentions, 0, Vector2.right * direction, mainCollider.size.x / 2 + distanceAdditon, layerMask);
         return wallHit;
     }
-    
+    private bool GroundTouch() {
+        Vector2 BoxDimentions = new Vector2(.1f, .1f);
+        //hits walls
+        int layerNumber = 6;
+        int layerMask = 1 << layerNumber;
+        float distanceAdditon = 0.1f;
+        //bool groundHit = Physics2D.BoxCast(transform.position, BoxDimentions, 0, Vector2.down, mainCollider.size.y / 2 + distanceAdditon, layerMask);
+        RaycastHit2D groundHit = Physics2D.Raycast(transform.position, Vector2.down, mainCollider.size.y / 2 + distanceAdditon,layerMask);
+        Debug.DrawRay(transform.position, Vector2.down, Color.green, .1f);
+        if (groundHit) {
+            jumpScript.grounded = true;
+        } else {
+            leftGround = true;
+        }
+        animatior.SetBool(NOTJUMPING, groundHit);
+        return groundHit;
+    }
+
 
 }
