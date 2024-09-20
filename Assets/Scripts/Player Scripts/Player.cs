@@ -107,7 +107,6 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update() {
         GroundTouch();
-        Debug.Log(GroundTouch());
         //horizontal movement
         /*GETS DIRECTION*/
         if (rb.velocity.y != 0) {
@@ -213,13 +212,14 @@ public class Player : MonoBehaviour
             }
             health.Block(animatior);
         }
+
         health.StopBlocking(animatior);
         if (Input.GetMouseButtonDown(0) && attackTime > 0.35f && !Dash.dashing && !wallActions.wallSliding) {
             attackNum++;
             // Loop back to one after third attack
             if (attackNum > 3)
                 attackNum = 1;
-
+            
             // Reset Attack combo if time since last attack is too large
             if (attackTime > 1.0f) { 
                 attackNum = 1;
@@ -227,8 +227,7 @@ public class Player : MonoBehaviour
             // Call one of three attack animations "Attack1", "Attack2", "Attack3"
             animatior.SetTrigger(ATTACKING + attackNum);
             melee.lookDirection.x = direction;
-            melee.Attack();
-
+            StartCoroutine(melee.Attack(direction));
             // Reset timer
             attackTime = 0.0f;
         }

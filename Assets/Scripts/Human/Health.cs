@@ -7,15 +7,15 @@ public class Health1 : MonoBehaviour {
     private Player player;
 
     [SerializeField] private int health = 100;
-    [SerializeField] private int MAX_HEALTH = 100;
+    private int MAX_HEALTH = 100;
     private Vector4 hurtColor = new Vector4(255, 62, 62, 255);
     private Vector4 normalColor;
     private float colorChangeSpeed = 0.7f;
     private SpriteRenderer sr;
-
+    [SerializeField] private float parryWindow = 5f;
     private int blockButton = 1;
     [SerializeField] private bool blocking = false;
-    [SerializeField] private bool canParry = false;
+    [SerializeField] private bool parrying = false;
 
     private const string BLOCKING = "blocking";
     private const string BLOCKPARRY = "blockParry";
@@ -70,25 +70,25 @@ public class Health1 : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (!blocking) {
+        if (parrying) {
+            blocking = false;
+            player.animatior.SetTrigger(BLOCKPARRY);
+            Debug.Log("Parry");
+            
+        } else if (!blocking) {
             if (collision.GetComponent<DamageScript>() != null) {
                 DamageScript damageScript = collision.GetComponent<DamageScript>();
                 Damage(damageScript.damage);
 
             }
-        } else if(canParry){
-            player.animatior.SetTrigger(BLOCKPARRY);
-            blocking = false;
-            Debug.Log("Parry");
-            
         }
     }
 
     public void Block(Animator animatior) {
         if (Input.GetMouseButton(blockButton)) {
             animatior.SetBool(BLOCKING, true);
-            float parryWindow = 1;
-            canParry = true;
+            //float parryWindow = .5f;
+            parrying = true;
             Invoke("ParryWindowEnd", parryWindow);
             blocking = true;
         }
@@ -106,6 +106,6 @@ public class Health1 : MonoBehaviour {
         }
     }
     private void ParryWindowEnd() {
-        canParry = false;
+        parrying = false;
     }
 }

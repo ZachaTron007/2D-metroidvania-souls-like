@@ -6,7 +6,7 @@ public class MeleeAttack : MonoBehaviour
 {
 
     private BoxCollider2D attackHitBox;
-    private float attackTime = .25f;
+    [SerializeField] private float attackTime = .25f;
     [SerializeField] private float knockback = 5f;
     
     [SerializeField] private Vector2 offset;
@@ -16,7 +16,7 @@ public class MeleeAttack : MonoBehaviour
     void Start()
     {
         offset.x = 0.87f;
-        offset.y =1.27f;
+        offset.y = 1.27f;
         attackHitBox = GetComponent<BoxCollider2D>();
     }
 
@@ -24,21 +24,34 @@ public class MeleeAttack : MonoBehaviour
     void Update()
     {
         
-    }
+    }/*
     public void Attack() {
-        Invoke("AttackEnd", attackTime);
+        Invoke("AttackStart", attackTime);
         
-        attackHitBox.enabled = true;
-        attackHitBox.offset = offsetVector();
     }
 
     private void AttackEnd() {
         attackHitBox.enabled = false;
     }
+    private void AttackStart() {
+        Invoke("AttackEnd", 1);
+        attackHitBox.enabled = true;
+        attackHitBox.offset = offsetVector();
+    }*/
 
-    private Vector2 offsetVector() {
-        Vector2 dir = lookDirection*offset;
+    private Vector2 offsetVector(float direction) {
+        Vector2 dir = new Vector2(direction*offset.x,offset.y);
         return dir;
+    }
+
+    public IEnumerator Attack(float direction) {
+        float startAttack = .15f;
+        yield return new WaitForSeconds(startAttack);
+        attackHitBox.enabled = true;
+        attackHitBox.offset = offsetVector(direction);
+        float endAttack = .15f;
+        yield return new WaitForSeconds(endAttack);
+        attackHitBox.enabled = false;
     }
     
 }

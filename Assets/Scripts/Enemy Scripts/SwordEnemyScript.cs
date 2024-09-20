@@ -171,7 +171,7 @@ public class SwordEnemyScript : EnemyScript {
         //animatior.SetTrigger(ATTACK + attackNum);
         animatior.SetTrigger("Attack1");
         melee.lookDirection.x = direction;
-        melee.Attack();
+        StartCoroutine(melee.Attack(direction));
         float attackRecharge = .25f;
         Invoke(ATTACKRESET, attackRecharge);
 
