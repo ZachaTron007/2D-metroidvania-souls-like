@@ -9,7 +9,7 @@ public class MeleeAttack : MonoBehaviour
     [SerializeField] private float attackTime = .25f;
     [SerializeField] private float knockback = 5f;
     
-    [SerializeField] private Vector2 offset;
+    private Vector2 offset;
     public Vector2 lookDirection;
     
     // Start is called before the first frame update

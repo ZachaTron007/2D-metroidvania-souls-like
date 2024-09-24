@@ -72,10 +72,16 @@ public class Player : MonoBehaviour
     private const string ATTACKING = "Attack";
     private const string PARRY = "parry";
 
-    private enum State {
-        moving,
-        falling,
-        dashing,
+    private State state = State.Idel;
+
+    public enum State {
+        Idel,
+        Moving,
+        Falling,
+        Dashing,
+        Blocking,
+        Parrying,
+        WallSliding
     }
 
     private void Awake() {
@@ -106,6 +112,7 @@ public class Player : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
+        Debug.Log(state);
         GroundTouch();
         //horizontal movement
         /*GETS DIRECTION*/
@@ -149,6 +156,7 @@ public class Player : MonoBehaviour
         /*DASH ACTIVATE*/
         if (Input.GetKeyDown(dash) && dashCount >= dashCool && !Dash.dashing) {
             StartCoroutine((Dash.dash(direction, rb)));
+            state = State.Dashing;
 
         }
 
@@ -164,10 +172,13 @@ public class Player : MonoBehaviour
                     wallActions.wallSliding = true;
 
                 }
-                if (!rightWallTouch && !leftWallTouch)
+                if (!rightWallTouch && !leftWallTouch) {
                     wallActions.wallSliding = false;
-                if (wallActions.wallSliding) {
+                    state = State.WallSliding;
+                }
+                if (state==State.WallSliding) {
                     wallActions.wallSlide(rb);
+                    
 
                     if (Input.GetKeyDown(jump)) {
                         dashDirection = rightWallTouch ? -1 : 1;
@@ -209,8 +220,14 @@ public class Player : MonoBehaviour
             /*GROUNDED*/
             if (Input.GetKeyDown(jump)) {
                 jumpScript.Jump(rb);
+                //state = State.Jumping;
             }
-            health.Block(animatior);
+            if (Input.GetMouseButtonDown(1)) {
+                health.Block(animatior);
+                state = State.Blocking;
+            } else {
+                health.StopBlocking(animatior);
+            }
         }
 
         health.StopBlocking(animatior);
@@ -235,7 +252,7 @@ public class Player : MonoBehaviour
 
         
         animatior.SetBool(ISFALLING, falling);
-        animatior.SetBool(ISWALLSLIDING, wallActions.wallSliding);
+        animatior.SetBool(ISWALLSLIDING, state==State.WallSliding);
         animatior.SetBool(ISWALLJUMPING, wallActions.wallJump);
         /*SETS RUN ANIMATION VAR*/
         animatior.SetFloat(ISMOVING, Mathf.Abs(moveVetcor.x));
