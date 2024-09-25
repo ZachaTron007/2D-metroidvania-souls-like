@@ -170,7 +170,6 @@ public class SwordEnemyScript : EnemyScript {
         attacking = true;
         //animatior.SetTrigger(ATTACK + attackNum);
         animatior.SetTrigger("Attack1");
-        melee.lookDirection.x = direction;
         StartCoroutine(melee.Attack(direction));
         float attackRecharge = .25f;
         Invoke(ATTACKRESET, attackRecharge);

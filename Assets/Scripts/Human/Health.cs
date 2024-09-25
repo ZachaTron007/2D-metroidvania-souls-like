@@ -68,7 +68,7 @@ public class Health1 : MonoBehaviour {
         Debug.Log(gameObject.name + " died");
         Destroy(gameObject);
     }
-
+    
     private void OnTriggerEnter2D(Collider2D collision) {
         if (parrying) {
             blocking = false;

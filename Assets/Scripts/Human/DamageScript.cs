@@ -5,6 +5,8 @@ using UnityEngine;
 public class DamageScript : MonoBehaviour
 {
     public int damage = 10 ;
+    [SerializeField] private int stun;
+
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -16,19 +18,7 @@ public class DamageScript : MonoBehaviour
     {
         
     }
-    /*
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.GetComponent<Health1>() != null) {
-            Health1 health = collision.GetComponent<Health1>();
-            health.Damage(damage);
-            
-        }
-    }
-    private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.collider.GetComponent<Health1>() != null) {
-            Health1 health = collision.collider.GetComponent<Health1>();
-            health.Damage(damage);
+    public void GetParried() {
 
-        }
-    }*/
+    }
 }

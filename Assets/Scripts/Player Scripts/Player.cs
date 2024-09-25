@@ -72,17 +72,7 @@ public class Player : MonoBehaviour
     private const string ATTACKING = "Attack";
     private const string PARRY = "parry";
 
-    private State state = State.Idel;
-
-    public enum State {
-        Idel,
-        Moving,
-        Falling,
-        Dashing,
-        Blocking,
-        Parrying,
-        WallSliding
-    }
+    private State state;
 
     private void Awake() {
         
@@ -156,7 +146,6 @@ public class Player : MonoBehaviour
         /*DASH ACTIVATE*/
         if (Input.GetKeyDown(dash) && dashCount >= dashCool && !Dash.dashing) {
             StartCoroutine((Dash.dash(direction, rb)));
-            state = State.Dashing;
 
         }
 
@@ -174,9 +163,8 @@ public class Player : MonoBehaviour
                 }
                 if (!rightWallTouch && !leftWallTouch) {
                     wallActions.wallSliding = false;
-                    state = State.WallSliding;
                 }
-                if (state==State.WallSliding) {
+                if (wallActions.wallSliding) {
                     wallActions.wallSlide(rb);
                     
 
@@ -224,7 +212,6 @@ public class Player : MonoBehaviour
             }
             if (Input.GetMouseButtonDown(1)) {
                 health.Block(animatior);
-                state = State.Blocking;
             } else {
                 health.StopBlocking(animatior);
             }
@@ -252,7 +239,7 @@ public class Player : MonoBehaviour
 
         
         animatior.SetBool(ISFALLING, falling);
-        animatior.SetBool(ISWALLSLIDING, state==State.WallSliding);
+        animatior.SetBool(ISWALLSLIDING, wallActions.wallSliding);
         animatior.SetBool(ISWALLJUMPING, wallActions.wallJump);
         /*SETS RUN ANIMATION VAR*/
         animatior.SetFloat(ISMOVING, Mathf.Abs(moveVetcor.x));
