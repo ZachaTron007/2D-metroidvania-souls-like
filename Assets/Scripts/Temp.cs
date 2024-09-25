@@ -16,7 +16,7 @@ public class Temp : MonoBehaviour {
 
     //movements
     private float moveSpeed = 250;
-    [SerializeField] private float direction = 1;
+    [SerializeField] public float direction = 1;
     private int dashDirection = 1;
 
     private float dashCount;
@@ -32,7 +32,7 @@ public class Temp : MonoBehaviour {
     //components
     public Animator animatior;
     public Rigidbody2D rb;
-    private Vector2 moveVetcor;
+    public Vector2 moveVetcor;
     private SpriteRenderer sr;
     //scrupts
     [SerializeField] private GameObject attackManager;
@@ -41,6 +41,7 @@ public class Temp : MonoBehaviour {
     private Health1 health;
     private jumpScript jumpScript;
     private wallActionsScript wallActions;
+    [SerializeField] public MoveState moveState;
     //buttons
     private KeyCode jump = KeyCode.Space;
     private KeyCode left = KeyCode.A;
@@ -75,15 +76,11 @@ public class Temp : MonoBehaviour {
         animatior = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
 
-        //listeners for the entering collisions
-        //mainCollider.triggerEnter.AddListener(groundSensorEnter);
-        //groundSensor.triggerEnter.AddListener(groundSensorEnter);
-        //listeners for the exiting collisions
-        //groundSensor.triggerExit.AddListener(groundSensorExit);
-        //attacks
-        
+        //Dash  = new dashScript();
+
         jumpScript.Setup(rb, animatior, this);
         Dash.Setup(rb, animatior, this);
+        moveState.Setup(rb, animatior, this);
 
     }
 
@@ -113,24 +110,31 @@ public class Temp : MonoBehaviour {
         //if (stateDone) {
             StateChange();
         //}
+        moveVetcor = move.ReadValue<Vector2>();
 
 
     }
 
     private void StateChange() {
+        if (moveVetcor.x != 0) {
+            state = moveState;
+            moveState.Enter();
+        }
         if (grounded) {
             if (Input.GetKeyDown(jump)) {
                 state = jumpScript;
                 state.Enter();
             }
-        } 
+        }
         if (Input.GetKeyDown(dash) && dashCount >= dashCool && !Dash.dashing) {
             state = Dash;
             dashCount = 0;
             state.Enter();
         }
-        
-
+    }
+    private void FixedUpdate() {
+        if(state)
+        state.FixedUpdateState();
     }
 
     /*
@@ -159,14 +163,7 @@ public class Temp : MonoBehaviour {
             health.Damage(1);
         }
     }
-    private void OnEnable() {
-        move = playerControls.Player.Move;
-        move.Enable();
-    }
-    private void OnDisable() {
-        move = playerControls.Player.Move;
-        move.Disable();
-    }
+    
 
     private bool WallTouch(int direction) {
         Vector2 BoxDimentions = new Vector2(.1f, .1f);
@@ -196,4 +193,12 @@ public class Temp : MonoBehaviour {
         return groundHit;
     }
 
+    private void OnEnable() {
+        move = playerControls.Player.Move;
+        move.Enable();
+    }
+    private void OnDisable() {
+        move = playerControls.Player.Move;
+        move.Disable();
+    }
 }

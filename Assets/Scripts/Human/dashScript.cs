@@ -7,14 +7,13 @@ public class dashScript : State
 {
     protected new bool interuptable = false;
 
-    private float dashSpeed = 15;
+    [SerializeField] private float dashSpeed = 15;
     private float dashduration = 0.2f;
     public bool dashing;
 
     public IEnumerator dash(float direction,Rigidbody2D rb) {
         Invoke("dashReset", dashduration);
         dashing = true;
-        Debug.Log("dashing");
         while (dashing) {
             rb.velocity = Vector2.right * direction * dashSpeed;
             yield return new WaitForFixedUpdate();
@@ -28,7 +27,7 @@ public class dashScript : State
 
     }
     public override void Enter() {
-        StartCoroutine(dash(direction,rb));
+        StartCoroutine(dash(playerVariables.direction,rb));
         playerVariables.stateDone = false;
         Debug.Log("Dash Start");
     }
