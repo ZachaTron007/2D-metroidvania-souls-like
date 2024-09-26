@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class dashScript : State
 {
-    protected new bool interuptable = false;
+    //protected new bool interuptable = false;
 
     [SerializeField] private float dashSpeed = 15;
     private float dashduration = 0.2f;

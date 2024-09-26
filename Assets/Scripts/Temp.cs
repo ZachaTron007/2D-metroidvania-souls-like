@@ -24,7 +24,7 @@ public class Temp : MonoBehaviour {
 
     public bool stateDone = true;
 
-    private bool grounded = true;
+    public bool grounded = true;
 
 
     //[SerializeField] private bool blood = false;
@@ -36,11 +36,11 @@ public class Temp : MonoBehaviour {
     private SpriteRenderer sr;
     //scrupts
     [SerializeField] private GameObject attackManager;
-    private MeleeAttack melee;
-    private dashScript Dash;
+    [SerializeField] private MeleeAttack melee;
+    [SerializeField] private dashScript Dash;
     private Health1 health;
-    private jumpScript jumpScript;
-    private wallActionsScript wallActions;
+    [SerializeField] private jumpScript jumpScript;
+    [SerializeField] private wallActionsScript wallActions;
     [SerializeField] public MoveState moveState;
     //buttons
     private KeyCode jump = KeyCode.Space;
@@ -64,10 +64,9 @@ public class Temp : MonoBehaviour {
         //get the input system
         playerControls = new PlayerControls();
         //scripts
-        Dash = GetComponent<dashScript>();
+        
         health = GetComponent<Health1>();
-        jumpScript = GetComponent<jumpScript>();
-        wallActions = GetComponent<wallActionsScript>();
+        
         melee = attackManager.GetComponent<MeleeAttack>();
         //get the rigidbody and collider reffrences
         rb = GetComponent<Rigidbody2D>();
@@ -87,7 +86,6 @@ public class Temp : MonoBehaviour {
     // Update is called once per frame
 
     void Update() {
-        //Debug.Log(state);
         GroundTouch();
         //horizontal movement
         //Debug.Log(moveVetcor.x * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
@@ -111,6 +109,7 @@ public class Temp : MonoBehaviour {
             StateChange();
         //}
         moveVetcor = move.ReadValue<Vector2>();
+        
 
 
     }
@@ -119,17 +118,20 @@ public class Temp : MonoBehaviour {
         if (moveVetcor.x != 0) {
             state = moveState;
             moveState.Enter();
+            Debug.Log("Move State");
         }
         if (grounded) {
             if (Input.GetKeyDown(jump)) {
                 state = jumpScript;
                 state.Enter();
+                Debug.Log("Jump State");
             }
         }
         if (Input.GetKeyDown(dash) && dashCount >= dashCool && !Dash.dashing) {
             state = Dash;
             dashCount = 0;
             state.Enter();
+            Debug.Log("Dash State");
         }
     }
     private void FixedUpdate() {
@@ -187,7 +189,7 @@ public class Temp : MonoBehaviour {
         if (groundHit) {
             grounded = true;
         } else {
-            grounded = true;
+            grounded = false;
         }
         animatior.SetBool(NOTJUMPING, groundHit);
         return groundHit;
