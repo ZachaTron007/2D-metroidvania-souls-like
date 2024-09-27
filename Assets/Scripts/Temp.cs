@@ -35,11 +35,12 @@ public class Temp : MonoBehaviour {
     public Vector2 moveVetcor;
     private SpriteRenderer sr;
     //scrupts
+    [SerializeField] private IdelState idelState;
     [SerializeField] private GameObject attackManager;
     [SerializeField] private MeleeAttack melee;
     [SerializeField] private dashScript Dash;
     private Health1 health;
-    [SerializeField] private jumpScript jumpScript;
+    [SerializeField] public jumpScript jumpScript;
     [SerializeField] private wallActionsScript wallActions;
     [SerializeField] public MoveState moveState;
     //buttons
@@ -109,29 +110,36 @@ public class Temp : MonoBehaviour {
             StateChange();
         //}
         moveVetcor = move.ReadValue<Vector2>();
-        
-
+        //Debug.Log(stateDone);
 
     }
 
     private void StateChange() {
-        if (moveVetcor.x != 0) {
+        State oldState = state;
+        if (moveVetcor.x != 0&&state!=moveState) {
             state = moveState;
-            moveState.Enter();
             Debug.Log("Move State");
         }
         if (grounded) {
             if (Input.GetKeyDown(jump)) {
                 state = jumpScript;
-                state.Enter();
                 Debug.Log("Jump State");
             }
         }
         if (Input.GetKeyDown(dash) && dashCount >= dashCool && !Dash.dashing) {
             state = Dash;
             dashCount = 0;
-            state.Enter();
             Debug.Log("Dash State");
+        }
+        if (!state) {
+            state = idelState;
+            Debug.Log("Idel State");
+        }
+        //Debug.Log(oldState.stateDone);
+        if(oldState!= state){//&&oldState.stateDone) {
+            Debug.Log("State Change");
+            state.ResetState();
+            state.Enter();
         }
     }
     private void FixedUpdate() {

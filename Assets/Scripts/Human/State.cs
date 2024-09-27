@@ -8,7 +8,7 @@ public abstract class State : MonoBehaviour {
     protected float direction;
     protected Animator animator;
     protected bool interuptable = true;
-    //public bool stateDone = false;
+    public bool stateDone;
     protected Temp playerVariables;
     public virtual void UpdateState () { }
     public virtual void FixedUpdateState () { }
@@ -19,6 +19,9 @@ public abstract class State : MonoBehaviour {
         this.rb = rb;
         this.animator = animator;
         this.playerVariables = playerVariables;
+    }
+    public void ResetState () {
+        stateDone = false;
     }
     
 }

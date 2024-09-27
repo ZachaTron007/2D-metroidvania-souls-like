@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class jumpScript : State
 {
-    [SerializeField] private Animation jump;
+    [SerializeField] private AnimationClip jumpClip;
     [SerializeField] private float jumpVelocity = 5;
     [SerializeField] private float jumpHeight = 3;
     public bool grounded = false;
@@ -21,7 +21,7 @@ public class jumpScript : State
     public void Jump(Rigidbody2D rb) {
         //wallSliding = false;
         //makes the y component change
-        jump.Play();
+        
         playerVariables.grounded = false;
         rb.velocity = Vector2.up * jumpVelocity;
         rb.gravityScale = 2;
@@ -34,8 +34,9 @@ public class jumpScript : State
 
     }
     public override void Enter() {
+        animator.Play(jumpClip.name);
         Jump(rb);
-        playerVariables.stateDone = false;
+        stateDone = false;
     }
     public override void Exit() {
         playerVariables.stateDone = true;

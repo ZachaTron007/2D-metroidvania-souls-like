@@ -154,6 +154,7 @@ Transform:
   - {fileID: 1291871205}
   - {fileID: 1763082529}
   - {fileID: 1464796054}
+  - {fileID: 526184892}
   m_Father: {fileID: 1309007468}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &225810029
@@ -1054,6 +1055,52 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &526184891
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 526184892}
+  - component: {fileID: 526184893}
+  m_Layer: 3
+  m_Name: Idel State
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &526184892
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 526184891}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7681305}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &526184893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 526184891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ccafe2391980aa49aed831ac087f003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateDone: 0
+  idelClip: {fileID: 0}
 --- !u!1 &825320338
 GameObject:
   m_ObjectHideFlags: 0
@@ -1519,6 +1566,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0f9d6451abeeab449cfde50845b9ee9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateDone: 0
+  runClip: {fileID: 7400000, guid: edd7fc3a754845c4cb0e0e29078a5905, type: 2}
   moveSpeed: 250
 --- !u!4 &1291871205
 Transform:
@@ -1568,6 +1617,7 @@ MonoBehaviour:
   animatior: {fileID: 1309007470}
   rb: {fileID: 1309007479}
   moveVetcor: {x: 0, y: 0}
+  idelState: {fileID: 526184893}
   attackManager: {fileID: 1933237926}
   melee: {fileID: 0}
   Dash: {fileID: 1464796055}
@@ -1878,6 +1928,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb7c01455a7b374ab3968741bcf4026, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateDone: 0
+  dashClip: {fileID: 0}
   dashSpeed: 15
   dashing: 0
 --- !u!1 &1500022352
@@ -2509,7 +2561,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eccad9cc1fc6dc24b8a7ec2278a9da42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jump: {fileID: 0}
+  stateDone: 0
+  jumpClip: {fileID: 7400000, guid: b9398fa9b1275b5478cc3e6cc602be91, type: 2}
   jumpVelocity: 5
   jumpHeight: 3
   grounded: 0
