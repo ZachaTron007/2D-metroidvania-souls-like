@@ -102,29 +102,7 @@ public class Player : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        Debug.Log(state);
         GroundTouch();
-        //horizontal movement
-        /*GETS DIRECTION*/
-        if (rb.velocity.y != 0) {
-            falling = rb.velocity.y < 0;
-
-        } else {
-            falling = false;
-
-        }
-
-        //Debug.Log(moveVetcor.x * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
-        if (!Dash.dashing) {
-            moveVetcor = move.ReadValue<Vector2>();
-
-        }
-
-        if (moveVetcor.x != 0) {
-            direction = moveVetcor.x;
-            sr.flipX = direction < 0;
-
-        }
 
         //sees if you left the ground
         /*KYOTE TIME*/
@@ -139,14 +117,6 @@ public class Player : MonoBehaviour
                 kyoteTimer = 0;
 
             }
-        }
-
-        //the iniatal jump, you need to be in kyote time or on the ground
-        dashCount += Time.deltaTime;
-        /*DASH ACTIVATE*/
-        if (Input.GetKeyDown(dash) && dashCount >= dashCool && !Dash.dashing) {
-            StartCoroutine((Dash.dash(direction, rb)));
-
         }
 
         //if you arent on the ground
@@ -166,7 +136,7 @@ public class Player : MonoBehaviour
                 }
                 if (wallActions.wallSliding) {
                     wallActions.wallSlide(rb);
-                    
+
 
                     if (Input.GetKeyDown(jump)) {
                         dashDirection = rightWallTouch ? -1 : 1;
@@ -174,28 +144,11 @@ public class Player : MonoBehaviour
                         StartCoroutine(wallActions.WallJump(dashDirection, rb));
 
                     }
-                } else {
-                    rb.gravityScale = 2;
-                    /*FALLING GRAVITY*/
-                    rb.velocity += Vector2.up * Physics.gravity.y * (fallGravMultiplier - rb.gravityScale) * Time.deltaTime;
-
                 }
 
 
             }
-            if (!falling && !Input.GetKey(jump)) {
-                //changes the y velocity by the jump multiplier
-                rb.velocity += Vector2.up * Physics.gravity.y * (jumpGravMultiplier - rb.gravityScale) * Time.deltaTime;
-                
-
-            }
-
-            /*TERMINAL VELOCITY*/
-            if (rb.velocity.y < -terminalVelocity) {
-                rb.velocity = -Vector2.up * terminalVelocity;
-
-            }
-            if(rb.velocity.y > 0){
+            if (rb.velocity.y > 0) {
                 clipCollider.enabled = true;
                 mainCollider.enabled = false;
             } else {
@@ -203,13 +156,8 @@ public class Player : MonoBehaviour
                 mainCollider.enabled = true;
             }
 
-        } else {
-            /*RESETS SHIT*/
-            /*GROUNDED*/
-            if (Input.GetKeyDown(jump)) {
-                jumpScript.Jump(rb);
-                //state = State.Jumping;
-            }
+        } else {/*
+
             if (Input.GetMouseButtonDown(1)) {
                 health.Block(animatior);
             } else {
@@ -217,7 +165,7 @@ public class Player : MonoBehaviour
             }
         }
 
-        health.StopBlocking(animatior);
+        health.StopBlocking(animatior); */}
         if (Input.GetMouseButtonDown(0) && attackTime > 0.35f && !Dash.dashing && !wallActions.wallSliding) {
             attackNum++;
             // Loop back to one after third attack

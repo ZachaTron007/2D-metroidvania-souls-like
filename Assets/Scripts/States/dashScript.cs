@@ -8,7 +8,7 @@ public class dashScript : State
     //protected new bool interuptable = false;
     [SerializeField] private AnimationClip dashClip;
     [SerializeField] private float dashSpeed = 15;
-    private float dashduration = 0.2f;
+    [SerializeField] private float dashduration = 0.2f;
     public bool dashing;
 
     public IEnumerator dash(float direction,Rigidbody2D rb) {
@@ -16,6 +16,7 @@ public class dashScript : State
         dashing = true;
         while (dashing) {
             rb.velocity = Vector2.right * direction * dashSpeed;
+            Debug.Log(Vector2.right * direction * dashSpeed);
             yield return new WaitForFixedUpdate();
         }
         Exit();
@@ -27,14 +28,14 @@ public class dashScript : State
 
     }
     public override void Enter() {
+        interuptable = false;
         if (dashClip) {
             animator.Play(dashClip.name);
         }
         StartCoroutine(dash(playerVariables.direction,rb));
-        playerVariables.stateDone = false;
-        Debug.Log("Dash Start");
     }
     public override void Exit() {
+        
         rb.velocity = Vector2.zero;
         stateDone = true;
     }

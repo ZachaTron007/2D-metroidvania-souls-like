@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.UIElements;
 
 public class Health1 : MonoBehaviour {
-    private Player player;
+    private PlayerState player;
 
     [SerializeField] private int health = 100;
     private int MAX_HEALTH = 100;
@@ -22,7 +23,7 @@ public class Health1 : MonoBehaviour {
 
     // Update is called once per frame
     private void Awake() {
-        player = GetComponent<Player>();
+        player = GetComponent<PlayerState>();
         health = MAX_HEALTH;
         sr = GetComponent<SpriteRenderer>();
         normalColor = sr.color;
@@ -70,11 +71,7 @@ public class Health1 : MonoBehaviour {
     }
     
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (parrying) {
-            blocking = false;
-            player.animatior.SetTrigger(BLOCKPARRY);
-            
-        } else if (!blocking) {
+       if (player.state!=player.blockState) {
             if (collision.GetComponent<DamageScript>() != null) {
                 DamageScript damageScript = collision.GetComponent<DamageScript>();
                 Damage(damageScript.damage);
@@ -82,7 +79,7 @@ public class Health1 : MonoBehaviour {
             }
         }
     }
-
+    /*
     public void Block(Animator animatior) {
         
             animatior.SetBool(BLOCKING, true);
@@ -91,12 +88,7 @@ public class Health1 : MonoBehaviour {
             parrying = true;
             Invoke("ParryWindowEnd", parryWindow);
             blocking = true;
-        
-        /*
-        if (Input.GetKeyDown(KeyCode.B)) {
-            animatior.SetTrigger(BLOCKPARRY);
-        }
-        */
+
     }
     public void StopBlocking(Animator animatior) {
         if (Input.GetMouseButtonUp(blockButton)) {
@@ -107,5 +99,5 @@ public class Health1 : MonoBehaviour {
     }
     private void ParryWindowEnd() {
         parrying = false;
-    }
+    }*/
 }

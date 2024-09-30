@@ -5,11 +5,14 @@ using UnityEngine;
 public class IdelState : State
 {
     [SerializeField] private AnimationClip idelClip;
-    public virtual void UpdateState() { }
+    public override void UpdateState() {
+        
+    }
     public virtual void FixedUpdateState() { }
-    public virtual void Enter() {
+    public override void Enter() {
+        
         animator.Play(idelClip.name);
-        stateDone = true;
+        rb.velocity = Vector2.zero;
     }
     public virtual void Exit() { }
 }

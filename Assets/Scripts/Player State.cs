@@ -3,62 +3,58 @@ using Sirenix.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
-public class Temp : MonoBehaviour {
+public class PlayerState : MonoBehaviour {
     private PlayerControls playerControls;
     private InputAction move;
     private BoxCollider2D mainCollider;
     private CapsuleCollider2D clipCollider;
 
     //movements
+    [Header("Player Variables")]
     private float moveSpeed = 250;
-    [SerializeField] public float direction = 1;
+    public float direction { get; private set; } = 1;
     private int dashDirection = 1;
 
     private float dashCount;
     private float dashCool = 0.7f;
 
-    public bool stateDone = true;
-
-    public bool grounded = true;
+    public bool grounded { get; private set; } = true;
 
 
     //[SerializeField] private bool blood = false;
 
     //components
+    [Header("Player Components")]
     public Animator animatior;
     public Rigidbody2D rb;
-    public Vector2 moveVetcor;
+    public Vector2 moveVetcor { get; private set; }
     private SpriteRenderer sr;
     //scrupts
+    [Header("States")]
     [SerializeField] private IdelState idelState;
     [SerializeField] private GameObject attackManager;
     [SerializeField] private MeleeAttack melee;
     [SerializeField] private dashScript Dash;
     private Health1 health;
     [SerializeField] public jumpScript jumpScript;
+    [SerializeField] public FallState fallState;
     [SerializeField] private wallActionsScript wallActions;
     [SerializeField] public MoveState moveState;
+    [SerializeField] public BlockState blockState;
+
+    [Header("Current State")]
+    public State state;
     //buttons
     private KeyCode jump = KeyCode.Space;
-    private KeyCode left = KeyCode.A;
-    private KeyCode right = KeyCode.D;
     private KeyCode dash = KeyCode.LeftShift;
+    public int blockButton = 1;
 
-    //string literals
-    private const string ISMOVING = "moving";
-    private const string ISFALLING = "falling";
-    private const string ISWALLSLIDING = "WallSliding";
-    private const string ISWALLJUMPING = "wallJumping";
-    private const string NOTJUMPING = "notJumping";
-    private const string ATTACKING = "Attack";
-    private const string PARRY = "parry";
-
-    [SerializeField] private State state;
 
     private void Awake() {
 
@@ -76,25 +72,23 @@ public class Temp : MonoBehaviour {
         animatior = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
 
-        //Dash  = new dashScript();
-
         jumpScript.Setup(rb, animatior, this);
+        fallState.Setup(rb, animatior, this);
         Dash.Setup(rb, animatior, this);
         moveState.Setup(rb, animatior, this);
+        idelState.Setup(rb, animatior, this);
+        blockState.Setup(rb, animatior, this);
+        state = idelState;
+
 
     }
 
     // Update is called once per frame
 
     void Update() {
-        GroundTouch();
+            GroundTouch();
+        
         //horizontal movement
-        //Debug.Log(moveVetcor.x * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
-        /*
-        if (!Dash.dashing) {
-            moveVetcor = move.ReadValue<Vector2>();
-
-        }*/
 
         if (moveVetcor.x != 0) {
             direction = moveVetcor.x;
@@ -103,88 +97,59 @@ public class Temp : MonoBehaviour {
         }
         //the iniatal jump, you need to be in kyote time or on the ground
         dashCount += Time.deltaTime;
-        /*DASH ACTIVATE*/
-        //Debug.Log(state);
         //if you arent on the ground
-        //if (stateDone) {
+        if (state.interuptable) {
             StateChange();
-        //}
+        } else if(state.stateDone) {
+            StateChange();
+        }
+        state.UpdateState();
         moveVetcor = move.ReadValue<Vector2>();
-        //Debug.Log(stateDone);
 
     }
 
     private void StateChange() {
         State oldState = state;
-        if (moveVetcor.x != 0&&state!=moveState) {
-            state = moveState;
-            Debug.Log("Move State");
-        }
-        if (grounded) {
+        if(grounded&&state!=jumpScript) {
+            //checks to see if you are moving
+            if (moveVetcor.x != 0) {
+                state = moveState;
+            } else {
+                state = idelState;
+                //Debug.Log("Idel State");
+            }
             if (Input.GetKeyDown(jump)) {
                 state = jumpScript;
-                Debug.Log("Jump State");
             }
+            //checks to see if you are falling
+        }else if (rb.velocity.y < 0) {
+            state = fallState;
         }
         if (Input.GetKeyDown(dash) && dashCount >= dashCool && !Dash.dashing) {
             state = Dash;
             dashCount = 0;
-            Debug.Log("Dash State");
         }
-        if (!state) {
-            state = idelState;
-            Debug.Log("Idel State");
+        if (Input.GetMouseButtonDown(blockButton)) {
+            state=blockState;
         }
-        //Debug.Log(oldState.stateDone);
-        if(oldState!= state){//&&oldState.stateDone) {
-            Debug.Log("State Change");
+        //Debug.Log("is "+oldState.name+" interuptable: "+oldState.interuptable);
+        if(oldState!= state) {
             state.ResetState();
-            state.Enter();
+            
         }
     }
     private void FixedUpdate() {
-        if(state)
         state.FixedUpdateState();
+        if (state.interuptable) {
+           Run();
+        }
     }
 
-    /*
-    private void Attack() {
-        Invoke("AttackEnd", AttackTime);
-        attackHitBox.enabled=true;
-    }
-
-    private void AttackEnd() {
-        attackHitBox.enabled=false;
-    }
-    */
-    /*COLLISIONS AND ENABLE AND DISABLE
-        private void groundSensorEnter(Collider2D other) {
-            jumpScript.grounded = true;
-            wallActions.wallSliding = false;
-        }
-        //detects if you are not touching the floor
-        private void groundSensorExit(Collider2D other) {
-            leftGround = true;
-        }
-    *//*
-    private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.tag == "Spike") {
-            Debug.Log("hit");
-            health.Damage(1);
-        }
-    }
     
-
-    private bool WallTouch(int direction) {
-        Vector2 BoxDimentions = new Vector2(.1f, .1f);
-        //hits walls
-        int layerNumber = 6;
-        int layerMask = 1 << layerNumber;
-        float distanceAdditon = 0.1f;
-        bool wallHit = Physics2D.BoxCast(transform.position, BoxDimentions, 0, Vector2.right * direction, mainCollider.size.x / 2 + distanceAdditon, layerMask);
-        return wallHit;
+    private void Run() {
+        rb.velocity = new Vector2(moveVetcor.x * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
     }
-        */
+
     private bool GroundTouch() {
         Vector2 BoxDimentions = new Vector2(.1f, .1f);
         //hits walls
@@ -192,14 +157,14 @@ public class Temp : MonoBehaviour {
         int layerMask = 1 << layerNumber;
         float distanceAdditon = 0.1f;
         //bool groundHit = Physics2D.BoxCast(transform.position, BoxDimentions, 0, Vector2.down, mainCollider.size.y / 2 + distanceAdditon, layerMask);
-        RaycastHit2D groundHit = Physics2D.Raycast(transform.position, Vector2.down, mainCollider.size.y / 2 + distanceAdditon, layerMask);
+        RaycastHit2D groundHit = Physics2D.Raycast(transform.position, Vector2.down,distanceAdditon, layerMask);
         Debug.DrawRay(transform.position, Vector2.down, Color.green, .1f);
         if (groundHit) {
             grounded = true;
         } else {
             grounded = false;
         }
-        animatior.SetBool(NOTJUMPING, groundHit);
+        //animatior.SetBool(NOTJUMPING, groundHit);
         return groundHit;
     }
 

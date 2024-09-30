@@ -7,12 +7,14 @@ public class jumpScript : State
     [SerializeField] private AnimationClip jumpClip;
     [SerializeField] private float jumpVelocity = 5;
     [SerializeField] private float jumpHeight = 3;
+    [SerializeField] private float lowJumpMultiplier = 20f;
     public bool grounded = false;
     public int doubleJump = 0;
 
     // Start is called before the first frame update
     void Start()
     {
+        interuptable = true;
         jumpVelocity = Mathf.Sqrt(Physics.gravity.y * 2 * jumpHeight * -2);
     }
 
@@ -21,8 +23,6 @@ public class jumpScript : State
     public void Jump(Rigidbody2D rb) {
         //wallSliding = false;
         //makes the y component change
-        
-        playerVariables.grounded = false;
         rb.velocity = Vector2.up * jumpVelocity;
         rb.gravityScale = 2;
         doubleJump += 1;
@@ -31,15 +31,24 @@ public class jumpScript : State
     }
 
     public override void UpdateState() {
+        if (rb.velocity.y <= 0) {
+            Exit();
+        }
 
     }
+    public override void FixedUpdateState() {
+        if (!Input.GetKey(KeyCode.Space)) {
+            rb.velocity += Vector2.up * Physics.gravity.y * (lowJumpMultiplier - rb.gravityScale) * Time.deltaTime;
+        }
+        
+    }
     public override void Enter() {
+        
         animator.Play(jumpClip.name);
         Jump(rb);
-        stateDone = false;
     }
     public override void Exit() {
-        playerVariables.stateDone = true;
+        stateDone = true;
         //rb.velocity = Vector2.zero;
     }
 
