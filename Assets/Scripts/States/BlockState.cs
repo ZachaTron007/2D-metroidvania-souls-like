@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class BlockState : State
 {
+    [SerializeField] private Health1 health;
     [SerializeField] private AnimationClip blockingClip;
     [SerializeField] private AnimationClip parryClip;
     [SerializeField] private float parryWindow = 5f;
@@ -16,6 +17,8 @@ public class BlockState : State
     public override void Enter() {
         Block();
         interuptable = false;
+        health.blocking = true;
+
     }
 
     public override void UpdateState() {
@@ -25,6 +28,7 @@ public class BlockState : State
     }
 
     public override void Exit() {
+        health.blocking = false;
         stateDone = true;
     }
 

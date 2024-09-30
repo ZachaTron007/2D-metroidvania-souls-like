@@ -2,42 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeAttack : MonoBehaviour
+public class MeleeAttack : State
 {
-
+    [SerializeField] private AnimationClip AttackClip;
     private BoxCollider2D attackHitBox;
     [SerializeField] private float attackTime = .25f;
     [SerializeField] private float knockback = 5f;
-    
+    [SerializeField] private int attackNum;
+
     private Vector2 offset;
     public Vector2 lookDirection;
     
     // Start is called before the first frame update
     void Start()
     {
+        interuptable = false;
         offset.x = 0.87f;
         offset.y = 1.27f;
         attackHitBox = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }/*
-    public void Attack() {
-        Invoke("AttackStart", attackTime);
-        
+    public override void Enter() {
+        animator.Play(AttackClip.name);
+        if (attackNum==3) {
+            attackNum = 0;
+        }
+        attackNum++;
+        StartCoroutine(Attack(playerVariables.direction));
     }
-
-    private void AttackEnd() {
-        attackHitBox.enabled = false;
-    }
-    private void AttackStart() {
-        Invoke("AttackEnd", 1);
-        attackHitBox.enabled = true;
-        attackHitBox.offset = offsetVector();
-    }*/
 
     private Vector2 offsetVector(float direction) {
         Vector2 dir = new Vector2(direction*offset.x,offset.y);
@@ -52,6 +45,10 @@ public class MeleeAttack : MonoBehaviour
         float endAttack = .15f;
         yield return new WaitForSeconds(endAttack);
         attackHitBox.enabled = false;
+        Exit();
     }
-    
+    public override void Exit() {
+        stateDone = true;
+    }
+
 }

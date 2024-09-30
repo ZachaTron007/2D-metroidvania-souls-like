@@ -15,8 +15,7 @@ public class Health1 : MonoBehaviour {
     private SpriteRenderer sr;
     [SerializeField] private float parryWindow = 5f;
     private int blockButton = 1;
-    [SerializeField] private bool blocking = false;
-    [SerializeField] private bool parrying = false;
+    public bool blocking = false;
     
     private const string BLOCKING = "blocking";
     private const string BLOCKPARRY = "blockParry";
@@ -71,7 +70,7 @@ public class Health1 : MonoBehaviour {
     }
     
     private void OnTriggerEnter2D(Collider2D collision) {
-       if (player.state!=player.blockState) {
+       if (!blocking) {
             if (collision.GetComponent<DamageScript>() != null) {
                 DamageScript damageScript = collision.GetComponent<DamageScript>();
                 Damage(damageScript.damage);
@@ -79,25 +78,5 @@ public class Health1 : MonoBehaviour {
             }
         }
     }
-    /*
-    public void Block(Animator animatior) {
-        
-            animatior.SetBool(BLOCKING, true);
-            //float parryWindow = .5f;
-            Debug.Log("Blocking");
-            parrying = true;
-            Invoke("ParryWindowEnd", parryWindow);
-            blocking = true;
-
-    }
-    public void StopBlocking(Animator animatior) {
-        if (Input.GetMouseButtonUp(blockButton)) {
-            animatior.SetBool(BLOCKING, false);
-            blocking = false;
-
-        }
-    }
-    private void ParryWindowEnd() {
-        parrying = false;
-    }*/
+   
 }

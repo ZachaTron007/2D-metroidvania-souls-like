@@ -25,6 +25,9 @@ public class PlayerState : MonoBehaviour {
     private float dashCool = 0.7f;
 
     public bool grounded { get; private set; } = true;
+    //attacks
+    private int attackNum;
+    private float attackTime;
 
 
     //[SerializeField] private bool blood = false;
@@ -38,7 +41,6 @@ public class PlayerState : MonoBehaviour {
     //scrupts
     [Header("States")]
     [SerializeField] private IdelState idelState;
-    [SerializeField] private GameObject attackManager;
     [SerializeField] private MeleeAttack melee;
     [SerializeField] private dashScript Dash;
     private Health1 health;
@@ -64,7 +66,7 @@ public class PlayerState : MonoBehaviour {
         
         health = GetComponent<Health1>();
         
-        melee = attackManager.GetComponent<MeleeAttack>();
+        //melee = attackManager.GetComponent<MeleeAttack>();
         //get the rigidbody and collider reffrences
         rb = GetComponent<Rigidbody2D>();
         mainCollider = GetComponent<BoxCollider2D>();
@@ -78,6 +80,7 @@ public class PlayerState : MonoBehaviour {
         moveState.Setup(rb, animatior, this);
         idelState.Setup(rb, animatior, this);
         blockState.Setup(rb, animatior, this);
+        melee.Setup(rb, animatior, this);
         state = idelState;
 
 
@@ -129,9 +132,16 @@ public class PlayerState : MonoBehaviour {
             state = Dash;
             dashCount = 0;
         }
+        attackTime += Time.deltaTime;
+        if (Input.GetMouseButtonDown(0) && attackTime > 0.35f) {
+            state = melee;
+            // Reset timer
+            attackTime = 0.0f;
+        }
         if (Input.GetMouseButtonDown(blockButton)) {
             state=blockState;
         }
+
         //Debug.Log("is "+oldState.name+" interuptable: "+oldState.interuptable);
         if(oldState!= state) {
             state.ResetState();

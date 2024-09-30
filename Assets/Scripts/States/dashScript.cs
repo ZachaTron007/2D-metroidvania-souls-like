@@ -12,13 +12,8 @@ public class dashScript : State
     public bool dashing;
 
     public IEnumerator dash(float direction,Rigidbody2D rb) {
-        Invoke("dashReset", dashduration);
-        dashing = true;
-        while (dashing) {
-            rb.velocity = Vector2.right * direction * dashSpeed;
-            Debug.Log(Vector2.right * direction * dashSpeed);
-            yield return new WaitForFixedUpdate();
-        }
+        rb.velocity = Vector2.right * direction * dashSpeed;
+        yield return new WaitForSeconds(dashduration);
         Exit();
         yield return null;
     }
