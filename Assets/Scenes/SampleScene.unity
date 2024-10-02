@@ -1495,6 +1495,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1213350366}
   - component: {fileID: 1213350367}
+  - component: {fileID: 1213350368}
   m_Layer: 3
   m_Name: Attack 2
   m_TagString: Untagged
@@ -1533,6 +1534,52 @@ MonoBehaviour:
   stun: 0
   clip: {fileID: 7400000, guid: 0bafac48b1090284da2048c29bc986ff, type: 2}
   length: 0
+  attackHitBox: {fileID: 0}
+--- !u!61 &1213350368
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213350365}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.77, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!4 &1309007468 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3221665841039631346, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
@@ -1864,6 +1911,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1482437206}
   - component: {fileID: 1482437207}
+  - component: {fileID: 1482437208}
   m_Layer: 3
   m_Name: Attack 1
   m_TagString: Untagged
@@ -1902,6 +1950,52 @@ MonoBehaviour:
   stun: 0
   clip: {fileID: 7400000, guid: 3688e492878501d4882fffca4cb3bbff, type: 2}
   length: 0
+  attackHitBox: {fileID: 0}
+--- !u!61 &1482437208
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1482437205}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.77, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &1500022352
 GameObject:
   m_ObjectHideFlags: 0
@@ -2032,6 +2126,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 825320339}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1543940234 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5849605177917012123, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+  m_PrefabInstance: {fileID: 2898413512102226661}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1578874930
 GameObject:
   m_ObjectHideFlags: 0
@@ -2042,6 +2141,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1578874931}
   - component: {fileID: 1578874932}
+  - component: {fileID: 1578874933}
   m_Layer: 3
   m_Name: Attack 3
   m_TagString: Untagged
@@ -2080,6 +2180,52 @@ MonoBehaviour:
   stun: 0
   clip: {fileID: 7400000, guid: c42aa71ad221ea349a7ee113bb662657, type: 2}
   length: 0
+  attackHitBox: {fileID: 0}
+--- !u!61 &1578874933
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1578874930}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.77, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &1592746580
 GameObject:
   m_ObjectHideFlags: 0
@@ -2540,17 +2686,30 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6225676682152794543, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
   m_PrefabInstance: {fileID: 2898413512102226661}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1737789236 stripped
+--- !u!114 &1737789239
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4692033044889931862, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
-  m_PrefabInstance: {fileID: 2898413512102226661}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1543940234}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c25aef9a538554e46b152a87835f2843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateDone: 0
+  basicCombo:
+  - {fileID: 1482437207}
+  - {fileID: 1213350367}
+  - {fileID: 1578874932}
+  attackTime: 0
+  knockback: 5
+  attackNum: 0
+  currentClip: {fileID: 0}
+  currentClipTime: 0
+  currentAttack: {fileID: 0}
+  lookDirection: {x: 0, y: 0}
 --- !u!1 &1821663501
 GameObject:
   m_ObjectHideFlags: 0
@@ -2868,8 +3027,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7400000, guid: 3688e492878501d4882fffca4cb3bbff, type: 2}
     - target: {fileID: 4692033044889931862, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: attackTime
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4692033044889931862, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: lookDirection.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4692033044889931862, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: basicComboClip.Array.size
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4692033044889931862, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: basicComboClip.Array.data[0]
@@ -2886,15 +3053,19 @@ PrefabInstance:
     - target: {fileID: 6378908112458984836, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: melee
       value: 
-      objectReference: {fileID: 1737789236}
-    m_RemovedComponents: []
+      objectReference: {fileID: 1737789239}
+    m_RemovedComponents:
+    - {fileID: 4692033044889931862, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
     m_RemovedGameObjects:
     - {fileID: 3229267011163375889, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6225676682152794543, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       insertIndex: -1
       addedObject: {fileID: 927016846}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5849605177917012123, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1737789239}
   m_SourcePrefab: {fileID: 100100000, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
