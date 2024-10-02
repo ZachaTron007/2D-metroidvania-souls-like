@@ -22,7 +22,7 @@ public class wallActionsScript : jumpScript
     public IEnumerator WallJump(float dashDirection, Rigidbody2D rb) {
         wallSliding = false;
         wallJump = true;
-        Jump(rb);
+        Jump();
         Invoke("wallJumpReset", wallJumpDuration);
         while (wallJump) {
             rb.velocity = new Vector2(dashDirection * wallJumpSpeed * Time.fixedDeltaTime, rb.velocity.y);

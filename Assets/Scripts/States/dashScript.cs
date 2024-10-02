@@ -11,8 +11,8 @@ public class dashScript : State
     [SerializeField] private float dashduration = 0.2f;
     public bool dashing;
 
-    public IEnumerator dash(float direction,Rigidbody2D rb) {
-        rb.velocity = Vector2.right * direction * dashSpeed;
+    public IEnumerator dash(Rigidbody2D rb) {
+        rb.velocity = Vector2.right * playerVariables.direction * dashSpeed;
         yield return new WaitForSeconds(dashduration);
         Exit();
         yield return null;
@@ -27,7 +27,7 @@ public class dashScript : State
         if (dashClip) {
             animator.Play(dashClip.name);
         }
-        StartCoroutine(dash(playerVariables.direction,rb));
+        StartCoroutine(dash(rb));
     }
     public override void Exit() {
         

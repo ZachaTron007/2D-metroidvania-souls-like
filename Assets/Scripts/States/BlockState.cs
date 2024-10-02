@@ -16,7 +16,6 @@ public class BlockState : State
 
     public override void Enter() {
         Block();
-        interuptable = false;
         health.blocking = true;
 
     }

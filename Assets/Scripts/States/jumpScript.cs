@@ -20,7 +20,7 @@ public class jumpScript : State
 
     // Update is called once per frame
 
-    public void Jump(Rigidbody2D rb) {
+    public void Jump() {
         //wallSliding = false;
         //makes the y component change
         rb.velocity = Vector2.up * jumpVelocity;
@@ -45,7 +45,7 @@ public class jumpScript : State
     public override void Enter() {
         
         animator.Play(jumpClip.name);
-        Jump(rb);
+        Jump();
     }
     public override void Exit() {
         stateDone = true;

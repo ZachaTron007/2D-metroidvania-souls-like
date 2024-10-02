@@ -17,7 +17,8 @@ public class PlayerState : MonoBehaviour {
 
     //movements
     [Header("Player Variables")]
-    private float moveSpeed = 250;
+    [SerializeField] private float moveSpeed = 250;
+    private float tempMoveSpeed;
     public float direction { get; private set; } = 1;
     private int dashDirection = 1;
 
@@ -27,7 +28,7 @@ public class PlayerState : MonoBehaviour {
     public bool grounded { get; private set; } = true;
     //attacks
     private int attackNum;
-    private float attackTime;
+    public float attackTime;
 
 
     //[SerializeField] private bool blood = false;
@@ -82,7 +83,7 @@ public class PlayerState : MonoBehaviour {
         blockState.Setup(rb, animatior, this);
         melee.Setup(rb, animatior, this);
         state = idelState;
-
+        tempMoveSpeed = moveSpeed;
 
     }
 
@@ -90,8 +91,9 @@ public class PlayerState : MonoBehaviour {
 
     void Update() {
             GroundTouch();
-        
+
         //horizontal movement
+        attackTime += Time.deltaTime;
 
         if (moveVetcor.x != 0) {
             direction = moveVetcor.x;
@@ -102,12 +104,14 @@ public class PlayerState : MonoBehaviour {
         dashCount += Time.deltaTime;
         //if you arent on the ground
         if (state.interuptable) {
+            moveVetcor = move.ReadValue<Vector2>();
             StateChange();
         } else if(state.stateDone) {
             StateChange();
         }
         state.UpdateState();
-        moveVetcor = move.ReadValue<Vector2>();
+        
+        
 
     }
 
@@ -133,10 +137,10 @@ public class PlayerState : MonoBehaviour {
             dashCount = 0;
         }
         attackTime += Time.deltaTime;
-        if (Input.GetMouseButtonDown(0) && attackTime > 0.35f) {
+        if (Input.GetMouseButtonDown(0)) {
             state = melee;
             // Reset timer
-            attackTime = 0.0f;
+            //attackTime = 0.0f;
         }
         if (Input.GetMouseButtonDown(blockButton)) {
             state=blockState;
@@ -144,20 +148,36 @@ public class PlayerState : MonoBehaviour {
 
         //Debug.Log("is "+oldState.name+" interuptable: "+oldState.interuptable);
         if(oldState!= state) {
+            rb.velocity = new Vector2(0, rb.velocity.y);
             state.ResetState();
-            
         }
     }
     private void FixedUpdate() {
-        state.FixedUpdateState();
+        state.FixedUpdateState();/*
         if (state.interuptable) {
-           Run();
+            moveSpeed = tempMoveSpeed;
+            Run();
+        } else {
+            moveSpeed = 0.0f;
+        }
+        if (!state.interuptable && rb.velocity.x == moveVetcor.x * moveSpeed * Time.fixedDeltaTime) {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        } else if(state.interuptable) {
+            Run();
+        }*/
+        if(state.interuptable) {
+            Run();
         }
     }
 
     
     private void Run() {
-        rb.velocity = new Vector2(moveVetcor.x * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
+        if (rb.velocity.x == 0) {
+            rb.velocity = new Vector2(moveVetcor.x * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
+        } else {
+            rb.velocity = new Vector2(moveVetcor.x * Mathf.Abs(rb.velocity.x), rb.velocity.y);
+        }
+        
     }
 
     private bool GroundTouch() {

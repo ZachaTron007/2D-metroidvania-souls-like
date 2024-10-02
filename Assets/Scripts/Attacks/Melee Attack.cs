@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class MeleeAttack : State
 {
-    [SerializeField] private AnimationClip AttackClip;
+    [SerializeField] private AnimationClip[] basicComboClip;
     private BoxCollider2D attackHitBox;
-    [SerializeField] private float attackTime = .25f;
+    [SerializeField] private float attackTime;
     [SerializeField] private float knockback = 5f;
     [SerializeField] private int attackNum;
 
@@ -24,31 +25,43 @@ public class MeleeAttack : State
 
     // Update is called once per frame
     public override void Enter() {
-        animator.Play(AttackClip.name);
-        if (attackNum==3) {
+        if (attackNum == 3) {
             attackNum = 0;
         }
-        attackNum++;
-        StartCoroutine(Attack(playerVariables.direction));
+        float comboEndTime = basicComboClip[attackNum].length + .5f;
+        if (playerVariables.attackTime >= comboEndTime) {
+            attackNum = 0;
+        }
+        if (playerVariables.attackTime >= basicComboClip[attackNum].length) {
+            StartCoroutine(Attack(playerVariables.direction));
+            playerVariables.attackTime = 0.0f;
+        } else {
+            Exit();
+        }
+
     }
 
     private Vector2 offsetVector(float direction) {
-        Vector2 dir = new Vector2(direction*offset.x,offset.y);
-        return dir;
+        return new Vector2(direction*offset.x,offset.y);
     }
 
     public IEnumerator Attack(float direction) {
-        float startAttack = .15f;
+        animator.Play(basicComboClip[attackNum].name);
+        float startAttack = basicComboClip[attackNum].length/2;
         yield return new WaitForSeconds(startAttack);
         attackHitBox.enabled = true;
         attackHitBox.offset = offsetVector(direction);
-        float endAttack = .15f;
+        float endAttack = basicComboClip[attackNum].length / 2;
         yield return new WaitForSeconds(endAttack);
         attackHitBox.enabled = false;
         Exit();
     }
     public override void Exit() {
+        attackNum++;
         stateDone = true;
+    }
+    public override void UpdateState() {
+        //attackTime += Time.deltaTime;
     }
 
 }
