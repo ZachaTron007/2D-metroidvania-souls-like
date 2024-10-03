@@ -3,16 +3,10 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyScript : MonoBehaviour {
+public class EnemyScript : Unit {
     protected float maxDist = .3f;
-    protected Rigidbody2D rb;
-    protected BoxCollider2D boxCollider;
 
-    protected enum State {
-        Idel,
-        Attack,
-        Agro
-    }
+    protected BoxCollider2D boxCollider;
 
     protected int WallCheck(int direction) {
         //layers to hit

@@ -9,16 +9,20 @@ public abstract class State : MonoBehaviour {
     protected Animator animator;
     public bool interuptable { get; protected set; } = true;
     public bool stateDone;
-    protected PlayerState playerVariables;
+    protected Unit playerVariables;
     public virtual void UpdateState () { }
     public virtual void FixedUpdateState () { }
     public virtual void Enter () { }
     public virtual void Exit () { }
 
-    public void Setup (Rigidbody2D rb, Animator animator, PlayerState playerVariables) { 
+    public void Setup (Rigidbody2D rb, Animator animator, PlayerState playerVariables=null,Unit playerVariable=null) { 
         this.rb = rb;
         this.animator = animator;
-        this.playerVariables = playerVariables;
+        if (playerVariables) {
+            this.playerVariables = playerVariables;
+        }else if (playerVariable) {
+            this.playerVariables = playerVariable;
+        }
     }
     public void ResetState () {
         stateDone = false;

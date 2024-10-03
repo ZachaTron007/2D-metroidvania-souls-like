@@ -9,23 +9,19 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class SwordEnemyScript : EnemyScript {
-    [SerializeField] private Sensors groundSensor;
-    //movements
-    [SerializeField] private float moveSpeed = 250;
-    private int direction = 1;
     //states
     [SerializeField] private bool rightWallTouch = false;
     [SerializeField] private bool leftWallTouch = false;
     [SerializeField] private bool falling = false;
     //components
-    Animator animatior;
     private SpriteRenderer sr;
     //scrupts
-    [SerializeField] private GameObject attackManager;
-    private MeleeAttack melee;
+    [SerializeField] private MeleeAttack melee;
+    [SerializeField] private IdelState idelState;
+    [SerializeField] private AgroState agroState;
+    [SerializeField] private AttackState attackState;
     private Health1 health;
-    private jumpScript jumpScript;
-    private State state = State.Idel;
+    private State state;
     private bool idelMoving = true;
     private bool attacking = false;
     private int idelWalkSpeed = 50;
@@ -43,8 +39,6 @@ public class SwordEnemyScript : EnemyScript {
         
         //scripts
         health = GetComponent<Health1>();
-        jumpScript = GetComponent<jumpScript>();
-        melee = attackManager.GetComponent<MeleeAttack>();
         //get the rigidbody and collider reffrences
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
@@ -53,11 +47,10 @@ public class SwordEnemyScript : EnemyScript {
 
         //listeners for the entering collisions
         //mainCollider.triggerEnter.AddListener(groundSensorEnter);
-        groundSensor.triggerEnter.AddListener(groundSensorEnter);
-        //listeners for the exiting collisions
-        groundSensor.triggerExit.AddListener(groundSensorExit);
-        //attacks
 
+        //attacks
+        //state = idelState;
+        idelState.Setup(rb, animatior,playerVariable: this);
 
     }
 
@@ -65,6 +58,8 @@ public class SwordEnemyScript : EnemyScript {
 
     // Update is called once per frame
     void Update() {
+
+        /*
         switch (state) {
             case State.Idel:
                 if (moveSpeed > idelWalkSpeed) {
@@ -107,40 +102,37 @@ public class SwordEnemyScript : EnemyScript {
             default:
                 state = State.Idel;
                 break;
-        }
+        }*/
 
         //horizontal movement
-        /*GETS DIRECTION*/
-        if (rb.velocity.y != 0) {
-            falling = rb.velocity.y < 0;
-
-        } else {
-            falling = false;
-
-        }
+        StateChange();
             sr.flipX = direction < 0;
-
-        /*SETS RUN ANIMATION VAR*/
-        animatior.SetFloat(MOVING, moveSpeed);
     }
     private void FixedUpdate() {
         /*MOVE LEFT AND RIGHT*/
-        rb.velocity = new Vector2(direction * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
+        //rb.velocity = new Vector2(direction * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
 
     }
 
-    /*COLLISIONS AND ENABLE AND DISABLE*/
-    private void groundSensorEnter(Collider2D other) {
-        jumpScript.grounded = true;
-    }
-    //detects if you are not touching the floor
-    private void groundSensorExit(Collider2D other) {
-        //leftGround = true;
+    private void StateChange() {
+        State oldState = state;
+        if (WithinAgroRange(direction)) {
+            if (WithinAttackRange(direction)) {
+                state = attackState;
+            } else {
+                state = agroState;
+            }
+        } else {
+            state = idelState;
+        }
+        if (oldState != state) {
+            state.Enter();
+            //oldState.Exit();
+            //state.ResetState();
+        }
     }
 
-   
-  
-
+    /*
     private void IdelStop() {
         if (state == State.Idel) {
 
@@ -178,6 +170,6 @@ public class SwordEnemyScript : EnemyScript {
 
     private void AttackReset() {
         attacking = false;
-    }
+    }*/
 
 }

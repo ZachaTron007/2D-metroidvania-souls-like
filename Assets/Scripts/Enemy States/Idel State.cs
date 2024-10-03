@@ -1,0 +1,48 @@
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class IdelState : State {
+    // Start is called before the first frame update
+    //movements
+    [SerializeField] private float moveSpeed = 250;
+    [SerializeField] private AnimationClip idelAniamtion;
+    [SerializeField] private AnimationClip walkAniamtion;
+    private bool idelMoving = true;
+    private bool attacking = false;
+    private int idelWalkSpeed = 50;
+    [SerializeField] delegate void idelDelegate();
+    [SerializeField] idelDelegate idelState;
+
+    
+
+    // Update is called once per frame
+    public override void Enter() {
+        moveSpeed = 100;
+        idelState = Walk;
+        idelState();
+
+
+    }
+    private void Stay() {
+        animator.Play(idelAniamtion.name);
+        rb.velocity = Vector2.zero;
+        float stopLowSpeed = 1f;
+        float stopHighSpeed = 2f;
+        Invoke("Walk", Random.Range(stopLowSpeed, stopHighSpeed));
+    }
+    private void Walk() {
+        
+        Debug.Log(direction);
+        animator.Play(walkAniamtion.name);
+        rb.velocity = new Vector2(playerVariables.direction * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
+        float stopLowSpeed = 1f;
+        float stopHighSpeed = 2f;
+        Invoke("Stay", Random.Range(stopLowSpeed, stopHighSpeed));
+    }
+    private void Exit() {
+        rb.velocity = Vector2.zero;
+    }
+    
+}

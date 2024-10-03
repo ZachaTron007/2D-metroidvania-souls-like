@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IdelState : State
+public class PlayerIdelState : State
 {
     [SerializeField] private AnimationClip idelClip;
     public override void UpdateState() {

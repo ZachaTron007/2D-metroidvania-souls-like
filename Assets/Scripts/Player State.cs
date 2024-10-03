@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
-public class PlayerState : MonoBehaviour {
+public class PlayerState : Unit {
     private PlayerControls playerControls;
     private InputAction move;
     private BoxCollider2D mainCollider;
@@ -17,31 +17,22 @@ public class PlayerState : MonoBehaviour {
 
     //movements
     [Header("Player Variables")]
-    [SerializeField] private float moveSpeed = 250;
     private float tempMoveSpeed;
-    public float direction { get; private set; } = 1;
-    private int dashDirection = 1;
+    //public float direction { get; private set; } = 1;
 
     private float dashCount;
     private float dashCool = 0.7f;
-
-    public bool grounded { get; private set; } = true;
-    //attacks
-    private int attackNum;
-    public float attackTime;
 
 
     //[SerializeField] private bool blood = false;
 
     //components
-    [Header("Player Components")]
-    public Animator animatior;
-    public Rigidbody2D rb;
+    //[Header("Player Components")]
     public Vector2 moveVetcor { get; private set; }
     private SpriteRenderer sr;
     //scrupts
     [Header("States")]
-    [SerializeField] private IdelState idelState;
+    [SerializeField] private PlayerIdelState idelState;
     [SerializeField] private MeleeAttack melee;
     [SerializeField] private dashScript Dash;
     private Health1 health;
@@ -97,7 +88,7 @@ public class PlayerState : MonoBehaviour {
         attackTime += Time.deltaTime;
 
         if (moveVetcor.x != 0) {
-            direction = moveVetcor.x;
+            direction = (int)moveVetcor.x;
             sr.flipX = direction < 0;
 
         }
@@ -149,23 +140,13 @@ public class PlayerState : MonoBehaviour {
 
         //Debug.Log("is "+oldState.name+" interuptable: "+oldState.interuptable);
         if(oldState!= state) {
+            oldState.Exit();
             rb.velocity = new Vector2(0, rb.velocity.y);
             state.ResetState();
         }
     }
     private void FixedUpdate() {
-        state.FixedUpdateState();/*
-        if (state.interuptable) {
-            moveSpeed = tempMoveSpeed;
-            Run();
-        } else {
-            moveSpeed = 0.0f;
-        }
-        if (!state.interuptable && rb.velocity.x == moveVetcor.x * moveSpeed * Time.fixedDeltaTime) {
-            rb.velocity = new Vector2(0, rb.velocity.y);
-        } else if(state.interuptable) {
-            Run();
-        }*/
+        state.FixedUpdateState();
         if(state.interuptable) {
             Run();
         }

@@ -21,7 +21,7 @@ public class BlockState : State
     }
 
     public override void UpdateState() {
-        if (Input.GetMouseButtonUp(playerVariables.blockButton)) {
+        if (Input.GetMouseButtonUp(1)) {
             Exit();
         }
     }
