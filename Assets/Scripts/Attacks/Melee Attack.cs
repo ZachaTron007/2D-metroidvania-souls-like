@@ -5,11 +5,11 @@ using UnityEngine.UIElements;
 
 public class MeleeAttack : State
 {
-    [SerializeField] private AttackScript[] basicCombo;
+    [SerializeField] protected AttackScript[] basicCombo;
     [SerializeField] private int attackNum = -1;
     [SerializeField] private AnimationClip currentClip;
     [SerializeField] private float currentClipTime;
-    [SerializeField] AttackScript currentAttack;
+    [SerializeField] protected AttackScript currentAttack;
 
 
     private Vector2 offset;
@@ -26,13 +26,9 @@ public class MeleeAttack : State
 
     // Update is called once per frame
     public override void Enter() {
-        float comboEndTime = currentClipTime + 5f;
-        
         if (playerVariables.attackTime >= currentClipTime) {
             UpdateAttack();
-            if (playerVariables.attackTime >= comboEndTime) {
-                attackNum = 0;
-            }
+            
             StartCoroutine(Attack(playerVariables.direction));
             playerVariables.attackTime = 0.0f;
         } else {
@@ -41,11 +37,11 @@ public class MeleeAttack : State
 
     }
 
-    private Vector2 offsetVector(float direction) {
+    protected Vector2 offsetVector(float direction) {
         return new Vector2(direction*offset.x,offset.y);
     }
 
-    public IEnumerator Attack(float direction) {
+    public virtual IEnumerator Attack(float direction) {
         animator.Play(currentClip.name);
         float startAttack = currentClipTime / 2;
         yield return new WaitForSeconds(startAttack);
@@ -70,7 +66,11 @@ public class MeleeAttack : State
         //makes attack num go up
         attackNum++;
         //resets attackNum to be withijn the combo
+        float comboEndTime = currentClipTime + .5f;
         if (attackNum >= basicCombo.Length) {
+            attackNum = 0;
+        }
+        if (playerVariables.attackTime >= comboEndTime) {
             attackNum = 0;
         }
         //sets the current attack

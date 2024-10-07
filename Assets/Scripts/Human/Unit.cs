@@ -7,7 +7,7 @@ public class Unit : MonoBehaviour
     public Rigidbody2D rb;
     public Animator animatior;
     public int direction { get; protected set; } = 1;
-    public float moveSpeed = 250;
+    public float moveSpeed { get; protected set; } = 250;
     public float attackTime;
     public bool grounded { get; protected set; }
     // Start is called before the first frame update

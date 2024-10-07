@@ -72,7 +72,6 @@ public class PlayerState : Unit {
         moveState.Setup(rb, animatior, this);
         idelState.Setup(rb, animatior, this);
         blockState.Setup(rb, animatior, this);
-        Debug.Log(melee);
         melee.Setup(rb, animatior, this);
         state = idelState;
         tempMoveSpeed = moveSpeed;

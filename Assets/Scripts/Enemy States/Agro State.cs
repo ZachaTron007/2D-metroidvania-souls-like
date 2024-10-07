@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class AgroState : State
 {
+
+    [SerializeField] private float agroSpeed = 250;
+    [SerializeField] private AnimationClip runClip;
     public override void Enter() {
-        int agroSpeed = 150;
-        playerVariables.moveSpeed = agroSpeed;
+        animator.Play(runClip.name);
     }
     public override void FixedUpdateState() {
-        rb.velocity = new Vector2(playerVariables.direction * playerVariables.moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
+
+        rb.velocity = new Vector2(playerVariables.direction * agroSpeed * Time.fixedDeltaTime, rb.velocity.y);
     }
 }

@@ -1703,7 +1703,7 @@ PrefabInstance:
     - target: {fileID: 361345800473325895, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
       propertyPath: melee
       value: 
-      objectReference: {fileID: 1387623731}
+      objectReference: {fileID: 0}
     - target: {fileID: 361345800473325895, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
       propertyPath: agroState
       value: 
@@ -1730,11 +1730,11 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 52e12bd769e96624eae20efc2b841529, type: 2}
     - target: {fileID: 4790809425421826853, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.01
+      value: -11.38
       objectReference: {fileID: 0}
     - target: {fileID: 4790809425421826853, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.93
+      value: -1.51
       objectReference: {fileID: 0}
     - target: {fileID: 4790809425421826853, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2213,6 +2213,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateDone: 0
+  attacks: []
+  currentAttack: {fileID: 0}
+  attack: {fileID: 0}
 --- !u!4 &1367888780
 Transform:
   m_ObjectHideFlags: 0
@@ -2369,7 +2372,7 @@ GameObject:
   - component: {fileID: 1387623730}
   - component: {fileID: 1387623733}
   - component: {fileID: 1387623732}
-  - component: {fileID: 1387623731}
+  - component: {fileID: 1387623734}
   m_Layer: 3
   m_Name: Attack Hitbox (1)
   m_TagString: Untagged
@@ -2393,26 +2396,6 @@ Transform:
   - {fileID: 1910915286}
   m_Father: {fileID: 1663791459}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1387623731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1387623729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c25aef9a538554e46b152a87835f2843, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stateDone: 0
-  basicCombo:
-  - {fileID: 1173148566}
-  attackNum: 0
-  currentClip: {fileID: 0}
-  currentClipTime: 0
-  currentAttack: {fileID: 0}
-  lookDirection: {x: 0, y: 0}
 --- !u!114 &1387623732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2472,6 +2455,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1387623734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1387623729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34043891a15171d449096c60985d7bad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateDone: 0
+  attacks:
+  - {fileID: 919653516}
+  - {fileID: 1134574449}
+  - {fileID: 1173148566}
+  - {fileID: 1482437207}
+  currentAttack: {fileID: 1482437207}
+  attack: {fileID: 1173148566}
 --- !u!1 &1482437205
 GameObject:
   m_ObjectHideFlags: 0
@@ -3311,7 +3314,7 @@ MonoBehaviour:
   - {fileID: 1482437207}
   - {fileID: 1213350367}
   - {fileID: 1578874932}
-  attackNum: 0
+  attackNum: -1
   currentClip: {fileID: 0}
   currentClipTime: 0
   currentAttack: {fileID: 0}
@@ -3361,6 +3364,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateDone: 0
+  agroSpeed: 250
+  runClip: {fileID: 7400000, guid: edd7fc3a754845c4cb0e0e29078a5905, type: 2}
 --- !u!1 &1821663501
 GameObject:
   m_ObjectHideFlags: 0

@@ -51,6 +51,10 @@ public class SwordEnemyScript : EnemyScript {
         //attacks
         //state = idelState;
         idelState.Setup(rb, animatior,playerVariable: this);
+        agroState.Setup(rb, animatior, playerVariable: this);
+        attackState.Setup(rb, animatior, playerVariable: this);
+        state=idelState;
+        state.Enter();
 
     }
 
@@ -58,35 +62,9 @@ public class SwordEnemyScript : EnemyScript {
 
     // Update is called once per frame
     void Update() {
+        direction = WallCheck(direction);
 
-        /*
-        switch (state) {
-            case State.Idel:
-                if (moveSpeed > idelWalkSpeed) {
-                    moveSpeed = idelWalkSpeed;
-                    idelMoving = true;
-                }
-                direction = WallCheck(direction);
-                //float waitTime = .4f;
-                state = WithinAgroRange(direction) ? State.Agro : State.Idel;
-                if (idelMoving) {
-                    float stopLowSpeed = 1f;
-                    float stopHighSpeed = 2f;
-                    Invoke(IDELSTOP, UnityEngine.Random.Range(stopLowSpeed, stopHighSpeed));
-                    idelMoving = false;
-                }
-                break;
-
-            case State.Agro:
-                if (!WithinAgroRange(direction)) {
-                    state = State.Idel;
-                    break;
-                }
-                state = WithinAttackRange(direction) ? State.Attack : State.Agro;
-                int agroSpeed = 150;
-                moveSpeed = agroSpeed;
-                break;
-
+      /*
             case State.Attack:
                 moveSpeed = 0;
                 float attackRecharge = 1f;
@@ -111,12 +89,15 @@ public class SwordEnemyScript : EnemyScript {
     private void FixedUpdate() {
         /*MOVE LEFT AND RIGHT*/
         //rb.velocity = new Vector2(direction * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
+        if(state)
+        state.FixedUpdateState();
 
     }
 
     private void StateChange() {
         State oldState = state;
         if (WithinAgroRange(direction)) {
+            
             if (WithinAttackRange(direction)) {
                 state = attackState;
             } else {
@@ -126,33 +107,14 @@ public class SwordEnemyScript : EnemyScript {
             state = idelState;
         }
         if (oldState != state) {
+            oldState.Exit();
             state.Enter();
-            //oldState.Exit();
+            
             //state.ResetState();
         }
     }
 
-    /*
-    private void IdelStop() {
-        if (state == State.Idel) {
-
-            float stopLowSpeed = 1f;
-            float stopHighSpeed = 2f;
-            Invoke(IDELWALK,UnityEngine.Random.Range(stopLowSpeed, stopHighSpeed));
-            int stayStillSpeed = 0;
-            moveSpeed = stayStillSpeed;
-        }
-        
-    }
-    private void IdelWalkStart() {
-        if (state == State.Idel) {
-
-            //direction *= -1;
-            
-            moveSpeed = idelWalkSpeed;
-            idelMoving = true;
-        }
-    }
+   /*
     private State AgroStart() {
         state=State.Agro;
         return state;

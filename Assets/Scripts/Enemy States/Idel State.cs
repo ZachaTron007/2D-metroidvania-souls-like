@@ -14,34 +14,40 @@ public class IdelState : State {
     private int idelWalkSpeed = 50;
     [SerializeField] delegate void idelDelegate();
     [SerializeField] idelDelegate idelState;
+    private bool idel = false;
 
     
 
     // Update is called once per frame
     public override void Enter() {
+        idel = true;
         moveSpeed = 100;
         idelState = Walk;
         idelState();
 
 
+
     }
     private void Stay() {
-        animator.Play(idelAniamtion.name);
-        rb.velocity = Vector2.zero;
-        float stopLowSpeed = 1f;
-        float stopHighSpeed = 2f;
-        Invoke("Walk", Random.Range(stopLowSpeed, stopHighSpeed));
+        if (idel) {
+            animator.Play(idelAniamtion.name);
+            rb.velocity = Vector2.zero;
+            float stopLowSpeed = 1f;
+            float stopHighSpeed = 2f;
+            Invoke("Walk", Random.Range(stopLowSpeed, stopHighSpeed));
+        }
     }
     private void Walk() {
-        
-        Debug.Log(direction);
-        animator.Play(walkAniamtion.name);
-        rb.velocity = new Vector2(playerVariables.direction * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
-        float stopLowSpeed = 1f;
-        float stopHighSpeed = 2f;
-        Invoke("Stay", Random.Range(stopLowSpeed, stopHighSpeed));
+        if (idel) {
+            animator.Play(walkAniamtion.name);
+            rb.velocity = new Vector2(playerVariables.direction * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
+            float stopLowSpeed = 1f;
+            float stopHighSpeed = 2f;
+            Invoke("Stay", Random.Range(stopLowSpeed, stopHighSpeed));
+        }
     }
-    private void Exit() {
+    public override void Exit() {
+        idel = false;
         rb.velocity = Vector2.zero;
     }
     
