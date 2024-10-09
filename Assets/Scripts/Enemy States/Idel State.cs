@@ -9,14 +9,10 @@ public class IdelState : State {
     [SerializeField] private float moveSpeed = 250;
     [SerializeField] private AnimationClip idelAniamtion;
     [SerializeField] private AnimationClip walkAniamtion;
-    private bool idelMoving = true;
-    private bool attacking = false;
     private int idelWalkSpeed = 50;
     [SerializeField] delegate void idelDelegate();
     [SerializeField] idelDelegate idelState;
     private bool idel = false;
-
-    
 
     // Update is called once per frame
     public override void Enter() {

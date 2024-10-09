@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackState : State
+public class EnemyAttackState : State
 {
 
     private bool attacking;
@@ -11,17 +11,8 @@ public class AttackState : State
     [SerializeField] private AttackScript attack;
 
     public override void Enter() {
-
-        /*
-        Debug.Log(attacks);
-        int attackNum = Random.Range(0, attacks.Length - 1);
-        Debug.Log("The Chosen Attack Number: "+attackNum);
-        Debug.Log("The Length of the possible attacks: " + attacks.Length);
-        Debug.Log("The first Attack of basic: " + basicCombo[0]);
-        Debug.Log("The first Attack: "+ attacks[0]);
-        Debug.Log("The chosen Attack:"+attacks[attackNum]);*/
-        currentAttack = attack;
-        Debug.Log(currentAttack.name);
+        int attackNum = Random.Range(0, attacks.Length);
+        currentAttack = attacks[attackNum];
         rb.velocity = Vector2.zero;
         StartCoroutine(Attack(direction));
     }
@@ -43,7 +34,7 @@ public class AttackState : State
         Exit();
     }
     public override void Exit() {
-        stateDone = true;
+        recover = true;
     }
     protected Vector2 offsetVector(float direction) {
         return new Vector2(direction * .87f, 1.27f);

@@ -68,9 +68,10 @@ public class Health1 : MonoBehaviour {
         Debug.Log(gameObject.name + " died");
         Destroy(gameObject);
     }
-    
+
     private void OnTriggerEnter2D(Collider2D collision) {
-       if (!blocking) {
+        if (!blocking) {
+            
             if (collision.GetComponent<DamageScript>() != null) {
                 DamageScript damageScript = collision.GetComponent<DamageScript>();
                 Damage(damageScript.damage);
@@ -78,5 +79,4 @@ public class Health1 : MonoBehaviour {
             }
         }
     }
-   
 }

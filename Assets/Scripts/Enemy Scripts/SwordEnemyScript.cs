@@ -16,10 +16,10 @@ public class SwordEnemyScript : EnemyScript {
     //components
     private SpriteRenderer sr;
     //scrupts
-    [SerializeField] private MeleeAttack melee;
     [SerializeField] private IdelState idelState;
     [SerializeField] private AgroState agroState;
-    [SerializeField] private AttackState attackState;
+    [SerializeField] private EnemyAttackState attackState;
+    [SerializeField] private RecoveryState recoverState;
     private Health1 health;
     private State state;
     private bool idelMoving = true;
@@ -53,7 +53,8 @@ public class SwordEnemyScript : EnemyScript {
         idelState.Setup(rb, animatior,playerVariable: this);
         agroState.Setup(rb, animatior, playerVariable: this);
         attackState.Setup(rb, animatior, playerVariable: this);
-        state=idelState;
+        recoverState.Setup(rb, animatior, playerVariable: this);
+        state =idelState;
         state.Enter();
 
     }
@@ -63,34 +64,21 @@ public class SwordEnemyScript : EnemyScript {
     // Update is called once per frame
     void Update() {
         direction = WallCheck(direction);
+        state.UpdateState();
 
-      /*
-            case State.Attack:
-                moveSpeed = 0;
-                float attackRecharge = 1f;
-                if (!attacking) {
-                    if (!WithinAttackRange(direction)) {
-                        state = State.Idel;
-                        break;
-                    }
-                    Invoke(ATTACKSTART, attackRecharge);
-                    attacking = true;
-                }
-                break;
-            default:
-                state = State.Idel;
-                break;
-        }*/
-
-        //horizontal movement
+        
         StateChange();
             sr.flipX = direction < 0;
     }
     private void FixedUpdate() {
         /*MOVE LEFT AND RIGHT*/
         //rb.velocity = new Vector2(direction * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
-        if(state)
-        state.FixedUpdateState();
+        if (state.interuptable) {
+            moveVetcor = move.ReadValue<Vector2>();
+            StateChange();
+        } else if (state.stateDone) {
+            StateChange();
+        }
 
     }
 
@@ -99,15 +87,21 @@ public class SwordEnemyScript : EnemyScript {
         if (WithinAgroRange(direction)) {
             
             if (WithinAttackRange(direction)) {
-                state = attackState;
+                if (state.recover) {
+                    state = attackState;
+                } else {
+                    state = recoverState;
+                }
             } else {
                 state = agroState;
             }
         } else {
             state = idelState;
         }
+        
         if (oldState != state) {
             oldState.Exit();
+            Debug.Log(state.name);
             state.Enter();
             
             //state.ResetState();
