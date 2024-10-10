@@ -16,6 +16,7 @@ public class RecoveryState : State
     }
 
     public override void Exit() {
+        recovering=false;
         stateDone = false;
     }
 }

@@ -86,7 +86,7 @@ public class SwordEnemyScript : EnemyScript {
         if (WithinAgroRange(direction)) {
             
             if (WithinAttackRange(direction)) {
-                if (!state.recover) {
+                if (!state.recovering) {
                     state = attackState;
                 } else {
                     state = recoverState;

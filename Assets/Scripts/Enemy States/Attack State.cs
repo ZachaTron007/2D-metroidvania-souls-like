@@ -17,19 +17,14 @@ public class EnemyAttackState : State
         StartCoroutine(Attack(direction));
     }
 
-    private void Attack() {
-        attacking = true;
-        attacking = false;
-    }
-
     public IEnumerator Attack(float direction) {
         animator.Play(currentAttack.clip.name);
-        float startAttack = currentAttack.clip.length / 2;
-        yield return new WaitForSeconds(startAttack);
+        float hitBoxStartTime = currentAttack.clip.length / 2;
+        yield return new WaitForSeconds(hitBoxStartTime);
         currentAttack.attackHitBox.enabled = true;
         currentAttack.attackHitBox.offset = offsetVector(direction);
-        float endAttack = currentAttack.clip.length / 2;
-        yield return new WaitForSeconds(endAttack);
+        float hitBoxStayTime = currentAttack.clip.length / 2;
+        yield return new WaitForSeconds(hitBoxStayTime);
         currentAttack.attackHitBox.enabled = false;
         Exit();
     }
