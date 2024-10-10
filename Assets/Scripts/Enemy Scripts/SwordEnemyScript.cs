@@ -74,7 +74,6 @@ public class SwordEnemyScript : EnemyScript {
         /*MOVE LEFT AND RIGHT*/
         //rb.velocity = new Vector2(direction * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
         if (state.interuptable) {
-            moveVetcor = move.ReadValue<Vector2>();
             StateChange();
         } else if (state.stateDone) {
             StateChange();
@@ -87,7 +86,7 @@ public class SwordEnemyScript : EnemyScript {
         if (WithinAgroRange(direction)) {
             
             if (WithinAttackRange(direction)) {
-                if (state.recover) {
+                if (!state.recover) {
                     state = attackState;
                 } else {
                     state = recoverState;

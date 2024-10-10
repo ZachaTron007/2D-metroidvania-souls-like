@@ -9,10 +9,10 @@ public class RecoveryState : State
     [SerializeField] private AnimationClip walkAniamtion;
     [SerializeField] private float recoverTime;
     public override void Enter() {
-        animator.Play(idelClip.name);
+        animator.Play(idelAniamtion.name);
         rb.velocity = Vector2.zero;
         interuptable = true;
-        invoke("Exit", recoverTime);
+        Invoke("Exit", recoverTime);
     }
 
     public override void Exit() {

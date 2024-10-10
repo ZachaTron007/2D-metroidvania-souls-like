@@ -7,7 +7,7 @@ public abstract class State : MonoBehaviour {
     protected Rigidbody2D rb;
     protected float direction;
     protected Animator animator;
-    protected bool recover = false;
+    public bool recover { get; protected set; } = false;
     public bool interuptable { get; protected set; } = true;
     public bool stateDone;
     protected Unit playerVariables;
