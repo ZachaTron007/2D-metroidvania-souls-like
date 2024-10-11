@@ -50,10 +50,10 @@ public class SwordEnemyScript : EnemyScript {
 
         //attacks
         //state = idelState;
-        idelState.Setup(rb, animatior,playerVariable: this);
-        agroState.Setup(rb, animatior, playerVariable: this);
-        attackState.Setup(rb, animatior, playerVariable: this);
-        recoverState.Setup(rb, animatior, playerVariable: this);
+        idelState.Setup(rb, animatior,UnitVariables: this);
+        agroState.Setup(rb, animatior, UnitVariables: this);
+        attackState.Setup(rb, animatior, UnitVariables: this);
+        recoverState.Setup(rb, animatior, UnitVariables: this);
         state =idelState;
         state.Enter();
 
@@ -65,26 +65,23 @@ public class SwordEnemyScript : EnemyScript {
     void Update() {
         direction = WallCheck(direction);
         state.UpdateState();
-
-        
-        StateChange();
-            sr.flipX = direction < 0;
-    }
-    private void FixedUpdate() {
-        /*MOVE LEFT AND RIGHT*/
-        //rb.velocity = new Vector2(direction * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
         if (state.interuptable) {
             StateChange();
         } else if (state.stateDone) {
             StateChange();
         }
-
+        sr.flipX = direction < 0;
+    }
+    private void FixedUpdate() {
+        /*MOVE LEFT AND RIGHT*/
+        //rb.velocity = new Vector2(direction * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
+        
+        state.FixedUpdateState();
     }
 
     private void StateChange() {
         State oldState = state;
         if (WithinAgroRange(direction)) {
-            
             if (WithinAttackRange(direction)) {
                 if (!state.recovering) {
                     state = attackState;
@@ -99,11 +96,7 @@ public class SwordEnemyScript : EnemyScript {
         }
         
         if (oldState != state) {
-            oldState.Exit();
-            Debug.Log(state.name);
-            state.Enter();
-            
-            //state.ResetState();
+            state.ResetState(oldState);
         }
     }
 

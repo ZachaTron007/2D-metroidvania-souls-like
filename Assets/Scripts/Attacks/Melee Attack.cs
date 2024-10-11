@@ -26,11 +26,11 @@ public class MeleeAttack : State
 
     // Update is called once per frame
     public override void Enter() {
-        if (playerVariables.attackTime >= currentClipTime) {
+        if (unitVariables.attackTime >= currentClipTime) {
             UpdateAttack();
             
-            StartCoroutine(Attack(playerVariables.direction));
-            playerVariables.attackTime = 0.0f;
+            StartCoroutine(Attack(unitVariables.direction));
+            unitVariables.attackTime = 0.0f;
         } else {
             Exit();
         }
@@ -70,7 +70,7 @@ public class MeleeAttack : State
         if (attackNum >= basicCombo.Length) {
             attackNum = 0;
         }
-        if (playerVariables.attackTime >= comboEndTime) {
+        if (unitVariables.attackTime >= comboEndTime) {
             attackNum = 0;
         }
         //sets the current attack

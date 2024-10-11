@@ -36,7 +36,7 @@ public class IdelState : State {
     private void Walk() {
         if (idel) {
             animator.Play(walkAniamtion.name);
-            rb.velocity = new Vector2(playerVariables.direction * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
+            rb.velocity = new Vector2(unitVariables.direction * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
             float stopLowSpeed = 1f;
             float stopHighSpeed = 2f;
             Invoke("Stay", Random.Range(stopLowSpeed, stopHighSpeed));

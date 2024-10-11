@@ -12,6 +12,6 @@ public class AgroState : State
     }
     public override void FixedUpdateState() {
 
-        rb.velocity = new Vector2(playerVariables.direction * agroSpeed * Time.fixedDeltaTime, rb.velocity.y);
+        rb.velocity = new Vector2(unitVariables.direction * agroSpeed * Time.fixedDeltaTime, rb.velocity.y);
     }
 }

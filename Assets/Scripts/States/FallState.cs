@@ -26,7 +26,7 @@ public class FallState : State
         //rb.velocity = Vector2.zero;
     }
     public override void UpdateState() {
-        if (playerVariables.grounded) {
+        if (unitVariables.grounded) {
             Exit();
         }
 

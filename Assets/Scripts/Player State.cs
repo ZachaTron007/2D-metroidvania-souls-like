@@ -139,9 +139,8 @@ public class PlayerState : Unit {
 
         //Debug.Log("is "+oldState.name+" interuptable: "+oldState.interuptable);
         if(oldState!= state) {
-            oldState.Exit();
             rb.velocity = new Vector2(0, rb.velocity.y);
-            state.ResetState();
+            state.ResetState(oldState);
         }
     }
     private void FixedUpdate() {

@@ -10,22 +10,23 @@ public abstract class State : MonoBehaviour {
     public bool recovering { get; protected set; } = false;
     public bool interuptable { get; protected set; } = true;
     public bool stateDone;
-    protected Unit playerVariables;
+    protected Unit unitVariables;
     public virtual void UpdateState () { }
     public virtual void FixedUpdateState () { }
     public virtual void Enter () { }
     public virtual void Exit () { }
 
-    public void Setup (Rigidbody2D rb, Animator animator, PlayerState playerVariables=null,Unit playerVariable=null) { 
+    public void Setup (Rigidbody2D rb, Animator animator, PlayerState playerVariables=null,Unit UnitVariables=null) { 
         this.rb = rb;
         this.animator = animator;
         if (playerVariables) {
-            this.playerVariables = playerVariables;
-        }else if (playerVariable) {
-            this.playerVariables = playerVariable;
+            this.unitVariables = playerVariables;
+        }else if (UnitVariables) {
+            this.unitVariables = UnitVariables;
         }
     }
-    public void ResetState () {
+    public void ResetState (State oldState) {
+        oldState.Exit();
         stateDone = false;
         Enter();
     }

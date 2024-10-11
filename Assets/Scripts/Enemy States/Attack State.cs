@@ -11,6 +11,7 @@ public class EnemyAttackState : State
     [SerializeField] private AttackScript attack;
 
     public override void Enter() {
+        interuptable = false;
         int attackNum = Random.Range(0, attacks.Length);
         currentAttack = attacks[attackNum];
         rb.velocity = Vector2.zero;
@@ -29,7 +30,8 @@ public class EnemyAttackState : State
         Exit();
     }
     public override void Exit() {
-        recover = true;
+        stateDone = true;
+        recovering = true;
     }
     protected Vector2 offsetVector(float direction) {
         return new Vector2(direction * .87f, 1.27f);
