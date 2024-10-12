@@ -1,12 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class EnemyScript : Unit {
+public abstract class EnemyScript : Unit {
     protected float maxDist = .3f;
-
-    protected BoxCollider2D boxCollider;
+    [SerializeField] protected Sensors agroRange;
+    [SerializeField] protected Sensors attackRange;
+    protected bool isWithinAgroRange = false;
+    protected bool isWithinAttackRange = false;
 
     protected int WallCheck(int direction) {
         //layers to hit
@@ -18,32 +22,89 @@ public class EnemyScript : Unit {
         
         return direction;
     }
-
-    protected bool WithinAgroRange(int direction) {
-        float distance = 5;
-        //layers to hit
-        int layerNumber = 3;
-        RaycastHit2D hit = ShootRay(direction, layerNumber, distance);
-
-        return hit;
+    
+    /*
+     * summary:
+     * collider enter and exit events for agro and attack range
+     */
+    protected void AgroRangeEnter(Collider2D other) {
+        if (other.gameObject.tag == "Player") {
+            isWithinAgroRange = true;
+            
+        }
     }
-    protected bool WithinAttackRange(int direction) {
-        float distance = .5f;
-        //layers to hit
-        int layerNumber = 3;
-        RaycastHit2D hit = ShootRay(direction, layerNumber, distance);
-
-        return hit;
+    protected void AgroRangeStay(Collider2D other) {
+        if (other.gameObject.tag == "Player") {
+            Vector2 directionOfPlayer = other.gameObject.transform.position - gameObject.transform.position;
+            direction = directionOfPlayer.x > direction ? 1 : -1;
+            if (directionOfPlayer.y>0) {
+                if(ShootRayDirection(Vector2.up, 6, directionOfPlayer.y)) {
+                    isWithinAgroRange = false;
+                } else {
+                    isWithinAgroRange = true;
+                }
+            }
+        }
+    }
+    protected void AgroRangeExit(Collider2D other) {
+        if (other.gameObject.tag == "Player") {
+            isWithinAgroRange = false;
+        }
+    }
+    
+    protected void AttackRangeEnter(Collider2D other) {
+        if (other.gameObject.tag == "Player") {
+            
+            isWithinAttackRange = true;
+        }
+    }
+    protected void AttackRangeStay(Collider2D other) {
+        
+    }
+    protected void AttackRangeExit(Collider2D other) {
+        if (other.gameObject.tag == "Player") {
+            isWithinAttackRange = false;
+        }
+    }
+    
+    /*
+     * summary:
+     * subscribing to the events
+     * runs when the object is created
+     */
+    protected void AgroAttackColliders() {
+        
+        agroRange.triggerEnter += AgroRangeEnter;
+        agroRange.triggerStay += AgroRangeStay;
+        agroRange.triggerExit += AgroRangeExit;
+        attackRange.triggerEnter += AttackRangeEnter;
+        attackRange.triggerStay += AttackRangeStay;
+        attackRange.triggerExit += AttackRangeExit;
+        if(health!=null)
+            health.dieEvent += Die;
     }
 
-    protected RaycastHit2D ShootRay(int direction,int layerNumber,float dist) {
-        //trasnforms that number into a layer mask
-        int layerMask = 1 << layerNumber;
-        Vector3 startPosition = gameObject.transform.position + new Vector3(transform.localScale.x/2 * direction,gameObject.transform.localScale.y / 2,0);
-        Vector2 rayDirection = new Vector2(direction, 0f);
-        RaycastHit2D hit = Physics2D.Raycast(startPosition, rayDirection, dist, layerMask);
-        Debug.DrawRay(startPosition,rayDirection,Color.green,.1f);
-        return hit;
+    /*
+     * summary:
+     * unsubscribing to the events
+     * runs when the object is dies
+     */
+    public void DisableEventColliders(Action<Collider2D>[] subsriberEvents, Sensors[] sensors) {
+        foreach (Sensors sensor in sensors) {
+            foreach (Action<Collider2D> subsriberEvent in subsriberEvents) {
+                sensor.triggerEnter -= subsriberEvent;
+                sensor.triggerExit -= subsriberEvent;
+            }
+        }
+        
+    }
+    /*
+     * summary:
+     * an event function that calls the function to unsubscribe to the events
+     */
+    public void Die() {
+        DisableEventColliders(new Action<Collider2D>[] { AgroRangeEnter, AgroRangeStay, AgroRangeExit, AttackRangeEnter, AttackRangeExit }, new Sensors[] { agroRange, attackRange });
+        health.dieEvent -= Die;
     }
 
 }

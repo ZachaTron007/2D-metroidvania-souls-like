@@ -14,4 +14,8 @@ public class AgroState : State
 
         rb.velocity = new Vector2(unitVariables.direction * agroSpeed * Time.fixedDeltaTime, rb.velocity.y);
     }
+
+    public override void UpdateState() {
+        
+    }
 }

@@ -8,22 +8,21 @@ public class FallState : State
     [SerializeField] private float fallGravMultiplier = 3f;
     
     private float terminalVelocity = 15;
-    private void fallGravity(Rigidbody2D rb) {
+    private void fallGravity() {
         rb.velocity += Vector2.up * Physics.gravity.y * (fallGravMultiplier - rb.gravityScale) * Time.deltaTime;
     }
 
     public override void FixedUpdateState() {
-        fallGravity(rb);
-
+        if (rb.velocity.y > -terminalVelocity) {
+            fallGravity();
+        } else {
+            rb.velocity =new Vector2(rb.velocity.x, -terminalVelocity);
+        }
     }
     public override void Enter() {
         animator.Play(fallClip.name);
         //reset gravity
         rb.gravityScale = 2;
-    }
-    public override void Exit() {
-        stateDone = true;
-        //rb.velocity = Vector2.zero;
     }
     public override void UpdateState() {
         if (unitVariables.grounded) {

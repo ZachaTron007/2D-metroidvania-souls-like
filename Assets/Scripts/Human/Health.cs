@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,16 +14,12 @@ public class Health1 : MonoBehaviour {
     private Vector4 normalColor;
     private float colorChangeSpeed = 0.7f;
     private SpriteRenderer sr;
-    [SerializeField] private float parryWindow = 5f;
-    private int blockButton = 1;
+    //[SerializeField] private float parryWindow = 5f;
+    public event Action dieEvent;
     public bool blocking = false;
-    
-    private const string BLOCKING = "blocking";
-    private const string BLOCKPARRY = "blockParry";
 
     // Update is called once per frame
     private void Awake() {
-        player = GetComponent<PlayerState>();
         health = MAX_HEALTH;
         sr = GetComponent<SpriteRenderer>();
         normalColor = sr.color;
@@ -65,10 +62,19 @@ public class Health1 : MonoBehaviour {
     }
 
     public void die() {
+        dieEvent?.Invoke();
         Debug.Log(gameObject.name + " died");
         Destroy(gameObject);
     }
 
+    public void DisableEventColliders(Action<Collider2D>[] subsriberEvents, Sensors[] sensors) {
+        foreach (Sensors sensor in sensors) {
+            foreach (Action<Collider2D> subsriberEvent in subsriberEvents) {
+                sensor.triggerEnter -= subsriberEvent;
+                sensor.triggerExit -= subsriberEvent;
+            }
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision) {
         if (!blocking) {
             

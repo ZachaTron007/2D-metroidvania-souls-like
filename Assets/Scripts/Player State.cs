@@ -12,7 +12,6 @@ using UnityEngine.UIElements;
 public class PlayerState : Unit {
     private PlayerControls playerControls;
     private InputAction move;
-    private BoxCollider2D mainCollider;
     private CapsuleCollider2D clipCollider;
 
     //movements
@@ -29,13 +28,11 @@ public class PlayerState : Unit {
     //components
     //[Header("Player Components")]
     public Vector2 moveVetcor { get; private set; }
-    private SpriteRenderer sr;
     //scrupts
     [Header("States")]
     [SerializeField] private PlayerIdelState idelState;
-    [SerializeField] private MeleeAttack melee;
+    [SerializeField] private PlayerAttack melee;
     [SerializeField] private dashScript Dash;
-    private Health1 health;
     [SerializeField] public jumpScript jumpScript;
     [SerializeField] public FallState fallState;
     [SerializeField] private wallActionsScript wallActions;
@@ -54,17 +51,11 @@ public class PlayerState : Unit {
 
         //get the input system
         playerControls = new PlayerControls();
-        //scripts
-        
-        health = GetComponent<Health1>();
-        
+
         //melee = attackManager.GetComponent<MeleeAttack>();
         //get the rigidbody and collider reffrences
-        rb = GetComponent<Rigidbody2D>();
-        mainCollider = GetComponent<BoxCollider2D>();
-        clipCollider = GetComponent<CapsuleCollider2D>();
-        animatior = GetComponent<Animator>();
-        sr = GetComponent<SpriteRenderer>();
+        ComponentSetup();
+
 
         jumpScript.Setup(rb, animatior, this);
         fallState.Setup(rb, animatior, this);
@@ -81,14 +72,14 @@ public class PlayerState : Unit {
     // Update is called once per frame
 
     void Update() {
-            GroundTouch();
+        GroundTouch();
 
         //horizontal movement
         attackTime += Time.deltaTime;
 
         if (moveVetcor.x != 0) {
             direction = (int)moveVetcor.x;
-            sr.flipX = direction < 0;
+            directionFlip();
 
         }
         //the iniatal jump, you need to be in kyote time or on the ground
@@ -106,7 +97,7 @@ public class PlayerState : Unit {
 
     }
 
-    private void StateChange() {
+    protected override void StateChange() {
         State oldState = state;
         if(grounded&&state!=jumpScript) {
             //checks to see if you are moving
@@ -119,6 +110,7 @@ public class PlayerState : Unit {
             if (Input.GetKeyDown(jump)) {
                 state = jumpScript;
             }
+            
             //checks to see if you are falling
         }else if (rb.velocity.y < 0) {
             state = fallState;
@@ -136,8 +128,6 @@ public class PlayerState : Unit {
         if (Input.GetMouseButtonDown(blockButton)) {
             state=blockState;
         }
-
-        //Debug.Log("is "+oldState.name+" interuptable: "+oldState.interuptable);
         if(oldState!= state) {
             rb.velocity = new Vector2(0, rb.velocity.y);
             state.ResetState(oldState);
@@ -160,23 +150,7 @@ public class PlayerState : Unit {
         
     }
 
-    private bool GroundTouch() {
-        Vector2 BoxDimentions = new Vector2(.1f, .1f);
-        //hits walls
-        int layerNumber = 6;
-        int layerMask = 1 << layerNumber;
-        float distanceAdditon = 0.1f;
-        //bool groundHit = Physics2D.BoxCast(transform.position, BoxDimentions, 0, Vector2.down, mainCollider.size.y / 2 + distanceAdditon, layerMask);
-        RaycastHit2D groundHit = Physics2D.Raycast(transform.position, Vector2.down,distanceAdditon, layerMask);
-        Debug.DrawRay(transform.position, Vector2.down, Color.green, .1f);
-        if (groundHit) {
-            grounded = true;
-        } else {
-            grounded = false;
-        }
-        //animatior.SetBool(NOTJUMPING, groundHit);
-        return groundHit;
-    }
+    
 
     private void OnEnable() {
         move = playerControls.Player.Move;
