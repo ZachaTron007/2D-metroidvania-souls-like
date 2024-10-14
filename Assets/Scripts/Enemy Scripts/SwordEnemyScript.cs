@@ -10,11 +10,11 @@ using UnityEngine.InputSystem;
 
 public class SwordEnemyScript : EnemyScript {
     //scrupts
+    [Header("States")]
     [SerializeField] private IdelState idelState;
     [SerializeField] private AgroState agroState;
     [SerializeField] private EnemyAttackState attackState;
     [SerializeField] private RecoveryState recoverState;
-    private State state;
 
 
     private void Awake() {
@@ -39,8 +39,9 @@ public class SwordEnemyScript : EnemyScript {
         direction = WallCheck();
 
         state.UpdateState();
-        InteruptrableStateChange(state);
+        InteruptrableStateChange();
         directionFlip();
+        
     }
     private void FixedUpdate() {
         state.FixedUpdateState();

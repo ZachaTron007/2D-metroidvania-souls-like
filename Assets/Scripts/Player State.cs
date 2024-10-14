@@ -39,8 +39,6 @@ public class PlayerState : Unit {
     [SerializeField] public MoveState moveState;
     [SerializeField] public BlockState blockState;
 
-    [Header("Current State")]
-    public State state;
     //buttons
     private KeyCode jump = KeyCode.Space;
     private KeyCode dash = KeyCode.LeftShift;

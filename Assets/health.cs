@@ -78,7 +78,6 @@ public class Health : MonoBehaviour
     }
 
     private void GetHit(Collider2D collision) {
-        Debug.Log("Get Hit");
         if (!blocking) {
             if (collision.GetComponent<DamageScript>() != null) {
                 DamageScript damageScript = collision.GetComponent<DamageScript>();

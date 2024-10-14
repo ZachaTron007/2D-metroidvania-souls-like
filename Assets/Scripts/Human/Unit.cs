@@ -10,9 +10,14 @@ public abstract class Unit : MonoBehaviour
     public Animator animatior;
     protected SpriteRenderer sr;
     protected BoxCollider2D mainCollider;
+    [Header("Current State")]
+
+    [SerializeField] protected State state;
+
+    [Header("Properties")]
+    public float attackTime;
     public int direction { get; protected set; } = 1;
     public float moveSpeed { get; protected set; } = 250;
-    public float attackTime;
     public bool grounded { get; protected set; }
     
     /*
@@ -39,7 +44,7 @@ public abstract class Unit : MonoBehaviour
      * makes sure the you cant interupt the state,
      * and when state is done, it forces a change
      */
-    protected void InteruptrableStateChange(State state) {
+    protected void InteruptrableStateChange() {
         if (state.interuptable) {
             StateChange();
         } else if (state.stateDone) {

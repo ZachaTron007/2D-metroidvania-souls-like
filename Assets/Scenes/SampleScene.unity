@@ -192,7 +192,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 1.01}
+  m_Offset: {x: 0.18, y: 1.01}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -203,7 +203,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 3}
+  m_Size: {x: 0.7, y: 3}
   m_EdgeRadius: 0
 --- !u!114 &55742236
 MonoBehaviour:
@@ -2075,7 +2075,7 @@ PrefabInstance:
     - target: {fileID: 361345800473325895, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
       propertyPath: agroRange
       value: 
-      objectReference: {fileID: 55742236}
+      objectReference: {fileID: 55742233}
     - target: {fileID: 361345800473325895, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
       propertyPath: agroState
       value: 
@@ -2087,7 +2087,7 @@ PrefabInstance:
     - target: {fileID: 361345800473325895, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
       propertyPath: attackRange
       value: 
-      objectReference: {fileID: 889542613}
+      objectReference: {fileID: 889542611}
     - target: {fileID: 361345800473325895, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
       propertyPath: attackState
       value: 
@@ -4163,7 +4163,11 @@ PrefabInstance:
       objectReference: {fileID: 7400000, guid: c42aa71ad221ea349a7ee113bb662657, type: 2}
     - target: {fileID: 5291847611544779882, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5659295172002192011, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: m_Mass
+      value: 1.129632
       objectReference: {fileID: 0}
     - target: {fileID: 6378908112458984836, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: melee
