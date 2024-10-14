@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BlockState : State
 {
-    [SerializeField] private Health1 health;
+    [SerializeField] private Health health;
     [SerializeField] private AnimationClip blockingClip;
     [SerializeField] private AnimationClip parryClip;
     [SerializeField] private float parryWindow = 5f;

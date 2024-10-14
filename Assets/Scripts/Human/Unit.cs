@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class Unit : MonoBehaviour
 {
-    protected Health1 health;
+    protected Health health;
     public Rigidbody2D rb;
     public Animator animatior;
     protected SpriteRenderer sr;
@@ -21,7 +21,7 @@ public abstract class Unit : MonoBehaviour
      * components that are special to that unit are setup in their class
      */
     public void ComponentSetup() {
-        health = GetComponent<Health1>();
+        health = GetComponent<Health>();
         rb = GetComponent<Rigidbody2D>();
         animatior = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();

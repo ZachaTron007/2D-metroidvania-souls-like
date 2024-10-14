@@ -1,19 +1,28 @@
+using Sirenix.OdinInspector.Editor.GettingStarted;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
-public class Test : MonoBehaviour
+[CustomEditor(typeof(Health))]
+public class Test : Editor
 {
-    [SerializeField] protected AttackScript currentAttack;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    /*
+    public override void OnInspectorGUI() {
+        Health script = (Health)target;
+        //customButton<Health1>("Heal");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        Debug.Log(currentAttack);
+    private void customButton<T>(string buttonName) where T : UnityEngine.Object {
+            T script = (T)target;
+            DrawDefaultInspector();
+            if (GUILayout.Button(buttonName)) {
+            //.Heal;
+
+            }
+
     }
+    */
 }

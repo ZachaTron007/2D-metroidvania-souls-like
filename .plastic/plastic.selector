@@ -1,4 +1,0 @@
-repository "2D metroidvania souls-like@zach1976727@cloud"
-  path "/"
-    br "/main"
-    co "/main"

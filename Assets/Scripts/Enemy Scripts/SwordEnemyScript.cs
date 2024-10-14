@@ -36,11 +36,11 @@ public class SwordEnemyScript : EnemyScript {
 
     // Update is called once per frame
     void Update() {
-        direction = WallCheck(direction);
+        direction = WallCheck();
 
         state.UpdateState();
         InteruptrableStateChange(state);
-        sr.flipX = direction < 0;
+        directionFlip();
     }
     private void FixedUpdate() {
         state.FixedUpdateState();

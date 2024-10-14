@@ -12,7 +12,7 @@ public abstract class EnemyScript : Unit {
     protected bool isWithinAgroRange = false;
     protected bool isWithinAttackRange = false;
 
-    protected int WallCheck(int direction) {
+    protected int WallCheck() {
         //layers to hit
         int layerNumber = 6;
         RaycastHit2D hit = ShootRay(direction, layerNumber, maxDist);
