@@ -8,21 +8,31 @@ using UnityEngine;
 
 [CustomEditor(typeof(Health))]
 public class Test : Editor
-{
-    /*
+{/*
+    public Health health;
+    delegate void Button(int health);
+    Button button;
+    private void Start() {
+        button = health.Damage;
+    }*//*
     public override void OnInspectorGUI() {
-        Health script = (Health)target;
-        //customButton<Health1>("Heal");
+        health = ()target;
+        customButton<Health1>("Heal",button,50);
+        /*DrawDefaultInspector();
+        if (GUILayout.Button("Heal")) {
+            health.Heal(50);
+
+        }
     }
 
-    private void customButton<T>(string buttonName) where T : UnityEngine.Object {
+    private void customButton<T>(string buttonName,Button button,int param) where T : UnityEngine.Object {
             T script = (T)target;
             DrawDefaultInspector();
             if (GUILayout.Button(buttonName)) {
-            //.Heal;
+            button(param);
 
             }
 
-    }
-    */
+    }*/
+    
 }

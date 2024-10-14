@@ -48,12 +48,16 @@ public abstract class EnemyScript : Unit {
     protected void AgroRangeStay(Collider2D other) {
         if (other.gameObject.tag == "Player") {
             Vector2 directionOfPlayer = other.gameObject.transform.position - gameObject.transform.position;
-            if (!state.interuptable) {
+            Debug.Log(state.interuptable + " " + state.name);
+            if (state.interuptable) {
                 int tempDirection = direction;
-                direction = directionOfPlayer.x > direction ? 1 : -1;
-                if (tempDirection != direction) {
-                    agroRangeHitbox.offset *= new Vector2(-1, 1);
-                    attackRangeHitbox.offset *= new Vector2(-1, 1);
+                if (Mathf.Abs(directionOfPlayer.x) < .1) {
+                    direction = directionOfPlayer.x > direction ? 1 : -1;
+                    Debug.Log("Direction of player is: " + directionOfPlayer.x + " and direcrion of enemy is: " + direction);
+                    if (tempDirection != direction) {
+                        agroRangeHitbox.offset *= new Vector2(-1, 1);
+                        attackRangeHitbox.offset *= new Vector2(-1, 1);
+                    }
                 }
             }
             if (directionOfPlayer.y>0) {

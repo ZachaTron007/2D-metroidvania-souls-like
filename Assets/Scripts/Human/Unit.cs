@@ -5,6 +5,7 @@ using UnityEngine;
 
 public abstract class Unit : MonoBehaviour
 {
+    [Header("Components required by States")]
     protected Health health;
     public Rigidbody2D rb;
     public Animator animatior;
