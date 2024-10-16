@@ -26,7 +26,7 @@ public class SwordEnemyScript : EnemyScript {
         agroState.Setup(rb, animatior, UnitVariables: this);
         attackState.Setup(rb, animatior, UnitVariables: this);
         recoverState.Setup(rb, animatior, UnitVariables: this);
-        state =idelState;
+        state = idelState;
         state.Enter();
         AgroAttackColliders();
 

@@ -32,6 +32,7 @@ public abstract class Unit : MonoBehaviour
         animatior = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
         mainCollider = GetComponent<BoxCollider2D>();
+        direction = sr.flipX ? 1 : -1;
     }
 
     /*
@@ -91,15 +92,18 @@ public abstract class Unit : MonoBehaviour
         Vector3 startPosition = gameObject.transform.position + new Vector3(transform.localScale.x / 2 * direction, gameObject.transform.localScale.y / 2, 0);
         Vector2 rayDirection = new Vector2(direction, 0f);
         RaycastHit2D hit = Physics2D.Raycast(startPosition, rayDirection, dist, layerMask);
-        Debug.DrawRay(startPosition, rayDirection, Color.green, .1f);
+        //Debug.DrawRay(startPosition, rayDirection, Color.green, .1f);
         return hit;
     }
     protected RaycastHit2D ShootRayDirection(Vector2 direction, int layerNumber, float dist) {
         //trasnforms that number into a layer mask
         int layerMask = LayerNumToLayerMask(layerNumber);
-        Vector3 startPosition = gameObject.transform.position + new Vector3(transform.localScale.x / 2 * direction.x, gameObject.transform.localScale.y / 2 * direction.y, 0);
-        RaycastHit2D hit = Physics2D.Raycast(startPosition, direction, dist, layerMask);
-        Debug.DrawRay(startPosition, direction, Color.green, .1f);
+        //gets the height of the collider and div by 2 to get the center
+        //add the offset of the collider
+        Vector3 startOffset = new Vector3(transform.localScale.x / 2 * direction.x, gameObject.transform.localScale.y / 2 * direction.y, 0) + new Vector3(mainCollider.offset.x, mainCollider.offset.y, 0);
+        Vector3 startPosition = gameObject.transform.position + startOffset;
+        RaycastHit2D hit = Physics2D.Raycast(startPosition, direction.normalized, dist, layerMask);
+        Debug.DrawRay(startPosition, direction.normalized, Color.green, 1f);
         return hit;
     }
     /*
