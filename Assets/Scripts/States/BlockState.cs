@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -5,18 +6,18 @@ using UnityEngine;
 
 public class BlockState : State
 {
-    [SerializeField] private Health health;
     [SerializeField] private AnimationClip blockingClip;
     [SerializeField] private AnimationClip parryClip;
     [SerializeField] private float parryWindow = 5f;
     
     [SerializeField] private bool blocking = false;
     [SerializeField] private bool parrying = false;
+    public event Action <bool> onBlock;
 
 
     public override void Enter() {
         Block();
-        health.blocking = true;
+        interuptable = false;
 
     }
 
@@ -27,11 +28,12 @@ public class BlockState : State
     }
 
     public override void Exit() {
-        health.blocking = false;
+        onBlock?.Invoke(false);
         stateDone = true;
     }
 
     public void Block() {
+        onBlock?.Invoke(true);
         animator.Play(blockingClip.name);
         //float parryWindow = .5f;
         parrying = true;

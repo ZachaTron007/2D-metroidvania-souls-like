@@ -26,7 +26,7 @@ public abstract class Unit : MonoBehaviour
      * a required function for all units to setup the nessessary components,
      * components that are special to that unit are setup in their class
      */
-    public void ComponentSetup() {
+    protected void ComponentSetup() {
         health = GetComponent<Health>();
         rb = GetComponent<Rigidbody2D>();
         animatior = GetComponent<Animator>();
@@ -38,7 +38,7 @@ public abstract class Unit : MonoBehaviour
      * summary:
      * meant to be inherited and the logic to change the state is stored in here
      */
-    protected abstract void StateChange();
+    protected abstract void StateChange(State manualSate = null);
 
     /*
      * summary:

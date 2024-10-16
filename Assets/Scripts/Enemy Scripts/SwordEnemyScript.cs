@@ -47,7 +47,7 @@ public class SwordEnemyScript : EnemyScript {
         state.FixedUpdateState();
     }
 
-    protected override void StateChange() {
+    protected override void StateChange(State manualState = null) {
         State oldState = state;
         if (!isWithinAgroRange) {
             state = idelState;

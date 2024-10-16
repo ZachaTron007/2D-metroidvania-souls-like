@@ -38,6 +38,7 @@ public class PlayerState : Unit {
     [SerializeField] private wallActionsScript wallActions;
     [SerializeField] public MoveState moveState;
     [SerializeField] public BlockState blockState;
+    [SerializeField] public HurtState hurtState;
 
     //buttons
     private KeyCode jump = KeyCode.Space;
@@ -62,8 +63,10 @@ public class PlayerState : Unit {
         idelState.Setup(rb, animatior, this);
         blockState.Setup(rb, animatior, this);
         melee.Setup(rb, animatior, this);
+        hurtState.Setup(rb, animatior, this);
         state = idelState;
         tempMoveSpeed = moveSpeed;
+        health.getHitEvent += GetHurt;
 
     }
 
@@ -95,7 +98,7 @@ public class PlayerState : Unit {
 
     }
 
-    protected override void StateChange() {
+    protected override void StateChange(State manualState=null) {
         State oldState = state;
         if(grounded&&state!=jumpScript) {
             //checks to see if you are moving
@@ -126,6 +129,8 @@ public class PlayerState : Unit {
         if (Input.GetMouseButtonDown(blockButton)) {
             state=blockState;
         }
+        if(manualState)
+            state = manualState;
         if(oldState!= state) {
             rb.velocity = new Vector2(0, rb.velocity.y);
             state.ResetState(oldState);
@@ -148,7 +153,9 @@ public class PlayerState : Unit {
         
     }
 
-    
+    private void GetHurt() {
+        StateChange(hurtState);
+    }
 
     private void OnEnable() {
         move = playerControls.Player.Move;

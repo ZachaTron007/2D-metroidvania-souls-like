@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 public class Health : MonoBehaviour
 {
     private PlayerState player;
-
+    [SerializeField] private BlockState blockState;
     [SerializeField] private int health = 100;
     private int MAX_HEALTH = 100;
     private Vector4 hurtColor = new Vector4(255, 62, 62, 255);
@@ -18,7 +18,7 @@ public class Health : MonoBehaviour
     private SpriteRenderer sr;
     [SerializeField] private Sensors hitBox;
     //[SerializeField] private float parryWindow = 5f;
-    private event Action getHitEvent;
+    public event Action getHitEvent;
     public event Action dieEvent;
     public bool blocking = false;
 
@@ -30,6 +30,8 @@ public class Health : MonoBehaviour
         normalColor = sr.color;
         hurtColor /= 255;
         hitBox.triggerEnter += GetHit;
+        if (blockState)
+            blockState.onBlock += SetBlocking;
     }
 
     void Update() {
@@ -46,6 +48,7 @@ public class Health : MonoBehaviour
                 health = 0;
             }
             StartCoroutine(Hurt(sr));
+            getHitEvent?.Invoke();
         }
 
     }
@@ -69,12 +72,11 @@ public class Health : MonoBehaviour
     public void die() {
         dieEvent?.Invoke();
         hitBox.triggerEnter -= GetHit;
+        if (blockState) {
+            blockState.onBlock -= SetBlocking;
+        }
         Debug.Log(gameObject.name + " died");
         Destroy(gameObject);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision) {
-        
     }
 
     private void GetHit(Collider2D collision) {
@@ -84,6 +86,9 @@ public class Health : MonoBehaviour
                 Damage(damageScript.damage);
             }
         }
+    }
+    private void SetBlocking(bool blocking) {
+        this.blocking = blocking;
     }
     
 }
