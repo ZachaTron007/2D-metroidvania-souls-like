@@ -11,21 +11,20 @@ using UnityEngine.InputSystem;
 public class SwordEnemyScript : EnemyScript {
     //scrupts
     [Header("States")]
-    [SerializeField] private IdelState idelState;
     [SerializeField] private AgroState agroState;
     [SerializeField] private EnemyAttackState attackState;
     [SerializeField] private RecoveryState recoverState;
-
+    [SerializeField] protected IdelState idelState;
 
     private void Awake() {
         ComponentSetup();
 
         //attacks
         //state = idelState;
-        idelState.Setup(rb, animatior,UnitVariables: this);
-        agroState.Setup(rb, animatior, UnitVariables: this);
-        attackState.Setup(rb, animatior, UnitVariables: this);
-        recoverState.Setup(rb, animatior, UnitVariables: this);
+        idelState?.Setup(rb, animatior, this);
+        agroState?.Setup(rb, animatior,this);
+        attackState?.Setup(rb, animatior, this);
+        recoverState?.Setup(rb, animatior, this);
         state = idelState;
         state.Enter();
         AgroAttackColliders();
@@ -67,6 +66,7 @@ public class SwordEnemyScript : EnemyScript {
         if (oldState != state) {
             state.ResetState(oldState);
         }
+
     }
 
 }

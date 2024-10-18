@@ -122,6 +122,7 @@ public abstract class EnemyScript : Unit {
                 sensor.triggerExit -= subsriberEvent;
             }
         }
+        EventUnsubscribe();
         
     }
     /*

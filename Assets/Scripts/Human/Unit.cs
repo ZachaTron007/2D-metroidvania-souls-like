@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using UnityEngine;
 
 public abstract class Unit : MonoBehaviour
@@ -14,7 +15,11 @@ public abstract class Unit : MonoBehaviour
     [Header("Current State")]
 
     [SerializeField] protected State state;
-
+    [Header("Required Unit States")]
+    //[SerializeField] protected PlayerIdelState idelState;
+//    [SerializeField] protected ParentMeleeAttack melee;
+    [SerializeField] protected HurtState hurtState;
+    [SerializeField] protected FallState fallState;
     [Header("Properties")]
     public float attackTime;
     public int direction { get; protected set; } = 1;
@@ -32,14 +37,23 @@ public abstract class Unit : MonoBehaviour
         animatior = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
         mainCollider = GetComponent<BoxCollider2D>();
+        hurtState?.Setup(rb, animatior, this);
+        fallState?.Setup(rb, animatior, this);
         direction = sr.flipX ? 1 : -1;
+        EventSubscribe();
     }
-
+    protected virtual void EventSubscribe() {
+        health.getHitEvent += GetHurt;
+    }
+    protected virtual void EventUnsubscribe() {
+        health.getHitEvent -= GetHurt;
+    }
     /*
      * summary:
      * meant to be inherited and the logic to change the state is stored in here
      */
     protected abstract void StateChange(State manualSate = null);
+    //protected abstract void GetHurt();
 
     /*
      * summary:
@@ -111,5 +125,9 @@ public abstract class Unit : MonoBehaviour
      */
     protected void directionFlip() {
         sr.flipX = direction < 0;
+    }
+
+    protected void GetHurt() {
+        StateChange(hurtState);
     }
 }

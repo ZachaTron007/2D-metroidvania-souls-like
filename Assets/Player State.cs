@@ -30,15 +30,13 @@ public class PlayerState : Unit {
     public Vector2 moveVetcor { get; private set; }
     //scrupts
     [Header("States")]
-    [SerializeField] private PlayerIdelState idelState;
-    [SerializeField] private PlayerAttack melee;
     [SerializeField] private dashScript Dash;
     [SerializeField] public jumpScript jumpScript;
-    [SerializeField] public FallState fallState;
     [SerializeField] private wallActionsScript wallActions;
     [SerializeField] public MoveState moveState;
     [SerializeField] public BlockState blockState;
-    [SerializeField] public HurtState hurtState;
+    [SerializeField] protected PlayerIdelState idelState;
+    [SerializeField] protected PlayerAttack melee;
 
     //buttons
     private KeyCode jump = KeyCode.Space;
@@ -66,7 +64,7 @@ public class PlayerState : Unit {
         hurtState.Setup(rb, animatior, this);
         state = idelState;
         tempMoveSpeed = moveSpeed;
-        health.getHitEvent += GetHurt;
+        
 
     }
 
@@ -153,10 +151,6 @@ public class PlayerState : Unit {
         
     }
 
-    private void GetHurt() {
-        StateChange(hurtState);
-    }
-
     private void OnEnable() {
         move = playerControls.Player.Move;
         move.Enable();
@@ -165,4 +159,5 @@ public class PlayerState : Unit {
         move = playerControls.Player.Move;
         move.Disable();
     }
+    
 }
