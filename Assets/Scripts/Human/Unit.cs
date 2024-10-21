@@ -24,7 +24,8 @@ public abstract class Unit : MonoBehaviour
     public float attackTime;
     [SerializeField]
     public bool isRecovering = false;
-    [SerializeField]
+    [SerializeField] public float amplitude;
+    [SerializeField] public float duration;
     public int direction { get; protected set; } = 1;
     public float moveSpeed { get; protected set; } = 250;
     public bool grounded { get; protected set; }
@@ -132,5 +133,8 @@ public abstract class Unit : MonoBehaviour
 
     protected void GetHurt() {
         StateChange(hurtState);
+    }
+    public void HitCollided(bool hit) {
+
     }
 }

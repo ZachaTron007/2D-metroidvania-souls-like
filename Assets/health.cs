@@ -19,6 +19,7 @@ public class Health : MonoBehaviour
     [SerializeField] private Sensors hitBox;
     //[SerializeField] private float parryWindow = 5f;
     public event Action getHitEvent;
+    public event Action<GameObject> hitEvent;
     public event Action dieEvent;
     public bool blocking = false;
 
@@ -84,6 +85,10 @@ public class Health : MonoBehaviour
             if (collision.GetComponent<DamageScript>() != null) {
                 DamageScript damageScript = collision.GetComponent<DamageScript>();
                 Damage(damageScript.damage);
+                if (collision.GetComponent<Unit>() != null) {
+                    Unit unit = collision.GetComponent<Unit>();
+                    unit.HitCollided(true);
+                }
             }
         }
     }

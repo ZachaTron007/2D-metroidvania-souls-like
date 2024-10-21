@@ -16,7 +16,6 @@ public class PlayerState : Unit {
 
     //movements
     [Header("Player Variables")]
-    private float tempMoveSpeed;
     //public float direction { get; private set; } = 1;
 
     private float dashCount;
@@ -37,6 +36,7 @@ public class PlayerState : Unit {
     [SerializeField] public BlockState blockState;
     [SerializeField] protected PlayerIdelState idelState;
     [SerializeField] protected PlayerAttack melee;
+    
 
     //buttons
     private KeyCode jump = KeyCode.Space;
@@ -45,14 +45,15 @@ public class PlayerState : Unit {
 
 
     private void Awake() {
-
+        //CinemachineEffectScript.instance.ScreenShake(0.1f, 0.1f);
         //get the input system
         playerControls = new PlayerControls();
 
         //melee = attackManager.GetComponent<MeleeAttack>();
         //get the rigidbody and collider reffrences
         ComponentSetup();
-
+        move = playerControls.Player.Move;
+        move.Enable();
 
         jumpScript.Setup(rb, animatior, this);
         fallState.Setup(rb, animatior, this);
@@ -63,7 +64,6 @@ public class PlayerState : Unit {
         melee.Setup(rb, animatior, this);
         hurtState.Setup(rb, animatior, this);
         state = idelState;
-        tempMoveSpeed = moveSpeed;
         
 
     }
@@ -152,12 +152,12 @@ public class PlayerState : Unit {
     }
 
     private void OnEnable() {
-        move = playerControls.Player.Move;
-        move.Enable();
+        //move = playerControls.Player.Move;
+        //move.Enable();
     }
     private void OnDisable() {
-        move = playerControls.Player.Move;
-        move.Disable();
+        //move = playerControls.Player.Move;
+        //move.Disable();
     }
     
 }

@@ -7,6 +7,7 @@ public class AttackScript : DamageScript
     public AnimationClip clip;
     public float length;
     public BoxCollider2D attackHitBox;
+    public float ScreenShakeMagnitude;
 
     private void Awake() {
         length = clip.length;
