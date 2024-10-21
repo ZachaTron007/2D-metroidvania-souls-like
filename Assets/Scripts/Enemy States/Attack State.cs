@@ -15,16 +15,21 @@ public class EnemyAttackState : ParentMeleeAttack
      *  2. starts the attack function
      *  */
     public override void Enter() {
+
         interuptable = false;
-        int attackNum = Random.Range(0, attacks.Length);
-        currentAttack = attacks[attackNum];
-        rb.velocity = Vector2.zero;
+        currentAttack = randomAttackPicker(attacks);
+        rb.linearVelocity = Vector2.zero;
         StartCoroutine(Attack());
     }
     
     
     public override void Exit() {
         stateDone = true;
-        recovering = true;
+        unitVariables.isRecovering = true;
+    }
+
+    private AttackScript randomAttackPicker(AttackScript[] attacks) {
+        int attackNum = Random.Range(0, attacks.Length);
+        return attacks[attackNum];
     }
 }

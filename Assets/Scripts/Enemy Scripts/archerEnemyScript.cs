@@ -39,6 +39,6 @@ public class archerEnemyScript: MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        rb.velocity = Vector2.right * direction * speed * stopped;
+        rb.linearVelocity = Vector2.right * direction * speed * stopped;
     }
 }

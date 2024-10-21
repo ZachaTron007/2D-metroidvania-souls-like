@@ -22,6 +22,9 @@ public abstract class Unit : MonoBehaviour
     [SerializeField] protected FallState fallState;
     [Header("Properties")]
     public float attackTime;
+    [SerializeField]
+    public bool isRecovering = false;
+    [SerializeField]
     public int direction { get; protected set; } = 1;
     public float moveSpeed { get; protected set; } = 250;
     public bool grounded { get; protected set; }

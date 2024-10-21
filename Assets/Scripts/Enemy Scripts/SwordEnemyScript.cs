@@ -54,7 +54,7 @@ public class SwordEnemyScript : EnemyScript {
             if (!isWithinAttackRange) {
                 state = agroState;
             } else {
-                if (!state.recovering) {
+                if (!isRecovering) {
                     state = attackState;
                 } else {
                     state = recoverState;
@@ -62,7 +62,9 @@ public class SwordEnemyScript : EnemyScript {
             }
 
         }
-        
+        if (manualState) {
+            state=manualState;
+        }
         if (oldState != state) {
             state.ResetState(oldState);
         }

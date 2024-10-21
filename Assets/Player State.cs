@@ -111,7 +111,7 @@ public class PlayerState : Unit {
             }
             
             //checks to see if you are falling
-        }else if (rb.velocity.y < 0) {
+        }else if (rb.linearVelocity.y < 0) {
             state = fallState;
         }
         if (Input.GetKeyDown(dash) && dashCount >= dashCool && !Dash.dashing) {
@@ -130,7 +130,7 @@ public class PlayerState : Unit {
         if(manualState)
             state = manualState;
         if(oldState!= state) {
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             state.ResetState(oldState);
         }
     }
@@ -143,10 +143,10 @@ public class PlayerState : Unit {
 
     
     private void Run() {
-        if (rb.velocity.x == 0) {
-            rb.velocity = new Vector2(moveVetcor.x * moveSpeed * Time.fixedDeltaTime, rb.velocity.y);
+        if (rb.linearVelocity.x == 0) {
+            rb.linearVelocity = new Vector2(moveVetcor.x * moveSpeed * Time.fixedDeltaTime, rb.linearVelocity.y);
         } else {
-            rb.velocity = new Vector2(moveVetcor.x * Mathf.Abs(rb.velocity.x), rb.velocity.y);
+            rb.linearVelocity = new Vector2(moveVetcor.x * Mathf.Abs(rb.linearVelocity.x), rb.linearVelocity.y);
         }
         
     }

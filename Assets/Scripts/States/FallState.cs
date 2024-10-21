@@ -9,14 +9,14 @@ public class FallState : State
     
     private float terminalVelocity = 15;
     private void fallGravity() {
-        rb.velocity += Vector2.up * Physics.gravity.y * (fallGravMultiplier - rb.gravityScale) * Time.deltaTime;
+        rb.linearVelocity += Vector2.up * Physics.gravity.y * (fallGravMultiplier - rb.gravityScale) * Time.deltaTime;
     }
 
     public override void FixedUpdateState() {
-        if (rb.velocity.y > -terminalVelocity) {
+        if (rb.linearVelocity.y > -terminalVelocity) {
             fallGravity();
         } else {
-            rb.velocity =new Vector2(rb.velocity.x, -terminalVelocity);
+            rb.linearVelocity =new Vector2(rb.linearVelocity.x, -terminalVelocity);
         }
     }
     public override void Enter() {

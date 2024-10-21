@@ -23,7 +23,7 @@ public class jumpScript : State
     public void Jump() {
         //wallSliding = false;
         //makes the y component change
-        rb.velocity = Vector2.up * jumpVelocity;
+        rb.linearVelocity = Vector2.up * jumpVelocity;
         rb.gravityScale = 2;
         doubleJump += 1;
         Exit();
@@ -31,14 +31,14 @@ public class jumpScript : State
     }
 
     public override void UpdateState() {
-        if (rb.velocity.y <= 0) {
+        if (rb.linearVelocity.y <= 0) {
             Exit();
         }
 
     }
     public override void FixedUpdateState() {
         if (!Input.GetKey(KeyCode.Space)) {
-            rb.velocity += Vector2.up * Physics.gravity.y * (lowJumpMultiplier - rb.gravityScale) * Time.deltaTime;
+            rb.linearVelocity += Vector2.up * Physics.gravity.y * (lowJumpMultiplier - rb.gravityScale) * Time.deltaTime;
         }
         
     }

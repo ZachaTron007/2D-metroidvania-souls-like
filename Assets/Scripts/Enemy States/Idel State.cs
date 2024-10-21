@@ -25,7 +25,7 @@ public class IdelState : State {
     private void Stay() {
         if (idel) {
             animator.Play(idelAniamtion.name);
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
             float stopLowSpeed = 1f;
             float stopHighSpeed = 2f;
             Invoke("Walk", Random.Range(stopLowSpeed, stopHighSpeed));
@@ -34,7 +34,7 @@ public class IdelState : State {
     private void Walk() {
         if (idel) {
             animator.Play(walkAniamtion.name);
-            rb.velocity = new Vector2(unitVariables.direction * idelWalkSpeed * Time.fixedDeltaTime, rb.velocity.y);
+            rb.linearVelocity = new Vector2(unitVariables.direction * idelWalkSpeed * Time.fixedDeltaTime, rb.linearVelocity.y);
             float stopLowSpeed = 1f;
             float stopHighSpeed = 2f;
             Invoke("Stay", Random.Range(stopLowSpeed, stopHighSpeed));
@@ -42,7 +42,7 @@ public class IdelState : State {
     }
     public override void Exit() {
         idel = false;
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
     }
     
 }

@@ -47,7 +47,7 @@ public class Health : MonoBehaviour
             if (health < 0) {
                 health = 0;
             }
-            StartCoroutine(Hurt(sr));
+            //StartCoroutine(Hurt(sr));
             getHitEvent?.Invoke();
         }
 

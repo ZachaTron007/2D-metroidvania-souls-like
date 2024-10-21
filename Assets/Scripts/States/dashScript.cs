@@ -12,7 +12,7 @@ public class dashScript : State
     public bool dashing;
 
     public IEnumerator dash(Rigidbody2D rb) {
-        rb.velocity = Vector2.right * unitVariables.direction * dashSpeed;
+        rb.linearVelocity = Vector2.right * unitVariables.direction * dashSpeed;
         yield return new WaitForSeconds(dashduration);
         Exit();
         yield return null;
@@ -31,7 +31,7 @@ public class dashScript : State
     }
     public override void Exit() {
         
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
         stateDone = true;
     }
     private void dashReset() {

@@ -7,11 +7,12 @@ public class HurtState : State
     [SerializeField] private AnimationClip damageClip;
     [SerializeField] private float recoveryTime;
     private void Start() {
+        
+    }
+    public override void Enter() {
         if (damageClip.length > recoveryTime) {
             recoveryTime = damageClip.length;
         }
-    }
-    public override void Enter() {
         interuptable = false;
         animator.Play(damageClip.name);
         Invoke("Exit", recoveryTime);
@@ -20,9 +21,7 @@ public class HurtState : State
     // Update is called once per frame
     public override void Exit() {
         stateDone = true;
+        
     }
-    public override void UpdateState() {
-        base.UpdateState();
-
-    }
+    
 }

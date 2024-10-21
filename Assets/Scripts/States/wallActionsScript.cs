@@ -16,7 +16,7 @@ public class wallActionsScript : jumpScript
     public void wallSlide(Rigidbody2D rb) {
         wallSliding = true;
         rb.gravityScale = 0;
-        rb.velocity = -Vector2.up * wallSlideSpeed;
+        rb.linearVelocity = -Vector2.up * wallSlideSpeed;
     }
 
     public IEnumerator WallJump(float dashDirection, Rigidbody2D rb) {
@@ -25,7 +25,7 @@ public class wallActionsScript : jumpScript
         Jump();
         Invoke("wallJumpReset", wallJumpDuration);
         while (wallJump) {
-            rb.velocity = new Vector2(dashDirection * wallJumpSpeed * Time.fixedDeltaTime, rb.velocity.y);
+            rb.linearVelocity = new Vector2(dashDirection * wallJumpSpeed * Time.fixedDeltaTime, rb.linearVelocity.y);
             yield return null;
         }
         yield return null;
