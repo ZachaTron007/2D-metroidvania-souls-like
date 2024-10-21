@@ -85,9 +85,9 @@ public class Health : MonoBehaviour
             if (collision.GetComponent<DamageScript>() != null) {
                 DamageScript damageScript = collision.GetComponent<DamageScript>();
                 Damage(damageScript.damage);
-                if (collision.GetComponent<Unit>() != null) {
-                    Unit unit = collision.GetComponent<Unit>();
-                    unit.HitCollided(true);
+                if (collision.GetComponent<AttackScript>() != null) {
+                    AttackScript attackInfo = collision.GetComponent<AttackScript>();
+                    CinemachineEffectScript.instance.ScreenShake(attackInfo.ScreenShakeMagnitude, .2f);
                 }
             }
         }
@@ -95,5 +95,7 @@ public class Health : MonoBehaviour
     private void SetBlocking(bool blocking) {
         this.blocking = blocking;
     }
+
     
+
 }

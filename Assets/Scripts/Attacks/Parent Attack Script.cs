@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class ParentMeleeAttack : State {
 
-    [SerializeField] protected AttackScript currentAttack;
+    [SerializeField] public AttackScript currentAttack;
 
     protected Vector2 offset;
     public Vector2 lookDirection;

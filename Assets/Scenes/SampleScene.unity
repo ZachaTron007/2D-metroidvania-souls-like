@@ -2878,6 +2878,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3060593172435654969, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: ScreenShakeMagnitude
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3221665841039631346, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.1
@@ -2918,6 +2922,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3773882281071019076, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: ScreenShakeMagnitude
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4507163144592518136, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: ScreenShakeMagnitude
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6378908112458984836, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: duration
       value: 0.2
@@ -2930,6 +2942,10 @@ PrefabInstance:
       propertyPath: hurtState
       value: 
       objectReference: {fileID: 990036011}
+    - target: {fileID: 6378908112458984836, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: attackState
+      value: 
+      objectReference: {fileID: 1905613153}
     - target: {fileID: 6378908112458984836, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: isRecovering
       value: 0

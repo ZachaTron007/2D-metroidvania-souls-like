@@ -14,7 +14,7 @@ public class PlayerAttack : ParentMeleeAttack {
     public override void Enter() {
         if (unitVariables.attackTime >= currentClipTime) {
             UpdateAttack();
-            CinemachineEffectScript.instance.ScreenShake(unitVariables.amplitude, unitVariables.duration);
+            
             StartCoroutine(Attack());
             unitVariables.attackTime = 0.0f;
         } else {

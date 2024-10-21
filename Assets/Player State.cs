@@ -35,7 +35,7 @@ public class PlayerState : Unit {
     [SerializeField] public MoveState moveState;
     [SerializeField] public BlockState blockState;
     [SerializeField] protected PlayerIdelState idelState;
-    [SerializeField] protected PlayerAttack melee;
+    //[SerializeField] protected PlayerAttack melee;
     
 
     //buttons
@@ -61,7 +61,7 @@ public class PlayerState : Unit {
         moveState.Setup(rb, animatior, this);
         idelState.Setup(rb, animatior, this);
         blockState.Setup(rb, animatior, this);
-        melee.Setup(rb, animatior, this);
+        //melee.Setup(rb, animatior, this);
         hurtState.Setup(rb, animatior, this);
         state = idelState;
         
@@ -120,7 +120,7 @@ public class PlayerState : Unit {
         }
         attackTime += Time.deltaTime;
         if (Input.GetMouseButtonDown(0)) {
-            state = melee;
+            state = attackState;
             // Reset timer
             //attackTime = 0.0f;
         }

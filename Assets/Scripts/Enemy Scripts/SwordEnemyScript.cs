@@ -12,7 +12,6 @@ public class SwordEnemyScript : EnemyScript {
     //scrupts
     [Header("States")]
     [SerializeField] private AgroState agroState;
-    [SerializeField] private EnemyAttackState attackState;
     [SerializeField] private RecoveryState recoverState;
     [SerializeField] protected IdelState idelState;
 
@@ -23,7 +22,6 @@ public class SwordEnemyScript : EnemyScript {
         //state = idelState;
         idelState?.Setup(rb, animatior, this);
         agroState?.Setup(rb, animatior,this);
-        attackState?.Setup(rb, animatior, this);
         recoverState?.Setup(rb, animatior, this);
         state = idelState;
         state.Enter();

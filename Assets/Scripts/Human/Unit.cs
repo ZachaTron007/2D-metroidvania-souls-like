@@ -20,6 +20,7 @@ public abstract class Unit : MonoBehaviour
 //    [SerializeField] protected ParentMeleeAttack melee;
     [SerializeField] protected HurtState hurtState;
     [SerializeField] protected FallState fallState;
+    [SerializeField] protected ParentMeleeAttack attackState;
     [Header("Properties")]
     public float attackTime;
     [SerializeField]
@@ -43,6 +44,7 @@ public abstract class Unit : MonoBehaviour
         mainCollider = GetComponent<BoxCollider2D>();
         hurtState?.Setup(rb, animatior, this);
         fallState?.Setup(rb, animatior, this);
+        attackState?.Setup(rb, animatior, this);
         direction = sr.flipX ? 1 : -1;
         EventSubscribe();
     }
@@ -135,6 +137,8 @@ public abstract class Unit : MonoBehaviour
         StateChange(hurtState);
     }
     public void HitCollided(bool hit) {
-
+        AttackScript attack = attackState.currentAttack;
+        Debug.Log("Hit");
+        
     }
 }
