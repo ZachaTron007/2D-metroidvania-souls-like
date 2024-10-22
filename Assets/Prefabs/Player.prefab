@@ -439,6 +439,7 @@ MonoBehaviour:
   clip: {fileID: 7400000, guid: 3688e492878501d4882fffca4cb3bbff, type: 2}
   length: 0
   attackHitBox: {fileID: 0}
+  ScreenShakeMagnitude: 0
 --- !u!61 &3566820372639182325
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -879,6 +880,7 @@ MonoBehaviour:
   clip: {fileID: 7400000, guid: 0bafac48b1090284da2048c29bc986ff, type: 2}
   length: 0
   attackHitBox: {fileID: 0}
+  ScreenShakeMagnitude: 0
 --- !u!61 &8302992960160219393
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1151,6 +1153,7 @@ MonoBehaviour:
   clip: {fileID: 7400000, guid: c42aa71ad221ea349a7ee113bb662657, type: 2}
   length: 0
   attackHitBox: {fileID: 0}
+  ScreenShakeMagnitude: 0
 --- !u!61 &5528412387757357549
 BoxCollider2D:
   m_ObjectHideFlags: 0

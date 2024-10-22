@@ -48,23 +48,8 @@ public abstract class EnemyScript : Unit {
     protected void AgroRangeStay(Collider2D other) {
         if (other.gameObject.tag == "Player") {
             Vector2 directionOfPlayer = other.gameObject.transform.position - gameObject.transform.position;
-            if (state.interuptable) {
-                int tempDirection = direction;
-                if (Mathf.Abs(directionOfPlayer.x) < .1) {
-                    direction = directionOfPlayer.x > direction ? 1 : -1;
-                    if (tempDirection != direction) {
-                        agroRangeHitbox.offset *= new Vector2(-1, 1);
-                        attackRangeHitbox.offset *= new Vector2(-1, 1);
-                    }
-                }
-            }
-            if (directionOfPlayer.y>0) {
-                if(ShootRayDirection(Vector2.up, 6, directionOfPlayer.y)) {
-                    isWithinAgroRange = false;
-                } else {
-                    isWithinAgroRange = true;
-                }
-            }
+            direction = ShouldSwitchDirection(direction,directionOfPlayer);
+            isWithinAgroRange = IsPlayerBlocked(directionOfPlayer);
         }
     }
     protected void AgroRangeExit(Collider2D other) {
@@ -72,21 +57,56 @@ public abstract class EnemyScript : Unit {
             isWithinAgroRange = false;
         }
     }
-    
+
     protected void AttackRangeEnter(Collider2D other) {
         if (other.gameObject.tag == "Player") {
-            
+
             isWithinAttackRange = true;
         }
     }
     protected void AttackRangeStay(Collider2D other) {
-        
+
     }
     protected void AttackRangeExit(Collider2D other) {
         if (other.gameObject.tag == "Player") {
             isWithinAttackRange = false;
         }
     }
+    /*
+     * summary:
+     * checks to see if the enemy should turn around
+     * used if the enemy is agroed
+     */
+    private int ShouldSwitchDirection(int direction,Vector2 PlayerDirection) {
+        float turnGracePeriod = mainCollider.size.x / 2;
+        if (Mathf.Abs(PlayerDirection.x) > turnGracePeriod && state.interuptable) {
+            int tempDirection = direction;
+            direction = PlayerDirection.x > 0 ? 1 : -1;
+            if (tempDirection != direction) {
+                agroRangeHitbox.offset *= new Vector2(-1, 1);
+                attackRangeHitbox.offset *= new Vector2(-1, 1);
+            }
+            return direction;
+        }
+
+        return direction;
+    }
+    /*
+     * summary:
+     * if agroed used to check to see if you should actually be agroed
+     */
+    private bool IsPlayerBlocked(Vector2 PlayerDirection) {
+        float distance = Mathf.Sqrt((PlayerDirection.x * PlayerDirection.x) + (PlayerDirection.y * PlayerDirection.y));
+        RaycastHit2D hit = ShootRayDirection(PlayerDirection, 6, distance);
+        if (hit) {
+            if (hit.collider.tag == "Player") {
+                return false;
+            }
+        }
+        return false;
+    }
+    
+    
     
     /*
      * summary:
