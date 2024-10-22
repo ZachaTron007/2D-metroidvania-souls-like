@@ -1654,6 +1654,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 323986996399350858, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 323986996399350858, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 361345800473325895, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
       propertyPath: melee
       value: 
@@ -1672,7 +1680,7 @@ PrefabInstance:
       objectReference: {fileID: 890520348}
     - target: {fileID: 3398588828500477510, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
       propertyPath: m_Offset.x
-      value: 0
+      value: -0.15
       objectReference: {fileID: 0}
     - target: {fileID: 4120613919388800645, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
       propertyPath: attacks.Array.size
@@ -1686,6 +1694,10 @@ PrefabInstance:
       propertyPath: 'attacks.Array.data[1]'
       value: 
       objectReference: {fileID: 1253176191}
+    - target: {fileID: 4534137920647127328, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.65
+      objectReference: {fileID: 0}
     - target: {fileID: 4790809425421826853, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.38
