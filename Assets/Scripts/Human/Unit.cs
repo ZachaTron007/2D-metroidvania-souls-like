@@ -137,7 +137,7 @@ public abstract class Unit : MonoBehaviour
         StateChange(hurtState);
     }
     public void HitCollided(bool hit) {
-        AttackScript attack = attackState.currentAttack;
+        AttackInfo attack = attackState.currentAttack;
         Debug.Log("Hit");
         
     }

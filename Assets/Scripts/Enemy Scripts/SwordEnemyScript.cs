@@ -62,6 +62,8 @@ public class SwordEnemyScript : EnemyScript {
         }
         if (manualState) {
             state=manualState;
+            state.ResetState(oldState);
+            return;
         }
         if (oldState != state) {
             state.ResetState(oldState);

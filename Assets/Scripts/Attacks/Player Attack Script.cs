@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public class PlayerAttack : ParentMeleeAttack {
-    [SerializeField] protected AttackScript[] basicCombo;
+    [SerializeField] protected AttackInfo[] basicCombo;
     [SerializeField] private int attackNum = -1;
     [SerializeField] private AnimationClip currentClip;
     [SerializeField] private float currentClipTime;

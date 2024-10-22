@@ -6,8 +6,8 @@ public class EnemyAttackState : ParentMeleeAttack
 {
 
     private bool attacking;
-    public AttackScript[] attacks;
-    [SerializeField] private AttackScript attack;
+    public AttackInfo[] attacks;
+    [SerializeField] private AttackInfo attack;
 
     /*
      * summary:
@@ -28,7 +28,7 @@ public class EnemyAttackState : ParentMeleeAttack
         unitVariables.isRecovering = true;
     }
 
-    private AttackScript randomAttackPicker(AttackScript[] attacks) {
+    private AttackInfo randomAttackPicker(AttackInfo[] attacks) {
         int attackNum = Random.Range(0, attacks.Length);
         return attacks[attackNum];
     }
