@@ -17,15 +17,15 @@ public abstract class EnemyScript : Unit {
     protected bool isWithinAgroRange = false;
     protected bool isWithinAttackRange = false;
 
-    protected int WallCheck() {
+    protected bool WallCheck() {
         //layers to hit
         int layerNumber = 6;
         RaycastHit2D hit = ShootRay(direction, layerNumber, maxDist);
         if (hit) {
-            direction *= -1;
+            return true;
         }
         
-        return direction;
+        return false;
     }
     
     /*
@@ -47,6 +47,7 @@ public abstract class EnemyScript : Unit {
     }
     protected void AgroRangeStay(Collider2D other) {
         if (other.gameObject.tag == "Player") {
+
             Vector2 directionOfPlayer = other.gameObject.transform.position - gameObject.transform.position;
             direction = ShouldSwitchDirection(direction,directionOfPlayer);
             isWithinAgroRange = IsPlayerBlocked(directionOfPlayer);
@@ -100,12 +101,19 @@ public abstract class EnemyScript : Unit {
         RaycastHit2D hit = ShootRayDirection(PlayerDirection, 6, distance);
         if (hit) {
             if (hit.collider.tag == "Player") {
-                return false;
+                return true;
             }
         }
         return false;
     }
     
+    protected int switchDirection() {
+        direction *= -1;
+        agroRangeHitbox.offset *= new Vector2(-1, 1);
+        attackRangeHitbox.offset *= new Vector2(-1, 1);
+
+        return direction;
+    }
     
     
     /*

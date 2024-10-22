@@ -33,7 +33,9 @@ public class SwordEnemyScript : EnemyScript {
 
     // Update is called once per frame
     void Update() {
-        direction = WallCheck();
+        if (WallCheck()) {
+            direction = switchDirection();
+        }
 
         state.UpdateState();
         InteruptrableStateChange();
