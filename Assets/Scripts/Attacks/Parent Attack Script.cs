@@ -6,20 +6,15 @@ using UnityEngine.UIElements;
 public class ParentMeleeAttack : State {
 
     [SerializeField] public AttackInfo currentAttack;
-
-    protected Vector2 offset;
     public Vector2 lookDirection;
 
     // Start is called before the first frame update
     void Start() {
         interuptable = false;
-        offset.x = 0.87f;
-        offset.y = 1.27f;
-        //attackHitBox = GetComponent<BoxCollider2D>();
     }
 
     protected Vector2 offsetVector() {
-        return new Vector2(unitVariables.direction * offset.x,0);
+        return new Vector2(unitVariables.direction * currentAttack.attackHitBox.offset.x/2,0);
     }
     /*
      * summary:

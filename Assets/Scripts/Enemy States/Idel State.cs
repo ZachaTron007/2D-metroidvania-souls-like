@@ -9,6 +9,7 @@ public class IdelState : State {
     [SerializeField] private AnimationClip idelAniamtion;
     [SerializeField] private AnimationClip walkAniamtion;
     [SerializeField] private int idelWalkSpeed = 50;
+    private float speed;
     [SerializeField] delegate void idelDelegate();
     [SerializeField] idelDelegate idelState;
     private bool idel = false;
@@ -18,14 +19,11 @@ public class IdelState : State {
         idel = true;
         idelState = Walk;
         idelState();
-
-
-
     }
     private void Stay() {
         if (idel) {
             animator.Play(idelAniamtion.name);
-            rb.linearVelocity = Vector2.zero;
+            speed = 0;
             float stopLowSpeed = 1f;
             float stopHighSpeed = 2f;
             Invoke("Walk", Random.Range(stopLowSpeed, stopHighSpeed));
@@ -34,12 +32,17 @@ public class IdelState : State {
     private void Walk() {
         if (idel) {
             animator.Play(walkAniamtion.name);
-            rb.linearVelocity = new Vector2(unitVariables.direction * idelWalkSpeed * Time.fixedDeltaTime, rb.linearVelocity.y);
+            speed = idelWalkSpeed;
             float stopLowSpeed = 1f;
             float stopHighSpeed = 2f;
             Invoke("Stay", Random.Range(stopLowSpeed, stopHighSpeed));
         }
     }
+    
+    public override void FixedUpdateState() {
+        rb.linearVelocity = new Vector2(unitVariables.direction * speed * Time.fixedDeltaTime, rb.linearVelocity.y);
+    }
+
     public override void Exit() {
         idel = false;
         rb.linearVelocity = Vector2.zero;

@@ -83,18 +83,17 @@ public abstract class Unit : MonoBehaviour
         Vector2 BoxDimentions = new Vector2(.1f, .1f);
         //hits walls
         int layerNumber = 6;
-        int layerMask = 1 << layerNumber;
         float distanceAdditon = 0.1f;
-        //bool groundHit = Physics2D.BoxCast(transform.position, BoxDimentions, 0, Vector2.down, mainCollider.size.y / 2 + distanceAdditon, layerMask);
-        RaycastHit2D groundHit = Physics2D.Raycast(transform.position, Vector2.down, distanceAdditon, layerMask);
-        Debug.DrawRay(transform.position, Vector2.down, Color.green, .1f);
-        if (groundHit) {
+        //bool groundHit = Physics2D.BoxCast(transform.position, BoxDimentions, 0, Vector2.down, mainCollider.size.y / 2 + distanceAdditon, layerNumber);
+        RaycastHit2D groundHitLeft = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon, new Vector3(transform.position.x - mainCollider.size.x/2, transform.position.y, 0));
+        RaycastHit2D groundHitMiddle = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon,transform.position,true);
+        RaycastHit2D groundHitRight = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon,new Vector3(transform.position.x + mainCollider.size.x/2, transform.position.y, 0));
+        if (groundHitMiddle||groundHitMiddle||groundHitRight) {
             grounded = true;
         } else {
             grounded = false;
         }
-        //animatior.SetBool(NOTJUMPING, groundHit);
-        return groundHit;
+        return false;
     }
 
     protected int LayerNumToLayerMask(int layerNumber) {
@@ -109,21 +108,25 @@ public abstract class Unit : MonoBehaviour
     protected RaycastHit2D ShootRay(int direction, int layerNumber, float dist) {
         //trasnforms that number into a layer mask
         int layerMask = LayerNumToLayerMask(layerNumber);
-        Vector3 startPosition = gameObject.transform.position + new Vector3(transform.localScale.x / 2 * direction, gameObject.transform.localScale.y / 2, 0);
+        Vector3 startPosition = transform.position + new Vector3(transform.localScale.x / 2 * direction, transform.localScale.y / 2, 0);
         Vector2 rayDirection = new Vector2(direction, 0f);
         RaycastHit2D hit = Physics2D.Raycast(startPosition, rayDirection, dist, layerMask);
         //Debug.DrawRay(startPosition, rayDirection, Color.green, .1f);
         return hit;
     }
-    protected RaycastHit2D ShootRayDirection(Vector2 direction, int layerNumber, float dist) {
+    protected RaycastHit2D ShootRayDirection(Vector2 direction, int layerNumber, float dist, Vector3 startPosition=new Vector3(), bool debugRay = false) {
         //trasnforms that number into a layer mask
         int layerMask = LayerNumToLayerMask(layerNumber);
         //gets the height of the collider and div by 2 to get the center
-        //add the offset of the collider
-        Vector3 startOffset = new Vector3(transform.localScale.x / 2 * direction.x, gameObject.transform.localScale.y / 2 * direction.y, 0) + new Vector3(mainCollider.offset.x, mainCollider.offset.y, 0);
-        Vector3 startPosition = gameObject.transform.position + startOffset;
+        //add the offset of the collider`
+        Vector3 startOffset = new Vector3(transform.localScale.x / 2 * direction.x, transform.localScale.y / 2 * direction.y, 0) + new Vector3(mainCollider.offset.x, mainCollider.offset.y, 0);
+        if (startPosition == new Vector3()) {
+            startPosition = transform.position + startOffset;
+        }
         RaycastHit2D hit = Physics2D.Raycast(startPosition, direction.normalized, dist, layerMask);
-        Debug.DrawRay(startPosition, direction.normalized, Color.green, 1f);
+        if (debugRay) {
+            Debug.DrawRay(startPosition, direction.normalized, Color.green, 1f);
+        }
         return hit;
     }
     /*

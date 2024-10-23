@@ -47,10 +47,10 @@ public abstract class EnemyScript : Unit {
     }
     protected void AgroRangeStay(Collider2D other) {
         if (other.gameObject.tag == "Player") {
-
+            Debug.Log(isWithinAgroRange);
             Vector2 directionOfPlayer = other.gameObject.transform.position - gameObject.transform.position;
             direction = ShouldSwitchDirection(direction,directionOfPlayer);
-            isWithinAgroRange = IsPlayerBlocked(directionOfPlayer);
+            isWithinAgroRange = !IsPlayerBlocked(directionOfPlayer);
         }
     }
     protected void AgroRangeExit(Collider2D other) {
@@ -101,10 +101,10 @@ public abstract class EnemyScript : Unit {
         RaycastHit2D hit = ShootRayDirection(PlayerDirection, 6, distance);
         if (hit) {
             if (hit.collider.tag == "Player") {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
     
     protected int switchDirection() {

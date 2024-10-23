@@ -23,5 +23,8 @@ public class HurtState : State
         stateDone = true;
         
     }
+    public override void FixedUpdateState() {
+        rb.linearVelocity = Vector2.zero;
+    }
     
 }

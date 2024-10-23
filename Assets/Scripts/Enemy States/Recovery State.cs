@@ -17,4 +17,7 @@ public class RecoveryState : State
         unitVariables.isRecovering = false;
         stateDone = true;
     }
+    public override void UpdateState() {
+        rb.linearVelocity = Vector2.zero;
+    }
 }

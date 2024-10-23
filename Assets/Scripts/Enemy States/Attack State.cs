@@ -18,11 +18,13 @@ public class EnemyAttackState : ParentMeleeAttack
 
         interuptable = false;
         currentAttack = randomAttackPicker(attacks);
-        rb.linearVelocity = Vector2.zero;
+        
         StartCoroutine(Attack());
     }
-    
-    
+    public override void FixedUpdateState() {
+        rb.linearVelocity = Vector2.zero;
+    }
+
     public override void Exit() {
         stateDone = true;
         unitVariables.isRecovering = true;
