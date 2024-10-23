@@ -35,19 +35,25 @@ public class PlayerState : Unit {
     [SerializeField] public MoveState moveState;
     [SerializeField] public BlockState blockState;
     [SerializeField] protected PlayerIdelState idelState;
+    private InputScript inputScript;
     //[SerializeField] protected PlayerAttack melee;
-    
+
 
     //buttons
-    private KeyCode jump = KeyCode.Space;
-    private KeyCode dash = KeyCode.LeftShift;
-    public int blockButton = 1;
+    private KeyCode lastKey;
+    public KeyCode jump = KeyCode.Space;
+    public KeyCode dash = KeyCode.LeftShift;
+    public KeyCode blockButton = KeyCode.Mouse1;
+    public KeyCode attackButton = KeyCode.Mouse0;
+
+    
 
 
     private void Awake() {
         //CinemachineEffectScript.instance.ScreenShake(0.1f, 0.1f);
         //get the input system
         playerControls = new PlayerControls();
+        inputScript = GetComponent<InputScript>();
 
         //melee = attackManager.GetComponent<MeleeAttack>();
         //get the rigidbody and collider reffrences
@@ -72,7 +78,7 @@ public class PlayerState : Unit {
 
     void Update() {
         GroundTouch();
-
+        lastKey = GetInput();
         //horizontal movement
         attackTime += Time.deltaTime;
 
@@ -106,7 +112,7 @@ public class PlayerState : Unit {
                 state = idelState;
                 //Debug.Log("Idel State");
             }
-            if (Input.GetKeyDown(jump)) {
+            if (lastKey == jump) {
                 state = jumpScript;
             }
             
@@ -114,17 +120,17 @@ public class PlayerState : Unit {
         }else if (rb.linearVelocity.y < 0) {
             state = fallState;
         }
-        if (Input.GetKeyDown(dash) && dashCount >= dashCool && !Dash.dashing) {
+        if (lastKey == dash && dashCount >= dashCool && !Dash.dashing) {
             state = Dash;
             dashCount = 0;
         }
         attackTime += Time.deltaTime;
-        if (Input.GetMouseButtonDown(0)) {
+        if (lastKey == attackButton) {
             state = attackState;
             // Reset timer
             //attackTime = 0.0f;
         }
-        if (Input.GetMouseButtonDown(blockButton)) {
+        if (lastKey == blockButton) {
             state=blockState;
         }
         if(manualState)
@@ -132,6 +138,7 @@ public class PlayerState : Unit {
         if(oldState!= state) {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             state.ResetState(oldState);
+            lastKey = KeyCode.Mouse6;
         }
     }
     private void FixedUpdate() {
@@ -149,6 +156,17 @@ public class PlayerState : Unit {
             rb.linearVelocity = new Vector2(moveVetcor.x * Mathf.Abs(rb.linearVelocity.x), rb.linearVelocity.y);
         }
         
+    }
+    public KeyCode GetInput() {
+            if (Input.GetKey(jump)) {
+                lastKey = jump;
+            } else if (Input.GetKey(dash)) {
+                lastKey = dash;
+            } else if (Input.GetKey(attackButton)) {
+                lastKey = attackButton;
+            }
+        return lastKey;
+
     }
 
     private void OnEnable() {
