@@ -27,7 +27,7 @@ public abstract class Unit : MonoBehaviour
     public bool isRecovering = false;
     [SerializeField] public float amplitude;
     [SerializeField] public float duration;
-    public int direction { get; protected set; } = 1;
+    public int direction = 1;//{ get; protected set; } = 1;
     public float moveSpeed { get; protected set; } = 250;
     public bool grounded { get; protected set; }
     
@@ -45,7 +45,7 @@ public abstract class Unit : MonoBehaviour
         hurtState?.Setup(rb, animatior, this);
         fallState?.Setup(rb, animatior, this);
         attackState?.Setup(rb, animatior, this);
-        direction = sr.flipX ? 1 : -1;
+        //direction = sr.flipX ? 1 : -1;
         EventSubscribe();
     }
     protected virtual void EventSubscribe() {

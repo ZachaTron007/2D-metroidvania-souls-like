@@ -40,11 +40,11 @@ public class PlayerState : Unit {
 
 
     //buttons
-    private KeyCode lastKey;
-    public KeyCode jump = KeyCode.Space;
-    public KeyCode dash = KeyCode.LeftShift;
-    public KeyCode blockButton = KeyCode.Mouse1;
-    public KeyCode attackButton = KeyCode.Mouse0;
+    public KeyCode lastKey;
+    private KeyCode jump = KeyCode.Space;
+    private KeyCode dash = KeyCode.LeftShift;
+    private KeyCode blockButton = KeyCode.Mouse1;
+    private KeyCode attackButton = KeyCode.Mouse0;
 
     
 
@@ -158,13 +158,15 @@ public class PlayerState : Unit {
         
     }
     public KeyCode GetInput() {
-            if (Input.GetKey(jump)) {
-                lastKey = jump;
-            } else if (Input.GetKey(dash)) {
-                lastKey = dash;
-            } else if (Input.GetKey(attackButton)) {
-                lastKey = attackButton;
-            }
+        if (Input.GetKeyDown(jump)) {
+            lastKey = jump;
+        } else if (Input.GetKeyDown(dash)) {
+            lastKey = dash;
+        } else if (Input.GetKeyDown(attackButton)) {
+            lastKey = attackButton;
+        } else if (Input.GetKeyDown(blockButton)) {
+            lastKey = blockButton;
+        }
         return lastKey;
 
     }

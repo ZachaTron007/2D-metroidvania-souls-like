@@ -13,10 +13,11 @@ public class PlayerAttack : ParentMeleeAttack {
     // Update is called once per frame
     public override void Enter() {
         if (unitVariables.attackTime >= currentClipTime) {
+            unitVariables.attackTime = 0.0f;
             UpdateAttack();
             
             StartCoroutine(Attack());
-            unitVariables.attackTime = 0.0f;
+            
         } else {
             Exit();
         }
