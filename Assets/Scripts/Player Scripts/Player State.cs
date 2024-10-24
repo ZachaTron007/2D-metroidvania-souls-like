@@ -125,7 +125,7 @@ public class PlayerState : Unit {
             dashCount = 0;
         }
         attackTime += Time.deltaTime;
-        if (lastKey == attackButton) {
+        if (lastKey == attackButton&&attackTime>=attackState.currentAttack.length) {
             state = attackState;
             // Reset timer
             //attackTime = 0.0f;

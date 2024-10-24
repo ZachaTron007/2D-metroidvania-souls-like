@@ -11,7 +11,7 @@ public abstract class Unit : MonoBehaviour
     public Rigidbody2D rb;
     public Animator animatior;
     protected SpriteRenderer sr;
-    protected BoxCollider2D mainCollider;
+    [SerializeField] protected Sensors mainCollider;
     [Header("Current State")]
 
     [SerializeField] protected State state;
@@ -41,7 +41,7 @@ public abstract class Unit : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animatior = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
-        mainCollider = GetComponent<BoxCollider2D>();
+        //mainCollider = GetComponent<BoxCollider2D>();
         hurtState?.Setup(rb, animatior, this);
         fallState?.Setup(rb, animatior, this);
         attackState?.Setup(rb, animatior, this);
@@ -84,10 +84,10 @@ public abstract class Unit : MonoBehaviour
         //hits walls
         int layerNumber = 6;
         float distanceAdditon = 0.1f;
-        //bool groundHit = Physics2D.BoxCast(transform.position, BoxDimentions, 0, Vector2.down, mainCollider.size.y / 2 + distanceAdditon, layerNumber);
-        RaycastHit2D groundHitLeft = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon, new Vector3(transform.position.x - mainCollider.size.x/2, transform.position.y, 0));
+        RaycastHit2D groundHitLeft = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon, new Vector3(transform.position.x - mainCollider.hitBox.size.x/2, transform.position.y, 0));
         RaycastHit2D groundHitMiddle = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon,transform.position,true);
-        RaycastHit2D groundHitRight = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon,new Vector3(transform.position.x + mainCollider.size.x/2, transform.position.y, 0));
+        RaycastHit2D groundHitRight = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon,new Vector3(transform.position.x + mainCollider.hitBox.size.x/2, transform.position.y, 0));
+        
         if (groundHitMiddle||groundHitMiddle||groundHitRight) {
             grounded = true;
         } else {
@@ -119,7 +119,7 @@ public abstract class Unit : MonoBehaviour
         int layerMask = LayerNumToLayerMask(layerNumber);
         //gets the height of the collider and div by 2 to get the center
         //add the offset of the collider`
-        Vector3 startOffset = new Vector3(transform.localScale.x / 2 * direction.x, transform.localScale.y / 2 * direction.y, 0) + new Vector3(mainCollider.offset.x, mainCollider.offset.y, 0);
+        Vector3 startOffset = new Vector3(transform.localScale.x / 2 * direction.x, transform.localScale.y / 2 * direction.y, 0) + new Vector3(mainCollider.hitBox.offset.x, mainCollider.hitBox.offset.y, 0);
         if (startPosition == new Vector3()) {
             startPosition = transform.position + startOffset;
         }

@@ -78,7 +78,7 @@ public abstract class EnemyScript : Unit {
      * used if the enemy is agroed
      */
     private int ShouldSwitchDirection(int direction,Vector2 PlayerDirection) {
-        float turnGracePeriod = mainCollider.size.x / 2;
+        float turnGracePeriod = mainCollider.hitBox.size.x / 2;
         if (Mathf.Abs(PlayerDirection.x) > turnGracePeriod && state.interuptable) {
             int tempDirection = direction;
             direction = PlayerDirection.x > 0 ? 1 : -1;

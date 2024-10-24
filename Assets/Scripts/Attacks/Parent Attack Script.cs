@@ -14,6 +14,7 @@ public class ParentMeleeAttack : State {
     }
 
     protected Vector2 offsetVector() {
+        Debug.Log(new Vector2(unitVariables.direction * currentAttack.attackHitBox.offset.x, currentAttack.attackHitBox.offset.y));
         return new Vector2(unitVariables.direction * currentAttack.attackHitBox.offset.x,currentAttack.attackHitBox.offset.y);
     }
     /*

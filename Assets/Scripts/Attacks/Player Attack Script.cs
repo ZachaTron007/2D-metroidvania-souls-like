@@ -11,20 +11,27 @@ public class PlayerAttack : ParentMeleeAttack {
 
 
     // Update is called once per frame
+    private void Awake() {
+        currentAttack = basicCombo[0];
+    }
     public override void Enter() {
+        
+        UpdateAttack();
+        unitVariables.attackTime = 0;
+        StartCoroutine(Attack());
+        unitVariables.attackTime = 0;/*
         if (unitVariables.attackTime >= currentClipTime) {
-            unitVariables.attackTime = 0.0f;
-            UpdateAttack();
             
-            StartCoroutine(Attack());
+            
             
         } else {
             Exit();
-        }
+        }*/
 
     }
 
     public override void Exit() {
+        unitVariables.attackTime = 0;
         stateDone = true;
     }
     public override void UpdateState() {
