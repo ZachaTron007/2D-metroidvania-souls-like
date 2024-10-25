@@ -1702,6 +1702,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 754580952768532944, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2761734185239727515, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -1742,6 +1746,10 @@ PrefabInstance:
       propertyPath: 'attacks.Array.data[1]'
       value: 
       objectReference: {fileID: 1253176191}
+    - target: {fileID: 4281154447950889430, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4534137920647127328, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -1802,9 +1810,17 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 7421409672550808332, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7918396520685599692, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
       propertyPath: m_Mass
       value: 0.564816
+      objectReference: {fileID: 0}
+    - target: {fileID: 8059898209708974837, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8573411624602601267, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
       propertyPath: recoverTime
@@ -3312,6 +3328,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2508875274044053025, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3060593172435654969, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: ScreenShakeMagnitude
       value: 0.5
@@ -3392,6 +3412,10 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 0.564816
       objectReference: {fileID: 0}
+    - target: {fileID: 5849605177917012123, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6225676682152794543, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
@@ -3420,6 +3444,14 @@ PrefabInstance:
       propertyPath: mainCollider
       value: 
       objectReference: {fileID: 1442825503}
+    - target: {fileID: 6949226957807085175, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6991230870829561537, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7955318845054117935, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -3427,6 +3459,10 @@ PrefabInstance:
     - target: {fileID: 7955318845054117935, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175205356505004168, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8231595280448065926, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: basicCombo.Array.size

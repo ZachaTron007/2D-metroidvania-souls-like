@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c19bd498cf2c3a4eafe8479170a205b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitBox: {fileID: 0}
 --- !u!61 &323986996399350858
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -233,6 +234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c19bd498cf2c3a4eafe8479170a205b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitBox: {fileID: 0}
 --- !u!61 &3398588828500477510
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -797,6 +799,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   animatior: {fileID: 0}
+  mainCollider: {fileID: 0}
   state: {fileID: 0}
   hurtState: {fileID: 0}
   fallState: {fileID: 0}
@@ -805,6 +808,7 @@ MonoBehaviour:
   isRecovering: 0
   amplitude: 0
   duration: 0
+  direction: 1
   agroRange: {fileID: 1962164912142059510}
   attackRange: {fileID: 605601571980306214}
   agroState: {fileID: 8140790006863923056}
@@ -1230,6 +1234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c19bd498cf2c3a4eafe8479170a205b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitBox: {fileID: 0}
 --- !u!61 &3339698165325161859
 BoxCollider2D:
   m_ObjectHideFlags: 0

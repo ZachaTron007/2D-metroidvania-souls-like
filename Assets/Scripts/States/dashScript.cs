@@ -5,15 +5,22 @@ using UnityEngine;
 
 public class dashScript : State
 {
+    
     //protected new bool interuptable = false;
     [SerializeField] private AnimationClip dashClip;
     [SerializeField] private float dashSpeed = 15;
     [SerializeField] private float dashduration = 0.2f;
     public bool dashing;
 
-    public IEnumerator dash(Rigidbody2D rb) {
+    public IEnumerator dash() {
+        LayerMask layer1 = 1 << 7;
+        LayerMask layer2 = 1 << 8;
+        LayerMask layer3 = 1 << 3;
+        LayerMask layermask = ~(layer1| layer2 | layer3);
         rb.linearVelocity = Vector2.right * unitVariables.direction * dashSpeed;
+        rb.excludeLayers = layermask;
         yield return new WaitForSeconds(dashduration);
+
         Exit();
         yield return null;
     }
@@ -27,7 +34,7 @@ public class dashScript : State
         if (dashClip) {
             animator.Play(dashClip.name);
         }
-        StartCoroutine(dash(rb));
+        StartCoroutine(dash());
     }
     public override void Exit() {
         

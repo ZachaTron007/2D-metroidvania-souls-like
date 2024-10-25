@@ -45,7 +45,6 @@ public abstract class Unit : MonoBehaviour
         hurtState?.Setup(rb, animatior, this);
         fallState?.Setup(rb, animatior, this);
         attackState?.Setup(rb, animatior, this);
-        //direction = sr.flipX ? 1 : -1;
         EventSubscribe();
     }
     protected virtual void EventSubscribe() {

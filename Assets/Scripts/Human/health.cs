@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 
 public class Health : MonoBehaviour
 {
-    private PlayerState player;
+
     [SerializeField] private BlockState blockState;
     [SerializeField] private int health = 100;
     private int MAX_HEALTH = 100;

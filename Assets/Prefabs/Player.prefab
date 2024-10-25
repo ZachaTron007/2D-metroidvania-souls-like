@@ -94,6 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 5659295172002192011}
   animatior: {fileID: 7805728038281855956}
+  mainCollider: {fileID: 0}
   state: {fileID: 0}
   hurtState: {fileID: 0}
   fallState: {fileID: 1823725907995604638}
@@ -102,13 +103,14 @@ MonoBehaviour:
   isRecovering: 0
   amplitude: 0
   duration: 0
+  direction: 1
   Dash: {fileID: 8471434802479641984}
   jumpScript: {fileID: 5748622122044369809}
   wallActions: {fileID: 1451001638846000934}
   moveState: {fileID: 545213728974159921}
   blockState: {fileID: 811300300784513735}
   idelState: {fileID: 2760532947694410976}
-  blockButton: 1
+  lastKey: 0
 --- !u!50 &5659295172002192011
 Rigidbody2D:
   serializedVersion: 5
@@ -1103,6 +1105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c19bd498cf2c3a4eafe8479170a205b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitBox: {fileID: 0}
 --- !u!1 &8175205356505004168
 GameObject:
   m_ObjectHideFlags: 0

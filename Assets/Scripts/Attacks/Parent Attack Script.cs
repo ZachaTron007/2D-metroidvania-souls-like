@@ -7,15 +7,16 @@ public class ParentMeleeAttack : State {
 
     [SerializeField] public AttackInfo currentAttack;
     public Vector2 lookDirection;
+    private int tempDirection;
 
     // Start is called before the first frame update
     void Start() {
         interuptable = false;
+        tempDirection = unitVariables.direction;
     }
 
     protected Vector2 offsetVector() {
-        Debug.Log(new Vector2(unitVariables.direction * currentAttack.attackHitBox.offset.x, currentAttack.attackHitBox.offset.y));
-        return new Vector2(unitVariables.direction * currentAttack.attackHitBox.offset.x,currentAttack.attackHitBox.offset.y);
+        return new Vector2(unitVariables.direction * Mathf.Abs(currentAttack.attackHitBox.offset.x), Mathf.Abs(currentAttack.attackHitBox.offset.y));
     }
     /*
      * summary:
