@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: f2ed27d6c1c3ccc48959bcca269d88f0
+AssetOrigin:
+  serializedVersion: 1
+  productId: 104130
+  packageName: Bandits - Pixel Art
+  packageVersion: 2.2
+  assetPath: Assets/Bandits - Pixel Art/Sprites/LightBandit.png
+  uploadId: 384983
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -175,7 +182,7 @@ TextureImporter:
   swizzle: 50462976
   cookieLightType: 1
   platformSettings:
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -188,7 +195,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 1
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -201,8 +208,47 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 1
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -221,13 +267,14 @@ TextureImporter:
       name: LightBandit_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 128
         y: 208
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -242,13 +289,14 @@ TextureImporter:
       name: LightBandit_1
       rect:
         serializedVersion: 2
-        x: 48
+        x: 176
         y: 208
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -263,13 +311,14 @@ TextureImporter:
       name: LightBandit_2
       rect:
         serializedVersion: 2
-        x: 96
+        x: 224
         y: 208
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -284,13 +333,14 @@ TextureImporter:
       name: LightBandit_3
       rect:
         serializedVersion: 2
-        x: 144
+        x: 272
         y: 208
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -305,13 +355,14 @@ TextureImporter:
       name: LightBandit_4
       rect:
         serializedVersion: 2
-        x: 192
+        x: 320
         y: 208
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -326,13 +377,14 @@ TextureImporter:
       name: LightBandit_5
       rect:
         serializedVersion: 2
-        x: 240
+        x: 368
         y: 208
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -347,13 +399,14 @@ TextureImporter:
       name: LightBandit_6
       rect:
         serializedVersion: 2
-        x: 288
+        x: 416
         y: 208
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -368,13 +421,14 @@ TextureImporter:
       name: LightBandit_7
       rect:
         serializedVersion: 2
-        x: 336
+        x: 464
         y: 208
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -389,13 +443,14 @@ TextureImporter:
       name: LightBandit_8
       rect:
         serializedVersion: 2
-        x: 0
-        y: 160
+        x: 320
+        y: 16
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -410,13 +465,14 @@ TextureImporter:
       name: LightBandit_9
       rect:
         serializedVersion: 2
-        x: 48
-        y: 160
+        x: 128
+        y: 64
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -431,13 +487,14 @@ TextureImporter:
       name: LightBandit_10
       rect:
         serializedVersion: 2
-        x: 96
+        x: 128
         y: 160
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -452,13 +509,14 @@ TextureImporter:
       name: LightBandit_11
       rect:
         serializedVersion: 2
-        x: 144
+        x: 176
         y: 160
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -473,13 +531,14 @@ TextureImporter:
       name: LightBandit_12
       rect:
         serializedVersion: 2
-        x: 192
+        x: 224
         y: 160
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -494,13 +553,14 @@ TextureImporter:
       name: LightBandit_13
       rect:
         serializedVersion: 2
-        x: 240
+        x: 320
         y: 160
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -515,13 +575,14 @@ TextureImporter:
       name: LightBandit_14
       rect:
         serializedVersion: 2
-        x: 288
+        x: 368
         y: 160
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -536,13 +597,14 @@ TextureImporter:
       name: LightBandit_15
       rect:
         serializedVersion: 2
-        x: 336
+        x: 464
         y: 160
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -557,13 +619,14 @@ TextureImporter:
       name: LightBandit_16
       rect:
         serializedVersion: 2
-        x: 0
-        y: 112
+        x: 368
+        y: 16
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -578,13 +641,14 @@ TextureImporter:
       name: LightBandit_17
       rect:
         serializedVersion: 2
-        x: 48
-        y: 112
+        x: 176
+        y: 64
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -599,13 +663,14 @@ TextureImporter:
       name: LightBandit_18
       rect:
         serializedVersion: 2
-        x: 96
+        x: 128
         y: 112
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -620,13 +685,14 @@ TextureImporter:
       name: LightBandit_19
       rect:
         serializedVersion: 2
-        x: 144
+        x: 176
         y: 112
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -641,13 +707,14 @@ TextureImporter:
       name: LightBandit_20
       rect:
         serializedVersion: 2
-        x: 192
+        x: 272
         y: 112
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -662,13 +729,14 @@ TextureImporter:
       name: LightBandit_21
       rect:
         serializedVersion: 2
-        x: 240
+        x: 320
         y: 112
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -683,13 +751,14 @@ TextureImporter:
       name: LightBandit_22
       rect:
         serializedVersion: 2
-        x: 288
-        y: 112
+        x: 272
+        y: 160
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -704,13 +773,14 @@ TextureImporter:
       name: LightBandit_23
       rect:
         serializedVersion: 2
-        x: 336
-        y: 112
+        x: 416
+        y: 160
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -725,13 +795,14 @@ TextureImporter:
       name: LightBandit_24
       rect:
         serializedVersion: 2
-        x: 0
-        y: 64
+        x: 416
+        y: 16
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -746,13 +817,14 @@ TextureImporter:
       name: LightBandit_25
       rect:
         serializedVersion: 2
-        x: 48
+        x: 272
         y: 64
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -767,13 +839,14 @@ TextureImporter:
       name: LightBandit_26
       rect:
         serializedVersion: 2
-        x: 96
+        x: 368
         y: 64
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -788,13 +861,14 @@ TextureImporter:
       name: LightBandit_27
       rect:
         serializedVersion: 2
-        x: 144
+        x: 464
         y: 64
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -809,13 +883,14 @@ TextureImporter:
       name: LightBandit_28
       rect:
         serializedVersion: 2
-        x: 192
-        y: 64
+        x: 224
+        y: 112
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -830,13 +905,14 @@ TextureImporter:
       name: LightBandit_29
       rect:
         serializedVersion: 2
-        x: 240
-        y: 64
+        x: 368
+        y: 112
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -851,13 +927,14 @@ TextureImporter:
       name: LightBandit_30
       rect:
         serializedVersion: 2
-        x: 288
-        y: 64
+        x: 416
+        y: 112
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -872,13 +949,14 @@ TextureImporter:
       name: LightBandit_31
       rect:
         serializedVersion: 2
-        x: 336
-        y: 64
+        x: 464
+        y: 112
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -893,13 +971,14 @@ TextureImporter:
       name: LightBandit_32
       rect:
         serializedVersion: 2
-        x: 0
+        x: 464
         y: 16
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -914,13 +993,14 @@ TextureImporter:
       name: LightBandit_33
       rect:
         serializedVersion: 2
-        x: 48
-        y: 16
+        x: 224
+        y: 64
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -935,13 +1015,14 @@ TextureImporter:
       name: LightBandit_34
       rect:
         serializedVersion: 2
-        x: 96
-        y: 16
+        x: 320
+        y: 64
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -956,13 +1037,14 @@ TextureImporter:
       name: LightBandit_35
       rect:
         serializedVersion: 2
-        x: 144
-        y: 16
+        x: 416
+        y: 64
         width: 48
         height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -973,7 +1055,30 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: LightBandit_36
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 17
+        width: 37
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a14c76b2f72e3cb478f08f86c826b119
+      internalID: 310455930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
+    customData: 
     physicsShape: []
     bones: []
     spriteID: 7d11182b063dd464e84a53d686a40f8f
@@ -983,6 +1088,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
     nameFileIdTable:
       LightBandit_0: 21300000
       LightBandit_1: 21300002
@@ -1014,6 +1121,7 @@ TextureImporter:
       LightBandit_33: 21300066
       LightBandit_34: 21300068
       LightBandit_35: 21300070
+      LightBandit_36: 310455930
       LightBandit_4: 21300008
       LightBandit_5: 21300010
       LightBandit_6: 21300012

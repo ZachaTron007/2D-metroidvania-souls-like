@@ -13,18 +13,22 @@ public class dashScript : State
     public bool dashing;
 
     public IEnumerator dash() {
-        LayerMask layer1 = 1 << 7;
-        LayerMask layer2 = 1 << 8;
-        LayerMask layer3 = 1 << 3;
-        LayerMask layermask = ~(layer1| layer2 | layer3);
         rb.linearVelocity = Vector2.right * unitVariables.direction * dashSpeed;
-        rb.excludeLayers = layermask;
+        rb.excludeLayers = LayerMaskCreator(new int[] {3, 7, 8});
         yield return new WaitForSeconds(dashduration);
-
+        rb.excludeLayers = LayerMaskCreator(new int[]{3, 7});
         Exit();
         yield return null;
     }
-
+    private LayerMask LayerMaskCreator(int[] layers) {
+        LayerMask binaryLayers = 0;
+        if (layers.Length > 0) {
+            for (int i = 0; i < layers.Length; i++) {
+                binaryLayers += 1 << layers[i];
+            }
+        }
+        return binaryLayers;
+    }
     
     public override void UpdateState() {
 

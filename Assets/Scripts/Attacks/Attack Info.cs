@@ -8,6 +8,7 @@ public class AttackInfo : DamageScript
     public float length;
     public BoxCollider2D attackHitBox;
     [SerializeField] private float ScreenShakeMagnitude;
+    public float startHitBoxTime;
 
 
     private void Awake() {
