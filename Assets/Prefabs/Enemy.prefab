@@ -188,7 +188,9 @@ MonoBehaviour:
   length: 0
   attackHitBox: {fileID: 0}
   ScreenShakeMagnitude: 0.1
+  totalFrames: 0
   startHitBoxTime: 0
+  endHitBoxTime: 0
 --- !u!1 &1962164912142059510
 GameObject:
   m_ObjectHideFlags: 0
@@ -1106,7 +1108,9 @@ MonoBehaviour:
   length: 0
   attackHitBox: {fileID: 0}
   ScreenShakeMagnitude: 0.1
+  totalFrames: 0
   startHitBoxTime: 0
+  endHitBoxTime: 0
 --- !u!1 &8059898209708974837
 GameObject:
   m_ObjectHideFlags: 0

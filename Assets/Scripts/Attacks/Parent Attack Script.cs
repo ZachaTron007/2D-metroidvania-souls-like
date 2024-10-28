@@ -33,10 +33,9 @@ public class ParentMeleeAttack : State {
         yield return new WaitForSeconds(currentAttack.startHitBoxTime);
         currentAttack.attackHitBox.enabled = true;
         currentAttack.attackHitBox.offset = offsetVector();
-        float hitBoxStayTime = currentAttack.clip.length / 2;
-        yield return new WaitForSeconds(hitBoxStayTime);
+        yield return new WaitForSeconds(currentAttack.endHitBoxTime);
         currentAttack.attackHitBox.enabled = false;
-        float recoveryTime = (currentAttack.endHitBoxTime!=0) ? currentAttack.endHitBoxTime : currentAttack.clip.length-currentAttack.startHitBoxTime;
+        float recoveryTime = (currentAttack.startHitBoxTime + currentAttack.endHitBoxTime >= currentAttack.clip.length) ? 0 : ( currentAttack.clip.length - (currentAttack.startHitBoxTime + currentAttack.endHitBoxTime));
         yield return new WaitForSeconds(recoveryTime);
         Exit();
     }
