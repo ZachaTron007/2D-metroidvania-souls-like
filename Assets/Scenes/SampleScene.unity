@@ -3071,6 +3071,18 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8060508606102360622, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: totalFrames
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8060508606102360622, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: endHitBoxTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8060508606102360622, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: startHitBoxTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8175205356505004168, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: m_Layer
       value: 8

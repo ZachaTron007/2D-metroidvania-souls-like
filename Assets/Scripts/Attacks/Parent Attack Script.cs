@@ -30,14 +30,13 @@ public class ParentMeleeAttack : State {
      */
     protected IEnumerator Attack() {
         animator.Play(currentAttack.clip.name);
-        float hitBoxStartTime = currentAttack.clip.length / 2;
-        yield return new WaitForSeconds(hitBoxStartTime);
+        yield return new WaitForSeconds(currentAttack.startHitBoxTime);
         currentAttack.attackHitBox.enabled = true;
         currentAttack.attackHitBox.offset = offsetVector();
         float hitBoxStayTime = currentAttack.clip.length / 2;
         yield return new WaitForSeconds(hitBoxStayTime);
         currentAttack.attackHitBox.enabled = false;
-        float recoveryTime = currentAttack.clip.length - (hitBoxStayTime + hitBoxStartTime);
+        float recoveryTime = (currentAttack.endHitBoxTime!=0) ? currentAttack.endHitBoxTime : currentAttack.clip.length-currentAttack.startHitBoxTime;
         yield return new WaitForSeconds(recoveryTime);
         Exit();
     }
