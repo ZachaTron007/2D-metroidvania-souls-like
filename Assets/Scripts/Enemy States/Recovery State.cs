@@ -10,11 +10,15 @@ public class RecoveryState : State
         animator.Play(idelAniamtion.name);
         rb.linearVelocity = Vector2.zero;
         interuptable = false;
-        Invoke("Exit", recoverTime);
+        Invoke("DoneRecovering", recoverTime);
+    }
+
+    private void DoneRecovering() {
+        unitVariables.isRecovering = false;
+        Exit();
     }
 
     public override void Exit() {
-        unitVariables.isRecovering = false;
         stateDone = true;
     }
     public override void UpdateState() {

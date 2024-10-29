@@ -16,10 +16,10 @@ public abstract class State : MonoBehaviour {
     public virtual void Enter () { }
     public virtual void Exit () { }
 
-    public void Setup (Rigidbody2D rb, Animator animator,Unit UnitVariables=null) { 
+    public void Setup (Rigidbody2D rb, Animator animator,Unit unitVariables) { 
         this.rb = rb;
         this.animator = animator;
-        this.unitVariables = UnitVariables;
+        this.unitVariables = unitVariables;
     }
     public void ResetState (State oldState) {
         oldState.Exit();

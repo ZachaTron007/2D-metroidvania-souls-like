@@ -15,10 +15,10 @@ public class PlayerAttack : ParentMeleeAttack {
         currentAttack = basicCombo[0];
     }
     public override void Enter() {
-        
+        base.Enter();
         UpdateAttack();
         unitVariables.attackTime = 0;
-        StartCoroutine(Attack());
+        StartCoroutine(attack);
         unitVariables.attackTime = 0;/*
         if (unitVariables.attackTime >= currentClipTime) {
             
@@ -31,8 +31,8 @@ public class PlayerAttack : ParentMeleeAttack {
     }
 
     public override void Exit() {
+        base.Exit();
         unitVariables.attackTime = 0;
-        stateDone = true;
     }
     public override void UpdateState() {
 

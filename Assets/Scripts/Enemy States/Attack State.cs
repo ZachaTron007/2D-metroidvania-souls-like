@@ -7,7 +7,6 @@ public class EnemyAttackState : ParentMeleeAttack
 
     private bool attacking;
     public AttackInfo[] attacks;
-    [SerializeField] private AttackInfo attack;
 
     /*
      * summary:
@@ -15,18 +14,19 @@ public class EnemyAttackState : ParentMeleeAttack
      *  2. starts the attack function
      *  */
     public override void Enter() {
-
+        base.Enter();
         interuptable = false;
         currentAttack = randomAttackPicker(attacks);
         
-        StartCoroutine(Attack());
+        StartCoroutine(attack);
     }
     public override void FixedUpdateState() {
         rb.linearVelocity = Vector2.zero;
     }
 
     public override void Exit() {
-        stateDone = true;
+        base.Exit();
+        
         unitVariables.isRecovering = true;
     }
 

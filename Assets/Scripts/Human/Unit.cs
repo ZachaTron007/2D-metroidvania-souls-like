@@ -14,7 +14,7 @@ public abstract class Unit : MonoBehaviour
     [SerializeField] protected Sensors mainCollider;
     [Header("Current State")]
 
-    [SerializeField] protected State state;
+    public State state;
     [Header("Required Unit States")]
     //[SerializeField] protected PlayerIdelState idelState;
 //    [SerializeField] protected ParentMeleeAttack melee;

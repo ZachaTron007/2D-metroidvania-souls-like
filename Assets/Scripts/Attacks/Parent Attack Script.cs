@@ -8,13 +8,17 @@ public class ParentMeleeAttack : State {
     [SerializeField] public AttackInfo currentAttack;
     public Vector2 lookDirection;
     private int tempDirection;
+    protected IEnumerator attack;
 
     // Start is called before the first frame update
     void Start() {
         interuptable = false;
         tempDirection = unitVariables.direction;
+        attack = Attack();
     }
-
+    public override void Enter() {
+        attack = Attack();
+    }
     protected Vector2 offsetVector() {
         return new Vector2(unitVariables.direction * Mathf.Abs(currentAttack.attackHitBox.offset.x), Mathf.Abs(currentAttack.attackHitBox.offset.y));
     }
@@ -36,11 +40,13 @@ public class ParentMeleeAttack : State {
         yield return new WaitForSeconds(currentAttack.endHitBoxTime);
         currentAttack.attackHitBox.enabled = false;
         float recoveryTime = (currentAttack.startHitBoxTime + currentAttack.endHitBoxTime >= currentAttack.clip.length) ? 0 : ( currentAttack.clip.length - (currentAttack.startHitBoxTime + currentAttack.endHitBoxTime));
+
         yield return new WaitForSeconds(recoveryTime);
         Exit();
     }
     public override void Exit() {
-
+        currentAttack.attackHitBox.enabled = false;
+        StopCoroutine(attack);
         stateDone = true;
     }
 
