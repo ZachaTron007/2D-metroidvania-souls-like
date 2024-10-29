@@ -179,5 +179,8 @@ public class PlayerState : Unit {
         //move = playerControls.Player.Move;
         //move.Disable();
     }
-    
+    protected override void GetHurt() {
+        StateChange(hurtState);
+    }
+
 }

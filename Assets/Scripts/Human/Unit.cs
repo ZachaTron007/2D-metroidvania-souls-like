@@ -135,8 +135,8 @@ public abstract class Unit : MonoBehaviour
         sr.flipX = direction < 0;
     }
 
-    protected void GetHurt() {
-        StateChange(hurtState);
+    protected virtual void GetHurt() {
+        //StateChange(hurtState);
     }
     public void HitCollided(bool hit) {
         AttackInfo attack = attackState.currentAttack;

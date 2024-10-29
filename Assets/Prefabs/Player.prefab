@@ -420,7 +420,8 @@ MonoBehaviour:
   length: 0
   attackHitBox: {fileID: 0}
   ScreenShakeMagnitude: 0.1
-  totalFrames: 0
+  startHitBoxFrames: 0
+  endHitBoxFrames: 0
   startHitBoxTime: 0
   endHitBoxTime: 0
 --- !u!1 &2720542548723612446
@@ -848,7 +849,8 @@ MonoBehaviour:
   length: 0
   attackHitBox: {fileID: 0}
   ScreenShakeMagnitude: 0.2
-  totalFrames: 0
+  startHitBoxFrames: 0
+  endHitBoxFrames: 0
   startHitBoxTime: 0
   endHitBoxTime: 0
 --- !u!1 &6991230870829561537
@@ -1124,7 +1126,8 @@ MonoBehaviour:
   length: 0
   attackHitBox: {fileID: 0}
   ScreenShakeMagnitude: 0.5
-  totalFrames: 0
+  startHitBoxFrames: 0
+  endHitBoxFrames: 0
   startHitBoxTime: 0
   endHitBoxTime: 0
 --- !u!1 &8409684108145571453

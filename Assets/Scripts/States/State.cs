@@ -13,7 +13,9 @@ public abstract class State : MonoBehaviour {
     protected Unit unitVariables;
     public virtual void UpdateState () { }
     public virtual void FixedUpdateState () { }
-    public virtual void Enter () { }
+    public virtual void Enter () {
+
+    }
     public virtual void Exit () { }
 
     public void Setup (Rigidbody2D rb, Animator animator,Unit unitVariables) { 

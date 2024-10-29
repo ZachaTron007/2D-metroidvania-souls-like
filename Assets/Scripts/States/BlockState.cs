@@ -22,7 +22,7 @@ public class BlockState : State
     }
 
     public override void UpdateState() {
-        if (Input.GetMouseButtonUp(1)) {
+        if (Input.GetMouseButtonUp(1)||!Input.GetMouseButton(1)) {
             Exit();
         }
     }

@@ -14,12 +14,12 @@ public class Health : MonoBehaviour
     private int MAX_HEALTH = 100;
     private Vector4 hurtColor = new Vector4(255, 62, 62, 255);
     private Vector4 normalColor;
-    private float colorChangeSpeed = 0.7f;
+    private float colorChangeSpeed = 0.2f;
     private SpriteRenderer sr;
     [SerializeField] private Sensors hitBox;
     //[SerializeField] private float parryWindow = 5f;
     public event Action getHitEvent;
-    public event Action<GameObject> hitEvent;
+    public event Action<Collider2D> hitEvent;
     public event Action dieEvent;
     public bool blocking = false;
 
@@ -48,7 +48,7 @@ public class Health : MonoBehaviour
             if (health < 0) {
                 health = 0;
             }
-            //StartCoroutine(Hurt(sr));
+            StartCoroutine(Hurt(sr));
             getHitEvent?.Invoke();
         }
 

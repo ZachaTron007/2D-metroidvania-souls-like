@@ -1709,7 +1709,15 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6906823903699011748, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
+      propertyPath: endHitBoxFrames
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6906823903699011748, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
       propertyPath: startHitBoxTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6906823903699011748, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
+      propertyPath: startHitBoxFrames
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7317311302900410284, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
@@ -3040,7 +3048,15 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4389947265746843862, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: endHitBoxFrames
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4389947265746843862, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: startHitBoxTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4389947265746843862, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: startHitBoxFrames
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5528412387757357549, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
@@ -3088,8 +3104,16 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6489775057103274142, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: endHitBoxFrames
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489775057103274142, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: startHitBoxTime
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489775057103274142, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: startHitBoxFrames
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6949226957807085175, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: m_Layer
@@ -3116,7 +3140,15 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8060508606102360622, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: endHitBoxFrames
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8060508606102360622, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: startHitBoxTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8060508606102360622, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: startHitBoxFrames
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8175205356505004168, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
