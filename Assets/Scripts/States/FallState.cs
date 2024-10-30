@@ -25,7 +25,7 @@ public class FallState : State
         rb.gravityScale = 2;
     }
     public override void UpdateState() {
-        if (unitVariables.grounded) {
+        if (unitVariables.GetGroundedState()) {
             Exit();
         }
 

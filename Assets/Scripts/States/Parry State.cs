@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class ParryState : MonoBehaviour
+public class ParryState : State
 {
     [SerializeField] private AnimationClip parryClip;
-    public void Enter() {
+    public override void Enter() {
         animator.Play(parryClip.name);
         
     }

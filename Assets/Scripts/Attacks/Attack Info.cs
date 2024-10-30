@@ -7,12 +7,15 @@ public class AttackInfo : DamageScript
     public AnimationClip clip;
     public float length;
     [HideInInspector] public BoxCollider2D attackHitBox;
+    [Header("Attack data")]
+    [SerializeField] private bool parryable;
     [SerializeField] private float ScreenShakeMagnitude;
     [Header("Frame data")]
     [SerializeField] private float startHitBoxFrames;
     [SerializeField] private float endHitBoxFrames;
     [HideInInspector] public float startHitBoxTime;
     [HideInInspector] public float endHitBoxTime;
+
 
 
     private void Awake() {

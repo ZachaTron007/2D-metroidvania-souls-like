@@ -70,7 +70,6 @@ public class PlayerState : Unit {
         //melee.Setup(rb, animatior, this);
         hurtState.Setup(rb, animatior, this);
         state = idelState;
-        
 
     }
 
@@ -171,6 +170,18 @@ public class PlayerState : Unit {
 
     }
 
+    protected override void GetHurt(bool hit) {
+        base.GetHurt(hit);
+        if (!hit) {
+
+        }
+    }
+
+
+
+
+
+
     private void OnEnable() {
         //move = playerControls.Player.Move;
         //move.Enable();
@@ -179,8 +190,11 @@ public class PlayerState : Unit {
         //move = playerControls.Player.Move;
         //move.Disable();
     }
-    protected override void GetHurt() {
-        StateChange(hurtState);
-    }
+    //protected override void GetHurt() {
+    //    StateChange(hurtState);
+    //}
 
 }
+
+
+

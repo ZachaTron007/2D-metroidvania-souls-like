@@ -19,7 +19,7 @@ public class Health : MonoBehaviour
     [SerializeField] private Sensors hitBox;
     //[SerializeField] private float parryWindow = 5f;
     public event Action getHitEvent;
-    public event Action<Collider2D> hitEvent;
+    public event Action<bool> hitEvent;
     public event Action dieEvent;
     public bool blocking = false;
 
@@ -48,7 +48,7 @@ public class Health : MonoBehaviour
             if (health < 0) {
                 health = 0;
             }
-            StartCoroutine(Hurt(sr));
+            StartCoroutine(HurtColorShift(sr));
             getHitEvent?.Invoke();
         }
 
@@ -63,7 +63,7 @@ public class Health : MonoBehaviour
 
     }
 
-    IEnumerator Hurt(SpriteRenderer sr) {
+    IEnumerator HurtColorShift(SpriteRenderer sr) {
         sr.color = hurtColor;
         yield return new WaitForSeconds(colorChangeSpeed);
         sr.color = normalColor;
@@ -81,17 +81,25 @@ public class Health : MonoBehaviour
     }
 
     private void GetHit(Collider2D collision) {
-        if (!blocking) {
-            if (collision.GetComponent<DamageScript>() != null) {
-                DamageScript damageScript = collision.GetComponent<DamageScript>();
-                Damage(damageScript.damage);
-                if (collision.GetComponent<AttackInfo>() != null) {
-                    AttackInfo attackInfo = collision.GetComponent<AttackInfo>();
-                    attackInfo.VisualEffect();
-                }
+        //if the thing damaging is an attack
+        if (collision.GetComponent<AttackInfo>()) {
+            //checks to see if the attack would be blocked
+            AttackInfo attackInfo = collision.GetComponent<AttackInfo>();
+            if (blockState?.IsBlockingAttack(attackInfo) ?? false) {
+                hitEvent?.Invoke(false);
+            } else {
+                Damage(attackInfo.damage);
+                attackInfo.VisualEffect();
+                hitEvent?.Invoke(true);
             }
+            //checks to see if the thing colliding can damage you at all
+        } else if (collision.GetComponent<DamageScript>()) {
+            DamageScript damageScript = collision.GetComponent<DamageScript>();
+            Damage(damageScript.damage);
+
         }
     }
+
     private void SetBlocking(bool blocking) {
         this.blocking = blocking;
     }

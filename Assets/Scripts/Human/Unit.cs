@@ -27,10 +27,17 @@ public abstract class Unit : MonoBehaviour
     public bool isRecovering = false;
     [SerializeField] public float amplitude;
     [SerializeField] public float duration;
-    public int direction = 1;//{ get; protected set; } = 1;
-    public float moveSpeed { get; protected set; } = 250;
-    public bool grounded { get; protected set; }
-    
+    protected int direction = 1;//{ get; protected set; } = 1;
+    protected float moveSpeed = 250;
+    protected bool grounded;
+    /*
+     * summary:
+     * get and sets
+     */
+    public int GetDirection() => direction;
+    public bool GetGroundedState() => grounded;
+
+
     /*
      * summary:
      * a required function for all units to setup the nessessary components,
@@ -48,10 +55,10 @@ public abstract class Unit : MonoBehaviour
         EventSubscribe();
     }
     protected virtual void EventSubscribe() {
-        health.getHitEvent += GetHurt;
+        health.hitEvent += GetHurt;
     }
     protected virtual void EventUnsubscribe() {
-        health.getHitEvent -= GetHurt;
+        health.hitEvent -= GetHurt;
     }
     /*
      * summary:
@@ -135,8 +142,8 @@ public abstract class Unit : MonoBehaviour
         sr.flipX = direction < 0;
     }
 
-    protected virtual void GetHurt() {
-        //StateChange(hurtState);
+    protected virtual void GetHurt(bool hit) {
+        
     }
     public void HitCollided(bool hit) {
         AttackInfo attack = attackState.currentAttack;

@@ -11,17 +11,20 @@ public class BlockState : State
     [SerializeField] private float parryWindow = 5f;
     
     [SerializeField] private bool blocking = false;
-    [SerializeField] private bool parrying = false;
+    [SerializeField] private float parryCounter;
     public event Action <bool> onBlock;
 
 
     public override void Enter() {
+        parryCounter = 0;
         Block();
+
         interuptable = false;
 
     }
 
     public override void UpdateState() {
+        parryCounter += Time.deltaTime;
         if (Input.GetMouseButtonUp(1)||!Input.GetMouseButton(1)) {
             Exit();
         }
@@ -36,8 +39,6 @@ public class BlockState : State
         onBlock?.Invoke(true);
         animator.Play(blockingClip.name);
         //float parryWindow = .5f;
-        parrying = true;
-        Invoke("ParryWindowEnd", parryWindow);
         blocking = true;
 
         /*
@@ -46,7 +47,13 @@ public class BlockState : State
         }
         */
     }
-    private void ParryWindowEnd() {
-        parrying = false;
+    public bool? IsBlockingAttack(AttackInfo enemyAttack) {
+        if (blocking) {
+            int directionOfEnemy = enemyAttack.attackHitBox.offset.x>0?1:-1;
+            if (unitVariables.GetDirection() != directionOfEnemy) {
+                return true;    
+            }
+        }
+        return false;
     }
 }

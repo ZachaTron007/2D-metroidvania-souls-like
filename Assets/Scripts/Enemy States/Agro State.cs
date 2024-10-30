@@ -12,7 +12,7 @@ public class AgroState : State
     }
     public override void FixedUpdateState() {
 
-        rb.linearVelocity = new Vector2(unitVariables.direction * agroSpeed * Time.fixedDeltaTime, rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(unitVariables.GetDirection() * agroSpeed * Time.fixedDeltaTime, rb.linearVelocity.y);
     }
 
     public override void UpdateState() {

@@ -40,7 +40,7 @@ public class IdelState : State {
     }
     
     public override void FixedUpdateState() {
-        rb.linearVelocity = new Vector2(unitVariables.direction * speed * Time.fixedDeltaTime, rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(unitVariables.GetDirection() * speed * Time.fixedDeltaTime, rb.linearVelocity.y);
     }
 
     public override void Exit() {

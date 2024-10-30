@@ -13,7 +13,7 @@ public class dashScript : State
     public bool dashing;
 
     public IEnumerator dash() {
-        rb.linearVelocity = Vector2.right * unitVariables.direction * dashSpeed;
+        rb.linearVelocity = Vector2.right * unitVariables.GetDirection() * dashSpeed;
         rb.excludeLayers = LayerMaskCreator(new int[] {3, 7, 8});
         yield return new WaitForSeconds(dashduration);
         rb.excludeLayers = LayerMaskCreator(new int[]{3, 7});

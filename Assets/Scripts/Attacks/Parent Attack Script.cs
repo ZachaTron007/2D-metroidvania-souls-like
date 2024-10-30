@@ -13,14 +13,14 @@ public class ParentMeleeAttack : State {
     // Start is called before the first frame update
     void Start() {
         interuptable = false;
-        tempDirection = unitVariables.direction;
+        tempDirection = unitVariables.GetDirection();
         attack = Attack();
     }
     public override void Enter() {
         attack = Attack();
     }
     protected Vector2 offsetVector() {
-        return new Vector2(unitVariables.direction * Mathf.Abs(currentAttack.attackHitBox.offset.x), Mathf.Abs(currentAttack.attackHitBox.offset.y));
+        return new Vector2(unitVariables.GetDirection() * Mathf.Abs(currentAttack.attackHitBox.offset.x), Mathf.Abs(currentAttack.attackHitBox.offset.y));
     }
     /*
      * summary:
