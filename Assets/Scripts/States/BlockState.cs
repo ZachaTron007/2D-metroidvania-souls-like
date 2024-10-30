@@ -8,50 +8,51 @@ public class BlockState : State
 {
     [SerializeField] private AnimationClip blockingClip;
     [SerializeField] private AnimationClip parryClip;
-    [SerializeField] private float parryWindow = 5f;
+    [SerializeField] public float parryWindow = 5f;
     
     [SerializeField] private bool blocking = false;
-    [SerializeField] private float parryCounter;
+    [SerializeField] public float parryCounter;
+    public bool canParry;
     public event Action <bool> onBlock;
+    public event Action <bool> parryAvailibility;
+    //[SerializeField] Health health;
 
 
     public override void Enter() {
+        canParry = true;
         parryCounter = 0;
         Block();
-
         interuptable = false;
 
     }
 
     public override void UpdateState() {
         parryCounter += Time.deltaTime;
+        if (parryCounter > parryWindow) {
+            canParry = false;
+        }
         if (Input.GetMouseButtonUp(1)||!Input.GetMouseButton(1)) {
             Exit();
         }
     }
 
     public override void Exit() {
-        onBlock?.Invoke(false);
+        blocking = false;
         stateDone = true;
+        canParry = false;
     }
 
     public void Block() {
-        onBlock?.Invoke(true);
         animator.Play(blockingClip.name);
         //float parryWindow = .5f;
         blocking = true;
-
-        /*
-        if (Input.GetKeyDown(KeyCode.B)) {
-            animatior.SetTrigger(BLOCKPARRY);
-        }
-        */
     }
     public bool? IsBlockingAttack(AttackInfo enemyAttack) {
         if (blocking) {
+            
             int directionOfEnemy = enemyAttack.attackHitBox.offset.x>0?1:-1;
             if (unitVariables.GetDirection() != directionOfEnemy) {
-                return true;    
+                return true;
             }
         }
         return false;

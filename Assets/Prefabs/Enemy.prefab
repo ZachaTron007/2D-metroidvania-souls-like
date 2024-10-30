@@ -187,6 +187,7 @@ MonoBehaviour:
   clip: {fileID: 7400000, guid: 3688e492878501d4882fffca4cb3bbff, type: 2}
   length: 0
   attackHitBox: {fileID: 0}
+  parryable: 0
   ScreenShakeMagnitude: 0.1
   startHitBoxFrames: 0
   endHitBoxFrames: 0
@@ -810,7 +811,6 @@ MonoBehaviour:
   isRecovering: 0
   amplitude: 0
   duration: 0
-  direction: 1
   agroRange: {fileID: 1962164912142059510}
   attackRange: {fileID: 605601571980306214}
   agroState: {fileID: 8140790006863923056}
@@ -1107,6 +1107,7 @@ MonoBehaviour:
   clip: {fileID: 7400000, guid: c42aa71ad221ea349a7ee113bb662657, type: 2}
   length: 0
   attackHitBox: {fileID: 0}
+  parryable: 0
   ScreenShakeMagnitude: 0.1
   startHitBoxFrames: 0
   endHitBoxFrames: 0

@@ -103,12 +103,12 @@ MonoBehaviour:
   isRecovering: 0
   amplitude: 1
   duration: 0.2
-  direction: 1
   Dash: {fileID: 8471434802479641984}
   jumpScript: {fileID: 5748622122044369809}
   wallActions: {fileID: 1451001638846000934}
   moveState: {fileID: 545213728974159921}
   blockState: {fileID: 811300300784513735}
+  parryState: {fileID: 0}
   idelState: {fileID: 2760532947694410976}
   lastKey: 0
 --- !u!50 &5659295172002192011
@@ -419,6 +419,7 @@ MonoBehaviour:
   clip: {fileID: 7400000, guid: 3688e492878501d4882fffca4cb3bbff, type: 2}
   length: 0
   attackHitBox: {fileID: 0}
+  parryable: 0
   ScreenShakeMagnitude: 0.1
   startHitBoxFrames: 0
   endHitBoxFrames: 0
@@ -598,7 +599,8 @@ MonoBehaviour:
   parryClip: {fileID: 7400000, guid: 8343e24825085354186de10f6f858f08, type: 2}
   parryWindow: 5
   blocking: 0
-  parrying: 0
+  parryCounter: 0
+  canParry: 0
 --- !u!1 &5812756172105343653
 GameObject:
   m_ObjectHideFlags: 0
@@ -848,6 +850,7 @@ MonoBehaviour:
   clip: {fileID: 7400000, guid: 0bafac48b1090284da2048c29bc986ff, type: 2}
   length: 0
   attackHitBox: {fileID: 0}
+  parryable: 0
   ScreenShakeMagnitude: 0.2
   startHitBoxFrames: 0
   endHitBoxFrames: 0
@@ -1125,6 +1128,7 @@ MonoBehaviour:
   clip: {fileID: 7400000, guid: c42aa71ad221ea349a7ee113bb662657, type: 2}
   length: 0
   attackHitBox: {fileID: 0}
+  parryable: 0
   ScreenShakeMagnitude: 0.5
   startHitBoxFrames: 0
   endHitBoxFrames: 0

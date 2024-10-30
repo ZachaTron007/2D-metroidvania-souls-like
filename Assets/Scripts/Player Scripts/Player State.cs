@@ -19,7 +19,8 @@ public class PlayerState : Unit {
     //public float direction { get; private set; } = 1;
 
     private float dashCount;
-    private float dashCool = 0.7f;
+    private readonly float dashCool = 0.7f;
+    private bool canParry;
 
 
     //[SerializeField] private bool blood = false;
@@ -34,6 +35,7 @@ public class PlayerState : Unit {
     [SerializeField] private wallActionsScript wallActions;
     [SerializeField] public MoveState moveState;
     [SerializeField] public BlockState blockState;
+    [SerializeField] public ParryState parryState;
     [SerializeField] protected PlayerIdelState idelState;
     private InputScript inputScript;
     //[SerializeField] protected PlayerAttack melee;
@@ -46,8 +48,14 @@ public class PlayerState : Unit {
     private KeyCode blockButton = KeyCode.Mouse1;
     private KeyCode attackButton = KeyCode.Mouse0;
 
-    
 
+    protected override void EventSubscribe() {
+        base.EventSubscribe();
+    }
+    protected override void EventUnsubscribe() {
+        base.EventUnsubscribe();
+        playerControls.Player.Disable();
+    }
 
     private void Awake() {
         //CinemachineEffectScript.instance.ScreenShake(0.1f, 0.1f);
@@ -67,6 +75,7 @@ public class PlayerState : Unit {
         moveState.Setup(rb, animatior, this);
         idelState.Setup(rb, animatior, this);
         blockState.Setup(rb, animatior, this);
+        parryState.Setup(rb, animatior, this);
         //melee.Setup(rb, animatior, this);
         hurtState.Setup(rb, animatior, this);
         state = idelState;
@@ -172,12 +181,12 @@ public class PlayerState : Unit {
 
     protected override void GetHurt(bool hit) {
         base.GetHurt(hit);
-        if (!hit) {
-
+        Debug.Log("Was Hit: " + hit+" parry count: "+ blockState.parryCounter);
+        if (!hit&&blockState.canParry) {
+            Debug.Log("Parried");
+            StateChange(parryState);
         }
     }
-
-
 
 
 
