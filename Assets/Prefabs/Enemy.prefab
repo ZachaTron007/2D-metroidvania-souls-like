@@ -916,8 +916,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateDone: 0
-  idelAniamtion: {fileID: 7400000, guid: 25c891cb0c6f9254ab9e614f7fd82c78, type: 2}
-  recoverTime: 3
 --- !u!1 &6880627972990887905
 GameObject:
   m_ObjectHideFlags: 0

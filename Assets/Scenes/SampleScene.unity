@@ -1489,6 +1489,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 825320339}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1068478706 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5705651046644292754, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
+  m_PrefabInstance: {fileID: 1279754870}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1068478708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1068478706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c0945cb63849343a015171ae1d790e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateDone: 0
+  speed: 2
+  switchTime: 10
 --- !u!1 &1198630925
 GameObject:
   m_ObjectHideFlags: 0
@@ -1651,6 +1671,10 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 0.83
       objectReference: {fileID: 0}
+    - target: {fileID: 361345800473325895, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
+      propertyPath: recoverState
+      value: 
+      objectReference: {fileID: 1068478708}
     - target: {fileID: 1659852195986634070, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
       propertyPath: runClip
       value: 
@@ -1821,10 +1845,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1633383643459266379, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
+    - {fileID: 8573411624602601267, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
     m_RemovedGameObjects:
     - {fileID: 7421409672550808332, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5705651046644292754, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1068478708}
   m_SourcePrefab: {fileID: 100100000, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
 --- !u!4 &1309007468 stripped
 Transform:

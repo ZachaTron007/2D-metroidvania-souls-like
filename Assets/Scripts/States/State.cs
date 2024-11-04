@@ -16,7 +16,9 @@ public abstract class State : MonoBehaviour {
     public virtual void Enter () {
 
     }
-    public virtual void Exit () { }
+    public virtual void Exit () {
+        stateDone = true;
+    }
 
     public void Setup (Rigidbody2D rb, Animator animator,Unit unitVariables) { 
         this.rb = rb;

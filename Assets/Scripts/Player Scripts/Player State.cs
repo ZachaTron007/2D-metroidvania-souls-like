@@ -105,44 +105,41 @@ public class PlayerState : Unit {
             StateChange();
         }
         state.UpdateState();
-        
-        
-
     }
 
-    protected override void StateChange(State manualState=null) {
+    protected override void StateChange(State manualState = null) {
         State oldState = state;
-        if(grounded&&state!=jumpScript) {
+        if (grounded && state != jumpScript) {
             //checks to see if you are moving
             if (moveVetcor.x != 0) {
                 state = moveState;
             } else {
                 state = idelState;
-                //Debug.Log("Idel State");
             }
             if (lastKey == jump) {
                 state = jumpScript;
             }
-            
+
             //checks to see if you are falling
-        }else if (rb.linearVelocity.y < 0) {
+        } else if (rb.linearVelocity.y < 0) {
             state = fallState;
         }
-        if (lastKey == dash && dashCount >= dashCool && !Dash.dashing) {
+        if (lastKey == dash && dashCount >= dashCool) {
             state = Dash;
             dashCount = 0;
         }
         attackTime += Time.deltaTime;
-        if (lastKey == attackButton&&attackTime>=attackState.currentAttack.length) {
-            state = attackState;
-            // Reset timer
-            //attackTime = 0.0f;
+        if (grounded) {
+            if (lastKey == attackButton && attackTime >= attackState.currentAttack.length) {
+                state = attackState;
+            }
+            if (lastKey == blockButton) {
+                state = blockState;
+            }
         }
-        if (lastKey == blockButton) {
-            state=blockState;
-        }
-        if(manualState)
+        if (manualState) {
             state = manualState;
+        }
         if(oldState!= state) {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             state.ResetState(oldState);
@@ -181,10 +178,12 @@ public class PlayerState : Unit {
 
     protected override void GetHurt(bool hit) {
         base.GetHurt(hit);
-        Debug.Log("Was Hit: " + hit+" parry count: "+ blockState.parryCounter);
+        Debug.Log("Was Hit: " + hit+ " parry count: "+ blockState.parryCounter);
         if (!hit&&blockState.canParry) {
             Debug.Log("Parried");
             StateChange(parryState);
+        } else {
+            StateChange(hurtState);
         }
     }
 
