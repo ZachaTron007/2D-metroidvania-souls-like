@@ -10,8 +10,8 @@ public class Health : MonoBehaviour
 {
 
     [SerializeField] private BlockState blockState;
-    [SerializeField] private int health = 100;
-    private int MAX_HEALTH = 100;
+    public int health = 100;
+    public int MAX_HEALTH = 100;
     private Vector4 hurtColor = new Vector4(255, 62, 62, 255);
     private Vector4 normalColor;
     private float colorChangeSpeed = 0.2f;
