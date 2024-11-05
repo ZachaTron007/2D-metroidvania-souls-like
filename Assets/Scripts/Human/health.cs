@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 public class Health : MonoBehaviour
 {
 
-    [SerializeField] private BlockState blockState;
+    private BlockState blockState;
     public int health = 100;
     public int MAX_HEALTH = 100;
     private Vector4 hurtColor = new Vector4(255, 62, 62, 255);
@@ -18,21 +18,22 @@ public class Health : MonoBehaviour
     private SpriteRenderer sr;
     [SerializeField] private Sensors hitBox;
     //[SerializeField] private float parryWindow = 5f;
-    public event Action getHitEvent;
     public event Action<bool, int> hitEvent;
     public event Action dieEvent;
-    public bool blocking = false;
+    private PlayerState playerState;
+    private int damageAmount = 0;
 
     // Update is called once per frame
     
     private void Awake() {
+        playerState = GetComponent<PlayerState>();
+        blockState = GetComponent<BlockState>();
         health = MAX_HEALTH;
         sr = GetComponent<SpriteRenderer>();
         normalColor = sr.color;
         hurtColor /= 255;
+        if(playerState)    playerState.parried += WasParried;
         hitBox.triggerEnter += GetHit;
-        if (blockState)
-            blockState.onBlock += SetBlocking;
     }
 
     void Update() {
@@ -49,7 +50,6 @@ public class Health : MonoBehaviour
                 health = 0;
             }
             StartCoroutine(HurtColorShift(sr));
-            getHitEvent?.Invoke();
         }
 
     }
@@ -73,9 +73,7 @@ public class Health : MonoBehaviour
     public void die() {
         dieEvent?.Invoke();
         hitBox.triggerEnter -= GetHit;
-        if (blockState) {
-            blockState.onBlock -= SetBlocking;
-        }
+        if(playerState)    playerState.parried -= WasParried;
         Debug.Log(gameObject.name + " died");
         Destroy(gameObject);
     }
@@ -88,9 +86,10 @@ public class Health : MonoBehaviour
             if (blockState?.IsBlockingAttack(attackInfo) ?? false) {
                 hitEvent?.Invoke(false, 0);
             } else {
-                Damage(attackInfo.damage);
+                //Damage(attackInfo.damage);
+                damageAmount = attackInfo.damage;
                 attackInfo.VisualEffect();
-                hitEvent?.Invoke(true, -attackInfo.damage);
+                
             }
             //checks to see if the thing colliding can damage you at all
         } else if (collision.GetComponent<DamageScript>()) {
@@ -100,10 +99,12 @@ public class Health : MonoBehaviour
         }
     }
 
-    private void SetBlocking(bool blocking) {
-        this.blocking = blocking;
+    private void WasParried(bool wasParried) {
+        Debug.Log("Did you parry: "+wasParried);
+        if (!wasParried) {
+            Damage(damageAmount);
+            hitEvent?.Invoke(true, damageAmount);
+        }
     }
-
-    
 
 }

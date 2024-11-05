@@ -5,11 +5,11 @@ public class HealthBarMethods : MonoBehaviour
     protected RectTransform healthBar;
     [SerializeField] protected Health health;
     [SerializeField] protected float startTime;
-    [SerializeField] protected float time = 0;
+    protected float time = 0;
     private float maxWidth = 200;
     private float healthToWidth;
-    [SerializeField] protected float newWidth = 200;
-    [SerializeField] protected float oldWidth = 200;
+    protected float newWidth = 200;
+    protected float oldWidth = 200;
     protected void setUpVars() {
         
         healthBar = GetComponent<RectTransform>();
@@ -18,7 +18,7 @@ public class HealthBarMethods : MonoBehaviour
         oldWidth = maxWidth;
         newWidth = maxWidth;
     }
-    public void changeHealthToNumber(bool hit, int amountChanged) {
+    public virtual void changeHealthToNumber(bool hit, int amountChanged) {
         ChangeToHealth(amountChanged);
     }
     public void changeHealthByNumber(bool hit, int amountChanged) {

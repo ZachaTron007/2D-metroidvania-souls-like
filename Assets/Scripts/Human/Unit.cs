@@ -21,12 +21,10 @@ public abstract class Unit : MonoBehaviour
     [SerializeField] protected HurtState hurtState;
     [SerializeField] protected FallState fallState;
     [SerializeField] protected ParentMeleeAttack attackState;
+    public event Action<bool> parried;
     [Header("Properties")]
     public float attackTime;
-    [SerializeField]
     public bool isRecovering = false;
-    [SerializeField] public float amplitude;
-    [SerializeField] public float duration;
     protected int direction = 1;//{ get; protected set; } = 1;
     protected float moveSpeed = 250;
     protected bool grounded;
@@ -143,11 +141,15 @@ public abstract class Unit : MonoBehaviour
     }
 
     protected virtual void GetHurt(bool hit,int damage) {
-        
+        parried?.Invoke(false);
     }
     public void HitCollided(bool hit) {
         AttackInfo attack = attackState.currentAttack;
         Debug.Log("Hit");
         
+    }
+
+    protected void onParry(bool hit) {
+        parried?.Invoke(hit);
     }
 }

@@ -24,8 +24,8 @@ public class PostProcessingEffectScript : MonoBehaviour
     }
 
     public void HurtVignette() {
-        vignetteIntensity = .353f;
-        vignette.intensity.value = .353f;
+        vignetteIntensity = .26f;
+        vignette.intensity.value = .26f;
         vignette.smoothness.value = 1f;
         vignette.color.value = Color.red;
         time = HurtVignetteTime;

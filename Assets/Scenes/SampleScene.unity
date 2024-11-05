@@ -370,11 +370,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: {fileID: 1334252386}
-  startTime: 1
-  time: 0
-  newWidth: 200
-  oldWidth: 200
-  ReduceHearBarTime: 0
+  startTime: 0.7
+  ReduceHearBarTime: 0.7
 --- !u!1 &361946094
 GameObject:
   m_ObjectHideFlags: 3
@@ -1229,7 +1226,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &672486654
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1262,10 +1259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: {fileID: 1334252386}
-  startTime: 1
-  time: 0
-  newWidth: 200
-  oldWidth: 200
+  startTime: 0.3
 --- !u!114 &672486656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3579,7 +3573,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 811300300784513735, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: parryWindow
-      value: 0.2
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1963964075353710027, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: health

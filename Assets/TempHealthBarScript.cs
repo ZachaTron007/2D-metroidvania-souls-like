@@ -5,21 +5,26 @@ using UnityEngine;
 public class TempHealthBarScript : HealthBarMethods {
     
     [SerializeField] private float ReduceHearBarTime;
-    private delegate void  HealthBarDelegate(bool hit, int amountChanged);
-    private HealthBarDelegate healthBarDelegate;
+    private bool gotHit = false;
+    private float counter = 0;
+    private int amountChanged = 0;
     private void Awake() {
-        healthBarDelegate = changeHealthByNumber;
         health.hitEvent += invoky;
         setUpVars();
     }
     private void invoky(bool hit, int amountChanged) {
-        this.Invoke("StartHealthDepletion", ReduceHearBarTime);
-    }
-    private void StartHealthDepletion() {
-        Debug.Log("starting health depletion");
-        time = startTime;
+        gotHit = hit;
+        this.amountChanged = amountChanged;
     }
      private void Update() {
+        if (gotHit) {
+            counter += Time.deltaTime;
+            if (counter > ReduceHearBarTime) {
+                changeHealthByNumber(true, amountChanged);
+                counter = 0;
+                gotHit = false;
+            }
+        }
         healthBar.sizeDelta = ChangeToHealth();
         //healthBar.sizeDelta = new Vector2(newWidth, healthBar.rect.height);;
     }

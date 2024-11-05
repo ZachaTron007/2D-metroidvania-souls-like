@@ -13,8 +13,6 @@ public class BlockState : State
     [SerializeField] private bool blocking = false;
     [SerializeField] public float parryCounter;
     public bool canParry;
-    public event Action <bool> onBlock;
-    public event Action <bool> parryAvailibility;
     //[SerializeField] Health health;
 
 

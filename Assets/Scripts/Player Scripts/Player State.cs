@@ -1,5 +1,6 @@
 using Cinemachine;
 using Sirenix.Utilities;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -40,8 +41,8 @@ public class PlayerState : Unit {
     private InputScript inputScript;
     //[SerializeField] protected PlayerAttack melee;
 
-
-    //buttons
+    //public event Action <bool> parried;
+    //buttons 
     public KeyCode lastKey;
     private KeyCode jump = KeyCode.Space;
     private KeyCode dash = KeyCode.LeftShift;
@@ -180,7 +181,10 @@ public class PlayerState : Unit {
         base.GetHurt(hit, damage);
         if (!hit&&blockState.canParry) {
             StateChange(parryState);
-        } 
+            onParry(true);
+        } else {
+            onParry(false);
+        }
         if(hit) {
             StateChange(hurtState);
         }
