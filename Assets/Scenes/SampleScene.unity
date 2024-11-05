@@ -372,8 +372,9 @@ MonoBehaviour:
   health: {fileID: 1334252386}
   startTime: 1
   time: 0
-  ReduceHearBarTime: 1
-  time: 0
+  newWidth: 200
+  oldWidth: 200
+  ReduceHearBarTime: 0
 --- !u!1 &361946094
 GameObject:
   m_ObjectHideFlags: 3
@@ -1228,7 +1229,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &672486654
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1263,6 +1264,8 @@ MonoBehaviour:
   health: {fileID: 1334252386}
   startTime: 1
   time: 0
+  newWidth: 200
+  oldWidth: 200
 --- !u!114 &672486656
 MonoBehaviour:
   m_ObjectHideFlags: 0
