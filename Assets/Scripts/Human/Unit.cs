@@ -142,7 +142,7 @@ public abstract class Unit : MonoBehaviour
         sr.flipX = direction < 0;
     }
 
-    protected virtual void GetHurt(bool hit) {
+    protected virtual void GetHurt(bool hit,int damage) {
         
     }
     public void HitCollided(bool hit) {

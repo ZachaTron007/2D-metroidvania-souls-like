@@ -19,7 +19,7 @@ public class Health : MonoBehaviour
     [SerializeField] private Sensors hitBox;
     //[SerializeField] private float parryWindow = 5f;
     public event Action getHitEvent;
-    public event Action<bool> hitEvent;
+    public event Action<bool, int> hitEvent;
     public event Action dieEvent;
     public bool blocking = false;
 
@@ -86,11 +86,11 @@ public class Health : MonoBehaviour
             //checks to see if the attack would be blocked
             AttackInfo attackInfo = collision.GetComponent<AttackInfo>();
             if (blockState?.IsBlockingAttack(attackInfo) ?? false) {
-                hitEvent?.Invoke(false);
+                hitEvent?.Invoke(false, 0);
             } else {
                 Damage(attackInfo.damage);
                 attackInfo.VisualEffect();
-                hitEvent?.Invoke(true);
+                hitEvent?.Invoke(true, -attackInfo.damage);
             }
             //checks to see if the thing colliding can damage you at all
         } else if (collision.GetComponent<DamageScript>()) {

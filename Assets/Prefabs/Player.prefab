@@ -259,6 +259,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockState: {fileID: 811300300784513735}
   health: 100
+  MAX_HEALTH: 100
   hitBox: {fileID: 5833950777563335456}
   blocking: 0
 --- !u!114 &7307670183575024488

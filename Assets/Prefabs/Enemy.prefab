@@ -830,6 +830,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockState: {fileID: 0}
   health: 100
+  MAX_HEALTH: 100
   hitBox: {fileID: 6213157412127112116}
   blocking: 0
 --- !u!1 &5597752824280181718
@@ -916,6 +917,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateDone: 0
+  idelAniamtion: {fileID: 0}
+  recoverTime: 1
 --- !u!1 &6880627972990887905
 GameObject:
   m_ObjectHideFlags: 0

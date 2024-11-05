@@ -176,13 +176,12 @@ public class PlayerState : Unit {
 
     }
 
-    protected override void GetHurt(bool hit) {
-        base.GetHurt(hit);
-        Debug.Log("Was Hit: " + hit+ " parry count: "+ blockState.parryCounter);
+    protected override void GetHurt(bool hit, int damage) {
+        base.GetHurt(hit, damage);
         if (!hit&&blockState.canParry) {
-            Debug.Log("Parried");
             StateChange(parryState);
-        } else {
+        } 
+        if(hit) {
             StateChange(hurtState);
         }
     }
