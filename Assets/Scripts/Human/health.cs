@@ -92,7 +92,7 @@ public class Health : MonoBehaviour
         } else if (collision.GetComponent<DamageScript>()) {
             DamageScript damageScript = collision.GetComponent<DamageScript>();
             Damage(damageScript.damage);
-
+            hitEvent?.Invoke(true, -damageScript.damage);
         }
     }
 

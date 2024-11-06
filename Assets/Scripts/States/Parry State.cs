@@ -26,6 +26,6 @@ public class ParryState : State
             Time.timeScale = timeSpeed;
         } else {
             Time.timeScale = 1;
-        }
-    }*/
+        }*/
+    }
 }

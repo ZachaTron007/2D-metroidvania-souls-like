@@ -2002,6 +2002,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1242800915 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8471434802479641984, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+  m_PrefabInstance: {fileID: 2898413512102226661}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb7c01455a7b374ab3968741bcf4026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1279754870
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2783,6 +2794,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4545985200224931791, guid: 9ec0a7697838a3946988daa51b379a3b, type: 3}
+      propertyPath: damage
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 2658381176594302045, guid: 9ec0a7697838a3946988daa51b379a3b, type: 3}
       propertyPath: m_Simulated
       value: 1
@@ -3340,6 +3355,56 @@ MonoBehaviour:
   stateDone: 0
   parryRecoverAnimation: {fileID: 7400000, guid: f4d08aca8d9c8b24f969b71bcb299c54, type: 2}
   parryRecoverTime: 0.5
+--- !u!1 &1848450380
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1848450381}
+  - component: {fileID: 1848450382}
+  m_Layer: 3
+  m_Name: Block Recover
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1848450381
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1848450380}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1778527037}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1848450382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1848450380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e63fe178284354418a8e1bada1f150a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateDone: 0
+  parryClip: {fileID: 0}
+  dust: {fileID: 7054879024249494992, guid: ea7a63df68e2d744987636e487d1f802, type: 3}
+  knockbackDistance: 0
+  knockbackSpeed: 12500
+  knockbackTime: 0.3
 --- !u!114 &1905613153 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8231595280448065926, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
@@ -3871,6 +3936,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6378908112458984836, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: Dash
+      value: 
+      objectReference: {fileID: 1242800915}
+    - target: {fileID: 6378908112458984836, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: dieState
       value: 
       objectReference: {fileID: 1770289254}
@@ -3898,6 +3967,10 @@ PrefabInstance:
       propertyPath: mainCollider
       value: 
       objectReference: {fileID: 1442825503}
+    - target: {fileID: 6378908112458984836, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: blockRecoverState
+      value: 
+      objectReference: {fileID: 1848450382}
     - target: {fileID: 6489775057103274142, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: totalFrames
       value: 7
@@ -3986,6 +4059,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1138596272068104886, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1770289253}
+    - targetCorrespondingSourceObject: {fileID: 1138596272068104886, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1848450381}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
 --- !u!1660057539 &9223372036854775807

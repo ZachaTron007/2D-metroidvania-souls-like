@@ -32,10 +32,11 @@ public class PlayerState : Unit {
     //scrupts
     [Header("States")]
     [SerializeField] private dashScript Dash;
-    [SerializeField] public jumpScript jumpScript;
+    public jumpScript jumpScript;
     [SerializeField] private wallActionsScript wallActions;
     [SerializeField] public MoveState moveState;
     [SerializeField] public BlockState blockState;
+    [SerializeField] public BlockRecoverState blockRecoverState;
     [SerializeField] public ParryState parryState;
     [SerializeField] protected PlayerIdelState idelState;
     private InputScript inputScript;
@@ -77,6 +78,7 @@ public class PlayerState : Unit {
         idelState.Setup(rb, animatior, this);
         blockState.Setup(rb, animatior, this);
         parryState.Setup(rb, animatior, this);
+        blockRecoverState.Setup(rb, animatior,this);
         //melee.Setup(rb, animatior, this);
         hurtState.Setup(rb, animatior, this);
         state = idelState;
@@ -184,6 +186,8 @@ public class PlayerState : Unit {
         if (!hit&&blockState.canParry) {
             StateChange(parryState);
             onParry();
+        }else if (!hit) {
+            StateChange(blockRecoverState);
         }
         if(hit) {
             StateChange(hurtState);

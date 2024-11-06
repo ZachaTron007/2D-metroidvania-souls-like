@@ -812,9 +812,11 @@ MonoBehaviour:
   isRecovering: 0
   agroRange: {fileID: 1962164912142059510}
   attackRange: {fileID: 605601571980306214}
+  playerState: {fileID: 0}
   agroState: {fileID: 8140790006863923056}
   recoverState: {fileID: 8573411624602601267}
   idelState: {fileID: 3566664608841473624}
+  parryRecoverState: {fileID: 0}
 --- !u!114 &7345711671578331740
 MonoBehaviour:
   m_ObjectHideFlags: 0
