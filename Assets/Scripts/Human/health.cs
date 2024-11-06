@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 public class Health : MonoBehaviour
 {
 
-    private BlockState blockState;
+    [SerializeField] private BlockState blockState;
     public int health = 100;
     public int MAX_HEALTH = 100;
     private Vector4 hurtColor = new Vector4(255, 62, 62, 255);
@@ -27,12 +27,10 @@ public class Health : MonoBehaviour
     
     private void Awake() {
         playerState = GetComponent<PlayerState>();
-        blockState = GetComponent<BlockState>();
         health = MAX_HEALTH;
         sr = GetComponent<SpriteRenderer>();
         normalColor = sr.color;
         hurtColor /= 255;
-        if(playerState)    playerState.parried += WasParried;
         hitBox.triggerEnter += GetHit;
     }
 
@@ -73,9 +71,7 @@ public class Health : MonoBehaviour
     public void die() {
         dieEvent?.Invoke();
         hitBox.triggerEnter -= GetHit;
-        if(playerState)    playerState.parried -= WasParried;
-        Debug.Log(gameObject.name + " died");
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 
     private void GetHit(Collider2D collision) {
@@ -86,8 +82,9 @@ public class Health : MonoBehaviour
             if (blockState?.IsBlockingAttack(attackInfo) ?? false) {
                 hitEvent?.Invoke(false, 0);
             } else {
-                //Damage(attackInfo.damage);
-                damageAmount = attackInfo.damage;
+                Damage(attackInfo.damage);
+                hitEvent?.Invoke(true, -attackInfo.damage);
+                //damageAmount = attackInfo.damage;
                 attackInfo.VisualEffect();
                 
             }
@@ -99,12 +96,5 @@ public class Health : MonoBehaviour
         }
     }
 
-    private void WasParried(bool wasParried) {
-        Debug.Log("Did you parry: "+wasParried);
-        if (!wasParried) {
-            Damage(damageAmount);
-            hitEvent?.Invoke(true, damageAmount);
-        }
-    }
 
 }

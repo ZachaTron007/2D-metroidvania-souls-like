@@ -101,8 +101,6 @@ MonoBehaviour:
   attackState: {fileID: 8231595280448065926}
   attackTime: 0
   isRecovering: 0
-  amplitude: 1
-  duration: 0.2
   Dash: {fileID: 8471434802479641984}
   jumpScript: {fileID: 5748622122044369809}
   wallActions: {fileID: 1451001638846000934}
@@ -257,11 +255,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4866ef3ccf198e54b99558f20d14c9cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockState: {fileID: 811300300784513735}
   health: 100
   MAX_HEALTH: 100
   hitBox: {fileID: 5833950777563335456}
-  blocking: 0
 --- !u!114 &7307670183575024488
 MonoBehaviour:
   m_ObjectHideFlags: 0

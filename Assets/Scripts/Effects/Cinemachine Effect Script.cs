@@ -29,6 +29,7 @@ public class CinemachineEffectScript : MonoBehaviour
 
     private void Update() {
         if (shakeTime > 0) {
+            
             shakeTime -= Time.deltaTime;
             if (shakeTime <= 0) {
                 cameraShake.m_AmplitudeGain = 0;

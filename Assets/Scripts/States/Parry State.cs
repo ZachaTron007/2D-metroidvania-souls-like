@@ -4,12 +4,15 @@ public class ParryState : State
 {
     [SerializeField] private AnimationClip parryClip;
     [SerializeField] private float timeFreezeTime;
+    [SerializeField] private float shakeTime;
+    [SerializeField] private float shakeIntensity;
     private float counter;
     public override void Enter() {
         counter = 0;
         interuptable = false;
         animator.Play(parryClip.name);
         Invoke("Exit", parryClip.length);
+        CinemachineEffectScript.instance.ScreenShake(shakeIntensity, shakeTime);
         
     }
     public override void Exit() {

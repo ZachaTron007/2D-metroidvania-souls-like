@@ -809,8 +809,6 @@ MonoBehaviour:
   attackState: {fileID: 4120613919388800645}
   attackTime: 0
   isRecovering: 0
-  amplitude: 0
-  duration: 0
   agroRange: {fileID: 1962164912142059510}
   attackRange: {fileID: 605601571980306214}
   agroState: {fileID: 8140790006863923056}
@@ -828,11 +826,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4866ef3ccf198e54b99558f20d14c9cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockState: {fileID: 0}
   health: 100
   MAX_HEALTH: 100
   hitBox: {fileID: 6213157412127112116}
-  blocking: 0
 --- !u!1 &5597752824280181718
 GameObject:
   m_ObjectHideFlags: 0

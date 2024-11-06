@@ -35,6 +35,7 @@ public class HealthBarMethods : MonoBehaviour
     private void UpdateHealth(bool hit, int value) {
         time = startTime;
         oldWidth = healthBar.sizeDelta.x;
+
         newWidth = healthBar.sizeDelta.x + value * healthToWidth;
         if (newWidth >= maxWidth) {
             newWidth = maxWidth;

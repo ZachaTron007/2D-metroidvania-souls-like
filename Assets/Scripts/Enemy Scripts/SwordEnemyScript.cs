@@ -73,5 +73,8 @@ public class SwordEnemyScript : EnemyScript {
         }
 
     }
+    protected override void Die() {
+        StateChange(dieState);
+    }
 
 }

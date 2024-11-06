@@ -108,6 +108,8 @@ public class PlayerState : Unit {
         state.UpdateState();
     }
 
+
+
     protected override void StateChange(State manualState = null) {
         State oldState = state;
         if (grounded && state != jumpScript) {
@@ -190,7 +192,9 @@ public class PlayerState : Unit {
         }
     }
 
-
+    protected override void Die() {
+        StateChange(dieState);
+    }
 
 
     private void OnEnable() {

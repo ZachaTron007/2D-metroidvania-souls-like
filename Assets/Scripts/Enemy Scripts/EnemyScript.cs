@@ -156,9 +156,11 @@ public abstract class EnemyScript : Unit {
      * summary:
      * an event function that calls the function to unsubscribe to the events
      */
-    public void Die() {
+    protected override void EventUnsubscribe() {
+        base.EventUnsubscribe();
         DisableEventColliders(new Action<Collider2D>[] { AgroRangeEnter, AgroRangeStay, AgroRangeExit, AttackRangeEnter, AttackRangeExit }, new Sensors[] { agroRangeScript, attackRangeScript });
         health.dieEvent -= Die;
     }
+    
 
 }

@@ -21,6 +21,7 @@ public abstract class Unit : MonoBehaviour
     [SerializeField] protected HurtState hurtState;
     [SerializeField] protected FallState fallState;
     [SerializeField] protected ParentMeleeAttack attackState;
+    [SerializeField] protected DeathScript dieState;
     public event Action<bool> parried;
     [Header("Properties")]
     public float attackTime;
@@ -50,12 +51,16 @@ public abstract class Unit : MonoBehaviour
         hurtState?.Setup(rb, animatior, this);
         fallState?.Setup(rb, animatior, this);
         attackState?.Setup(rb, animatior, this);
+        dieState.Setup(rb, animatior, this);
         EventSubscribe();
     }
     protected virtual void EventSubscribe() {
         health.hitEvent += GetHurt;
+        health.dieEvent += EventUnsubscribe;
+        health.dieEvent += Die;
     }
     protected virtual void EventUnsubscribe() {
+        health.dieEvent -= EventUnsubscribe;
         health.hitEvent -= GetHurt;
     }
     /*
@@ -143,6 +148,7 @@ public abstract class Unit : MonoBehaviour
     protected virtual void GetHurt(bool hit,int damage) {
         parried?.Invoke(false);
     }
+    protected abstract void Die();
     public void HitCollided(bool hit) {
         AttackInfo attack = attackState.currentAttack;
         Debug.Log("Hit");
