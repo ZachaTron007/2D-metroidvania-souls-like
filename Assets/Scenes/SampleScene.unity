@@ -1470,7 +1470,8 @@ MonoBehaviour:
   parryClip: {fileID: 7400000, guid: 8343e24825085354186de10f6f858f08, type: 2}
   timeFreezeTime: 0.5
   shakeTime: 0.2
-  shakeIntensity: 2
+  shakeIntensity: 2.5
+  timeSpeed: 0.2
 --- !u!1 &844148264
 GameObject:
   m_ObjectHideFlags: 0
@@ -1866,7 +1867,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateDone: 0
   idelAniamtion: {fileID: 7400000, guid: 6a1ebf4e9e2b85c4dbeebc58d8f911ca, type: 2}
-  recoverTime: 2.3
+  recoverTime: 1.5
 --- !u!1 &1198630925
 GameObject:
   m_ObjectHideFlags: 0
@@ -2042,9 +2043,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 385745145}
     - target: {fileID: 361345800473325895, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
+      propertyPath: playerState
+      value: 
+      objectReference: {fileID: 1932758420}
+    - target: {fileID: 361345800473325895, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
       propertyPath: recoverState
       value: 
       objectReference: {fileID: 1068478710}
+    - target: {fileID: 361345800473325895, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
+      propertyPath: parryRecoverState
+      value: 
+      objectReference: {fileID: 1835465571}
     - target: {fileID: 1659852195986634070, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
       propertyPath: runClip
       value: 
@@ -2222,6 +2231,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8870757621094759131, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
       insertIndex: -1
       addedObject: {fileID: 375697029}
+    - targetCorrespondingSourceObject: {fileID: 8870757621094759131, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1835465570}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5705651046644292754, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
       insertIndex: -1
@@ -3281,6 +3293,53 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1835465569
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1835465570}
+  - component: {fileID: 1835465571}
+  m_Layer: 0
+  m_Name: Parry Recover State
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1835465570
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835465569}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2086238415}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1835465571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835465569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa9b907a176652d4c8e85a5a20871f1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateDone: 0
+  parryRecoverAnimation: {fileID: 7400000, guid: f4d08aca8d9c8b24f969b71bcb299c54, type: 2}
+  parryRecoverTime: 0.5
 --- !u!114 &1905613153 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8231595280448065926, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
@@ -3290,6 +3349,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c25aef9a538554e46b152a87835f2843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1932758420 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6378908112458984836, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+  m_PrefabInstance: {fileID: 2898413512102226661}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acfa8e83a9a006f43a7196c9da0e3c88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2018865969
@@ -3690,7 +3760,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 811300300784513735, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: parryWindow
-      value: 0.5
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 1963964075353710027, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: health

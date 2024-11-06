@@ -807,6 +807,7 @@ MonoBehaviour:
   hurtState: {fileID: 3060263033759440720}
   fallState: {fileID: 7644462430809579993}
   attackState: {fileID: 4120613919388800645}
+  dieState: {fileID: 0}
   attackTime: 0
   isRecovering: 0
   agroRange: {fileID: 1962164912142059510}
@@ -826,6 +827,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4866ef3ccf198e54b99558f20d14c9cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blockState: {fileID: 0}
   health: 100
   MAX_HEALTH: 100
   hitBox: {fileID: 6213157412127112116}

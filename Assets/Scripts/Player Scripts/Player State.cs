@@ -183,9 +183,7 @@ public class PlayerState : Unit {
         base.GetHurt(hit, damage);
         if (!hit&&blockState.canParry) {
             StateChange(parryState);
-            onParry(true);
-        } else {
-            onParry(false);
+            onParry();
         }
         if(hit) {
             StateChange(hurtState);

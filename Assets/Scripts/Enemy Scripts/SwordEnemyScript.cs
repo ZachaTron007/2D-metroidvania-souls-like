@@ -11,9 +11,11 @@ using UnityEngine.InputSystem;
 public class SwordEnemyScript : EnemyScript {
     //scrupts
     [Header("States")]
+    [SerializeField] private PlayerState playerState;
     [SerializeField] private AgroState agroState;
     [SerializeField] private RecoveryState recoverState;
     [SerializeField] protected IdelState idelState;
+    [SerializeField] protected ParryRecoverState parryRecoverState;
 
     private void Awake() {
         ComponentSetup();
@@ -23,14 +25,15 @@ public class SwordEnemyScript : EnemyScript {
         idelState?.Setup(rb, animatior, this);
         agroState?.Setup(rb, animatior,this);
         recoverState?.Setup(rb, animatior, this);
+        parryRecoverState?.Setup(rb, animatior, this);
         state = idelState;
         state.Enter();
         AgroAttackColliders();
 
     }
-
-    
-
+    protected override void EventSubscribe() {
+        playerState.parried+=getParryed;
+    }
     // Update is called once per frame
     void Update() {
         if (WallCheck()) {
@@ -63,7 +66,7 @@ public class SwordEnemyScript : EnemyScript {
             }
 
         }
-        if (manualState&& state!=attackState) {
+        if (manualState) {
             state=manualState;
             state.ResetState(oldState);
             return;
@@ -72,6 +75,11 @@ public class SwordEnemyScript : EnemyScript {
             state.ResetState(oldState);
         }
 
+    }
+
+    private void getParryed() {
+        Debug.Log("Was Parried");
+        StateChange(parryRecoverState);
     }
     protected override void Die() {
         StateChange(dieState);

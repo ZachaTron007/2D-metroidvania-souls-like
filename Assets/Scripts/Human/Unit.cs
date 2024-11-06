@@ -22,7 +22,7 @@ public abstract class Unit : MonoBehaviour
     [SerializeField] protected FallState fallState;
     [SerializeField] protected ParentMeleeAttack attackState;
     [SerializeField] protected DeathScript dieState;
-    public event Action<bool> parried;
+    public event Action parried;
     [Header("Properties")]
     public float attackTime;
     public bool isRecovering = false;
@@ -146,7 +146,6 @@ public abstract class Unit : MonoBehaviour
     }
 
     protected virtual void GetHurt(bool hit,int damage) {
-        parried?.Invoke(false);
     }
     protected abstract void Die();
     public void HitCollided(bool hit) {
@@ -155,7 +154,7 @@ public abstract class Unit : MonoBehaviour
         
     }
 
-    protected void onParry(bool hit) {
-        parried?.Invoke(hit);
+    protected void onParry() {
+        parried?.Invoke();
     }
 }
