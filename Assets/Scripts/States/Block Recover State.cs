@@ -21,6 +21,7 @@ public class BlockRecoverState : State
         rb.linearVelocity = new Vector2(-unitVariables.GetDirection() * knockbackSpeed, rb.linearVelocity.y);
         slideDust = Instantiate(dust, this.transform);//, rotation);
         slideDust.transform.rotation = rotation;
+        slideDust.GetComponent<SlideDustScript>().SetDirection(unitVariables.GetDirection());
         Invoke(nameof(Exit), knockbackTime);
 
     }
