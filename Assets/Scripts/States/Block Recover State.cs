@@ -1,28 +1,34 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BlockRecoverState : State
 {
-    [SerializeField] private AnimationClip parryClip;
     [SerializeField] private GameObject dust;
-    [SerializeField] private float knockbackDistance;
     [SerializeField] private float knockbackSpeed;
     [SerializeField] private float knockbackTime;
-    SlideDustScript slidedust;
+    [SerializeField] private PhysicsMaterial2D frictionyMaterial;
+    private PhysicsMaterial2D originalMaterial;
+    [SerializeField] private float friction;
+    [SerializeField] private Quaternion rotation;
+    private GameObject slideDust;
     private float counter;
 
     public override void Enter() {
+        originalMaterial = rb.sharedMaterial;
+        frictionyMaterial.friction = friction;
+        rb.sharedMaterial = frictionyMaterial;
         interuptable = false;
-        rb.AddForce(Vector2.right * knockbackSpeed * -unitVariables.GetDirection() * Time.deltaTime);
-        //slideDust = Instantiate<SlideDustScript>(dust,this.transform, new Vector3(0, 0, 90));
-        Invoke("Exit", knockbackTime);
+        rb.linearVelocity = new Vector2(-unitVariables.GetDirection() * knockbackSpeed, rb.linearVelocity.y);
+        slideDust = Instantiate(dust, this.transform);//, rotation);
+        slideDust.transform.rotation = rotation;
+        Invoke(nameof(Exit), knockbackTime);
 
     }
-    public override void FixedUpdateState() {
-        //rb.linearVelocity = ;
-    }
-
     public override void Exit() {
-        //slidedust.Destroy();
+        rb.sharedMaterial = originalMaterial;
+        stateDone = true;
+        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+        Destroy(slideDust);
     }
 
 

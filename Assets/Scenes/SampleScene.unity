@@ -3403,8 +3403,11 @@ MonoBehaviour:
   parryClip: {fileID: 0}
   dust: {fileID: 7054879024249494992, guid: ea7a63df68e2d744987636e487d1f802, type: 3}
   knockbackDistance: 0
-  knockbackSpeed: 12500
-  knockbackTime: 0.3
+  knockbackSpeed: 15
+  knockbackTime: 0.9
+  frictionyMaterial: {fileID: 6200000, guid: dfdbd89a6de1b61468de429468b3f5aa, type: 2}
+  friction: 4
+  rotation: {x: 0, y: 0, z: 0.70710677, w: 0.70710677}
 --- !u!114 &1905613153 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8231595280448065926, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}

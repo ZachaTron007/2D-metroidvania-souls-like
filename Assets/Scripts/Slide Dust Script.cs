@@ -1,16 +1,16 @@
+using Sirenix.Utilities;
 using UnityEngine;
 
 public class SlideDustScript : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+    private int direction;
+    private SpriteRenderer sr;
+    [SerializeField] private AnimationClip dustClip;
+    private Animator animator;
+    void Start() {
+        animator = GetComponent<Animator>();
+        animator.Play(dustClip.name);
+        sr = GetComponent<SpriteRenderer>();
+        sr.flipY = direction > 0;
     }
 }

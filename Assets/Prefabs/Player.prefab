@@ -107,6 +107,7 @@ MonoBehaviour:
   wallActions: {fileID: 1451001638846000934}
   moveState: {fileID: 545213728974159921}
   blockState: {fileID: 811300300784513735}
+  blockRecoverState: {fileID: 0}
   parryState: {fileID: 0}
   idelState: {fileID: 2760532947694410976}
   lastKey: 0

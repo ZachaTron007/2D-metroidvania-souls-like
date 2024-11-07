@@ -198,6 +198,10 @@ public class PlayerState : Unit {
         StateChange(dieState);
     }
 
+    public void StateChanges() {
+        StateChange(blockRecoverState);
+    }
+
 
     private void OnEnable() {
         //move = playerControls.Player.Move;
