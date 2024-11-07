@@ -113,6 +113,14 @@ public abstract class EnemyScript : Unit {
 
         return direction;
     }
+
+    public bool IsGroundInFront() {
+        int layerNumber = 6;
+        float distanceAdditon = 0.1f;
+        
+        RaycastHit2D groundAvailible = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon, new Vector3(transform.position.x + mainCollider.hitBox.size.x / 2+distanceAdditon, transform.position.y, 0),true);
+        return groundAvailible;
+    }
     
     
     /*

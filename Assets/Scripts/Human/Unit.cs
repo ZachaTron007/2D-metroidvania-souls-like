@@ -123,7 +123,7 @@ public abstract class Unit : MonoBehaviour
         //Debug.DrawRay(startPosition, rayDirection, Color.green, .1f);
         return hit;
     }
-    protected RaycastHit2D ShootRayDirection(Vector2 direction, int layerNumber, float dist, Vector3 startPosition=new Vector3(), bool debugRay = false) {
+    public RaycastHit2D ShootRayDirection(Vector2 direction, int layerNumber, float dist, Vector3 startPosition=new Vector3(), bool debugRay = false) {
         //trasnforms that number into a layer mask
         int layerMask = LayerNumToLayerMask(layerNumber);
         //gets the height of the collider and div by 2 to get the center

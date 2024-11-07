@@ -3212,6 +3212,7 @@ MonoBehaviour:
   vignetteIntensity: 0
   vignetteSmoothness: 0.5
   HurtVignetteTime: 1
+  DeathVignetteTime: 0
 --- !u!4 &2086238415 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8870757621094759131, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
@@ -3227,7 +3228,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 811300300784513735, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: parryWindow
-      value: 0.3
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1963964075353710027, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: health
