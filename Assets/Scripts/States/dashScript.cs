@@ -14,21 +14,13 @@ public class dashScript : State
 
     public IEnumerator dash() {
         rb.linearVelocity = Vector2.right * unitVariables.GetDirection() * dashSpeed;
-        rb.excludeLayers = LayerMaskCreator(new int[] {3, 7, 8});
+        unitVariables.rbLayers.ExcludeLayers();
         yield return new WaitForSeconds(dashduration);
-        rb.excludeLayers = LayerMaskCreator(new int[]{3, 7});
+        unitVariables.rbLayers.ExcludeLayers();
         Exit();
         yield return null;
     }
-    private LayerMask LayerMaskCreator(int[] layers) {
-        LayerMask binaryLayers = 0;
-        if (layers.Length > 0) {
-            for (int i = 0; i < layers.Length; i++) {
-                binaryLayers += 1 << layers[i];
-            }
-        }
-        return binaryLayers;
-    }
+    
     
     public override void UpdateState() {
 

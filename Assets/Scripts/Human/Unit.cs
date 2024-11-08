@@ -8,6 +8,7 @@ public abstract class Unit : MonoBehaviour
 {
     [Header("Components required by States")]
     protected Health health;
+    public IncludeRBLayers rbLayers;
     public Rigidbody2D rb;
     public Animator animatior;
     protected SpriteRenderer sr;
@@ -26,7 +27,7 @@ public abstract class Unit : MonoBehaviour
     [Header("Properties")]
     public float attackTime;
     public bool isRecovering = false;
-    protected int direction = 1;//{ get; protected set; } = 1;
+    [SerializeField] protected int direction = 1;//{ get; protected set; } = 1;
     protected float moveSpeed = 250;
     protected bool grounded;
     /*
@@ -34,6 +35,7 @@ public abstract class Unit : MonoBehaviour
      * get and sets
      */
     public int GetDirection() => direction;
+    public void SetDirection(int dir) => direction = dir;
     public bool GetGroundedState() => grounded;
 
 
@@ -43,6 +45,7 @@ public abstract class Unit : MonoBehaviour
      * components that are special to that unit are setup in their class
      */
     protected void ComponentSetup() {
+        rbLayers = GetComponent<IncludeRBLayers>();
         health = GetComponent<Health>();
         rb = GetComponent<Rigidbody2D>();
         animatior = GetComponent<Animator>();
@@ -157,4 +160,11 @@ public abstract class Unit : MonoBehaviour
     protected void onParry() {
         parried?.Invoke();
     }
+    public bool IsGroundInFront() {
+        int layerNumber = 6;
+        float distanceAdditon = 0.1f;
+        RaycastHit2D groundAvailible = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon, new Vector3(transform.position.x + direction * mainCollider.hitBox.size.x / 2, transform.position.y, 0), true);
+        return groundAvailible;
+    }
+
 }

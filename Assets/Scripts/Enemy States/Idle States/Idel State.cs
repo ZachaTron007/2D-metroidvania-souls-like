@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class IdelState : State {
+public class IdelState : BaseIdelState {
     // Start is called before the first frame update
     //movements
-    [SerializeField] private AnimationClip idelAniamtion;
     [SerializeField] private AnimationClip walkAniamtion;
     [SerializeField] private int idelWalkSpeed = 50;
     private float speed;
@@ -17,8 +16,12 @@ public class IdelState : State {
     // Update is called once per frame
     public override void Enter() {
         idel = true;
+<<<<<<< Updated upstream
         idelState = Walk;
         idelState();
+=======
+        Walk();
+>>>>>>> Stashed changes
     }
     private void Stay() {
         if (idel) {
@@ -42,7 +45,11 @@ public class IdelState : State {
     public override void FixedUpdateState() {
         rb.linearVelocity = new Vector2(unitVariables.GetDirection() * speed * Time.fixedDeltaTime, rb.linearVelocity.y);
     }
+<<<<<<< Updated upstream
 
+=======
+    
+>>>>>>> Stashed changes
     public override void Exit() {
         idel = false;
         rb.linearVelocity = Vector2.zero;

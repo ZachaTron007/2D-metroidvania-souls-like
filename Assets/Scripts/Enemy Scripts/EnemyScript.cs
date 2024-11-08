@@ -8,14 +8,17 @@ using UnityEngine.InputSystem;
 public abstract class EnemyScript : Unit {
     protected float maxDist = .3f;
     [Header("Awareness Colliders")]
-    [SerializeField] protected GameObject agroRange;
-    [SerializeField] protected GameObject attackRange;
-    protected BoxCollider2D agroRangeHitbox;
-    protected BoxCollider2D attackRangeHitbox;
-    protected Sensors agroRangeScript;
-    protected Sensors attackRangeScript;
+    [SerializeField] protected GameObject[] AwarenessColliders =  new GameObject[3];
+    private BoxCollider2D[] hitboxes = new BoxCollider2D[3];
+    private Sensors[] sensors = new Sensors[3];
     protected bool isWithinAgroRange = false;
     protected bool isWithinAttackRange = false;
+
+    private enum Hitboxes{ 
+        agroRange,
+        deAgroRange,
+        attackRange
+    }
 
     protected bool WallCheck() {
         //layers to hit
@@ -80,12 +83,9 @@ public abstract class EnemyScript : Unit {
     private int ShouldSwitchDirection(int direction,Vector2 PlayerDirection) {
         float turnGracePeriod = mainCollider.hitBox.size.x / 2;
         if (Mathf.Abs(PlayerDirection.x) > turnGracePeriod && state.interuptable) {
-            int tempDirection = direction;
             direction = PlayerDirection.x > 0 ? 1 : -1;
-            if (tempDirection != direction) {
-                agroRangeHitbox.offset *= new Vector2(-1, 1);
-                attackRangeHitbox.offset *= new Vector2(-1, 1);
-            }
+            Debug.Log("Switched Direction: "+direction);
+            switchHitboxDirection(direction);
             return direction;
         }
 
@@ -106,13 +106,16 @@ public abstract class EnemyScript : Unit {
         return false;
     }
     
-    protected int switchDirection() {
-        direction *= -1;
-        agroRangeHitbox.offset *= new Vector2(-1, 1);
-        attackRangeHitbox.offset *= new Vector2(-1, 1);
-
-        return direction;
+    protected void switchHitboxDirection(int dir) {
+        foreach (BoxCollider2D hitbox in hitboxes) {
+            hitbox.offset = new Vector2(Mathf.Abs(hitbox.offset.x) * dir, hitbox.offset.y);
+        }
     }
+<<<<<<< Updated upstream
+=======
+
+    
+>>>>>>> Stashed changes
     
     
     /*
@@ -121,18 +124,18 @@ public abstract class EnemyScript : Unit {
      * runs when the object is created
      */
     protected void AgroAttackColliders() {
-        attackRangeScript = attackRange.GetComponent<Sensors>();
-        agroRangeScript = agroRange.GetComponent<Sensors>();
-        agroRangeHitbox = agroRange.GetComponent<BoxCollider2D>();
-        attackRangeHitbox = attackRange.GetComponent<BoxCollider2D>();
+        for (int i = 0; i < AwarenessColliders.Length; i++) {
+            hitboxes[i] = AwarenessColliders[i].GetComponent<BoxCollider2D>();
+            sensors[i] = AwarenessColliders[i].GetComponent<Sensors>();
 
-        agroRangeScript.triggerEnter += AgroRangeEnter;
-        agroRangeScript.collisionEnter += AgroRangeEnter;
-        agroRangeScript.triggerStay += AgroRangeStay;
-        agroRangeScript.triggerExit += AgroRangeExit;
-        attackRangeScript.triggerEnter += AttackRangeEnter;
-        attackRangeScript.triggerStay += AttackRangeStay;
-        attackRangeScript.triggerExit += AttackRangeExit;
+        }
+
+        sensors[(int)Hitboxes.agroRange].triggerEnter += AgroRangeEnter;
+        sensors[(int)Hitboxes.deAgroRange].triggerStay += AgroRangeStay;
+        sensors[(int)Hitboxes.deAgroRange].triggerExit += AgroRangeExit;
+        sensors[(int)Hitboxes.attackRange].triggerEnter += AttackRangeEnter;
+        sensors[(int)Hitboxes.attackRange].triggerStay += AttackRangeStay;
+        sensors[(int)Hitboxes.attackRange].triggerExit += AttackRangeExit;
         if(health!=null)
             health.dieEvent += Die;
     }
@@ -158,7 +161,7 @@ public abstract class EnemyScript : Unit {
      */
     protected override void EventUnsubscribe() {
         base.EventUnsubscribe();
-        DisableEventColliders(new Action<Collider2D>[] { AgroRangeEnter, AgroRangeStay, AgroRangeExit, AttackRangeEnter, AttackRangeExit }, new Sensors[] { agroRangeScript, attackRangeScript });
+        DisableEventColliders(new Action<Collider2D>[] { AgroRangeEnter, AgroRangeStay, AgroRangeExit, AttackRangeEnter, AttackRangeExit }, sensors);
         health.dieEvent -= Die;
     }
     

@@ -14,7 +14,7 @@ public class SwordEnemyScript : EnemyScript {
     [SerializeField] private PlayerState playerState;
     [SerializeField] private AgroState agroState;
     [SerializeField] private RecoveryState recoverState;
-    [SerializeField] protected IdelState idelState;
+    [SerializeField] protected BaseIdelState idelState;
     [SerializeField] protected ParryRecoverState parryRecoverState;
 
     private void Awake() {
@@ -22,10 +22,10 @@ public class SwordEnemyScript : EnemyScript {
 
         //attacks
         //state = idelState;
-        idelState?.Setup(rb, animatior, this);
-        agroState?.Setup(rb, animatior,this);
-        recoverState?.Setup(rb, animatior, this);
-        parryRecoverState?.Setup(rb, animatior, this);
+        idelState.Setup(rb, animatior, this);
+        agroState.Setup(rb, animatior,this);
+        recoverState.Setup(rb, animatior, this);
+        parryRecoverState.Setup(rb, animatior, this);
         state = idelState;
         state.Enter();
         AgroAttackColliders();
@@ -37,7 +37,8 @@ public class SwordEnemyScript : EnemyScript {
     // Update is called once per frame
     void Update() {
         if (WallCheck()) {
-            direction = switchDirection();
+            direction *= -1;
+            switchHitboxDirection(direction);
         }
 
         state.UpdateState();
