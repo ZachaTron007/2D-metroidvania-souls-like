@@ -1871,7 +1871,7 @@ PrefabInstance:
       objectReference: {fileID: 1835465571}
     - target: {fileID: 361345800473325895, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
       propertyPath: AwarenessColliders.Array.size
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 361345800473325895, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
       propertyPath: 'AwarenessColliders.Array.data[0]'

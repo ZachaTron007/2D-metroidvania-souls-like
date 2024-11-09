@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 public abstract class EnemyScript : Unit {
     protected float maxDist = .3f;
     [Header("Awareness Colliders")]
-    [SerializeField] protected GameObject[] AwarenessColliders;
+    [SerializeField] protected GameObject[] AwarenessColliders = new GameObject[3];
     protected BoxCollider2D[] hitboxes = new BoxCollider2D[3];
     protected Sensors[] sensors = new Sensors[3];
     protected bool isWithinAgroRange = false;
