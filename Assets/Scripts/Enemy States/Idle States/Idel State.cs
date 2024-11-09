@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class IdelState : State {
+public class IdelState : BaseIdelState {
     // Start is called before the first frame update
     //movements
-    [SerializeField] private AnimationClip idelAniamtion;
+    
     [SerializeField] private AnimationClip walkAniamtion;
     [SerializeField] private int idelWalkSpeed = 50;
     private float speed;
@@ -44,7 +44,7 @@ public class IdelState : State {
         rb.linearVelocity = new Vector2(unitVariables.GetDirection() * speed * Time.fixedDeltaTime, rb.linearVelocity.y);
     }
     public override void UpdateState() {
-        IsGroundInFront();
+        unitVariables.IsGroundInFront();
     }
     public override void Exit() {
         idel = false;

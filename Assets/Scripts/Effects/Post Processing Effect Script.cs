@@ -29,7 +29,7 @@ public class PostProcessingEffectScript : MonoBehaviour
         vignetteIntensity = .26f;
         vignette.intensity.value = .26f;
         vignette.smoothness.value = 1f;
-        vignette.color.value = hurtVignetteColor;
+        vignette.color.value = Color.red;
         time = HurtVignetteTime;
     }
 

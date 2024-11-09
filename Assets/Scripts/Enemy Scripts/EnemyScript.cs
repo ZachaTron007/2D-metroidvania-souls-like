@@ -8,12 +8,9 @@ using UnityEngine.InputSystem;
 public abstract class EnemyScript : Unit {
     protected float maxDist = .3f;
     [Header("Awareness Colliders")]
-    [SerializeField] protected GameObject agroRange;
-    [SerializeField] protected GameObject attackRange;
-    protected BoxCollider2D agroRangeHitbox;
-    protected BoxCollider2D attackRangeHitbox;
-    protected Sensors agroRangeScript;
-    protected Sensors attackRangeScript;
+    [SerializeField] protected GameObject[] AwarenessColliders;
+    protected BoxCollider2D[] hitboxes = new BoxCollider2D[3];
+    protected Sensors[] sensors = new Sensors[3];
     protected bool isWithinAgroRange = false;
     protected bool isWithinAttackRange = false;
 
@@ -27,7 +24,13 @@ public abstract class EnemyScript : Unit {
         
         return false;
     }
-    
+
+
+    private enum ColliderType {
+        agro,
+        deAgro,
+        attack
+    }
     /*
      * summary:
      * collider enter and exit events for agro and attack range
@@ -80,12 +83,8 @@ public abstract class EnemyScript : Unit {
     private int ShouldSwitchDirection(int direction,Vector2 PlayerDirection) {
         float turnGracePeriod = mainCollider.hitBox.size.x / 2;
         if (Mathf.Abs(PlayerDirection.x) > turnGracePeriod && state.interuptable) {
-            int tempDirection = direction;
             direction = PlayerDirection.x > 0 ? 1 : -1;
-            if (tempDirection != direction) {
-                agroRangeHitbox.offset *= new Vector2(-1, 1);
-                attackRangeHitbox.offset *= new Vector2(-1, 1);
-            }
+            SetDirection(direction);
             return direction;
         }
 
@@ -105,22 +104,14 @@ public abstract class EnemyScript : Unit {
         }
         return false;
     }
+    public override void SetDirection(int newDirection) {
+        base.SetDirection(newDirection);
+        foreach (BoxCollider2D collider in hitboxes) {
+            collider.offset = new Vector2(Mathf.Abs(collider.offset.x) * newDirection, collider.offset.y);
+        }
+    }
+
     
-    protected int switchDirection() {
-        direction *= -1;
-        agroRangeHitbox.offset *= new Vector2(-1, 1);
-        attackRangeHitbox.offset *= new Vector2(-1, 1);
-
-        return direction;
-    }
-
-    public bool IsGroundInFront() {
-        int layerNumber = 6;
-        float distanceAdditon = 0.1f;
-        
-        RaycastHit2D groundAvailible = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon, new Vector3(transform.position.x + mainCollider.hitBox.size.x / 2+distanceAdditon, transform.position.y, 0),true);
-        return groundAvailible;
-    }
     
     
     /*
@@ -129,18 +120,18 @@ public abstract class EnemyScript : Unit {
      * runs when the object is created
      */
     protected void AgroAttackColliders() {
-        attackRangeScript = attackRange.GetComponent<Sensors>();
-        agroRangeScript = agroRange.GetComponent<Sensors>();
-        agroRangeHitbox = agroRange.GetComponent<BoxCollider2D>();
-        attackRangeHitbox = attackRange.GetComponent<BoxCollider2D>();
-
-        agroRangeScript.triggerEnter += AgroRangeEnter;
-        agroRangeScript.collisionEnter += AgroRangeEnter;
-        agroRangeScript.triggerStay += AgroRangeStay;
-        agroRangeScript.triggerExit += AgroRangeExit;
-        attackRangeScript.triggerEnter += AttackRangeEnter;
-        attackRangeScript.triggerStay += AttackRangeStay;
-        attackRangeScript.triggerExit += AttackRangeExit;
+        for (int i = 0; i < AwarenessColliders.Length; i++) {
+            sensors[i] = AwarenessColliders[i].GetComponent<Sensors>();
+            hitboxes[i] = AwarenessColliders[i].GetComponent<BoxCollider2D>();
+  
+        }
+        sensors[(int)ColliderType.agro].triggerEnter += AgroRangeEnter;
+        sensors[(int)ColliderType.agro].collisionEnter += AgroRangeEnter;
+        sensors[(int)ColliderType.deAgro].triggerStay += AgroRangeStay;
+        sensors[(int)ColliderType.deAgro].triggerExit += AgroRangeExit;
+        sensors[(int)ColliderType.attack].triggerEnter += AttackRangeEnter;
+        sensors[(int)ColliderType.attack].triggerStay += AttackRangeStay;
+        sensors[(int)ColliderType.attack].triggerExit += AttackRangeExit;
         if(health!=null)
             health.dieEvent += Die;
     }
@@ -157,7 +148,6 @@ public abstract class EnemyScript : Unit {
                 sensor.triggerExit -= subsriberEvent;
             }
         }
-        EventUnsubscribe();
         
     }
     /*
@@ -166,7 +156,7 @@ public abstract class EnemyScript : Unit {
      */
     protected override void EventUnsubscribe() {
         base.EventUnsubscribe();
-        DisableEventColliders(new Action<Collider2D>[] { AgroRangeEnter, AgroRangeStay, AgroRangeExit, AttackRangeEnter, AttackRangeExit }, new Sensors[] { agroRangeScript, attackRangeScript });
+        DisableEventColliders(new Action<Collider2D>[] { AgroRangeEnter, AgroRangeStay, AgroRangeExit, AttackRangeEnter, AttackRangeExit }, sensors);
         health.dieEvent -= Die;
     }
     

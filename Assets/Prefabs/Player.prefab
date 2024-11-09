@@ -105,9 +105,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8780527505926899338}
-  - {fileID: 829768048239696737}
-  - {fileID: 1480310317852831661}
-  - {fileID: 6225676682152794543}
   - {fileID: 6830701758952345426}
   - {fileID: 331161964124395032}
   m_Father: {fileID: 3221665841039631346}
@@ -128,6 +125,7 @@ GameObject:
   - component: {fileID: 2523040466846424865}
   - component: {fileID: 1963964075353710027}
   - component: {fileID: 7307670183575024488}
+  - component: {fileID: 6801815364073520562}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -165,6 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acfa8e83a9a006f43a7196c9da0e3c88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  includeRBLayers: {fileID: 0}
   rb: {fileID: 5659295172002192011}
   animatior: {fileID: 7805728038281855956}
   mainCollider: {fileID: 5833950777563335456}
@@ -175,6 +174,7 @@ MonoBehaviour:
   dieState: {fileID: 8755541186931078846}
   attackTime: 0
   isRecovering: 0
+  direction: 1
   Dash: {fileID: 8471434802479641984}
   jumpScript: {fileID: 5748622122044369809}
   wallActions: {fileID: 1451001638846000934}
@@ -350,6 +350,20 @@ MonoBehaviour:
   dash: 304
   blockButton: 324
   attackButton: 323
+--- !u!114 &6801815364073520562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141310683926542077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7763a909652aa0479172a52f491a7eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layers: 0300000007000000
+  rb: {fileID: 0}
 --- !u!1 &2228295328164167332
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,7 +473,7 @@ GameObject:
   - component: {fileID: 8289480797386224080}
   - component: {fileID: 3566820372639182325}
   - component: {fileID: 8060508606102360622}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Attack 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1009,10 +1023,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 829768048239696737}
   - {fileID: 8515370148860703193}
   - {fileID: 2378811939695712898}
   - {fileID: 6656790109618703717}
   - {fileID: 2690923438287197957}
+  - {fileID: 1480310317852831661}
   m_Father: {fileID: 1138596272068104886}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5753551939639635088
@@ -1062,7 +1078,7 @@ MonoBehaviour:
   stateDone: 0
   blockingClip: {fileID: 7400000, guid: 5b40edfa3ab173045936606cf6d81c11, type: 2}
   parryClip: {fileID: 7400000, guid: 8343e24825085354186de10f6f858f08, type: 2}
-  parryWindow: 0.3
+  parryWindow: 0.1
   blocking: 0
   parryCounter: 0
   canParry: 0
@@ -1091,12 +1107,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5812756172105343653}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1138596272068104886}
+  m_Father: {fileID: 8780527505926899338}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1451001638846000934
 MonoBehaviour:
@@ -1150,7 +1166,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 45742449366162608}
-  m_Father: {fileID: 1138596272068104886}
+  m_Father: {fileID: 6830701758952345426}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8231595280448065926
 MonoBehaviour:
@@ -1199,12 +1215,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6788941821281753057}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1138596272068104886}
+  m_Father: {fileID: 8780527505926899338}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2760532947694410976
 MonoBehaviour:
@@ -1231,7 +1247,7 @@ GameObject:
   - component: {fileID: 3870996734833356546}
   - component: {fileID: 8302992960160219393}
   - component: {fileID: 6489775057103274142}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Attack 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1416,7 +1432,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6830701758952345426}
   m_Layer: 3
-  m_Name: Parry and Block States
+  m_Name: Attack Related
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1438,6 +1454,7 @@ Transform:
   - {fileID: 7289540628631314632}
   - {fileID: 1354787411969318616}
   - {fileID: 245945031681580382}
+  - {fileID: 6225676682152794543}
   m_Father: {fileID: 1138596272068104886}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7706033680090450785
@@ -1633,7 +1650,7 @@ GameObject:
   - component: {fileID: 720988705972739168}
   - component: {fileID: 5528412387757357549}
   - component: {fileID: 4389947265746843862}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Attack 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
