@@ -20,15 +20,15 @@ public class Health : MonoBehaviour
     //[SerializeField] private float parryWindow = 5f;
     public event Action<bool, int> hitEvent;
     public event Action dieEvent;
-    private PlayerState playerState;
+    private Unit Unit;
     private int damageAmount = 0;
 
     // Update is called once per frame
     
     private void Awake() {
-        playerState = GetComponent<PlayerState>();
         health = MAX_HEALTH;
-        sr = GetComponent<SpriteRenderer>();
+        Unit = GetComponent<Unit>();
+        sr = Unit.sr;
         normalColor = sr.color;
         hurtColor /= 255;
         hitBox.triggerEnter += GetHit;

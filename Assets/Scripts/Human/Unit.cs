@@ -11,8 +11,8 @@ public abstract class Unit : MonoBehaviour
     public IncludeRBLayers includeRBLayers;
     public Rigidbody2D rb;
     public Animator animatior;
-    protected SpriteRenderer sr;
-    [SerializeField] protected Sensors mainCollider;
+    public SpriteRenderer sr;
+    public Sensors mainCollider;
     [Header("Current State")]
 
     public State state;
@@ -48,8 +48,6 @@ public abstract class Unit : MonoBehaviour
         includeRBLayers = GetComponent<IncludeRBLayers>();
         health = GetComponent<Health>();
         rb = GetComponent<Rigidbody2D>();
-        animatior = GetComponent<Animator>();
-        sr = GetComponent<SpriteRenderer>();
         //mainCollider = GetComponent<BoxCollider2D>();
         hurtState?.Setup(rb, animatior, this);
         fallState?.Setup(rb, animatior, this);

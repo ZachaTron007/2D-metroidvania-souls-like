@@ -22,7 +22,7 @@ public class AttackInfo : DamageScript
         length = clip.length;
         attackHitBox = GetComponent<BoxCollider2D>();
         float timePerFrame = 1 / clip.frameRate;
-        startHitBoxTime = timePerFrame * startHitBoxTime;
+        startHitBoxTime = timePerFrame * startHitBoxFrames;
         endHitBoxTime = timePerFrame * Mathf.Abs(endHitBoxTime - startHitBoxTime);
 
     }

@@ -60,7 +60,6 @@ public class PlayerState : Unit {
     }
 
     private void Awake() {
-        //CinemachineEffectScript.instance.ScreenShake(0.1f, 0.1f);
         //get the input system
         playerControls = new PlayerControls();
         inputScript = GetComponent<InputScript>();

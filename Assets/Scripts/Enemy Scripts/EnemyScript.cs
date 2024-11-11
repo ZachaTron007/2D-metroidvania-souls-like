@@ -49,7 +49,7 @@ public abstract class EnemyScript : Unit {
         }
     }
     protected void AgroRangeStay(Collider2D other) {
-        if (other.gameObject.tag == "Player") {
+        if (other.gameObject.tag == "Player"&&isWithinAgroRange == true) {
             Vector2 directionOfPlayer = other.gameObject.transform.position - gameObject.transform.position;
             direction = ShouldSwitchDirection(direction,directionOfPlayer);
             isWithinAgroRange = !IsPlayerBlocked(directionOfPlayer);
@@ -120,7 +120,7 @@ public abstract class EnemyScript : Unit {
      * runs when the object is created
      */
     protected void AgroAttackColliders() {
-        for (int i = 0; i < AwarenessColliders.Length; i++) {
+        for (int i = 0; i < 3; i++) {
             sensors[i] = AwarenessColliders[i].GetComponent<Sensors>();
             hitboxes[i] = AwarenessColliders[i].GetComponent<BoxCollider2D>();
   
