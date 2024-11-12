@@ -23,7 +23,7 @@ PrefabInstance:
     - target: {fileID: 361345800473325895, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
       propertyPath: playerState
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6378908112458984836, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
     - target: {fileID: 650199832796766627, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
       propertyPath: m_LocalScale.x
       value: 2.34
