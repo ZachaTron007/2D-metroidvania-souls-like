@@ -2640,6 +2640,32 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ec0a7697838a3946988daa51b379a3b, type: 3}
+--- !u!1 &1684181476 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7317830213770069811, guid: abc618e4eb85c694cb1738dcb04253c6, type: 3}
+  m_PrefabInstance: {fileID: 2647609672726076749}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1684181478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684181476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c0945cb63849343a015171ae1d790e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateDone: 0
+  idelAniamtion: {fileID: 7400000, guid: d9f48d2c4b0c82e4599557f74e8a473c, type: 2}
+  recoverTime: 1
+  walkAniamtion: {fileID: 7400000, guid: e43877374065d914fbaad55ac3ae73bb, type: 2}
+  highSpeed: 50
+  lowSpeed: 10
+  switchTime: 0
+  range: 2
+  point: 1
 --- !u!1 &1705748682
 GameObject:
   m_ObjectHideFlags: 0
@@ -3400,8 +3426,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1932758420}
     - target: {fileID: 3432709095721396966, guid: abc618e4eb85c694cb1738dcb04253c6, type: 3}
+      propertyPath: recoverState
+      value: 
+      objectReference: {fileID: 1684181478}
+    - target: {fileID: 3432709095721396966, guid: abc618e4eb85c694cb1738dcb04253c6, type: 3}
       propertyPath: includeRBLayers
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5715518125121556989, guid: abc618e4eb85c694cb1738dcb04253c6, type: 3}
+      propertyPath: MAX_HEALTH
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5729909103629474632, guid: abc618e4eb85c694cb1738dcb04253c6, type: 3}
+      propertyPath: recoverTime
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 6290882831619768615, guid: abc618e4eb85c694cb1738dcb04253c6, type: 3}
       propertyPath: m_Enabled
@@ -3467,10 +3505,14 @@ PrefabInstance:
       propertyPath: idelWalkSpeed
       value: 25
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5729909103629474632, guid: abc618e4eb85c694cb1738dcb04253c6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7317830213770069811, guid: abc618e4eb85c694cb1738dcb04253c6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1684181478}
   m_SourcePrefab: {fileID: 100100000, guid: abc618e4eb85c694cb1738dcb04253c6, type: 3}
 --- !u!1001 &2898413512102226661
 PrefabInstance:
@@ -3522,6 +3564,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3221665841039631346, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6009983063484112280, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: m_Offset.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6378908112458984836, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}

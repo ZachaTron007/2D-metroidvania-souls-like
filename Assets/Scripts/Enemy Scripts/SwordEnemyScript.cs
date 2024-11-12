@@ -78,7 +78,6 @@ public class SwordEnemyScript : EnemyScript {
     }
 
     private void getParryed() {
-        Debug.Log("Was Parried");
         StateChange(parryRecoverState);
     }
     protected override void Die() {

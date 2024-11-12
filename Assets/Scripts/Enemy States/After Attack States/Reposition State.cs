@@ -3,32 +3,37 @@ using UnityEngine.InputSystem.Android;
 
 public class RepositionState : RecoveryState {
     [SerializeField] private AnimationClip walkAniamtion;
-    [SerializeField] private float speed = 50;
-    private delegate void WaitingDelegate(int direction);
+    [SerializeField] private float disengageSpeed = 50;
+    [SerializeField] private float engageSpeed = 50;
+    private delegate void WaitingDelegate(int direction,float speed);
     private WaitingDelegate waitingDelegate;
     private float counter;
     [SerializeField] private float switchTime;
     [SerializeField] private float range = 2;
     [SerializeField] private float point;
     public override void Enter() {
-        base.Enter();
+        //base.Enter();
         interuptable = false;
         waitingDelegate = MoveAround;
-        point = gameObject.transform.position.x + range;
-        waitingDelegate(-unitVariables.GetDirection());
+        point = unitVariables.transform.position.x + range*-unitVariables.GetDirection();
+        Debug.Log("Point: "+point);
+        Debug.Log("Transform: " + unitVariables.transform.position.x);
     }
 
-    private void MoveAround(int direction) {
+    private void MoveAround(int direction,float speed) {
         animator.Play(walkAniamtion.name);
-        rb.linearVelocity = Vector2.right * direction * speed;
+        rb.linearVelocity = Vector2.right * direction * speed*Time.fixedDeltaTime;
     }
     private void Stay(int direction) {
         animator.Play(idelAniamtion.name);
         rb.linearVelocity = Vector2.zero;
+        Exit();
     }
-    public override void UpdateState() {
-        if(gameObject.transform.position.x > point) {
-            MoveAround(unitVariables.GetDirection());
+    public override void FixedUpdateState() {
+        if(unitVariables.transform.position.x > point) {
+            MoveAround(-unitVariables.GetDirection(),disengageSpeed);
+        } else {
+            Stay(unitVariables.GetDirection());
         }
     }/*
     private void Stop(int direction) {
