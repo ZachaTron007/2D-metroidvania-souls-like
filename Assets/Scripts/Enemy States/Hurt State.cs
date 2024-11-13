@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HurtState : State
 {
-    [SerializeField] private AnimationClip damageClip;
+    [SerializeField] protected AnimationClip damageClip;
     [SerializeField] private float recoveryTime;
     private void Start() {
         
@@ -15,7 +15,7 @@ public class HurtState : State
         }
         interuptable = false;
         animator.Play(damageClip.name);
-        Invoke("Exit", recoveryTime);
+        Invoke(nameof(Exit), recoveryTime);
     }
 
     // Update is called once per frame

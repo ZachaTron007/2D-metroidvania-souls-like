@@ -75,7 +75,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 307003340171468623}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.100000024, y: -2.12, z: 0}
   m_LocalScale: {x: 0.82, y: 0.82, z: 0.82}
   m_ConstrainProportionsScale: 1
@@ -222,9 +222,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateDone: 0
   deathClip: {fileID: 7400000, guid: cb5ae9683b131ad469b063d89ac4c6ac, type: 2}
-  startTime: 0
-  time: 0
-  startAlpha: 0
+  startTime: 4
+  speed: 0.2
 --- !u!1 &949736954057920423
 GameObject:
   m_ObjectHideFlags: 0

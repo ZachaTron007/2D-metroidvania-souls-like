@@ -55,14 +55,13 @@ public class SwordEnemyScript : EnemyScript {
         if (!isWithinAgroRange) {
             state = idelState;
         } else {
-            if (!isWithinAttackRange) {
+            if (isRecovering) { 
+                state = recoverState; 
+            } 
+            else if (!isWithinAttackRange) {
                 state = agroState;
             } else {
-                if (!isRecovering) {
-                    state = attackState;
-                } else {
-                    state = recoverState;
-                }
+                state = attackState;
             }
 
         }
