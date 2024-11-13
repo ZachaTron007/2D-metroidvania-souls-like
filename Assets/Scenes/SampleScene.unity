@@ -3656,6 +3656,14 @@ PrefabInstance:
       value: Mushroom
       objectReference: {fileID: 0}
     - target: {fileID: 1025974863289018806, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
+      propertyPath: speed
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025974863289018806, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
+      propertyPath: startTime
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025974863289018806, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
       propertyPath: startAlpha
       value: 255
       objectReference: {fileID: 0}

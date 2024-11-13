@@ -991,6 +991,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateDone: 0
   deathClip: {fileID: 7400000, guid: e38cb418ab88f9346b0ebccb770105ee, type: 2}
+  startTime: 0
+  time: 0
+  startAlpha: 0
 --- !u!1 &6880627972990887905
 GameObject:
   m_ObjectHideFlags: 0
