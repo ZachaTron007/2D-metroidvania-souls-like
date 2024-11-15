@@ -1443,3 +1443,5 @@ MonoBehaviour:
   hitBoxScript: {fileID: 3624540402643955331}
   idelSpeed: 100
   waitTime: 2
+  tempMarker: {fileID: 0}
+  dir: {x: 0, y: 0}
