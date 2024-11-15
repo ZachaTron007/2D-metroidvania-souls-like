@@ -96,7 +96,8 @@ public abstract class EnemyScript : Unit {
      */
     private bool IsPlayerBlocked(Vector2 PlayerDirection) {
         float distance = Mathf.Sqrt((PlayerDirection.x * PlayerDirection.x) + (PlayerDirection.y * PlayerDirection.y));
-        RaycastHit2D hit = ShootRayDirection(PlayerDirection, 6, distance);
+        
+        RaycastHit2D hit = ShootRayDirection(PlayerDirection, HelperFunctions.layers["Player"], distance);
         if (hit) {
             if (hit.collider.tag == "Player") {
                 return true;

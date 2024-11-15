@@ -92,7 +92,8 @@ public abstract class Unit : MonoBehaviour
     protected bool GroundTouch() {
         Vector2 BoxDimentions = new Vector2(.1f, .1f);
         //hits walls
-        int layerNumber = 6;
+        int layerNumber = HelperFunctions.layers["Level"];
+
         float distanceAdditon = 0.1f;
         RaycastHit2D groundHitLeft = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon, new Vector3(transform.position.x - mainCollider.hitBox.size.x/2, transform.position.y, 0));
         RaycastHit2D groundHitMiddle = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon,transform.position,true);
@@ -140,7 +141,7 @@ public abstract class Unit : MonoBehaviour
         return hit;
     }
     public bool IsGroundInFront() {
-        int layerNumber = 6;
+        int layerNumber = HelperFunctions.layers["Level"]; ;
         float distanceAdditon = 0.1f;
 
         RaycastHit2D groundAvailible = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon, new Vector3(transform.position.x + (mainCollider.hitBox.size.x / 2) * direction, transform.position.y, 0), true);
