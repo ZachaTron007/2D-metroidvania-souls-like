@@ -38,21 +38,15 @@ public abstract class EnemyScript : Unit {
     protected void AgroRangeEnter(Collider2D other) {
         if (other.gameObject.tag == "Player") {
             isWithinAgroRange = true;
-            
-        }
-    }
-    protected void AgroRangeEnter(Collision2D other) {
-        if (other.gameObject.tag == "Player") {
-            Debug.Log("Agro");
-            isWithinAgroRange = true;
 
         }
     }
     protected void AgroRangeStay(Collider2D other) {
-        if (other.gameObject.tag == "Player"&&isWithinAgroRange == true) {
+        //Debug.Log("is Agroed: "+isWithinAgroRange);
+        if (other.gameObject.tag == "Player"){//&&isWithinAgroRange == true) {
             Vector2 directionOfPlayer = other.gameObject.transform.position - gameObject.transform.position;
             direction = ShouldSwitchDirection(direction,directionOfPlayer);
-            isWithinAgroRange = !IsPlayerBlocked(directionOfPlayer);
+            isWithinAgroRange = IsPlayerBlocked(directionOfPlayer);
         }
     }
     protected void AgroRangeExit(Collider2D other) {
@@ -62,8 +56,9 @@ public abstract class EnemyScript : Unit {
     }
 
     protected void AttackRangeEnter(Collider2D other) {
+        
         if (other.gameObject.tag == "Player") {
-
+            
             isWithinAttackRange = true;
         }
     }
@@ -97,8 +92,9 @@ public abstract class EnemyScript : Unit {
     private bool IsPlayerBlocked(Vector2 PlayerDirection) {
         float distance = Mathf.Sqrt((PlayerDirection.x * PlayerDirection.x) + (PlayerDirection.y * PlayerDirection.y));
         
-        RaycastHit2D hit = ShootRayDirection(PlayerDirection, HelperFunctions.layers["Player"], distance);
+        RaycastHit2D hit = ShootRayDirection(PlayerDirection, HelperFunctions.layers["Player"], distance,debugRay:true);
         if (hit) {
+            Debug.Log(hit.collider.tag);
             if (hit.collider.tag == "Player") {
                 return true;
             }
@@ -112,9 +108,6 @@ public abstract class EnemyScript : Unit {
         }
     }
 
-    
-    
-    
     /*
      * summary:
      * subscribing to the events
@@ -124,10 +117,9 @@ public abstract class EnemyScript : Unit {
         for (int i = 0; i < 3; i++) {
             sensors[i] = AwarenessColliders[i].GetComponent<Sensors>();
             hitboxes[i] = AwarenessColliders[i].GetComponent<BoxCollider2D>();
-  
         }
+
         sensors[(int)ColliderType.agro].triggerEnter += AgroRangeEnter;
-        sensors[(int)ColliderType.agro].collisionEnter += AgroRangeEnter;
         sensors[(int)ColliderType.deAgro].triggerStay += AgroRangeStay;
         sensors[(int)ColliderType.deAgro].triggerExit += AgroRangeExit;
         sensors[(int)ColliderType.attack].triggerEnter += AttackRangeEnter;
