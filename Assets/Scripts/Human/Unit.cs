@@ -30,6 +30,7 @@ public abstract class Unit : MonoBehaviour
     [SerializeField] protected int direction = 1;//{ get; protected set; } = 1;
     protected float moveSpeed = 250;
     protected bool grounded;
+    public bool engaged;
     /*
      * summary:
      * get and sets

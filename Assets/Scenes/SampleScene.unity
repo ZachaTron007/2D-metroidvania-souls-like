@@ -2703,6 +2703,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mushroom
       objectReference: {fileID: 0}
+    - target: {fileID: 1258361261296067503, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
+      propertyPath: m_Size.x
+      value: 1.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 1258361261296067503, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
+      propertyPath: m_Size.y
+      value: 1.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1258361261296067503, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 1258361261296067503, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498218414796284765, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
+      propertyPath: startMovingFrames
+      value: 28
+      objectReference: {fileID: 0}
     - target: {fileID: 6348218199326715150, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.100000024
@@ -2742,6 +2762,14 @@ PrefabInstance:
     - target: {fileID: 6348218199326715150, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8263773563791227133, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
+      propertyPath: startMovingFrames
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8345824504673228524, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
+      propertyPath: attackLungeSpeed
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8477825420297571133, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
       propertyPath: hitBox
@@ -4868,7 +4896,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1081542097645294638, guid: 0dd83fad650632b4c9fb4145b5b34478, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.69
+      value: 8.21
       objectReference: {fileID: 0}
     - target: {fileID: 1081542097645294638, guid: 0dd83fad650632b4c9fb4145b5b34478, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4907,6 +4935,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1417825919312474008, guid: 0dd83fad650632b4c9fb4145b5b34478, type: 3}
+      propertyPath: direction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417825919312474008, guid: 0dd83fad650632b4c9fb4145b5b34478, type: 3}
       propertyPath: playerState
       value: 
       objectReference: {fileID: 1932758420}
@@ -4926,9 +4958,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Eye
       objectReference: {fileID: 0}
+    - target: {fileID: 3350916029109910897, guid: 0dd83fad650632b4c9fb4145b5b34478, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6616625327985508016, guid: 0dd83fad650632b4c9fb4145b5b34478, type: 3}
       propertyPath: m_Size.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9056316023934366415, guid: 0dd83fad650632b4c9fb4145b5b34478, type: 3}
+      propertyPath: m_Mass
+      value: 0.23534
       objectReference: {fileID: 0}
     - target: {fileID: 9056316023934366415, guid: 0dd83fad650632b4c9fb4145b5b34478, type: 3}
       propertyPath: m_BodyType

@@ -56,9 +56,8 @@ public abstract class EnemyScript : Unit {
     }
 
     protected void AttackRangeEnter(Collider2D other) {
-        
         if (other.gameObject.tag == "Player") {
-            
+            engaged = true;
             isWithinAttackRange = true;
         }
     }
@@ -67,6 +66,7 @@ public abstract class EnemyScript : Unit {
     }
     protected void AttackRangeExit(Collider2D other) {
         if (other.gameObject.tag == "Player") {
+            engaged = false;
             isWithinAttackRange = false;
         }
     }
@@ -94,7 +94,6 @@ public abstract class EnemyScript : Unit {
         
         RaycastHit2D hit = ShootRayDirection(PlayerDirection, HelperFunctions.layers["Player"], distance,debugRay:true);
         if (hit) {
-            Debug.Log(hit.collider.tag);
             if (hit.collider.tag == "Player") {
                 return true;
             }

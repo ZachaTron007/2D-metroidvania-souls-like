@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 public class ParentMeleeAttack : State {
 
     [SerializeField] public AttackInfo currentAttack;
+    [SerializeField] private float attackLungeSpeed;
     public Vector2 lookDirection;
     private int tempDirection;
     protected IEnumerator attack;
@@ -34,7 +35,15 @@ public class ParentMeleeAttack : State {
      */
     protected IEnumerator Attack() {
         animator.Play(currentAttack.clip.name);
+        yield return new WaitForSeconds(currentAttack.startMovingTime);
+        //Debug.Log(currentAttack.startMovingTime);
+        //Debug.Log(currentAttack.startHitBoxTime);
+        
+        if (currentAttack.moveWhile&&!unitVariables.engaged) {
+            rb.linearVelocity = new Vector2(unitVariables.GetDirection() * attackLungeSpeed, rb.linearVelocity.y);
+        }
         yield return new WaitForSeconds(currentAttack.startHitBoxTime);
+        rb.linearVelocity = Vector2.zero;
         currentAttack.attackHitBox.enabled = true;
         currentAttack.attackHitBox.offset = offsetVector();
         yield return new WaitForSeconds(currentAttack.endHitBoxTime);

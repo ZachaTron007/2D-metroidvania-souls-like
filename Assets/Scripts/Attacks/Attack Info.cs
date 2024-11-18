@@ -8,11 +8,14 @@ public class AttackInfo : DamageScript
     public float length;
     [HideInInspector] public BoxCollider2D attackHitBox;
     [Header("Attack data")]
-    [SerializeField] private bool parryable;
+    [SerializeField] public bool parryable;
+    [SerializeField] public bool moveWhile = true;
     [SerializeField] private float ScreenShakeMagnitude;
     [Header("Frame data")]
     [SerializeField] private float startHitBoxFrames;
     [SerializeField] private float endHitBoxFrames;
+    [SerializeField] private float startMovingFrames;
+    [HideInInspector] public float startMovingTime;
     [HideInInspector] public float startHitBoxTime;
     [HideInInspector] public float endHitBoxTime;
 
@@ -23,7 +26,10 @@ public class AttackInfo : DamageScript
         attackHitBox = GetComponent<BoxCollider2D>();
         float timePerFrame = 1 / clip.frameRate;
         startHitBoxTime = timePerFrame * startHitBoxFrames;
-        endHitBoxTime = timePerFrame * Mathf.Abs(endHitBoxTime - startHitBoxTime);
+        startMovingTime = timePerFrame * startMovingFrames;
+        endHitBoxTime = timePerFrame * endHitBoxFrames;
+        startHitBoxTime -= startMovingTime;
+        endHitBoxFrames -= startHitBoxTime;
 
     }
     private void Update() {

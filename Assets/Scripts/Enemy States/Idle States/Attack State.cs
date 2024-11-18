@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class EnemyAttackState : ParentMeleeAttack
 {
-
+    private Sensors attackHitBox;
     private bool attacking;
     public AttackInfo[] attacks;
+    private AttackInfo[] possibleAttacks;
 
     /*
      * summary:
@@ -21,7 +22,7 @@ public class EnemyAttackState : ParentMeleeAttack
         StartCoroutine(attack);
     }
     public override void FixedUpdateState() {
-        rb.linearVelocity = Vector2.zero;
+        //rb.linearVelocity = Vector2.zero;
     }
 
     public override void Exit() {
@@ -31,7 +32,16 @@ public class EnemyAttackState : ParentMeleeAttack
     }
 
     private AttackInfo randomAttackPicker(AttackInfo[] attacks) {
-        int attackNum = Random.Range(0, attacks.Length);
-        return attacks[attackNum];
+        List<AttackInfo> list = new List<AttackInfo>();
+        
+        possibleAttacks = new AttackInfo[0];
+        for (int i = 0; i < attacks.Length; i++) {
+            list.Add(attacks[i]);
+            Debug.Log(list[i].name);
+        }
+        Debug.Log(list.Count);
+        Debug.Log(list.Capacity);
+        int attackNum = Random.Range(0, list.Count);
+        return list[attackNum];
     }
 }
