@@ -96,9 +96,12 @@ MonoBehaviour:
   length: 0
   attackHitBox: {fileID: 0}
   parryable: 0
+  moveWhile: 1
   ScreenShakeMagnitude: 0.1
   startHitBoxFrames: 34
   endHitBoxFrames: 39
+  startMovingFrames: 0
+  startMovingTime: 0
   startHitBoxTime: 3
   endHitBoxTime: 4
 --- !u!1 &532422899822537678
@@ -519,6 +522,7 @@ MonoBehaviour:
   attackTime: 0
   isRecovering: 0
   direction: -1
+  engaged: 0
   AwarenessColliders:
   - {fileID: 3795354482318749612}
   - {fileID: 2159275857710037923}
@@ -632,6 +636,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateDone: 0
   currentAttack: {fileID: 0}
+  attackLungeSpeed: 0
   lookDirection: {x: 0, y: 0}
   attacks:
   - {fileID: 4332720813061093173}
@@ -1010,9 +1015,12 @@ MonoBehaviour:
   length: 0
   attackHitBox: {fileID: 0}
   parryable: 0
+  moveWhile: 1
   ScreenShakeMagnitude: 0.1
   startHitBoxFrames: 28
   endHitBoxFrames: 34
+  startMovingFrames: 0
+  startMovingTime: 0
   startHitBoxTime: 3
   endHitBoxTime: 4
 --- !u!1 &6112071938199787071

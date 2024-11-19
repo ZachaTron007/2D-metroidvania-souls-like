@@ -7,18 +7,13 @@ public class IdelState : BaseIdelState {
     // Start is called before the first frame update
     //movements
     
-    [SerializeField] private AnimationClip walkAniamtion;
-    [SerializeField] private int idelWalkSpeed = 50;
     private float speed;
-    [SerializeField] delegate void idelDelegate();
-    [SerializeField] idelDelegate idelState;
     private bool idel = false;
 
     // Update is called once per frame
     public override void Enter() {
         idel = true;
-        idelState = Walk;
-        idelState();
+        Walk();
         
     }
     private void Stay() {
@@ -32,8 +27,8 @@ public class IdelState : BaseIdelState {
     }
     private void Walk() {
         if (idel) {
-            animator.Play(walkAniamtion.name);
-            speed = idelWalkSpeed;
+            animator.Play(walkAnimation.name);
+            speed = walkSpeed;
             float stopLowSpeed = 1f;
             float stopHighSpeed = 2f;
             Invoke("Stay", Random.Range(stopLowSpeed, stopHighSpeed));
@@ -44,7 +39,7 @@ public class IdelState : BaseIdelState {
         rb.linearVelocity = new Vector2(unitVariables.GetDirection() * speed * Time.fixedDeltaTime, rb.linearVelocity.y);
     }
     public override void UpdateState() {
-        unitVariables.IsGroundInFront();
+        base.UpdateState();
     }
     public override void Exit() {
         idel = false;

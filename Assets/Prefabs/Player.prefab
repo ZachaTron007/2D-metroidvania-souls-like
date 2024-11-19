@@ -284,6 +284,7 @@ MonoBehaviour:
   attackTime: 0
   isRecovering: 0
   direction: 1
+  engaged: 0
   Dash: {fileID: 8471434802479641984}
   jumpScript: {fileID: 5748622122044369809}
   wallActions: {fileID: 1451001638846000934}
@@ -576,9 +577,12 @@ MonoBehaviour:
   length: 0
   attackHitBox: {fileID: 0}
   parryable: 0
+  moveWhile: 1
   ScreenShakeMagnitude: 0.1
   startHitBoxFrames: 1
   endHitBoxFrames: 3
+  startMovingFrames: 0
+  startMovingTime: 0
   startHitBoxTime: 1
   endHitBoxTime: 3
 --- !u!1 &2720542548723612446
@@ -1206,6 +1210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateDone: 0
   currentAttack: {fileID: 0}
+  attackLungeSpeed: 0
   lookDirection: {x: 0, y: 0}
   basicCombo:
   - {fileID: 8060508606102360622}
@@ -1356,9 +1361,12 @@ MonoBehaviour:
   length: 0
   attackHitBox: {fileID: 0}
   parryable: 0
+  moveWhile: 1
   ScreenShakeMagnitude: 0.2
   startHitBoxFrames: 2
   endHitBoxFrames: 5
+  startMovingFrames: 0
+  startMovingTime: 0
   startHitBoxTime: 1
   endHitBoxTime: 3
 --- !u!1 &6991230870829561537
@@ -1759,9 +1767,12 @@ MonoBehaviour:
   length: 0
   attackHitBox: {fileID: 0}
   parryable: 0
+  moveWhile: 1
   ScreenShakeMagnitude: 0.5
   startHitBoxFrames: 2
   endHitBoxFrames: 5
+  startMovingFrames: 0
+  startMovingTime: 0
   startHitBoxTime: 2
   endHitBoxTime: 5
 --- !u!1 &8392276947747122436

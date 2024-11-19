@@ -8,7 +8,7 @@ public class EnemyAttackState : ParentMeleeAttack
     private bool attacking;
     public AttackInfo[] attacks;
     private AttackInfo[] possibleAttacks;
-
+    private List<AttackInfo> list = new List<AttackInfo>();
     /*
      * summary:
      *  1. chooses a random attack out of all the possible attacks
@@ -32,16 +32,23 @@ public class EnemyAttackState : ParentMeleeAttack
     }
 
     private AttackInfo randomAttackPicker(AttackInfo[] attacks) {
-        List<AttackInfo> list = new List<AttackInfo>();
+        
         
         possibleAttacks = new AttackInfo[0];
         for (int i = 0; i < attacks.Length; i++) {
             list.Add(attacks[i]);
-            Debug.Log(list[i].name);
+            if (attacks[i].gameObject?.GetComponent<Sensors>()) {
+                Sensors sensor = attacks[i].gameObject?.GetComponent<Sensors>();
+                
+            }
         }
-        Debug.Log(list.Count);
-        Debug.Log(list.Capacity);
         int attackNum = Random.Range(0, list.Count);
         return list[attackNum];
     }
+
+    private void TriggerDection(Collider2D collider) {
+        list.Add(collider.gameObject.GetComponent<AttackInfo>());
+        Debug.Log("Added Attack");
+    }
+
 }
