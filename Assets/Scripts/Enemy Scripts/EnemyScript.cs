@@ -43,7 +43,7 @@ public abstract class EnemyScript : Unit {
     }
     protected void AgroRangeStay(Collider2D other) {
         //Debug.Log("is Agroed: "+isWithinAgroRange);
-        if (other.gameObject.tag == "Player"){//&&isWithinAgroRange == true) {
+        if (other.gameObject.tag == "Player"&&isWithinAgroRange == true) {
             Vector2 directionOfPlayer = other.gameObject.transform.position - gameObject.transform.position;
             direction = ShouldSwitchDirection(direction,directionOfPlayer);
             isWithinAgroRange = IsPlayerBlocked(directionOfPlayer);

@@ -531,6 +531,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateDone: 0
   idelAniamtion: {fileID: 7400000, guid: 6a1ebf4e9e2b85c4dbeebc58d8f911ca, type: 2}
+  walkAnimation: {fileID: 0}
+  walkBackDistance: 0
+  walkSpeed: 50
+  forgetTime: 2
+  startPos: {x: 0, y: 0}
+  startDir: 0
+  needsRetreating: 0
 --- !u!1 &4281154447950889430
 GameObject:
   m_ObjectHideFlags: 0

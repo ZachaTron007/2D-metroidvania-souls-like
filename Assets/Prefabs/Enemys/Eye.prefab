@@ -1447,6 +1447,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateDone: 0
   idelAniamtion: {fileID: 7400000, guid: 83057e8c6c5363e448a1f100fb807a0a, type: 2}
+  walkAnimation: {fileID: 0}
+  walkBackDistance: 0
+  walkSpeed: 50
+  forgetTime: 2
+  startPos: {x: 0, y: 0}
+  startDir: 0
+  needsRetreating: 0
   point: {x: 0, y: 0, z: 0}
   hitBoxScript: {fileID: 3624540402643955331}
   idelSpeed: 100

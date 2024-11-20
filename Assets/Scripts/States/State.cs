@@ -5,7 +5,6 @@ using UnityEngine;
 
 public abstract class State : MonoBehaviour {
     protected Rigidbody2D rb;
-    protected float direction;
     protected Animator animator;
     public bool recovering { get; protected set; } = false;
     public bool interuptable { get; protected set; } = true;

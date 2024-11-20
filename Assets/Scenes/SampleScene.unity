@@ -2395,9 +2395,8 @@ MonoBehaviour:
   walkBackDistance: 0
   walkSpeed: 50
   forgetTime: 2
-  startPos: {x: 0, y: 0}
-  startDir: 0
-  needsRetreating: 0
+  lowSwitchTime: 1
+  highSwitchTime: 2
 --- !u!1 &825320338
 GameObject:
   m_ObjectHideFlags: 0
@@ -2791,7 +2790,7 @@ PrefabInstance:
     - target: {fileID: 8562985491263770973, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
       propertyPath: idelState
       value: 
-      objectReference: {fileID: 1804974631}
+      objectReference: {fileID: 1804974633}
     - target: {fileID: 8562985491263770973, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
       propertyPath: playerState
       value: 
@@ -2815,7 +2814,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 949736954057920423, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1804974631}
+      addedObject: {fileID: 1804974633}
   m_SourcePrefab: {fileID: 100100000, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
 --- !u!1 &1050884252
 GameObject:
@@ -3124,9 +3123,8 @@ MonoBehaviour:
   walkBackDistance: 0
   walkSpeed: 50
   forgetTime: 2
-  startPos: {x: 0, y: 0}
-  startDir: 0
-  needsRetreating: 0
+  lowSwitchTime: 1
+  highSwitchTime: 2
 --- !u!1001 &1279754870
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4254,7 +4252,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 949736954057920423, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
   m_PrefabInstance: {fileID: 972437275}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1804974631
+--- !u!114 &1804974633
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4263,18 +4261,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1804974629}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9ed65070c241ec45a6fe92eddd2cf9e, type: 3}
+  m_Script: {fileID: 11500000, guid: 8afb0fc514471044da82f8381bde9580, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stateDone: 0
   idelAniamtion: {fileID: 7400000, guid: b93675a41286cce41bf3eb46a34171fd, type: 2}
   walkAnimation: {fileID: 7400000, guid: e6f72b5bf5c9a064d8b3f1045c7693f7, type: 2}
-  walkBackDistance: 3
-  walkSpeed: 100
-  forgetTime: 2
-  startPos: {x: 0, y: 0}
-  startDir: 0
-  needsRetreating: 0
+  walkBackDistance: 10
+  walkSpeed: 500
+  forgetTime: 4
+  lowSwitchTime: 1
+  highSwitchTime: 2
 --- !u!1 &1821663501
 GameObject:
   m_ObjectHideFlags: 0

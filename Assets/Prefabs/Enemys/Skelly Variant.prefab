@@ -221,8 +221,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateDone: 0
   idelAniamtion: {fileID: 7400000, guid: d9f48d2c4b0c82e4599557f74e8a473c, type: 2}
-  walkAniamtion: {fileID: 7400000, guid: e43877374065d914fbaad55ac3ae73bb, type: 2}
-  idelWalkSpeed: 50
+  walkAnimation: {fileID: 0}
+  walkBackDistance: 0
+  walkSpeed: 50
+  forgetTime: 2
+  startPos: {x: 0, y: 0}
+  startDir: 0
+  needsRetreating: 0
 --- !u!50 &5135061275261542509 stripped
 Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 7918396520685599692, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
