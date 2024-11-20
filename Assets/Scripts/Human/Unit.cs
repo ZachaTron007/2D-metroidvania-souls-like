@@ -20,6 +20,7 @@ public abstract class Unit : MonoBehaviour
     //[SerializeField] protected PlayerIdelState idelState;
 //    [SerializeField] protected ParentMeleeAttack melee;
     [SerializeField] protected HurtState hurtState;
+    [SerializeField] protected JumpScript jumpScript;
     [SerializeField] protected FallState fallState;
     [SerializeField] protected ParentMeleeAttack attackState;
     [SerializeField] protected DeathScript dieState;
@@ -31,6 +32,7 @@ public abstract class Unit : MonoBehaviour
     protected float moveSpeed = 250;
     protected bool grounded;
     public bool engaged;
+    private float kyoteTimeCounter;
     /*
      * summary:
      * get and sets
@@ -51,6 +53,7 @@ public abstract class Unit : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         //mainCollider = GetComponent<BoxCollider2D>();
         hurtState?.Setup(rb, animatior, this);
+        jumpScript.Setup(rb, animatior, this);
         fallState?.Setup(rb, animatior, this);
         attackState?.Setup(rb, animatior, this);
         dieState.Setup(rb, animatior, this);
@@ -101,11 +104,16 @@ public abstract class Unit : MonoBehaviour
         RaycastHit2D groundHitRight = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon,new Vector3(transform.position.x + mainCollider.hitBox.size.x/2, transform.position.y, 0));
         
         if (groundHitMiddle||groundHitMiddle||groundHitRight) {
-            grounded = true;
+            kyoteTimeCounter = 0;
+            return true;
+            
         } else {
-            grounded = false;
+            kyoteTimeCounter += Time.deltaTime;
+            if (kyoteTimeCounter > jumpScript.kyoteTime) {
+                return false;
+            }
+            return true;
         }
-        return false;
     }
 
     protected int LayerNumToLayerMask(int layerNumber) {

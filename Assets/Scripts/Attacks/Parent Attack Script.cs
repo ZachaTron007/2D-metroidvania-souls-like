@@ -38,7 +38,6 @@ public class ParentMeleeAttack : State {
         yield return new WaitForSeconds(currentAttack.startMovingTime);
         //Debug.Log(currentAttack.startMovingTime);
         //Debug.Log(currentAttack.startHitBoxTime);
-        
         if (currentAttack.moveWhile&&!unitVariables.engaged) {
             rb.linearVelocity = new Vector2(unitVariables.GetDirection() * attackLungeSpeed, rb.linearVelocity.y);
         }

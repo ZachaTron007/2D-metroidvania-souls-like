@@ -32,7 +32,6 @@ public class PlayerState : Unit {
     //scrupts
     [Header("States")]
     [SerializeField] private dashScript Dash;
-    public jumpScript jumpScript;
     [SerializeField] private wallActionsScript wallActions;
     [SerializeField] public MoveState moveState;
     [SerializeField] public BlockState blockState;
@@ -87,7 +86,7 @@ public class PlayerState : Unit {
     // Update is called once per frame
 
     void Update() {
-        GroundTouch();
+        grounded = GroundTouch();
         lastKey = GetInput();
         //horizontal movement
         attackTime += Time.deltaTime;

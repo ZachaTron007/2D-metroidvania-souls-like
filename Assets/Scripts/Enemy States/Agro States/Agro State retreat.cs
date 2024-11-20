@@ -1,16 +1,21 @@
 using UnityEngine;
 
-public class AgroStateretreat : MonoBehaviour
+public class AgroStateRetreat : AgroStateStay
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
+    private float counter;
+    [SerializeField] private float timeToRetreat = 5;
+
+    public override void Exit() {
+        base.Exit();
+        counter = 0;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    protected override void DistanceOver() {
+        base.DistanceOver();
+        counter += Time.deltaTime;
+        if (counter > timeToRetreat) {
+            counter = 0;
+            Exit();
+        }
     }
 }
