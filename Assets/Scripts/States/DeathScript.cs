@@ -4,12 +4,12 @@ public class DeathScript : State
 {
     [SerializeField] private AnimationClip deathClip;
     [SerializeField] private float startTime = 4;
-    private float time = 0;
+    private float times = 0;
     [SerializeField] private float speed = 0.2f;
     public override void Enter() {
         interuptable = false;
         animator.Play(deathClip.name);
-        time = 0;
+        times = 0;
         Debug.Log("Death");
 
     }
@@ -20,15 +20,15 @@ public class DeathScript : State
 
     public override void UpdateState() {
         
-        if (time >= startTime) {
-            time += Time.deltaTime*speed;
-            float alpha = 1 - (time-startTime);
+        if (times >= startTime) {
+            times += Time.deltaTime*speed;
+            float alpha = 1 - (times-startTime);
             unitVariables.sr.color = new Color(unitVariables.sr.color.r, unitVariables.sr.color.g, unitVariables.sr.color.b, alpha);
             if (unitVariables.sr.color.a <= 0) {
                 Destroy(unitVariables.gameObject);
             }
         } else {
-            time += Time.deltaTime;
+            times += Time.deltaTime;
         }
     }
 }

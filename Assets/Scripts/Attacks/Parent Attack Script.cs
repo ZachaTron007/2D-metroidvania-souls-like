@@ -14,6 +14,7 @@ public class ParentMeleeAttack : State {
     // Start is called before the first frame update
     void Start() {
         interuptable = false;
+        Debug.Log(unitVariables);
         tempDirection = unitVariables.GetDirection();
         attack = Attack();
     }
@@ -35,17 +36,18 @@ public class ParentMeleeAttack : State {
      */
     protected IEnumerator Attack() {
         animator.Play(currentAttack.clip.name);
+        rb.linearVelocity = Vector2.zero;
         yield return new WaitForSeconds(currentAttack.startMovingTime);
         //Debug.Log(currentAttack.startMovingTime);
         //Debug.Log(currentAttack.startHitBoxTime);
-        if (currentAttack.moveWhile&&!unitVariables.engaged) {
-            rb.linearVelocity = new Vector2(unitVariables.GetDirection() * attackLungeSpeed, rb.linearVelocity.y);
-        }
+        //rb.linearVelocity = new Vector2(unitVariables.GetDirection() * attackLungeSpeed, rb.linearVelocity.y);
+        //currentAttack.attackHitBox.enabled = true;
         yield return new WaitForSeconds(currentAttack.startHitBoxTime);
         rb.linearVelocity = Vector2.zero;
         currentAttack.attackHitBox.enabled = true;
         currentAttack.attackHitBox.offset = offsetVector();
         yield return new WaitForSeconds(currentAttack.endHitBoxTime);
+        rb.linearVelocity = Vector2.zero;
         currentAttack.attackHitBox.enabled = false;
         float recoveryTime = (currentAttack.startHitBoxTime + currentAttack.endHitBoxTime >= currentAttack.clip.length) ? 0 : ( currentAttack.clip.length - (currentAttack.startHitBoxTime + currentAttack.endHitBoxTime));
 

@@ -28,7 +28,7 @@ public abstract class Unit : MonoBehaviour
     [Header("Properties")]
     public float attackTime;
     public bool isRecovering = false;
-    [SerializeField] protected int direction = 1;//{ get; protected set; } = 1;
+    [SerializeField] private int direction = 1;//{ get; protected set; } = 1;
     protected float moveSpeed = 250;
     protected bool grounded;
     public bool engaged;
@@ -38,7 +38,10 @@ public abstract class Unit : MonoBehaviour
      * get and sets
      */
     public int GetDirection() => direction;
-    public virtual void SetDirection(int direction) => this.direction = direction;
+    public virtual void SetDirection(int direction) {
+        this.direction = direction;
+        sr.flipX = direction < 0;
+    }
     public bool GetGroundedState() => grounded;
 
 
@@ -160,10 +163,10 @@ public abstract class Unit : MonoBehaviour
      * used to flip the sprite
      */
     protected void directionFlip() {
-        sr.flipX = direction < 0;
+        
     }
 
-    protected virtual void GetHurt(bool hit,int damage) {
+    protected virtual void GetHurt(bool hit,DamageScript enemyAttack) {
     }
     protected abstract void Die();
     public void HitCollided(bool hit) {

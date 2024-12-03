@@ -12,6 +12,9 @@ public class CinemachineEffectScript : MonoBehaviour
     private float AmplitudeStart = 0f;
 
     private void Awake() {
+#if DEBUG
+        Application.targetFrameRate = 144;
+#endif
         if (instance != null && instance != this) {
             Destroy(instance);
         }

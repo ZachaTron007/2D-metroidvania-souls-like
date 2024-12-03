@@ -18,7 +18,7 @@ public class Health : MonoBehaviour
     private SpriteRenderer sr;
     [SerializeField] private Sensors hitBox;
     //[SerializeField] private float parryWindow = 5f;
-    public event Action<bool, int> hitEvent;
+    public event Action<bool, DamageScript> hitEvent;
     public event Action dieEvent;
     private Unit Unit;
     private int damageAmount = 0;
@@ -81,10 +81,10 @@ public class Health : MonoBehaviour
             //checks to see if the attack would be blocked
             AttackInfo attackInfo = collision.GetComponent<AttackInfo>();
             if (blockState?.IsBlockingAttack(attackInfo) ?? false) {
-                hitEvent?.Invoke(false, 0);
+                hitEvent?.Invoke(false, null);
             } else {
                 Damage(attackInfo.damage);
-                hitEvent?.Invoke(true, -attackInfo.damage);
+                hitEvent?.Invoke(true, attackInfo);
                 //damageAmount = attackInfo.damage;
                 attackInfo.VisualEffect();
                 
@@ -93,7 +93,7 @@ public class Health : MonoBehaviour
         } else if (collision.GetComponent<DamageScript>()) {
             DamageScript damageScript = collision.GetComponent<DamageScript>();
             Damage(damageScript.damage);
-            hitEvent?.Invoke(true, -damageScript.damage);
+            hitEvent?.Invoke(true, damageScript);
         }
     }
 

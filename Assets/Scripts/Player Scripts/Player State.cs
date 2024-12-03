@@ -92,7 +92,7 @@ public class PlayerState : Unit {
         attackTime += Time.deltaTime;
 
         if (moveVetcor.x != 0) {
-            direction = (int)moveVetcor.x;
+            SetDirection((int)moveVetcor.x);
             directionFlip();
 
         }
@@ -179,8 +179,8 @@ public class PlayerState : Unit {
 
     }
 
-    protected override void GetHurt(bool hit, int damage) {
-        base.GetHurt(hit, damage);
+    protected override void GetHurt(bool hit, DamageScript EnemyAttack) {
+        base.GetHurt(hit, EnemyAttack);
         if (!hit&&blockState.canParry) {
             StateChange(parryState);
             onParry();

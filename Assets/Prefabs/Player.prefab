@@ -278,6 +278,7 @@ MonoBehaviour:
   mainCollider: {fileID: 5833950777563335456}
   state: {fileID: 0}
   hurtState: {fileID: 642923472423938844}
+  jumpScript: {fileID: 5748622122044369809}
   fallState: {fileID: 1823725907995604638}
   attackState: {fileID: 8231595280448065926}
   dieState: {fileID: 8755541186931078846}
@@ -286,7 +287,6 @@ MonoBehaviour:
   direction: 1
   engaged: 0
   Dash: {fileID: 8471434802479641984}
-  jumpScript: {fileID: 5748622122044369809}
   wallActions: {fileID: 1451001638846000934}
   moveState: {fileID: 545213728974159921}
   blockState: {fileID: 811300300784513735}
@@ -573,6 +573,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
+  stun: 1
   clip: {fileID: 7400000, guid: 3688e492878501d4882fffca4cb3bbff, type: 2}
   length: 0
   attackHitBox: {fileID: 0}
@@ -883,9 +884,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7626bf65ef4c0640b2a46077331c24a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: {fileID: 1963964075353710027}
-  startTime: 0.7
+  totalTime: 0
   ReduceHearBarTime: 0.7
+  health: {fileID: 1963964075353710027}
 --- !u!1 &4717247890369168496
 GameObject:
   m_ObjectHideFlags: 0
@@ -1160,6 +1161,7 @@ MonoBehaviour:
   jumpHeight: 3
   lowJumpMultiplier: 20
   grounded: 0
+  kyoteTime: 0
   doubleJump: 0
   wallSliding: 0
   wallJump: 0
@@ -1357,6 +1359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
+  stun: 1
   clip: {fileID: 7400000, guid: 0bafac48b1090284da2048c29bc986ff, type: 2}
   length: 0
   attackHitBox: {fileID: 0}
@@ -1453,6 +1456,7 @@ MonoBehaviour:
   jumpHeight: 3
   lowJumpMultiplier: 10
   grounded: 0
+  kyoteTime: 0
   doubleJump: 0
 --- !u!1 &7433520069569163201
 GameObject:
@@ -1577,8 +1581,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a95a1ccc94106fc49bb82ee53c2f583b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  totalTime: 0
   health: {fileID: 1963964075353710027}
-  startTime: 0.3
 --- !u!1 &7955318845054117935
 GameObject:
   m_ObjectHideFlags: 0
@@ -1763,6 +1767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 20
+  stun: 1
   clip: {fileID: 7400000, guid: c42aa71ad221ea349a7ee113bb662657, type: 2}
   length: 0
   attackHitBox: {fileID: 0}

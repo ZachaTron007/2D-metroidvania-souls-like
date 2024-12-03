@@ -92,6 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
+  stun: 1
   clip: {fileID: 7400000, guid: 52ab30a9fe077c245b0712d246f5cd14, type: 2}
   length: 0
   attackHitBox: {fileID: 0}
@@ -516,6 +517,7 @@ MonoBehaviour:
   mainCollider: {fileID: 3902610615271437376}
   state: {fileID: 0}
   hurtState: {fileID: 3563683540091842712}
+  jumpScript: {fileID: 0}
   fallState: {fileID: 6055597573648288158}
   attackState: {fileID: 2914919024056419318}
   dieState: {fileID: 7768447194407861672}
@@ -1011,6 +1013,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
+  stun: 1
   clip: {fileID: 7400000, guid: 36477362dc9ff3a4cb28923374b6f7a2, type: 2}
   length: 0
   attackHitBox: {fileID: 0}
@@ -1451,9 +1454,6 @@ MonoBehaviour:
   walkBackDistance: 0
   walkSpeed: 50
   forgetTime: 2
-  startPos: {x: 0, y: 0}
-  startDir: 0
-  needsRetreating: 0
   point: {x: 0, y: 0, z: 0}
   hitBoxScript: {fileID: 3624540402643955331}
   idelSpeed: 100

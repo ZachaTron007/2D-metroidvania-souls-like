@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public abstract class EnemyScript : Unit {
     protected float maxDist = .3f;
@@ -17,7 +16,7 @@ public abstract class EnemyScript : Unit {
     protected bool WallCheck() {
         //layers to hit
         int layerNumber = 6;
-        RaycastHit2D hit = ShootRay(direction, layerNumber, maxDist);
+        RaycastHit2D hit = ShootRay(GetDirection(), layerNumber, maxDist);
         if (hit) {
             return true;
         }
@@ -45,7 +44,7 @@ public abstract class EnemyScript : Unit {
         //Debug.Log("is Agroed: "+isWithinAgroRange);
         if (other.gameObject.tag == "Player"&&isWithinAgroRange == true) {
             Vector2 directionOfPlayer = other.gameObject.transform.position - gameObject.transform.position;
-            direction = ShouldSwitchDirection(direction,directionOfPlayer);
+            SetDirection(ShouldSwitchDirection(GetDirection(),directionOfPlayer));
             isWithinAgroRange = IsPlayerBlocked(directionOfPlayer);
         }
     }

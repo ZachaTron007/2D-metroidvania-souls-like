@@ -16,7 +16,9 @@ public class BaseIdelState : State
     protected IdelFunctionalityDelegate IdelFunctionality;
 
     private void Start() {
+        
         startPos = unitVariables.transform.position;
+        Debug.Log(unitVariables);
         startDir = unitVariables.GetDirection();
     }
 
@@ -26,7 +28,6 @@ public class BaseIdelState : State
     }
     public override void UpdateState() {
         float distance = Mathf.Abs(HelperFunctions.PointToDistance(unitVariables.transform.position, startPos));
-        Debug.Log(distance);
         if (distance> walkBackDistance) {
             counter+=Time.deltaTime;
             if (counter > forgetTime) {
