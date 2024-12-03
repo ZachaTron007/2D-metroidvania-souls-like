@@ -41,7 +41,7 @@ public class BarMethods : MonoBehaviour
     private void UpdateHealth(bool hit, float value) {
         time = totalTime;
         oldWidth = barSize.x;
-        Debug.Log("width: " + value + ", on " + gameObject.name);
+        //Debug.Log("width: " + value + ", on " + gameObject.name);
         newWidth = barSize.x + value * valueToWidth;
         if (newWidth >= maxWidth) {
             newWidth = maxWidth;
