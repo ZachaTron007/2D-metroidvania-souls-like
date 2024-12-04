@@ -12,6 +12,8 @@ public abstract class EnemyScript : Unit {
     protected Sensors[] sensors = new Sensors[3];
     protected bool isWithinAgroRange = false;
     protected bool isWithinAttackRange = false;
+    [SerializeField] private float agroDelay = .5f;
+    private float agroDelayCounter;
 
     protected bool WallCheck() {
         //layers to hit
@@ -36,20 +38,29 @@ public abstract class EnemyScript : Unit {
      */
     protected void AgroRangeEnter(Collider2D other) {
         if (other.gameObject.tag == "Player") {
-            isWithinAgroRange = true;
+            //isWithinAgroRange = true;
 
         }
     }
-    protected void AgroRangeStay(Collider2D other) {
-        //Debug.Log("is Agroed: "+isWithinAgroRange);
-        if (other.gameObject.tag == "Player"&&isWithinAgroRange == true) {
-            Vector2 directionOfPlayer = other.gameObject.transform.position - gameObject.transform.position;
-            SetDirection(ShouldSwitchDirection(GetDirection(),directionOfPlayer));
-            isWithinAgroRange = IsPlayerBlocked(directionOfPlayer);
+
+    protected void AgroRangeStayEnter(Collider2D other) {
+        if (!other.gameObject.CompareTag("Player")) {
+            agroDelayCounter += Time.deltaTime;
+            if (agroDelayCounter >= agroDelay) {
+                isWithinAgroRange = true;
+            }
         }
+    }
+    protected void AgroRangeStay(Collider2D other) {
+        if (other.gameObject.tag == "Player" && isWithinAgroRange == true) {
+                Vector2 directionOfPlayer = other.gameObject.transform.position - gameObject.transform.position;
+                SetDirection(ShouldSwitchDirection(GetDirection(), directionOfPlayer));
+                isWithinAgroRange = IsPlayerBlocked(directionOfPlayer);
+            }
     }
     protected void AgroRangeExit(Collider2D other) {
         if (other.gameObject.tag == "Player") {
+            agroDelayCounter = 0;
             isWithinAgroRange = false;
         }
     }
@@ -118,6 +129,7 @@ public abstract class EnemyScript : Unit {
         }
 
         sensors[(int)ColliderType.agro].triggerEnter += AgroRangeEnter;
+        sensors[(int)ColliderType.agro].triggerStay += AgroRangeStayEnter;
         sensors[(int)ColliderType.deAgro].triggerStay += AgroRangeStay;
         sensors[(int)ColliderType.deAgro].triggerExit += AgroRangeExit;
         sensors[(int)ColliderType.attack].triggerEnter += AttackRangeEnter;
@@ -147,7 +159,7 @@ public abstract class EnemyScript : Unit {
      */
     protected override void EventUnsubscribe() {
         base.EventUnsubscribe();
-        DisableEventColliders(new Action<Collider2D>[] { AgroRangeEnter, AgroRangeStay, AgroRangeExit, AttackRangeEnter, AttackRangeExit }, sensors);
+        DisableEventColliders(new Action<Collider2D>[] { AgroRangeEnter, AgroRangeStayEnter, AgroRangeStay, AgroRangeExit, AttackRangeEnter, AttackRangeExit }, sensors);
         health.dieEvent -= Die;
     }
     
