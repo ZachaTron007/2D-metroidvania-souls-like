@@ -44,11 +44,14 @@ public class PlayerState : Unit {
 
     //public event Action <bool> parried;
     //buttons 
+    private float bufferTime = .2f;
+    private float bufferCounter = 0;
     public KeyCode lastKey;
-    private KeyCode jump = KeyCode.Space;
-    private KeyCode dash = KeyCode.LeftShift;
-    private KeyCode blockButton = KeyCode.Mouse1;
-    private KeyCode attackButton = KeyCode.Mouse0;
+    const KeyCode jump = KeyCode.Space;
+    const KeyCode dash = KeyCode.LeftShift;
+    const KeyCode blockButton = KeyCode.Mouse1;
+    const KeyCode attackButton = KeyCode.Mouse0;
+    private KeyCode[] buttons = new KeyCode[] { jump, dash , blockButton, attackButton };
 
 
     protected override void EventSubscribe() {
@@ -88,7 +91,7 @@ public class PlayerState : Unit {
 
     void Update() {
         grounded = GroundTouch();
-        lastKey = GetInput();
+        lastKey = GetInput(buttons);
         //horizontal movement
         attackTime += Time.deltaTime;
 
@@ -164,15 +167,19 @@ public class PlayerState : Unit {
         }
         
     }
-    public KeyCode GetInput() {
-        if (Input.GetKeyDown(jump)) {
-            lastKey = jump;
-        } else if (Input.GetKeyDown(dash)) {
-            lastKey = dash;
-        } else if (Input.GetKeyDown(attackButton)) {
-            lastKey = attackButton;
-        } else if (Input.GetKeyDown(blockButton)) {
-            lastKey = blockButton;
+    public KeyCode GetInput(KeyCode[]buttons) {
+        
+        for (int i = 0; i < buttons.Length; i++){
+            if (Input.GetKeyDown(buttons[i])){
+                lastKey = buttons[i];
+                bufferCounter = 0;
+            }
+        }
+        bufferCounter += Time.deltaTime;
+        if (bufferCounter >= bufferTime) {
+            lastKey = KeyCode.None;
+        } else {
+            bufferCounter = 0;
         }
         return lastKey;
 
