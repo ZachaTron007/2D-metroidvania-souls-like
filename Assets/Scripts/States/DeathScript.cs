@@ -7,7 +7,7 @@ public class DeathScript : State
     private float times = 0;
     [SerializeField] private float speed = 0.2f;
     public override void Enter() {
-        interuptable = false;
+        interuptable = 1;
         animator.Play(deathClip.name);
         times = 0;
         Debug.Log("Death");

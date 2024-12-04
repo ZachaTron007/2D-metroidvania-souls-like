@@ -76,7 +76,7 @@ public abstract class EnemyScript : Unit {
      */
     private int ShouldSwitchDirection(int direction,Vector2 PlayerDirection) {
         float turnGracePeriod = mainCollider.hitBox.size.x / 2;
-        if (Mathf.Abs(PlayerDirection.x) > turnGracePeriod && state.interuptable) {
+        if (Mathf.Abs(PlayerDirection.x) > turnGracePeriod && state.interuptable>0) {
             direction = PlayerDirection.x > 0 ? 1 : -1;
             SetDirection(direction);
             return direction;

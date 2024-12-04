@@ -13,7 +13,7 @@ public class ParentMeleeAttack : State {
 
     // Start is called before the first frame update
     void Start() {
-        interuptable = false;
+        interuptable = .8f;
         tempDirection = unitVariables.GetDirection();
         attack = Attack();
     }

@@ -3,6 +3,7 @@ using Sirenix.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Resources;
 using System.Threading;
 using Unity.VisualScripting;
 using UnityEditor;
@@ -99,59 +100,57 @@ public class PlayerState : Unit {
         //the iniatal jump, you need to be in kyote time or on the ground
         dashCount += Time.deltaTime;
         //if you arent on the ground
-        if (state.interuptable) {
-            moveVetcor = move.ReadValue<Vector2>();
-            StateChange();
-        } else if(state.stateDone) {
-            StateChange();
-        }
+        moveVetcor = move.ReadValue<Vector2>();
+        StateChange();
         state.UpdateState();
     }
 
 
 
     protected override void StateChange(State manualState = null) {
-        State oldState = state;
+        State newState = state;
+
         if (grounded && state != jumpScript) {
             //checks to see if you are moving
             if (moveVetcor.x != 0) {
-                state = moveState;
+                newState = moveState;
             } else {
-                state = idelState;
+                newState = idelState;
             }
             if (lastKey == jump) {
-                state = jumpScript;
+                newState = jumpScript;
             }
 
             //checks to see if you are falling
         } else if (rb.linearVelocity.y < 0) {
-            state = fallState;
+            newState = fallState;
         }
         if (lastKey == dash && dashCount >= dashCool) {
-            state = Dash;
+            newState = Dash;
             dashCount = 0;
         }
         attackTime += Time.deltaTime;
         if (grounded) {
             if (lastKey == attackButton && attackTime >= attackState.currentAttack.length) {
-                state = attackState;
+                newState = attackState;
             }
             if (lastKey == blockButton) {
-                state = blockState;
+                newState = blockState;
             }
         }
         if (manualState) {
             state = manualState;
         }
-        if(oldState!= state) {
-            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
-            state.ResetState(oldState);
-            lastKey = KeyCode.Mouse6;
-        }
+        state = CanSwitchState(newState);
     }
+    protected override void SwitchStateActions() {
+        base.SwitchStateActions();
+        lastKey = KeyCode.None;
+    }
+
     private void FixedUpdate() {
         state.FixedUpdateState();
-        if(state.interuptable) {
+        if(state.interuptable==0) {
             Run();
         }
     }

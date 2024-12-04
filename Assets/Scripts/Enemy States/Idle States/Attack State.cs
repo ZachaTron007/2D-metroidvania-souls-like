@@ -16,7 +16,7 @@ public class EnemyAttackState : ParentMeleeAttack
      *  */
     public override void Enter() {
         base.Enter();
-        interuptable = false;
+        interuptable = 1f;
         currentAttack = randomAttackPicker(attacks);
         
         StartCoroutine(attack);

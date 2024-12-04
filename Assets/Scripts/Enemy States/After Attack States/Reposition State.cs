@@ -13,7 +13,7 @@ public class RepositionState : RecoveryState {
     [SerializeField] private float point;
     public override void Enter() {
         //base.Enter();
-        interuptable = false;
+        interuptable = .2f;
         waitingDelegate = MoveAround;
         point = unitVariables.transform.position.x + range*-unitVariables.GetDirection();
         Debug.Log("Point: "+point);

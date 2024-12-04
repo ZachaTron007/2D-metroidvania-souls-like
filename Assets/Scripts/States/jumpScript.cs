@@ -15,7 +15,6 @@ public class JumpScript : State
     // Start is called before the first frame update
     void Start()
     {
-        interuptable = true;
         jumpVelocity = Mathf.Sqrt(Physics.gravity.y * 2 * jumpHeight * -2);
     }
 

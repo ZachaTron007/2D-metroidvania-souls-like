@@ -41,7 +41,8 @@ public class SwordEnemyScript : EnemyScript {
         }
 
         state.UpdateState();
-        InteruptrableStateChange();
+        //InteruptrableStateChange();
+        StateChange();
         directionFlip();
         
     }
@@ -50,29 +51,24 @@ public class SwordEnemyScript : EnemyScript {
     }
 
     protected override void StateChange(State manualState = null) {
-
-        State oldState = state;
+        State newState = state;
         if (!isWithinAgroRange) {
-            state = idelState;
+            newState = idelState;
         } else {
-            if (isRecovering) { 
-                state = recoverState; 
+            if (isRecovering) {
+                newState = recoverState; 
             } 
             else if (!isWithinAttackRange) {
-                state = agroState;
+                newState = agroState;
             } else {
-                state = attackState;
+                newState = attackState;
             }
 
         }
         if (manualState) {
-            state=manualState;
-            state.ResetState(oldState);
-            return;
+            newState = manualState;
         }
-        if (oldState != state) {
-            state.ResetState(oldState);
-        }
+        state = CanSwitchState(newState);
 
     }
 

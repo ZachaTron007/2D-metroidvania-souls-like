@@ -33,7 +33,7 @@ public class dashScript : State
 
     }
     public override void Enter() {
-        interuptable = false;
+        interuptable = 1f;
         if (dashClip) {
             animator.Play(dashClip.name);
         }

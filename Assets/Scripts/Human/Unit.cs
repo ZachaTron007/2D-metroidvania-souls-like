@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro.EditorUtilities;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 public abstract class Unit : MonoBehaviour
 {
@@ -77,25 +78,26 @@ public abstract class Unit : MonoBehaviour
      */
     protected abstract void StateChange(State manualSate = null);
     //protected abstract void GetHurt();
-
-    /*
-     * summary:
-     * makes sure the you cant interupt the state,
-     * and when state is done, it forces a change
-     */
-    protected void InteruptrableStateChange() {
-        if (state.interuptable) {
-            StateChange();
-        } else if (state.stateDone) {
-            StateChange();
-        }
-    }
-    
     /*
      * summary:
      * sends a boxcast down to see if you are touching the ground,
      * you give a box dimentions as a parameter
      */
+
+    protected State CanSwitchState(State newState) {
+        if (state.interuptable <= newState.interuptable || state.stateDone || state.interuptable == 0) {
+            if (state != newState) {
+                state.ResetState(newState);
+                state = newState;
+                SwitchStateActions();
+                return newState;
+            }
+        }
+        return state;
+    }
+    protected virtual void SwitchStateActions() {
+
+    }
     protected bool GroundTouch() {
         Vector2 BoxDimentions = new Vector2(.1f, .1f);
         //hits walls

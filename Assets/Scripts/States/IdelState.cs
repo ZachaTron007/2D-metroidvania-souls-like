@@ -7,7 +7,6 @@ public class PlayerIdelState : State
     [SerializeField] private AnimationClip idelClip;
 
     private void Start() {
-        newVelocity = 0;
     }
 
     public override void Enter() {

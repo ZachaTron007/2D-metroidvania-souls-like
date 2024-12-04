@@ -13,7 +13,7 @@ public class HurtState : State
         if (damageClip.length > recoveryTime) {
             recoveryTime = damageClip.length;
         }
-        interuptable = false;
+        interuptable = .9f;
         animator.Play(damageClip.name);
         Invoke(nameof(Exit), recoveryTime);
     }
