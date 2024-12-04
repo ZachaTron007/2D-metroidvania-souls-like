@@ -5,19 +5,18 @@ using UnityEngine;
 public class TempHealthBarScript : BarMethods {
     
     [SerializeField] private float ReduceHearBarTime;
-    [SerializeField] private Health health;
     private bool gotHit = false;
     private float counter = 0;
     private int amountChanged = 0;
     private void Awake() {
-        health.hitEvent += invoky;
+        stat.UpdateValue += invoky;
         bar = GetComponent<RectTransform>();
         barSize = bar.sizeDelta;
         SetUpVars();
     }
-    private void invoky(bool hit, DamageScript enemyAttack) {
+    private void invoky(bool hit, float damage) {
         gotHit = hit;
-        amountChanged = -enemyAttack.damage;
+        amountChanged = (int)damage;
     }
      private void Update() {
         if (gotHit) {

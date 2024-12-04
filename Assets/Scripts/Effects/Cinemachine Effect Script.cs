@@ -13,7 +13,7 @@ public class CinemachineEffectScript : MonoBehaviour
 
     private void Awake() {
 #if DEBUG
-        Application.targetFrameRate = 144;
+        //Application.targetFrameRate = 144;
 #endif
         if (instance != null && instance != this) {
             Destroy(instance);

@@ -14,7 +14,6 @@ public class ParentMeleeAttack : State {
     // Start is called before the first frame update
     void Start() {
         interuptable = false;
-        Debug.Log(unitVariables);
         tempDirection = unitVariables.GetDirection();
         attack = Attack();
     }

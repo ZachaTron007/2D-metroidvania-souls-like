@@ -1922,6 +1922,38 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &426145005
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 426145006}
+  m_Layer: 7
+  m_Name: Stun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &426145006
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426145005}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.9299999, z: 0}
+  m_LocalScale: {x: 0.95, y: 0.06119999, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 586109619}
+  m_Father: {fileID: 1861427225}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &451372519
 GameObject:
   m_ObjectHideFlags: 0
@@ -2481,11 +2513,11 @@ Transform:
   m_GameObject: {fileID: 586109618}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.93, z: 0}
-  m_LocalScale: {x: 0.95, y: 0.06119999, z: 1}
+  m_LocalPosition: {x: -0.475, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1861427225}
+  m_Father: {fileID: 426145006}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &586109621
 SpriteRenderer:
@@ -2551,11 +2583,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 586109618}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ce3361f35cd87e4da835eef4974f7a7, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f05e9ae81c193f448f274c78d95e06c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalTime: 0.3
-  stun: {fileID: 1608593299}
+  stat: {fileID: 1608593299}
+  totalTime: 0.1
+  baseTransform: {fileID: 426145006}
 --- !u!1 &595469225 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7682318417326815617, guid: d752ecfc8fcb7064e9710f04115c2f20, type: 3}
@@ -2722,11 +2755,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 824616919}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e474103f006847b46b928714ec017a17, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f05e9ae81c193f448f274c78d95e06c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stat: {fileID: 1171147457}
   totalTime: 0.3
-  health: {fileID: 1171147457}
+  baseTransform: {fileID: 0}
 --- !u!1 &825320338
 GameObject:
   m_ObjectHideFlags: 0
@@ -3116,6 +3150,10 @@ PrefabInstance:
     - target: {fileID: 6348218199326715150, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263934947035220132, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
+      propertyPath: MAX_VALUE
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7263934947035220132, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
       propertyPath: MAX_HEALTH
@@ -4370,9 +4408,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3769c78b6c05094295ebcf74418ba25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MAX_STUN: 5
-  currentStunLevel: 0
-  stunReduceSpeed: 0.5
+  MAX_VALUE: 5
+  currentValue: 0
+  stunReduceSpeed: 5
   resetStunTime: 1
 --- !u!1 &1645221564 stripped
 GameObject:
@@ -4936,7 +4974,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 586109619}
+  - {fileID: 426145006}
   - {fileID: 751775713}
   m_Father: {fileID: 100392628}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5394,6 +5432,10 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 2540614561668007865, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: stat
+      value: 
+      objectReference: {fileID: 2898413512102226662}
+    - target: {fileID: 2540614561668007865, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: totalTime
       value: 0.3
       objectReference: {fileID: 0}
@@ -5465,11 +5507,26 @@ PrefabInstance:
       propertyPath: knockbackSpeed
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 9190616183168564123, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: stat
+      value: 
+      objectReference: {fileID: 2898413512102226662}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+--- !u!114 &2898413512102226662 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1963964075353710027, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+  m_PrefabInstance: {fileID: 2898413512102226661}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4866ef3ccf198e54b99558f20d14c9cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5117625409941482572
 PrefabInstance:
   m_ObjectHideFlags: 0

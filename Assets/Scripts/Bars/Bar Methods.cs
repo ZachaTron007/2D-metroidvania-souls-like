@@ -4,7 +4,9 @@ using UnityEngine;
 public class BarMethods : MonoBehaviour
 {
     protected RectTransform bar;
+    [SerializeField] protected ReducableStats stat;
     [SerializeField] protected float totalTime;
+    private bool isLowering = false;
     protected float time = 0;
     protected float maxWidth = 200;
     protected float valueToWidth;
@@ -13,11 +15,12 @@ public class BarMethods : MonoBehaviour
     protected float height = 1;
     protected Vector2 barSize;
     protected virtual void SetUpVars() {
-        
+        stat.UpdateValue += ChangeHealthByNumber;
         maxWidth = barSize.x;
         height = barSize.y;
         oldWidth = maxWidth;
         newWidth = maxWidth;
+        valueToWidth = barSize.x / stat.MAX_VALUE;
     }
     public virtual void ChangeHealthToNumber(bool hit, float amountChanged) {
         ChangeToHealth(amountChanged);
@@ -41,8 +44,11 @@ public class BarMethods : MonoBehaviour
     private void UpdateHealth(bool hit, float value) {
         time = totalTime;
         oldWidth = barSize.x;
-        //Debug.Log("width: " + value + ", on " + gameObject.name);
-        newWidth = barSize.x + value * valueToWidth;
+        if (isLowering) {
+            newWidth += value * valueToWidth;
+        } else {
+            newWidth = barSize.x + value * valueToWidth;
+        }
         if (newWidth >= maxWidth) {
             newWidth = maxWidth;
         }
@@ -52,7 +58,9 @@ public class BarMethods : MonoBehaviour
             time -= Time.deltaTime;
             float thing = Mathf.Lerp(oldWidth, newWidth, 1 - (time / totalTime));
             healthBarSize = new Vector2(thing, height);
-            
+            isLowering = true;
+        } else {
+            isLowering = false;
         }
         return healthBarSize;
     }

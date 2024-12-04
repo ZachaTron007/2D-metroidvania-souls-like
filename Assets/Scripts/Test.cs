@@ -6,17 +6,17 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(PlayerState))]
-//[CustomEditor(typeof(Health))]
+//[CustomEditor(typeof(PlayerState))]
+[CustomEditor(typeof(Health))]
 public class Test : Editor
 {
     public override void OnInspectorGUI() {
-        PlayerState button = (PlayerState)target;
+        Health button = (Health)target;
         
         DrawDefaultInspector();
         
-        if (GUILayout.Button("SLide")) {
-            button.StateChanges();
+        if (GUILayout.Button("Full Heal")) {
+            button.Heal(1000);
 
         }
         

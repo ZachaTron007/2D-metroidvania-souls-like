@@ -6,12 +6,9 @@ using UnityEngine.Playables;
 using UnityEngine.UIElements;
 
 
-public class Health : MonoBehaviour
-{
+public class Health : ReducableStats {
 
     [SerializeField] private BlockState blockState;
-    public int health = 100;
-    public int MAX_HEALTH = 100;
     private Vector4 hurtColor = new Vector4(255, 62, 62, 255);
     private Vector4 normalColor;
     private float colorChangeSpeed = 0.2f;
@@ -24,9 +21,9 @@ public class Health : MonoBehaviour
     private int damageAmount = 0;
 
     // Update is called once per frame
-    
+
     private void Awake() {
-        health = MAX_HEALTH;
+        currentValue = MAX_VALUE;
         Unit = GetComponent<Unit>();
         sr = Unit.sr;
         normalColor = sr.color;
@@ -35,28 +32,28 @@ public class Health : MonoBehaviour
     }
 
     void Update() {
-        if (health == 0) {
-            health = -1;
+        if (currentValue == 0) {
+            SetCurrentValue(-1);
             die();
         }
     }
 
-
     public void Damage(int damage) {
         if (damage > 0) {
-            health -= damage;
-            if (health < 0) {
-                health = 0;
+            ChangeCurrentValue(-damage);
+            if (currentValue < 0) {
+                SetCurrentValue(0);
             }
             StartCoroutine(HurtColorShift(sr));
         }
 
     }
+    
     public void Heal(int heal) {
         if (heal > 0) {
-            health += heal;
-            if (health > MAX_HEALTH) {
-                health = MAX_HEALTH;
+            ChangeCurrentValue(heal);
+            if (currentValue > MAX_VALUE) {
+                SetCurrentValue(MAX_VALUE);
             }
         }
 
@@ -72,7 +69,6 @@ public class Health : MonoBehaviour
     public void die() {
         dieEvent?.Invoke();
         hitBox.triggerEnter -= GetHit;
-        //Destroy(gameObject);
     }
 
     private void GetHit(Collider2D collision) {
@@ -96,6 +92,9 @@ public class Health : MonoBehaviour
             hitEvent?.Invoke(true, damageScript);
         }
     }
-
+    [ContextMenu("Heal")]
+    private void Heal10() {
+        Heal(10);
+    }
 
 }

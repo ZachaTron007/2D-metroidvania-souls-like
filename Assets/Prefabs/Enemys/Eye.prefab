@@ -573,9 +573,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4866ef3ccf198e54b99558f20d14c9cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MAX_VALUE: 0
+  currentValue: 0
   blockState: {fileID: 0}
-  health: 100
-  MAX_HEALTH: 40
   hitBox: {fileID: 3902610615271437376}
 --- !u!114 &6347320053045443442
 MonoBehaviour:
