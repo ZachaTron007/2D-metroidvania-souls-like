@@ -9,6 +9,8 @@ public class KnockbackHurtState : HurtState
 
     public override void Enter() {
         base.Enter();
+        Debug.Log("hurt");
+        interuptable = .4f;
         rb.linearVelocity = new Vector2(-unitVariables.GetDirection() * knockbackX, knockbackY);
         Invoke(nameof(Stop), knockbackTime);
         rb.gravityScale = 0;

@@ -34,6 +34,7 @@ public class ParentMeleeAttack : State {
      *  5. starts the recovery state
      */
     protected IEnumerator Attack() {
+        interuptable = .1f;
         animator.Play(currentAttack.clip.name);
         rb.linearVelocity = Vector2.zero;
         yield return new WaitForSeconds(currentAttack.startMovingTime);
@@ -43,6 +44,7 @@ public class ParentMeleeAttack : State {
         //currentAttack.attackHitBox.enabled = true;
         yield return new WaitForSeconds(currentAttack.startHitBoxTime);
         rb.linearVelocity = Vector2.zero;
+        interuptable = .6f;
         currentAttack.attackHitBox.enabled = true;
         currentAttack.attackHitBox.offset = offsetVector();
         yield return new WaitForSeconds(currentAttack.endHitBoxTime);

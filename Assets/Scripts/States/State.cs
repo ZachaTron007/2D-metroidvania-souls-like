@@ -8,7 +8,7 @@ public abstract class State : MonoBehaviour {
     protected Rigidbody2D rb;
     protected Animator animator;
     public bool recovering { get; protected set; } = false;
-    public float interuptable { get; protected set; } = 0;
+    public float interuptable = 0;//{ get; protected set; } = 0;
     public bool stateDone;
     protected Unit unitVariables;
     public virtual void UpdateState () {

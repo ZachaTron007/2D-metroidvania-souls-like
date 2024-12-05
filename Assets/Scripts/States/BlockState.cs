@@ -21,7 +21,7 @@ public class BlockState : State
         canParry = true;
         parryCounter = 0;
         Block();
-        interuptable = .5f;
+        interuptable = .2f;
 
     }
 

@@ -15,15 +15,12 @@ public class PlayerState : Unit {
     private PlayerControls playerControls;
     private InputAction move;
     private CapsuleCollider2D clipCollider;
-
     //movements
     [Header("Player Variables")]
     //public float direction { get; private set; } = 1;
 
     private float dashCount;
     private readonly float dashCool = 0.7f;
-    private bool canParry;
-
 
     //[SerializeField] private bool blood = false;
 
@@ -142,7 +139,7 @@ public class PlayerState : Unit {
             }
         }
         if (manualState) {
-            state = manualState;
+            newState = manualState;
         }
         state = CanSwitchState(newState);
     }
@@ -187,13 +184,14 @@ public class PlayerState : Unit {
 
     protected override void GetHurt(bool hit, DamageScript EnemyAttack) {
         base.GetHurt(hit, EnemyAttack);
-        if (!hit&&blockState.canParry) {
-            StateChange(parryState);
-            onParry();
-        }else if (!hit) {
-            StateChange(blockRecoverState);
-        }
-        if(hit) {
+        if (!hit) {
+            if (blockState.canParry) {
+                StateChange(parryState);
+                onParry();
+            } else {
+                StateChange(blockRecoverState);
+            }
+        } else{
             StateChange(hurtState);
         }
     }

@@ -10,7 +10,7 @@ public class ParryState : State
     private float counter;
     public override void Enter() {
         counter = 0;
-        interuptable = .5f;
+        interuptable = .3f;
         animator.Play(parryClip.name);
         Invoke("Exit", parryClip.length);
         CinemachineEffectScript.instance.ScreenShake(shakeIntensity, shakeTime);

@@ -2394,6 +2394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89b536f8eb6709c49ac0f86fdbda51af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interuptable: 0
   stateDone: 0
   idelAniamtion: {fileID: 7400000, guid: 5ebd92ec0147c7d4dac5630b51456c5f, type: 2}
   walkAnimation: {fileID: 0}
@@ -2734,7 +2735,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1368524161322749563, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
       propertyPath: m_Offset.x
-      value: 0.13
+      value: 0.49
       objectReference: {fileID: 0}
     - target: {fileID: 2748392427310820698, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
       propertyPath: agroSpeed
@@ -3137,6 +3138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8afb0fc514471044da82f8381bde9580, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interuptable: 0
   stateDone: 0
   idelAniamtion: {fileID: 7400000, guid: 5ebd92ec0147c7d4dac5630b51456c5f, type: 2}
   walkAnimation: {fileID: 0}
@@ -4269,6 +4271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9ed65070c241ec45a6fe92eddd2cf9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interuptable: 0
   stateDone: 0
   idelAniamtion: {fileID: 7400000, guid: b93675a41286cce41bf3eb46a34171fd, type: 2}
   walkAnimation: {fileID: 7400000, guid: e6f72b5bf5c9a064d8b3f1045c7693f7, type: 2}
@@ -4869,6 +4872,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 642923472423938844, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: interuptable
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 811300300784513735, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: interuptable
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 2141310683926542077, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: m_Name
       value: Player
@@ -4925,6 +4936,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5315851485427623027, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: interuptable
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 6009983063484112280, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: m_Offset.x
       value: 0
@@ -4937,9 +4952,25 @@ PrefabInstance:
       propertyPath: stun
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8231595280448065926, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: interuptable
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8471434802479641984, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: interuptable
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8755541186931078846, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: interuptable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9069043031560186155, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: friction
       value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9069043031560186155, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: interuptable
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 9069043031560186155, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: knockbackTime

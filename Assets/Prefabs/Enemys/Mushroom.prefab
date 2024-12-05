@@ -118,6 +118,7 @@ MonoBehaviour:
   - {fileID: 9195928638989692723}
   - {fileID: 4562446710317064488}
   - {fileID: 3318328629022161023}
+  agroDelay: 0.5
   playerState: {fileID: 0}
   agroState: {fileID: 2748392427310820698}
   recoverState: {fileID: 6943752663608861617}

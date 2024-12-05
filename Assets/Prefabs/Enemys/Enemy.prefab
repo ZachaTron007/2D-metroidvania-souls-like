@@ -813,6 +813,7 @@ MonoBehaviour:
   - {fileID: 1962164912142059510}
   - {fileID: 7682318417326815617}
   - {fileID: 605601571980306214}
+  agroDelay: 0.5
   playerState: {fileID: 6378908112458984836, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
   agroState: {fileID: 8140790006863923056}
   recoverState: {fileID: 7287973546858365161}

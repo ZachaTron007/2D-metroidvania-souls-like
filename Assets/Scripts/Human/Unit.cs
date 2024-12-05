@@ -28,6 +28,7 @@ public abstract class Unit : MonoBehaviour
     public event Action parried;
     [Header("Properties")]
     public float attackTime;
+    public bool canBeHit = true;
     public bool isRecovering = false;
     [SerializeField] private int direction = 1;//{ get; protected set; } = 1;
     protected float moveSpeed = 250;
@@ -85,7 +86,8 @@ public abstract class Unit : MonoBehaviour
      */
 
     protected State CanSwitchState(State newState) {
-        if (state.interuptable <= newState.interuptable || state.stateDone || state.interuptable == 0) {
+        
+        if (newState.interuptable >= state.interuptable || state.stateDone || state.interuptable == 0) {
             if (state != newState) {
                 state.ResetState(newState);
                 state = newState;
