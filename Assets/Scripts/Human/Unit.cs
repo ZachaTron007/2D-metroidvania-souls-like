@@ -25,15 +25,16 @@ public abstract class Unit : MonoBehaviour
     [SerializeField] protected FallState fallState;
     [SerializeField] protected ParentMeleeAttack attackState;
     [SerializeField] protected DeathScript dieState;
+    [HideInInspector] public AttackInfo lastAttackToHit;
     public event Action parried;
     [Header("Properties")]
-    public float attackTime;
-    public bool canBeHit = true;
-    public bool isRecovering = false;
+    [HideInInspector] public float attackTime;
+    [HideInInspector] public bool canBeHit = true;
+    [HideInInspector] public bool isRecovering = false;
     [SerializeField] private int direction = 1;//{ get; protected set; } = 1;
     protected float moveSpeed = 250;
     protected bool grounded;
-    public bool engaged;
+    [HideInInspector] public bool engaged;
     private float kyoteTimeCounter;
     /*
      * summary:

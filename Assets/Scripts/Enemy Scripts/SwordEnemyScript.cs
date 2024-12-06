@@ -16,6 +16,7 @@ public class SwordEnemyScript : EnemyScript {
     [SerializeField] private RecoveryState recoverState;
     [SerializeField] protected BaseIdelState idelState;
     [SerializeField] protected ParryRecoverState parryRecoverState;
+    [SerializeField] private StunnedState stunnedState;
 
     private void Awake() {
         ComponentSetup();

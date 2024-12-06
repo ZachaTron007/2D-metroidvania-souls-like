@@ -310,6 +310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa9b907a176652d4c8e85a5a20871f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interuptable: 0
   stateDone: 0
   parryRecoverAnimation: {fileID: 7400000, guid: f4d08aca8d9c8b24f969b71bcb299c54, type: 2}
   parryRecoverTime: 0.5
@@ -449,6 +450,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0f9d6451abeeab449cfde50845b9ee9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interuptable: 0
   stateDone: 0
   runClip: {fileID: 7400000, guid: c2755e67fa2a27c4784f3f25fb5572ef, type: 2}
 --- !u!1 &3248754201277563428
@@ -530,6 +532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9ed65070c241ec45a6fe92eddd2cf9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interuptable: 0
   stateDone: 0
   idelAniamtion: {fileID: 7400000, guid: 6a1ebf4e9e2b85c4dbeebc58d8f911ca, type: 2}
   walkAnimation: {fileID: 0}
@@ -581,6 +584,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34043891a15171d449096c60985d7bad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interuptable: 0
   stateDone: 0
   currentAttack: {fileID: 0}
   attackLungeSpeed: 0
@@ -631,6 +635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b36af5dcd66b2114a9d70ba9bc8bc4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interuptable: 0
   stateDone: 0
   damageClip: {fileID: 7400000, guid: f4d08aca8d9c8b24f969b71bcb299c54, type: 2}
   recoveryTime: 1
@@ -806,6 +811,7 @@ MonoBehaviour:
   attackState: {fileID: 4120613919388800645}
   dieState: {fileID: 1184480150708920917}
   attackTime: 0
+  canBeHit: 1
   isRecovering: 0
   direction: -1
   engaged: 0
@@ -954,6 +960,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 024acaf7bac77754aa2d4fade6fb991a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interuptable: 0
   stateDone: 0
   idelAniamtion: {fileID: 7400000, guid: 6a1ebf4e9e2b85c4dbeebc58d8f911ca, type: 2}
   recoverTime: 1.5
@@ -1001,6 +1008,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e431256567fe5c34fa8c392de2da1fd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interuptable: 0
   stateDone: 0
   deathClip: {fileID: 7400000, guid: e38cb418ab88f9346b0ebccb770105ee, type: 2}
   startTime: 0
@@ -1049,6 +1057,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a23d4d58a5ac11a4fa9b468b073b872e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interuptable: 0
   stateDone: 0
   agroSpeed: 150
   runClip: {fileID: 7400000, guid: c2755e67fa2a27c4784f3f25fb5572ef, type: 2}
@@ -1096,6 +1105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e320b8e8ff298d45a998ef4de6d9bc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interuptable: 0
   stateDone: 0
   fallClip: {fileID: 7400000, guid: d756094fc5e8c594ba2e2ba808fe9a90, type: 2}
   fallGravMultiplier: 3

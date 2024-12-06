@@ -17,15 +17,15 @@ public class Health : ReducableStats {
     //[SerializeField] private float parryWindow = 5f;
     public event Action<bool, DamageScript> hitEvent;
     public event Action dieEvent;
-    private Unit Unit;
+    private Unit unitVariables;
     private int damageAmount = 0;
 
     // Update is called once per frame
 
     private void Awake() {
         currentValue = MAX_VALUE;
-        Unit = GetComponent<Unit>();
-        sr = Unit.sr;
+        unitVariables = GetComponent<Unit>();
+        sr = unitVariables.sr;
         normalColor = sr.color;
         hurtColor /= 255;
         hitBox.triggerEnter += GetHit;
@@ -80,6 +80,7 @@ public class Health : ReducableStats {
                 hitEvent?.Invoke(false, null);
             } else {
                 Damage(attackInfo.damage);
+                unitVariables.lastAttackToHit = attackInfo;
                 hitEvent?.Invoke(true, attackInfo);
                 //damageAmount = attackInfo.damage;
                 attackInfo.VisualEffect();

@@ -219,6 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89b536f8eb6709c49ac0f86fdbda51af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interuptable: 0
   stateDone: 0
   idelAniamtion: {fileID: 7400000, guid: d9f48d2c4b0c82e4599557f74e8a473c, type: 2}
   walkAnimation: {fileID: 0}

@@ -32,7 +32,7 @@ public class Stun : ReducableStats
         }
     }
 
-    private void TakeStun(bool hit, DamageScript EnemyAttack) {
+    public void TakeStun(bool hit, DamageScript EnemyAttack) {
         if(currentValue >= MAX_VALUE ) {
             stunEvent?.Invoke();
         } else {

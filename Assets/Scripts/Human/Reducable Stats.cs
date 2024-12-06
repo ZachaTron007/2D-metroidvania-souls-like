@@ -8,7 +8,7 @@ public class ReducableStats : MonoBehaviour {
     public event Action MaxValueReached;
 
 
-    protected void ChangeCurrentValue(float value) {
+    public void ChangeCurrentValue(float value) {
         currentValue += value;
         if (currentValue >= MAX_VALUE) {
             currentValue = MAX_VALUE;
