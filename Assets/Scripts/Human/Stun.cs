@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Stun : ReducableStats
 {
-    public event Action stunEvent;
     [SerializeField] private float stunReduceSpeed = 5f;
     [SerializeField] private float resetStunTime = 1;
     private float time;
@@ -34,9 +33,10 @@ public class Stun : ReducableStats
 
     public void TakeStun(bool hit, DamageScript EnemyAttack) {
         if(currentValue >= MAX_VALUE ) {
-            stunEvent?.Invoke();
+            MaxValue();
+            ChangeCurrentValue(-1);
         } else {
-            ChangeCurrentValue(currentValue + EnemyAttack.stun);
+            ChangeCurrentValue(EnemyAttack.stun);
             time = 0;
         }
 

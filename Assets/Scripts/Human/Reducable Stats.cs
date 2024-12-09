@@ -25,6 +25,8 @@ public class ReducableStats : MonoBehaviour {
         }
     }
 
-
+    protected void MaxValue() {
+        MaxValueReached?.Invoke();
+    }
 
 }

@@ -23,17 +23,26 @@ public class SwordEnemyScript : EnemyScript {
 
         //attacks
         //state = idelState;
-        idelState?.Setup(rb, animatior, this);
-        agroState?.Setup(rb, animatior,this);
-        recoverState?.Setup(rb, animatior, this);
-        parryRecoverState?.Setup(rb, animatior, this);
+        idelState.Setup(rb, animatior, this);
+        agroState.Setup(rb, animatior,this);
+        recoverState.Setup(rb, animatior, this);
+        parryRecoverState.Setup(rb, animatior, this);
+        stunnedState.Setup(rb, animatior, this);
         state = idelState;
         state.Enter();
         AgroAttackColliders();
 
+
+    }
+    protected override void EventUnsubscribe() {
+        base.EventUnsubscribe();
+        stun.MaxValueReached -= ChangeToStunState;
+        playerState.parried -= getParryed;
     }
     protected override void EventSubscribe() {
+        base.EventSubscribe();
         playerState.parried+=getParryed;
+        stun.MaxValueReached += ChangeToStunState;
     }
     // Update is called once per frame
     void Update() {
@@ -78,6 +87,11 @@ public class SwordEnemyScript : EnemyScript {
     }
     protected override void Die() {
         StateChange(dieState);
+    }
+
+    private void ChangeToStunState() {
+        Debug.Log("Switching");
+        StateChange(stunnedState);
     }
 
 }

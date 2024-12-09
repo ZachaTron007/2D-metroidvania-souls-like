@@ -11,6 +11,11 @@ public abstract class State : MonoBehaviour {
     public float interuptable = 0;//{ get; protected set; } = 0;
     public bool stateDone;
     protected Unit unitVariables;
+    protected void Start() {
+        if (!animator || !rb || !unitVariables) {
+            Debug.Log("YOU HAVENT CALLED SETUP!!!");
+        }
+    }
     public virtual void UpdateState () {
 
     }

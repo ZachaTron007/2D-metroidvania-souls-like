@@ -9,6 +9,7 @@ public abstract class Unit : MonoBehaviour
 {
     [Header("Components required by States")]
     protected Health health;
+    protected Stun stun;
     public IncludeRBLayers includeRBLayers;
     public Rigidbody2D rb;
     public Animator animatior;
@@ -56,6 +57,8 @@ public abstract class Unit : MonoBehaviour
     protected void ComponentSetup() {
         includeRBLayers = GetComponent<IncludeRBLayers>();
         health = GetComponent<Health>();
+        TryGetComponent<Stun>(out Stun stuns);
+        stun = stuns;
         rb = GetComponent<Rigidbody2D>();
         //mainCollider = GetComponent<BoxCollider2D>();
         hurtState?.Setup(rb, animatior, this);

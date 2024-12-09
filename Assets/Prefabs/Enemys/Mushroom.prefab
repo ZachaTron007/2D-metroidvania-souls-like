@@ -111,6 +111,7 @@ MonoBehaviour:
   fallState: {fileID: 3251601611502233521}
   attackState: {fileID: 8345824504673228524}
   dieState: {fileID: 1025974863289018806}
+  lastAttackToHit: {fileID: 0}
   attackTime: 0
   canBeHit: 1
   isRecovering: 0
@@ -126,6 +127,7 @@ MonoBehaviour:
   recoverState: {fileID: 6943752663608861617}
   idelState: {fileID: 4857988828641324553}
   parryRecoverState: {fileID: 1156267643509344644}
+  stunnedState: {fileID: 0}
 --- !u!50 &1451567078689242758
 Rigidbody2D:
   serializedVersion: 5

@@ -282,6 +282,7 @@ MonoBehaviour:
   fallState: {fileID: 1823725907995604638}
   attackState: {fileID: 8231595280448065926}
   dieState: {fileID: 8755541186931078846}
+  lastAttackToHit: {fileID: 0}
   attackTime: 0
   canBeHit: 1
   isRecovering: 0
@@ -1842,6 +1843,7 @@ MonoBehaviour:
   shakeTime: 0.2
   shakeIntensity: 2.5
   timeSpeed: 0.2
+  StunAmount: 10
 --- !u!1 &8409684108145571453
 GameObject:
   m_ObjectHideFlags: 0
