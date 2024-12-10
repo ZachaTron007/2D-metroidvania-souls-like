@@ -13,7 +13,7 @@ public abstract class State : MonoBehaviour {
     protected Unit unitVariables;
     protected void Start() {
         if (!animator || !rb || !unitVariables) {
-            Debug.Log("YOU HAVENT CALLED SETUP!!!");
+            Debug.Log("YOU HAVENT CALLED SETUP ON " + gameObject.name + "!!!, ON UNIT: "+transform.root.name);
         }
     }
     public virtual void UpdateState () {

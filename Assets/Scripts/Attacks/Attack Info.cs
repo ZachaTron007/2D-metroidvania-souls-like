@@ -11,6 +11,7 @@ public class AttackInfo : DamageScript
     [SerializeField] public bool parryable;
     [SerializeField] public bool moveWhile = true;
     [SerializeField] private float ScreenShakeMagnitude;
+    public float speed = 1;
     [Header("Frame data")]
     [SerializeField] private float startHitBoxFrames;
     [SerializeField] private float endHitBoxFrames;
@@ -22,14 +23,19 @@ public class AttackInfo : DamageScript
 
 
     private void Awake() {
-        length = clip.length;
+        float inverseSpeed = 1 / speed;
+        length = clip.length * inverseSpeed;
         attackHitBox = GetComponent<BoxCollider2D>();
-        float timePerFrame = 1 / clip.frameRate;
-        startHitBoxTime = timePerFrame * startHitBoxFrames;
+        float timePerFrame = (1 / clip.frameRate) * inverseSpeed;
         startMovingTime = timePerFrame * startMovingFrames;
-        endHitBoxTime = timePerFrame * endHitBoxFrames;
-        startHitBoxTime -= startMovingTime;
-        endHitBoxFrames -= startHitBoxTime;
+        startHitBoxTime = timePerFrame * startHitBoxFrames - startMovingTime;
+        endHitBoxTime = timePerFrame * endHitBoxFrames - startHitBoxTime;
+        /*
+        startHitBoxFrames *= speed;
+        endHitBoxFrames *= speed;
+        startMovingFrames *= speed;
+        clip.spee = speed;*/
+        
 
     }
     private void Update() {

@@ -90,7 +90,6 @@ public class SwordEnemyScript : EnemyScript {
     }
 
     private void ChangeToStunState() {
-        Debug.Log("Switching");
         StateChange(stunnedState);
     }
 

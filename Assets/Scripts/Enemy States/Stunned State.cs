@@ -6,7 +6,7 @@ public class StunnedState : State
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] private AnimationClip stunClip;
     private float unStunTimer;
-    private float unStunTime;
+    private float unStunTime = 3f;
     void Awake()
     {
         interuptable = .8f;
@@ -20,11 +20,13 @@ public class StunnedState : State
 
     public override void UpdateState() {
         base.UpdateState();
-        unStunTimer += Time.deltaTime;
         if (unStunTimer > unStunTime) {
             Exit();
+        } else {
+            unStunTimer += Time.deltaTime;
         }
     }
     public override void Exit() {
-}
+        base.Exit();
+    }
 }
