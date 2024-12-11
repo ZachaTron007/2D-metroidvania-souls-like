@@ -584,6 +584,7 @@ MonoBehaviour:
   parryable: 0
   moveWhile: 1
   ScreenShakeMagnitude: 0.1
+  speed: 1
   startHitBoxFrames: 1
   endHitBoxFrames: 3
   startMovingFrames: 0
@@ -1222,6 +1223,7 @@ MonoBehaviour:
   interuptable: 0
   stateDone: 0
   currentAttack: {fileID: 0}
+  attackSpeedModifier: 1
   attackLungeSpeed: 0
   lookDirection: {x: 0, y: 0}
   basicCombo:
@@ -1377,6 +1379,7 @@ MonoBehaviour:
   parryable: 0
   moveWhile: 1
   ScreenShakeMagnitude: 0.2
+  speed: 1
   startHitBoxFrames: 2
   endHitBoxFrames: 5
   startMovingFrames: 0
@@ -1786,6 +1789,7 @@ MonoBehaviour:
   parryable: 0
   moveWhile: 1
   ScreenShakeMagnitude: 0.5
+  speed: 1
   startHitBoxFrames: 2
   endHitBoxFrames: 5
   startMovingFrames: 0

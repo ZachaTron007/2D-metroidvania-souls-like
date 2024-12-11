@@ -11,6 +11,7 @@ public abstract class State : MonoBehaviour {
     public float interuptable = 0;//{ get; protected set; } = 0;
     public bool stateDone;
     protected Unit unitVariables;
+    protected Stun stun;
     protected void Start() {
         if (!animator || !rb || !unitVariables) {
             Debug.Log("YOU HAVENT CALLED SETUP ON " + gameObject.name + "!!!, ON UNIT: "+transform.root.name);
@@ -26,10 +27,12 @@ public abstract class State : MonoBehaviour {
         stateDone = true;
     }
 
-    public void Setup (Rigidbody2D rb, Animator animator,Unit unitVariables) { 
+    public void Setup (Rigidbody2D rb, Animator animator,Unit unitVariables,Stun stun = null) { 
         this.rb = rb;
         this.animator = animator;
         this.unitVariables = unitVariables;
+        this.stun = stun;
+
     }
     public void ResetState (State newState) {
         Exit();

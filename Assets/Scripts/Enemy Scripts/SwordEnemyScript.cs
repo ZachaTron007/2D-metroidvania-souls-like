@@ -23,11 +23,11 @@ public class SwordEnemyScript : EnemyScript {
 
         //attacks
         //state = idelState;
-        idelState.Setup(rb, animatior, this);
-        agroState.Setup(rb, animatior,this);
-        recoverState.Setup(rb, animatior, this);
-        parryRecoverState.Setup(rb, animatior, this);
-        stunnedState.Setup(rb, animatior, this);
+        idelState.Setup(rb, animatior, this, stun);
+        agroState.Setup(rb, animatior,this, stun);
+        recoverState.Setup(rb, animatior, this, stun);
+        parryRecoverState.Setup(rb, animatior, this, stun);
+        stunnedState.Setup(rb, animatior, this, stun);
         state = idelState;
         state.Enter();
         AgroAttackColliders();
@@ -78,6 +78,7 @@ public class SwordEnemyScript : EnemyScript {
         if (manualState) {
             newState = manualState;
         }
+
         state = CanSwitchState(newState);
 
     }

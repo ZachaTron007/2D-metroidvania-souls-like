@@ -13,8 +13,9 @@ public class StunnedState : State
     }
 
     public override void Enter() {
+        stun.canChange = false;
+        stun.SetCurrentValue(0);
         unStunTimer = 0;
-        Debug.Log(stunClip.name);
         animator.Play(stunClip.name);
     }
 
@@ -27,6 +28,7 @@ public class StunnedState : State
         }
     }
     public override void Exit() {
+        stun.canChange = true;
         base.Exit();
     }
 }

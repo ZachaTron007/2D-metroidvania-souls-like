@@ -14,7 +14,6 @@ public class BlockRecoverState : State
     private float counter;
 
     public override void Enter() {
-        Debug.Log("Recovering");
         originalMaterial = rb.sharedMaterial;
         frictionyMaterial.friction = friction;
         rb.sharedMaterial = frictionyMaterial;

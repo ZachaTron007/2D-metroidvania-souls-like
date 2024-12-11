@@ -77,10 +77,12 @@ public class Health : ReducableStats {
             //checks to see if the attack would be blocked
             AttackInfo attackInfo = collision.GetComponent<AttackInfo>();
             if (blockState?.IsBlockingAttack(attackInfo) ?? false) {
+                unitVariables.lastAttackToHit = attackInfo;
                 hitEvent?.Invoke(false, null);
             } else {
-                Damage(attackInfo.damage);
                 unitVariables.lastAttackToHit = attackInfo;
+                Damage(attackInfo.damage);
+                
                 hitEvent?.Invoke(true, attackInfo);
                 //damageAmount = attackInfo.damage;
                 attackInfo.VisualEffect();

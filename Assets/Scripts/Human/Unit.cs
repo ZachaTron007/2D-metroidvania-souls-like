@@ -57,8 +57,8 @@ public abstract class Unit : MonoBehaviour
     protected void ComponentSetup() {
         includeRBLayers = GetComponent<IncludeRBLayers>();
         health = GetComponent<Health>();
-        TryGetComponent<Stun>(out Stun stuns);
-        stun = stuns;
+        TryGetComponent(out stun);
+
         rb = GetComponent<Rigidbody2D>();
         //mainCollider = GetComponent<BoxCollider2D>();
         hurtState?.Setup(rb, animatior, this);
@@ -90,7 +90,6 @@ public abstract class Unit : MonoBehaviour
      */
 
     protected State CanSwitchState(State newState) {
-        
         if (newState.interuptable >= state.interuptable || state.stateDone || state.interuptable == 0) {
             if (state != newState) {
                 state.ResetState(newState);

@@ -15,7 +15,9 @@ public class ParryState : State
         animator.Play(parryClip.name);
         Invoke("Exit", parryClip.length);
         //gets the refrence tothe attack that hit you, then gets the stun component from the root of the attack in the hiarchy, then changes the stun
-        unitVariables.lastAttackToHit.transform.root.GetComponent<Stun>().ChangeCurrentValue(StunAmount);
+        unitVariables.lastAttackToHit.transform.root.TryGetComponent(out Stun stun);
+
+        stun?.ChangeCurrentValue(StunAmount);
         CinemachineEffectScript.instance.ScreenShake(shakeIntensity, shakeTime);
         
     }
