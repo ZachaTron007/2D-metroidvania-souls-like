@@ -15,7 +15,7 @@ public class JumpScript : State
     // Start is called before the first frame update
     void Start()
     {
-        jumpVelocity = Mathf.Sqrt(Physics.gravity.y * 2 * jumpHeight * -2);
+        
     }
 
     // Update is called once per frame
@@ -43,7 +43,7 @@ public class JumpScript : State
         
     }
     public override void Enter() {
-        
+        jumpVelocity = Mathf.Sqrt(Physics.gravity.y * 2 * jumpHeight * -2);
         animator.Play(jumpClip.name);
         Jump();
     }
