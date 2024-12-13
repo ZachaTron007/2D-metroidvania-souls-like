@@ -870,6 +870,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MAX_VALUE: 0
   currentValue: 0
+  canChange: 1
   blockState: {fileID: 0}
   hitBox: {fileID: 6213157412127112116}
 --- !u!114 &1103588811765041703
