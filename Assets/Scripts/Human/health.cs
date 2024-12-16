@@ -18,7 +18,7 @@ public class Health : ReducableStats {
     public event Action<bool, DamageScript> hitEvent;
     public event Action dieEvent;
     private Unit unitVariables;
-    private int damageAmount = 0;
+    private int damageAmount = 5;
 
     // Update is called once per frame
 
