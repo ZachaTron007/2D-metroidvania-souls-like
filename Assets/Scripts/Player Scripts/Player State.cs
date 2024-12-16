@@ -109,9 +109,10 @@ public class PlayerState : Unit {
 
     protected override void StateChange(State manualState = null) {
         State newState = state;
-
+        Debug.Log("Grounded?: "+grounded);
         if (grounded && state != jumpScript) {
             //checks to see if you are moving
+            Debug.Log("Move Vector"+ moveVetcor);
             if (moveVetcor.x != 0) {
                 newState = moveState;
             } else {

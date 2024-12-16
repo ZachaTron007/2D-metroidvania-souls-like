@@ -108,10 +108,10 @@ public abstract class Unit : MonoBehaviour
         //hits walls
         int layerNumber = HelperFunctions.layers["Level"];
 
-        float distanceAdditon = 0.1f;
-        RaycastHit2D groundHitLeft = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon, new Vector3(transform.position.x - mainCollider.hitBox.size.x/2, transform.position.y, 0));
-        RaycastHit2D groundHitMiddle = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon,transform.position,true);
-        RaycastHit2D groundHitRight = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon,new Vector3(transform.position.x + mainCollider.hitBox.size.x/2, transform.position.y, 0));
+        float distanceAdditon = -.4f+mainCollider.hitBox.size.y/2;
+        RaycastHit2D groundHitLeft = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon, new Vector3(transform.position.x - mainCollider.hitBox.size.x/2, transform.position.y + .2f, 0));
+        RaycastHit2D groundHitMiddle = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon,new Vector3(transform.position.x, transform.position.y + .2f, 0),true);
+        RaycastHit2D groundHitRight = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon,new Vector3(transform.position.x + mainCollider.hitBox.size.x/2, transform.position.y + .2f, 0));
         
         if (groundHitMiddle||groundHitMiddle||groundHitRight) {
             kyoteTimeCounter = 0;
