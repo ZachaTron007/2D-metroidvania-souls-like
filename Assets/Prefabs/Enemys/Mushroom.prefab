@@ -125,7 +125,7 @@ MonoBehaviour:
   playerState: {fileID: 0}
   agroState: {fileID: 2748392427310820698}
   recoverState: {fileID: 6943752663608861617}
-  idelState: {fileID: 4857988828641324553}
+  idelState: {fileID: 0}
   parryRecoverState: {fileID: 1156267643509344644}
   stunnedState: {fileID: 0}
 --- !u!50 &1451567078689242758
@@ -261,7 +261,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7280183685329247630}
-  - component: {fileID: 4857988828641324553}
   m_Layer: 3
   m_Name: Ledge Idel State
   m_TagString: Untagged
@@ -284,27 +283,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7956593012235945853}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4857988828641324553
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 949736954057920423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8afb0fc514471044da82f8381bde9580, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interuptable: 0
-  stateDone: 0
-  idelAniamtion: {fileID: 7400000, guid: b93675a41286cce41bf3eb46a34171fd, type: 2}
-  walkAnimation: {fileID: 7400000, guid: e6f72b5bf5c9a064d8b3f1045c7693f7, type: 2}
-  walkBackDistance: 10
-  walkSpeed: 500
-  forgetTime: 4
-  lowSwitchTime: 1
-  highSwitchTime: 2
 --- !u!1 &1734708864105190849
 GameObject:
   m_ObjectHideFlags: 0
