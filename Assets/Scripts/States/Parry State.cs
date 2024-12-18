@@ -7,12 +7,17 @@ public class ParryState : State
     [SerializeField] private float shakeTime;
     [SerializeField] private float shakeIntensity;
     [SerializeField] private float timeSpeed;
+    [SerializeField] private float StunAmount = 10;
     private float counter;
     public override void Enter() {
         counter = 0;
-        interuptable = false;
+        interuptable = .3f;
         animator.Play(parryClip.name);
         Invoke("Exit", parryClip.length);
+        //gets the refrence tothe attack that hit you, then gets the stun component from the root of the attack in the hiarchy, then changes the stun
+        unitVariables.lastAttackToHit.transform.root.TryGetComponent(out Stun stun);
+
+        stun?.ChangeCurrentValue(StunAmount);
         CinemachineEffectScript.instance.ScreenShake(shakeIntensity, shakeTime);
         
     }

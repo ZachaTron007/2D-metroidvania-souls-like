@@ -6,13 +6,16 @@ using UnityEngine.UIElements;
 public class ParentMeleeAttack : State {
 
     [SerializeField] public AttackInfo currentAttack;
+    [SerializeField] private float attackSpeedModifier = 1;
+    [SerializeField] private float attackLungeSpeed;
+    //[SerializeField] private float attackSpeed = 1;
     public Vector2 lookDirection;
     private int tempDirection;
     protected IEnumerator attack;
 
     // Start is called before the first frame update
     void Start() {
-        interuptable = false;
+        interuptable = .8f;
         tempDirection = unitVariables.GetDirection();
         attack = Attack();
     }
@@ -33,19 +36,35 @@ public class ParentMeleeAttack : State {
      *  5. starts the recovery state
      */
     protected IEnumerator Attack() {
+        float attackSpeed = currentAttack.speed * 1/attackSpeedModifier;
+        float length = (currentAttack.length * attackSpeed);// - currentAttack.clip.frameRate * attackSpeed;
+        interuptable = .1f;
+        animator.speed = currentAttack.speed;
         animator.Play(currentAttack.clip.name);
-        yield return new WaitForSeconds(currentAttack.startHitBoxTime);
+        rb.linearVelocity = Vector2.zero;
+        float startMovingTime = currentAttack.startMovingTime * attackSpeed;
+        yield return new WaitForSeconds(startMovingTime);
+        //Debug.Log(currentAttack.startMovingTime);
+        //Debug.Log(currentAttack.startHitBoxTime);
+        //rb.linearVelocity = new Vector2(unitVariables.GetDirection() * attackLungeSpeed, rb.linearVelocity.y);
+        //currentAttack.attackHitBox.enabled = true;
+        float startHitBoxTime = currentAttack.startHitBoxTime * attackSpeed;
+        yield return new WaitForSeconds(startHitBoxTime * attackSpeed);
+        rb.linearVelocity = Vector2.zero;
+        interuptable = .6f;
         currentAttack.attackHitBox.enabled = true;
         currentAttack.attackHitBox.offset = offsetVector();
-        yield return new WaitForSeconds(currentAttack.endHitBoxTime);
+        float endHitBoxTime = currentAttack.endHitBoxTime * attackSpeed;
+        yield return new WaitForSeconds(endHitBoxTime);
+        rb.linearVelocity = Vector2.zero;
         currentAttack.attackHitBox.enabled = false;
-        float recoveryTime = (currentAttack.startHitBoxTime + currentAttack.endHitBoxTime >= currentAttack.clip.length) ? 0 : ( currentAttack.clip.length - (currentAttack.startHitBoxTime + currentAttack.endHitBoxTime));
-
+        float recoveryTime = (startHitBoxTime + endHitBoxTime + startHitBoxTime >= length) ? 0 : ( length - (startHitBoxTime + endHitBoxTime + startMovingTime));
         yield return new WaitForSeconds(recoveryTime);
         Exit();
     }
     public override void Exit() {
         currentAttack.attackHitBox.enabled = false;
+        animator.speed = 1;
         StopCoroutine(attack);
         stateDone = true;
     }

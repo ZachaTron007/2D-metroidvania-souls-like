@@ -3,15 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro.EditorUtilities;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 public abstract class Unit : MonoBehaviour
 {
     [Header("Components required by States")]
     protected Health health;
+    protected Stun stun;
+    public IncludeRBLayers includeRBLayers;
     public Rigidbody2D rb;
     public Animator animatior;
-    protected SpriteRenderer sr;
-    [SerializeField] protected Sensors mainCollider;
+    public SpriteRenderer sr;
+    public Sensors mainCollider;
     [Header("Current State")]
 
     public State state;
@@ -19,21 +22,30 @@ public abstract class Unit : MonoBehaviour
     //[SerializeField] protected PlayerIdelState idelState;
 //    [SerializeField] protected ParentMeleeAttack melee;
     [SerializeField] protected HurtState hurtState;
+    [SerializeField] protected JumpScript jumpScript;
     [SerializeField] protected FallState fallState;
     [SerializeField] protected ParentMeleeAttack attackState;
     [SerializeField] protected DeathScript dieState;
+    [HideInInspector] public AttackInfo lastAttackToHit;
     public event Action parried;
     [Header("Properties")]
-    public float attackTime;
-    public bool isRecovering = false;
-    protected int direction = 1;//{ get; protected set; } = 1;
+    [HideInInspector] public float attackTime;
+    [HideInInspector] public bool canBeHit = true;
+    [HideInInspector] public bool isRecovering = false;
+    [SerializeField] private int direction = 1;//{ get; protected set; } = 1;
     protected float moveSpeed = 250;
     protected bool grounded;
+    [HideInInspector] public bool engaged;
+    private float kyoteTimeCounter;
     /*
      * summary:
      * get and sets
      */
     public int GetDirection() => direction;
+    public virtual void SetDirection(int direction) {
+        this.direction = direction;
+        sr.flipX = direction < 0;
+    }
     public bool GetGroundedState() => grounded;
 
 
@@ -43,12 +55,14 @@ public abstract class Unit : MonoBehaviour
      * components that are special to that unit are setup in their class
      */
     protected void ComponentSetup() {
+        includeRBLayers = GetComponent<IncludeRBLayers>();
         health = GetComponent<Health>();
+        TryGetComponent(out stun);
+
         rb = GetComponent<Rigidbody2D>();
-        animatior = GetComponent<Animator>();
-        sr = GetComponent<SpriteRenderer>();
         //mainCollider = GetComponent<BoxCollider2D>();
         hurtState?.Setup(rb, animatior, this);
+        jumpScript.Setup(rb, animatior, this);
         fallState?.Setup(rb, animatior, this);
         attackState?.Setup(rb, animatior, this);
         dieState.Setup(rb, animatior, this);
@@ -69,40 +83,47 @@ public abstract class Unit : MonoBehaviour
      */
     protected abstract void StateChange(State manualSate = null);
     //protected abstract void GetHurt();
-
-    /*
-     * summary:
-     * makes sure the you cant interupt the state,
-     * and when state is done, it forces a change
-     */
-    protected void InteruptrableStateChange() {
-        if (state.interuptable) {
-            StateChange();
-        } else if (state.stateDone) {
-            StateChange();
-        }
-    }
-    
     /*
      * summary:
      * sends a boxcast down to see if you are touching the ground,
      * you give a box dimentions as a parameter
      */
+
+    protected State CanSwitchState(State newState) {
+        if (newState.interuptable >= state.interuptable || state.stateDone || state.interuptable == 0) {
+            if (state != newState) {
+                state.ResetState(newState);
+                state = newState;
+                SwitchStateActions();
+                return newState;
+            }
+        }
+        return state;
+    }
+    protected virtual void SwitchStateActions() {
+
+    }
     protected bool GroundTouch() {
         Vector2 BoxDimentions = new Vector2(.1f, .1f);
         //hits walls
-        int layerNumber = 6;
-        float distanceAdditon = 0.1f;
-        RaycastHit2D groundHitLeft = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon, new Vector3(transform.position.x - mainCollider.hitBox.size.x/2, transform.position.y, 0));
-        RaycastHit2D groundHitMiddle = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon,transform.position,true);
-        RaycastHit2D groundHitRight = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon,new Vector3(transform.position.x + mainCollider.hitBox.size.x/2, transform.position.y, 0));
+        int layerNumber = HelperFunctions.layers["Level"];
+
+        float distanceAdditon = -.4f+mainCollider.hitBox.size.y/2;
+        RaycastHit2D groundHitLeft = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon, new Vector3(transform.position.x - mainCollider.hitBox.size.x/2, transform.position.y + .2f, 0));
+        RaycastHit2D groundHitMiddle = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon,new Vector3(transform.position.x, transform.position.y + .2f, 0),true);
+        RaycastHit2D groundHitRight = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon,new Vector3(transform.position.x + mainCollider.hitBox.size.x/2, transform.position.y + .2f, 0));
         
         if (groundHitMiddle||groundHitMiddle||groundHitRight) {
-            grounded = true;
+            kyoteTimeCounter = 0;
+            return true;
+            
         } else {
-            grounded = false;
+            kyoteTimeCounter += Time.deltaTime;
+            if (kyoteTimeCounter > jumpScript.kyoteTime) {
+                return false;
+            }
+            return true;
         }
-        return false;
     }
 
     protected int LayerNumToLayerMask(int layerNumber) {
@@ -123,7 +144,7 @@ public abstract class Unit : MonoBehaviour
         //Debug.DrawRay(startPosition, rayDirection, Color.green, .1f);
         return hit;
     }
-    protected RaycastHit2D ShootRayDirection(Vector2 direction, int layerNumber, float dist, Vector3 startPosition=new Vector3(), bool debugRay = false) {
+    public RaycastHit2D ShootRayDirection(Vector2 direction, int layerNumber, float dist, Vector3 startPosition=new Vector3(), bool debugRay = false) {
         //trasnforms that number into a layer mask
         int layerMask = LayerNumToLayerMask(layerNumber);
         //gets the height of the collider and div by 2 to get the center
@@ -138,19 +159,25 @@ public abstract class Unit : MonoBehaviour
         }
         return hit;
     }
+    public bool IsGroundInFront() {
+        int layerNumber = HelperFunctions.layers["Level"]; ;
+        float distanceAdditon = 0.1f;
+
+        RaycastHit2D groundAvailible = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon, new Vector3(transform.position.x + (mainCollider.hitBox.size.x / 2) * direction, transform.position.y, 0), true);
+        return groundAvailible;
+    }
     /*
      * used to flip the sprite
      */
     protected void directionFlip() {
-        sr.flipX = direction < 0;
+        
     }
 
-    protected virtual void GetHurt(bool hit,int damage) {
+    protected virtual void GetHurt(bool hit,DamageScript enemyAttack) {
     }
     protected abstract void Die();
     public void HitCollided(bool hit) {
         AttackInfo attack = attackState.currentAttack;
-        Debug.Log("Hit");
         
     }
 

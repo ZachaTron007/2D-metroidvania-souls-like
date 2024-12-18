@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class wallActionsScript : jumpScript
+public class wallActionsScript : JumpScript
 {
     //wallJump
     private float wallJumpSpeed = 100;

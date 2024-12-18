@@ -9,7 +9,7 @@ public class RecoveryState : State
     public override void Enter() {
         animator.Play(idelAniamtion.name);
         rb.linearVelocity = Vector2.zero;
-        interuptable = false;
+        interuptable = .6f;
         Invoke("DoneRecovering", recoverTime);
     }
 

@@ -7,7 +7,7 @@ public class ParryRecoverState : State
     private float parryRecoverTimer;
 
     public override void Enter() {
-        interuptable = false;
+        interuptable = 1f;
         animator.Play(parryRecoverAnimation.name);
 
     }

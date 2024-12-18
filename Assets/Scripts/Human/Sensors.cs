@@ -18,6 +18,7 @@ public class Sensors : MonoBehaviour {
         hitBox = GetComponent<BoxCollider2D>();
     }
     private void OnTriggerEnter2D(Collider2D other) {
+        //Debug.Log(other.gameObject.name+" hit "+gameObject.name);
         triggerEnter?.Invoke(other);
     }
     private void OnTriggerStay2D(Collider2D other) {

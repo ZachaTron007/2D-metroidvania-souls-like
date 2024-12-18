@@ -2,20 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class jumpScript : State
+public class JumpScript : State
 {
     [SerializeField] private AnimationClip jumpClip;
     [SerializeField] private float jumpVelocity = 5;
     [SerializeField] private float jumpHeight = 3;
     [SerializeField] private float lowJumpMultiplier = 20f;
     public bool grounded = false;
+    public float kyoteTime;
     public int doubleJump = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        interuptable = true;
-        jumpVelocity = Mathf.Sqrt(Physics.gravity.y * 2 * jumpHeight * -2);
+        
     }
 
     // Update is called once per frame
@@ -43,7 +43,7 @@ public class jumpScript : State
         
     }
     public override void Enter() {
-        
+        jumpVelocity = Mathf.Sqrt(Physics.gravity.y * 2 * jumpHeight * -2);
         animator.Play(jumpClip.name);
         Jump();
     }

@@ -3,6 +3,7 @@ using Sirenix.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Resources;
 using System.Threading;
 using Unity.VisualScripting;
 using UnityEditor;
@@ -14,15 +15,12 @@ public class PlayerState : Unit {
     private PlayerControls playerControls;
     private InputAction move;
     private CapsuleCollider2D clipCollider;
-
     //movements
     [Header("Player Variables")]
     //public float direction { get; private set; } = 1;
 
     private float dashCount;
     private readonly float dashCool = 0.7f;
-    private bool canParry;
-
 
     //[SerializeField] private bool blood = false;
 
@@ -32,7 +30,6 @@ public class PlayerState : Unit {
     //scrupts
     [Header("States")]
     [SerializeField] private dashScript Dash;
-    public jumpScript jumpScript;
     [SerializeField] private wallActionsScript wallActions;
     [SerializeField] public MoveState moveState;
     [SerializeField] public BlockState blockState;
@@ -44,11 +41,14 @@ public class PlayerState : Unit {
 
     //public event Action <bool> parried;
     //buttons 
+    private float bufferTime = .2f;
+    private float bufferCounter = 0;
     public KeyCode lastKey;
-    private KeyCode jump = KeyCode.Space;
-    private KeyCode dash = KeyCode.LeftShift;
-    private KeyCode blockButton = KeyCode.Mouse1;
-    private KeyCode attackButton = KeyCode.Mouse0;
+    const KeyCode jump = KeyCode.Space;
+    const KeyCode dash = KeyCode.LeftShift;
+    const KeyCode blockButton = KeyCode.Mouse1;
+    const KeyCode attackButton = KeyCode.Mouse0;
+    private KeyCode[] buttons = new KeyCode[] { jump, dash , blockButton, attackButton };
 
 
     protected override void EventSubscribe() {
@@ -60,7 +60,6 @@ public class PlayerState : Unit {
     }
 
     private void Awake() {
-        //CinemachineEffectScript.instance.ScreenShake(0.1f, 0.1f);
         //get the input system
         playerControls = new PlayerControls();
         inputScript = GetComponent<InputScript>();
@@ -88,108 +87,105 @@ public class PlayerState : Unit {
     // Update is called once per frame
 
     void Update() {
-        GroundTouch();
-        lastKey = GetInput();
+        grounded = GroundTouch();
+        lastKey = GetInput(buttons);
         //horizontal movement
         attackTime += Time.deltaTime;
 
         if (moveVetcor.x != 0) {
-            direction = (int)moveVetcor.x;
+            SetDirection((int)moveVetcor.x);
             directionFlip();
 
         }
         //the iniatal jump, you need to be in kyote time or on the ground
         dashCount += Time.deltaTime;
         //if you arent on the ground
-        if (state.interuptable) {
-            moveVetcor = move.ReadValue<Vector2>();
-            StateChange();
-        } else if(state.stateDone) {
-            StateChange();
-        }
+        moveVetcor = move.ReadValue<Vector2>();
+        StateChange();
         state.UpdateState();
     }
 
 
 
     protected override void StateChange(State manualState = null) {
-        State oldState = state;
+        State newState = state;
         if (grounded && state != jumpScript) {
             //checks to see if you are moving
             if (moveVetcor.x != 0) {
-                state = moveState;
+                newState = moveState;
             } else {
-                state = idelState;
+                newState = idelState;
             }
             if (lastKey == jump) {
-                state = jumpScript;
+                newState = jumpScript;
             }
 
             //checks to see if you are falling
         } else if (rb.linearVelocity.y < 0) {
-            state = fallState;
+            newState = fallState;
         }
         if (lastKey == dash && dashCount >= dashCool) {
-            state = Dash;
+            newState = Dash;
             dashCount = 0;
         }
         attackTime += Time.deltaTime;
         if (grounded) {
             if (lastKey == attackButton && attackTime >= attackState.currentAttack.length) {
-                state = attackState;
+                newState = attackState;
             }
             if (lastKey == blockButton) {
-                state = blockState;
+                newState = blockState;
             }
         }
         if (manualState) {
-            state = manualState;
+            newState = manualState;
         }
-        if(oldState!= state) {
-            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
-            state.ResetState(oldState);
-            lastKey = KeyCode.Mouse6;
-        }
+        state = CanSwitchState(newState);
     }
+    protected override void SwitchStateActions() {
+        base.SwitchStateActions();
+        lastKey = KeyCode.None;
+    }
+
     private void FixedUpdate() {
         state.FixedUpdateState();
-        if(state.interuptable) {
+        if(state.interuptable==0) {
             Run();
         }
     }
 
     
     private void Run() {
-        if (rb.linearVelocity.x == 0) {
-            rb.linearVelocity = new Vector2(moveVetcor.x * moveSpeed * Time.fixedDeltaTime, rb.linearVelocity.y);
-        } else {
-            rb.linearVelocity = new Vector2(moveVetcor.x * Mathf.Abs(rb.linearVelocity.x), rb.linearVelocity.y);
-        }
-        
+        rb.linearVelocity = new Vector2(moveVetcor.x * moveSpeed * Time.fixedDeltaTime, rb.linearVelocity.y);
     }
-    public KeyCode GetInput() {
-        if (Input.GetKeyDown(jump)) {
-            lastKey = jump;
-        } else if (Input.GetKeyDown(dash)) {
-            lastKey = dash;
-        } else if (Input.GetKeyDown(attackButton)) {
-            lastKey = attackButton;
-        } else if (Input.GetKeyDown(blockButton)) {
-            lastKey = blockButton;
+    public KeyCode GetInput(KeyCode[]buttons) {
+        
+        for (int i = 0; i < buttons.Length; i++){
+            if (Input.GetKeyDown(buttons[i])){
+                lastKey = buttons[i];
+                bufferCounter = 0;
+            }
+        }
+        bufferCounter += Time.deltaTime;
+        if (bufferCounter >= bufferTime) {
+            lastKey = KeyCode.None;
+        } else {
+            bufferCounter = 0;
         }
         return lastKey;
 
     }
 
-    protected override void GetHurt(bool hit, int damage) {
-        base.GetHurt(hit, damage);
-        if (!hit&&blockState.canParry) {
-            StateChange(parryState);
-            onParry();
-        }else if (!hit) {
-            StateChange(blockRecoverState);
-        }
-        if(hit) {
+    protected override void GetHurt(bool hit, DamageScript EnemyAttack) {
+        base.GetHurt(hit, EnemyAttack);
+        if (!hit) {
+            if (blockState.canParry) {
+                StateChange(parryState);
+                onParry();
+            } else {
+                StateChange(blockRecoverState);
+            }
+        } else{
             StateChange(hurtState);
         }
     }

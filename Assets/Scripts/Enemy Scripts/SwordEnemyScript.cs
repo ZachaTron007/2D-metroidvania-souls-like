@@ -14,34 +14,45 @@ public class SwordEnemyScript : EnemyScript {
     [SerializeField] private PlayerState playerState;
     [SerializeField] private AgroState agroState;
     [SerializeField] private RecoveryState recoverState;
-    [SerializeField] protected IdelState idelState;
+    [SerializeField] protected BaseIdelState idelState;
     [SerializeField] protected ParryRecoverState parryRecoverState;
+    [SerializeField] private StunnedState stunnedState;
 
     private void Awake() {
         ComponentSetup();
 
         //attacks
         //state = idelState;
-        idelState?.Setup(rb, animatior, this);
-        agroState?.Setup(rb, animatior,this);
-        recoverState?.Setup(rb, animatior, this);
-        parryRecoverState?.Setup(rb, animatior, this);
+        idelState.Setup(rb, animatior, this, stun);
+        agroState.Setup(rb, animatior,this, stun);
+        recoverState.Setup(rb, animatior, this, stun);
+        parryRecoverState.Setup(rb, animatior, this, stun);
+        stunnedState.Setup(rb, animatior, this, stun);
         state = idelState;
         state.Enter();
         AgroAttackColliders();
 
+
+    }
+    protected override void EventUnsubscribe() {
+        base.EventUnsubscribe();
+        stun.MaxValueReached -= ChangeToStunState;
+        playerState.parried -= getParryed;
     }
     protected override void EventSubscribe() {
+        base.EventSubscribe();
         playerState.parried+=getParryed;
+        stun.MaxValueReached += ChangeToStunState;
     }
     // Update is called once per frame
     void Update() {
         if (WallCheck()) {
-            direction = switchDirection();
+            SetDirection(-GetDirection());
         }
 
         state.UpdateState();
-        InteruptrableStateChange();
+        //InteruptrableStateChange();
+        StateChange();
         directionFlip();
         
     }
@@ -50,39 +61,37 @@ public class SwordEnemyScript : EnemyScript {
     }
 
     protected override void StateChange(State manualState = null) {
-
-        State oldState = state;
+        State newState = state;
         if (!isWithinAgroRange) {
-            state = idelState;
+            newState = idelState;
         } else {
-            if (!isWithinAttackRange) {
-                state = agroState;
+            if (isRecovering) {
+                newState = recoverState; 
+            } 
+            else if (!isWithinAttackRange) {
+                newState = agroState;
             } else {
-                if (!isRecovering) {
-                    state = attackState;
-                } else {
-                    state = recoverState;
-                }
+                newState = attackState;
             }
 
         }
         if (manualState) {
-            state=manualState;
-            state.ResetState(oldState);
-            return;
+            newState = manualState;
         }
-        if (oldState != state) {
-            state.ResetState(oldState);
-        }
+
+        state = CanSwitchState(newState);
 
     }
 
     private void getParryed() {
-        Debug.Log("Was Parried");
         StateChange(parryRecoverState);
     }
     protected override void Die() {
         StateChange(dieState);
+    }
+
+    private void ChangeToStunState() {
+        StateChange(stunnedState);
     }
 
 }

@@ -7,34 +7,33 @@ public class dashScript : State
 {
     
     //protected new bool interuptable = false;
+    private IncludeRBLayers layers;
     [SerializeField] private AnimationClip dashClip;
     [SerializeField] private float dashSpeed = 15;
     [SerializeField] private float dashduration = 0.2f;
+    private BoxCollider2D hitBox;
     public bool dashing;
+
+    private void Start() {
+        hitBox = unitVariables.mainCollider.GetComponent<BoxCollider2D>();
+    }
 
     public IEnumerator dash() {
         rb.linearVelocity = Vector2.right * unitVariables.GetDirection() * dashSpeed;
-        rb.excludeLayers = LayerMaskCreator(new int[] {3, 7, 8});
+        hitBox.excludeLayers = HelperFunctions.LayerMaskCreator(new int[] {3, 7, 8});
         yield return new WaitForSeconds(dashduration);
-        rb.excludeLayers = LayerMaskCreator(new int[]{3, 7});
+        hitBox.excludeLayers = HelperFunctions.LayerMaskCreator(new int[]{3, 7});
         Exit();
         yield return null;
     }
-    private LayerMask LayerMaskCreator(int[] layers) {
-        LayerMask binaryLayers = 0;
-        if (layers.Length > 0) {
-            for (int i = 0; i < layers.Length; i++) {
-                binaryLayers += 1 << layers[i];
-            }
-        }
-        return binaryLayers;
-    }
     
+
+
     public override void UpdateState() {
 
     }
     public override void Enter() {
-        interuptable = false;
+        interuptable = 1f;
         if (dashClip) {
             animator.Play(dashClip.name);
         }

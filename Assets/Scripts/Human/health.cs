@@ -6,56 +6,54 @@ using UnityEngine.Playables;
 using UnityEngine.UIElements;
 
 
-public class Health : MonoBehaviour
-{
+public class Health : ReducableStats {
 
     [SerializeField] private BlockState blockState;
-    public int health = 100;
-    public int MAX_HEALTH = 100;
     private Vector4 hurtColor = new Vector4(255, 62, 62, 255);
     private Vector4 normalColor;
     private float colorChangeSpeed = 0.2f;
     private SpriteRenderer sr;
     [SerializeField] private Sensors hitBox;
     //[SerializeField] private float parryWindow = 5f;
-    public event Action<bool, int> hitEvent;
+    public event Action<bool, DamageScript> hitEvent;
     public event Action dieEvent;
-    private PlayerState playerState;
-    private int damageAmount = 0;
+    private Unit unitVariables;
+    private int damageAmount = 5;
 
     // Update is called once per frame
-    
+
     private void Awake() {
-        playerState = GetComponent<PlayerState>();
-        health = MAX_HEALTH;
-        sr = GetComponent<SpriteRenderer>();
+        currentValue = MAX_VALUE;
+        unitVariables = GetComponent<Unit>();
+        sr = unitVariables.sr;
         normalColor = sr.color;
         hurtColor /= 255;
         hitBox.triggerEnter += GetHit;
     }
 
     void Update() {
-        if (health <= 0) {
+        if (currentValue == 0) {
+            SetCurrentValue(-1);
             die();
         }
     }
 
-
     public void Damage(int damage) {
         if (damage > 0) {
-            health -= damage;
-            if (health < 0) {
-                health = 0;
+            ChangeCurrentValue(-damage);
+            if (currentValue < 0) {
+                SetCurrentValue(0);
             }
             StartCoroutine(HurtColorShift(sr));
         }
 
     }
+    
     public void Heal(int heal) {
         if (heal > 0) {
-            health += heal;
-            if (health > MAX_HEALTH) {
-                health = MAX_HEALTH;
+            ChangeCurrentValue(heal);
+            if (currentValue > MAX_VALUE) {
+                SetCurrentValue(MAX_VALUE);
             }
         }
 
@@ -71,7 +69,6 @@ public class Health : MonoBehaviour
     public void die() {
         dieEvent?.Invoke();
         hitBox.triggerEnter -= GetHit;
-        //Destroy(gameObject);
     }
 
     private void GetHit(Collider2D collision) {
@@ -80,10 +77,13 @@ public class Health : MonoBehaviour
             //checks to see if the attack would be blocked
             AttackInfo attackInfo = collision.GetComponent<AttackInfo>();
             if (blockState?.IsBlockingAttack(attackInfo) ?? false) {
-                hitEvent?.Invoke(false, 0);
+                unitVariables.lastAttackToHit = attackInfo;
+                hitEvent?.Invoke(false, null);
             } else {
+                unitVariables.lastAttackToHit = attackInfo;
                 Damage(attackInfo.damage);
-                hitEvent?.Invoke(true, -attackInfo.damage);
+                
+                hitEvent?.Invoke(true, attackInfo);
                 //damageAmount = attackInfo.damage;
                 attackInfo.VisualEffect();
                 
@@ -92,9 +92,12 @@ public class Health : MonoBehaviour
         } else if (collision.GetComponent<DamageScript>()) {
             DamageScript damageScript = collision.GetComponent<DamageScript>();
             Damage(damageScript.damage);
-            hitEvent?.Invoke(true, -damageScript.damage);
+            hitEvent?.Invoke(true, damageScript);
         }
     }
-
+    [ContextMenu("Heal")]
+    private void Heal10() {
+        Heal(10);
+    }
 
 }

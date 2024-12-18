@@ -17,10 +17,11 @@ public class BlockState : State
 
 
     public override void Enter() {
+        rb.linearVelocity = new Vector2(0,rb.linearVelocity.y);
         canParry = true;
         parryCounter = 0;
         Block();
-        interuptable = false;
+        interuptable = .2f;
 
     }
 

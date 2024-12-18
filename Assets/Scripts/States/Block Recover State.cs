@@ -17,10 +17,11 @@ public class BlockRecoverState : State
         originalMaterial = rb.sharedMaterial;
         frictionyMaterial.friction = friction;
         rb.sharedMaterial = frictionyMaterial;
-        interuptable = false;
+        interuptable = .3f;
         rb.linearVelocity = new Vector2(-unitVariables.GetDirection() * knockbackSpeed, rb.linearVelocity.y);
-        slideDust = Instantiate(dust, this.transform);//, rotation);
+        slideDust = Instantiate(dust, this.transform);
         slideDust.transform.rotation = rotation;
+        slideDust.GetComponent<SlideDustScript>().SetDirection(unitVariables.GetDirection());
         Invoke(nameof(Exit), knockbackTime);
 
     }
