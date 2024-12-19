@@ -10,20 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
-  m_Name: Castle Background Tile
+  m_Name: Darker rule tile
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: 0}
+  m_DefaultSprite: {fileID: -2029789276, guid: 6d28f55f1b0572546b2632db94416d69, type: 3}
   m_DefaultGameObject: {fileID: 0}
   m_DefaultColliderType: 1
   m_TilingRules:
   - m_Id: 0
     m_Sprites:
-    - {fileID: 0}
+    - {fileID: -2029789276, guid: 6d28f55f1b0572546b2632db94416d69, type: 3}
+    - {fileID: 53586336, guid: 6d28f55f1b0572546b2632db94416d69, type: 3}
+    - {fileID: -422724010, guid: 6d28f55f1b0572546b2632db94416d69, type: 3}
+    - {fileID: -702702266, guid: 6d28f55f1b0572546b2632db94416d69, type: 3}
+    - {fileID: -815090010, guid: 6d28f55f1b0572546b2632db94416d69, type: 3}
+    - {fileID: -2077150527, guid: 6d28f55f1b0572546b2632db94416d69, type: 3}
+    - {fileID: -1315413800, guid: 6d28f55f1b0572546b2632db94416d69, type: 3}
     m_GameObject: {fileID: 0}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1
     m_PerlinScale: 0.5
-    m_Output: 0
+    m_Output: 1
     m_ColliderType: 1
     m_RandomTransform: 0
     m_Neighbors: 
