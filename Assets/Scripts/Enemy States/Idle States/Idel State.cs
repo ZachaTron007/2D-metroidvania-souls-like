@@ -13,7 +13,7 @@ public class IdelState : BaseIdelState {
     [SerializeField] private float highSwitchTime = 2;
     private IdelFunctionalityDelegate[] IdelFunctionalities;
 
-    private void Awake() {
+    protected void Awake() {
         IdelFunctionalities = new IdelFunctionalityDelegate[] { Walk, Stay };
     }
 
@@ -25,14 +25,6 @@ public class IdelState : BaseIdelState {
         IdelFunctionality = Stay;
         
     }
-    protected override void Stay() {
-        base.Stay();
-    }
-    private void Walk() {
-        animator.Play(walkAnimation.name);
-        rb.linearVelocity = new Vector2(unitVariables.GetDirection() * walkSpeed * Time.deltaTime, rb.linearVelocity.y);
-    }
-    
     public override void FixedUpdateState() {
         //rb.linearVelocity = new Vector2(unitVariables.GetDirection() * speed * Time.fixedDeltaTime, rb.linearVelocity.y);
     }
@@ -40,12 +32,11 @@ public class IdelState : BaseIdelState {
     public override void UpdateState() {
         base.UpdateState();
         switchCounter += Time.deltaTime;
-        if (switchCounter > switchTime) {
+        if (switchCounter > switchTime&&IdelFunctionality!=Retreating) {
             IdelFunctionality = IdelFunctionalities[Random.Range(0, IdelFunctionalities.Length)];
             switchTime = Random.Range(lowSwitchTime, highSwitchTime);
             switchCounter = 0;
         }
-        IdelFunctionality();
     }
     
 }

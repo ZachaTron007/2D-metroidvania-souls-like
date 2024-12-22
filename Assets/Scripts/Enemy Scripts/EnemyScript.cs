@@ -44,10 +44,20 @@ public abstract class EnemyScript : Unit {
     }
 
     protected void AgroRangeStayEnter(Collider2D other) {
-        if (!other.gameObject.CompareTag("Player")) {
+        if (other.gameObject.CompareTag("Player")) {
             agroDelayCounter += Time.deltaTime;
             if (agroDelayCounter >= agroDelay) {
                 isWithinAgroRange = true;
+                Vector2 dir = other.gameObject.transform.position - gameObject.transform.position;
+                if (dir.x > 0) {
+                    if (GetDirection() < 0) {
+                        SetDirection(-GetDirection());
+                    }
+                } else {
+                    if (GetDirection() > 0) {
+                        SetDirection(-GetDirection());
+                    }
+                }
             }
         }
     }

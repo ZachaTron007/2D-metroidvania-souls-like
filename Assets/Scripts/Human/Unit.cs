@@ -7,6 +7,7 @@ using UnityEngine.InputSystem.LowLevel;
 
 public abstract class Unit : MonoBehaviour
 {
+
     [Header("Components required by States")]
     protected Health health;
     protected Stun stun;
@@ -18,6 +19,7 @@ public abstract class Unit : MonoBehaviour
     [Header("Current State")]
 
     public State state;
+    public Stack<State> subStates;
     [Header("Required Unit States")]
     //[SerializeField] protected PlayerIdelState idelState;
 //    [SerializeField] protected ParentMeleeAttack melee;
@@ -33,7 +35,7 @@ public abstract class Unit : MonoBehaviour
     [HideInInspector] public bool canBeHit = true;
     [HideInInspector] public bool isRecovering = false;
     [SerializeField] private int direction = 1;//{ get; protected set; } = 1;
-    protected float moveSpeed = 250;
+    [SerializeField] protected float moveSpeed = 250;
     protected bool grounded;
     [HideInInspector] public bool engaged;
     private float kyoteTimeCounter;
@@ -67,6 +69,7 @@ public abstract class Unit : MonoBehaviour
         attackState?.Setup(rb, animatior, this);
         dieState.Setup(rb, animatior, this);
         EventSubscribe();
+        //SetDirection(direction);
     }
     protected virtual void EventSubscribe() {
         health.hitEvent += GetHurt;
@@ -81,7 +84,12 @@ public abstract class Unit : MonoBehaviour
      * summary:
      * meant to be inherited and the logic to change the state is stored in here
      */
-    protected abstract void StateChange(State manualSate = null);
+    public abstract void StateChange(State manualSate = null);
+    public void Substate(State substate) {
+        subStates.Push(state);
+        state = substate;
+        state.Enter();
+    }
     //protected abstract void GetHurt();
     /*
      * summary:
@@ -89,10 +97,10 @@ public abstract class Unit : MonoBehaviour
      * you give a box dimentions as a parameter
      */
 
-    protected State CanSwitchState(State newState) {
+    protected State CanSwitchState(State newState, float[] args = default) {
         if (newState.interuptable >= state.interuptable || state.stateDone || state.interuptable == 0) {
             if (state != newState) {
-                state.ResetState(newState);
+                state.ResetState(newState,args);
                 state = newState;
                 SwitchStateActions();
                 return newState;
@@ -110,7 +118,7 @@ public abstract class Unit : MonoBehaviour
 
         float distanceAdditon = -.4f+mainCollider.hitBox.size.y/2;
         RaycastHit2D groundHitLeft = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon, new Vector3(transform.position.x - mainCollider.hitBox.size.x/2, transform.position.y + .2f, 0));
-        RaycastHit2D groundHitMiddle = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon,new Vector3(transform.position.x, transform.position.y + .2f, 0),true);
+        RaycastHit2D groundHitMiddle = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon,new Vector3(transform.position.x, transform.position.y + .2f, 0));
         RaycastHit2D groundHitRight = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon,new Vector3(transform.position.x + mainCollider.hitBox.size.x/2, transform.position.y + .2f, 0));
         
         if (groundHitMiddle||groundHitMiddle||groundHitRight) {
@@ -161,9 +169,10 @@ public abstract class Unit : MonoBehaviour
     }
     public bool IsGroundInFront() {
         int layerNumber = HelperFunctions.layers["Level"]; ;
-        float distanceAdditon = 0.1f;
-
-        RaycastHit2D groundAvailible = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon, new Vector3(transform.position.x + (mainCollider.hitBox.size.x / 2) * direction, transform.position.y, 0), true);
+        float distanceAdditon = 0.4f;
+        float startPos = transform.position.x + (mainCollider.hitBox.size.x / 2) * direction;
+        //Debug.Log(startPos-transform.position.x);
+        RaycastHit2D groundAvailible = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon*2, new Vector3(startPos, transform.position.y+distanceAdditon, 0), true);
         return groundAvailible;
     }
     /*

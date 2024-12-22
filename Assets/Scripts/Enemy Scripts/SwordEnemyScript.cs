@@ -23,6 +23,7 @@ public class SwordEnemyScript : EnemyScript {
 
         //attacks
         //state = idelState;
+        Debug.Log(idelState);
         idelState.Setup(rb, animatior, this, stun);
         agroState.Setup(rb, animatior,this, stun);
         recoverState.Setup(rb, animatior, this, stun);
@@ -46,8 +47,9 @@ public class SwordEnemyScript : EnemyScript {
     }
     // Update is called once per frame
     void Update() {
+        grounded = GroundTouch();
         if (WallCheck()) {
-            SetDirection(-GetDirection());
+            //SetDirection(-GetDirection());
         }
 
         state.UpdateState();
@@ -60,20 +62,23 @@ public class SwordEnemyScript : EnemyScript {
         state.FixedUpdateState();
     }
 
-    protected override void StateChange(State manualState = null) {
+    public override void StateChange(State manualState = null) {
         State newState = state;
-        if (!isWithinAgroRange) {
-            newState = idelState;
-        } else {
-            if (isRecovering) {
-                newState = recoverState; 
-            } 
-            else if (!isWithinAttackRange) {
-                newState = agroState;
+        if (grounded) {
+            if (!isWithinAgroRange) {
+                newState = idelState;
             } else {
-                newState = attackState;
-            }
+                if (isRecovering) {
+                    newState = recoverState;
+                } else if (!isWithinAttackRange) {
+                    newState = agroState;
+                } else {
+                    newState = attackState;
+                }
 
+            }
+        } else{
+            newState = fallState;
         }
         if (manualState) {
             newState = manualState;

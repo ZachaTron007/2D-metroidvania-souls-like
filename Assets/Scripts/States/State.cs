@@ -12,7 +12,7 @@ public abstract class State : MonoBehaviour {
     public bool stateDone;
     protected Unit unitVariables;
     protected Stun stun;
-    protected void Start() {
+    protected virtual void Start() {
         if (!animator || !rb || !unitVariables) {
             Debug.Log("YOU HAVENT CALLED SETUP ON " + gameObject.name + "!!!, ON UNIT: "+transform.root.name);
         }
@@ -21,7 +21,7 @@ public abstract class State : MonoBehaviour {
 
     }
     public virtual void FixedUpdateState () { }
-    public virtual void Enter () {
+    public virtual void Enter() {
     }
     public virtual void Exit () {
         stateDone = true;
@@ -34,10 +34,14 @@ public abstract class State : MonoBehaviour {
         this.stun = stun;
 
     }
-    public void ResetState (State newState) {
+    public void ResetState(State newState,float[] args = default) {
         Exit();
+        newState.ArgReciver(args);
         newState.stateDone = false;
         newState.Enter();
+    }
+    protected virtual void ArgReciver(float[] arg) {
+        
     }
 
 }

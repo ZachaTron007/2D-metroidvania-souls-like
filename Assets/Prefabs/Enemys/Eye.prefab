@@ -529,6 +529,7 @@ MonoBehaviour:
   canBeHit: 1
   isRecovering: 0
   direction: -1
+  moveSpeed: 250
   engaged: 0
   AwarenessColliders:
   - {fileID: 3795354482318749612}

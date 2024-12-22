@@ -107,7 +107,7 @@ public class PlayerState : Unit {
 
 
 
-    protected override void StateChange(State manualState = null) {
+    public override void StateChange(State manualState = null) {
         State newState = state;
         if (grounded && state != jumpScript) {
             //checks to see if you are moving
