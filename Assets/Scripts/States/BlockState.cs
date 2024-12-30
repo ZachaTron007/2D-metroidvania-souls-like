@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class BlockState : State
 {
-    [SerializeField] private AnimationClip blockingClip;
-    [SerializeField] private AnimationClip parryClip;
     [SerializeField] public float parryWindow = 5f;
     
     [SerializeField] private bool blocking = false;
@@ -42,7 +40,7 @@ public class BlockState : State
     }
 
     public void Block() {
-        animator.Play(blockingClip.name);
+        animator.Play(unitVariables.animations.blockAnimation.name);
         //float parryWindow = .5f;
         blocking = true;
     }

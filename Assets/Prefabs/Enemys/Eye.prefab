@@ -415,7 +415,6 @@ MonoBehaviour:
   interuptable: 0
   stateDone: 0
   agroSpeed: 150
-  runClip: {fileID: 7400000, guid: 83057e8c6c5363e448a1f100fb807a0a, type: 2}
 --- !u!1 &3137445016241391336
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,7 +461,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interuptable: 0
   stateDone: 0
-  runClip: {fileID: 7400000, guid: e6f72b5bf5c9a064d8b3f1045c7693f7, type: 2}
+  moveSpeed: 300
 --- !u!1 &3350916029109910897
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,6 +512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34ad0a77965941e43a79cd5fc1262350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animations: {fileID: 0}
   includeRBLayers: {fileID: 6347320053045443442}
   rb: {fileID: 9056316023934366415}
   animatior: {fileID: 2350642550672675270}
@@ -791,7 +791,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interuptable: 0
   stateDone: 0
-  damageClip: {fileID: 7400000, guid: 71419e37cdce8a440be010a714a73991, type: 2}
   recoveryTime: 1
 --- !u!1 &3795354482318749612
 GameObject:
@@ -931,7 +930,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interuptable: 0
   stateDone: 0
-  idelAniamtion: {fileID: 7400000, guid: 83057e8c6c5363e448a1f100fb807a0a, type: 2}
   recoverTime: 0.6
 --- !u!1 &5233052503838960461
 GameObject:
@@ -1287,7 +1285,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interuptable: 0
   stateDone: 0
-  parryRecoverAnimation: {fileID: 7400000, guid: 71419e37cdce8a440be010a714a73991, type: 2}
   parryRecoverTime: 0.5
 --- !u!1 &7186490434539820560
 GameObject:
@@ -1369,7 +1366,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interuptable: 0
   stateDone: 0
-  deathClip: {fileID: 7400000, guid: 7fd6597d9a7511140ac83b87b3aebeb8, type: 2}
   startTime: 4
   speed: 0.2
 --- !u!1 &7964963169464356266
@@ -1418,7 +1414,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interuptable: 0
   stateDone: 0
-  fallClip: {fileID: 7400000, guid: d756094fc5e8c594ba2e2ba808fe9a90, type: 2}
   fallGravMultiplier: 3
 --- !u!1 &8145951768316461982
 GameObject:
@@ -1466,8 +1461,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interuptable: 0
   stateDone: 0
-  idelAniamtion: {fileID: 7400000, guid: 83057e8c6c5363e448a1f100fb807a0a, type: 2}
-  walkAnimation: {fileID: 0}
   walkBackDistance: 0
   walkSpeed: 50
   forgetTime: 2

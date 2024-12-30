@@ -75,6 +75,10 @@ public class SwordEnemyScript : EnemyScript {
             }
 
         }
+        
+        if (rb.linearVelocity.y < -.0001) {
+            newState = fallState;
+        }
         if (manualState) {
             newState = manualState;
         }

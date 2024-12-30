@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class JumpScript : State
 {
-    [SerializeField] private AnimationClip jumpClip;
     [SerializeField] private float jumpVelocity = 5;
     [SerializeField] private float jumpHeight = 3;
     [SerializeField] private float lowJumpMultiplier = 20f;
@@ -13,10 +12,7 @@ public class JumpScript : State
     public int doubleJump = 0;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float grav = 2;
 
     // Update is called once per frame
 
@@ -24,9 +20,9 @@ public class JumpScript : State
         //wallSliding = false;
         //makes the y component change
         rb.linearVelocity = Vector2.up * jumpVelocity;
-        rb.gravityScale = 2;
+        
+        rb.gravityScale = grav;
         doubleJump += 1;
-        Exit();
 
     }
 
@@ -43,8 +39,8 @@ public class JumpScript : State
         
     }
     public override void Enter() {
-        jumpVelocity = Mathf.Sqrt(Physics.gravity.y * 2 * jumpHeight * -2);
-        animator.Play(jumpClip.name);
+        //jumpVelocity = Mathf.Sqrt(Physics.gravity.y * 2 * jumpHeight * -2);
+        animator.Play(unitVariables.animations.jumpAnimation.name);
         Jump();
     }
     public override void Exit() {

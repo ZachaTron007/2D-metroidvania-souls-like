@@ -20,7 +20,7 @@ public class FlyingIdelState : BaseIdelState
     }
     public override void Enter()
     {
-        animator.Play(idelAniamtion.name);
+        animator.Play(unitVariables.animations.idelAnimation.name);
     }
 
     private Vector3 PointPicker() {

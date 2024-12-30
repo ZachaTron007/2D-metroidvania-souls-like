@@ -2,13 +2,12 @@ using UnityEngine;
 
 public class DeathScript : State
 {
-    [SerializeField] private AnimationClip deathClip;
     [SerializeField] private float startTime = 4;
     private float times = 0;
     [SerializeField] private float speed = 0.2f;
     public override void Enter() {
         interuptable = 1;
-        animator.Play(deathClip.name);
+        animator.Play(unitVariables.animations.deathAnimation.name);
         times = 0;
         Debug.Log("Death");
 

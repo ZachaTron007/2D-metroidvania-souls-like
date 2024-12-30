@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class RecoveryState : State
 {
-    [SerializeField] protected AnimationClip idelAniamtion;
     [SerializeField] protected float recoverTime = 1;
     public override void Enter() {
-        animator.Play(idelAniamtion.name);
+        animator.Play(unitVariables.animations.idelAnimation.name);
         rb.linearVelocity = Vector2.zero;
         interuptable = .6f;
         Invoke("DoneRecovering", recoverTime);

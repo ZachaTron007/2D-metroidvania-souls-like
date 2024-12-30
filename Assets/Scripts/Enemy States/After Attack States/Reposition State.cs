@@ -25,7 +25,7 @@ public class RepositionState : RecoveryState {
         rb.linearVelocity = Vector2.right * direction * speed*Time.fixedDeltaTime;
     }
     private void Stay(int direction) {
-        animator.Play(idelAniamtion.name);
+        animator.Play(unitVariables.animations.idelAnimation.name);
         rb.linearVelocity = Vector2.zero;
         Exit();
     }

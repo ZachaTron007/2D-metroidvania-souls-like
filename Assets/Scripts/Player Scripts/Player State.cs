@@ -41,8 +41,8 @@ public class PlayerState : Unit {
 
     //public event Action <bool> parried;
     //buttons 
-    private float bufferTime = .2f;
-    private float bufferCounter = 0;
+    public float bufferTime = .2f;
+     float bufferCounter = 0;
     public KeyCode lastKey;
     const KeyCode jump = KeyCode.Space;
     const KeyCode dash = KeyCode.LeftShift;
@@ -90,7 +90,6 @@ public class PlayerState : Unit {
         grounded = GroundTouch();
         lastKey = GetInput(buttons);
         //horizontal movement
-        attackTime += Time.deltaTime;
 
         if (moveVetcor.x != 0) {
             SetDirection((int)moveVetcor.x);
@@ -98,7 +97,7 @@ public class PlayerState : Unit {
 
         }
         //the iniatal jump, you need to be in kyote time or on the ground
-        dashCount += Time.deltaTime;
+        
         //if you arent on the ground
         moveVetcor = move.ReadValue<Vector2>();
         StateChange();
@@ -124,13 +123,13 @@ public class PlayerState : Unit {
         } else if (rb.linearVelocity.y < 0) {
             newState = fallState;
         }
+        dashCount += Time.deltaTime;
         if (lastKey == dash && dashCount >= dashCool) {
             newState = Dash;
             dashCount = 0;
         }
-        attackTime += Time.deltaTime;
         if (grounded) {
-            if (lastKey == attackButton && attackTime >= attackState.currentAttack.length) {
+            if (lastKey == attackButton) {
                 newState = attackState;
             }
             if (lastKey == blockButton) {
@@ -156,7 +155,7 @@ public class PlayerState : Unit {
 
     
     private void Run() {
-        rb.linearVelocity = new Vector2(moveVetcor.x * moveSpeed * Time.fixedDeltaTime, rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(moveVetcor.x * moveState.moveSpeed * Time.fixedDeltaTime, rb.linearVelocity.y);
     }
     public KeyCode GetInput(KeyCode[]buttons) {
         
@@ -169,7 +168,6 @@ public class PlayerState : Unit {
         bufferCounter += Time.deltaTime;
         if (bufferCounter >= bufferTime) {
             lastKey = KeyCode.None;
-        } else {
             bufferCounter = 0;
         }
         return lastKey;

@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class ParryState : State
 {
-    [SerializeField] private AnimationClip parryClip;
     [SerializeField] private float timeFreezeTime;
     [SerializeField] private float shakeTime;
     [SerializeField] private float shakeIntensity;
@@ -12,11 +11,17 @@ public class ParryState : State
     public override void Enter() {
         counter = 0;
         interuptable = .3f;
-        animator.Play(parryClip.name);
-        Invoke("Exit", parryClip.length);
-        //gets the refrence tothe attack that hit you, then gets the stun component from the root of the attack in the hiarchy, then changes the stun
-        unitVariables.lastAttackToHit.transform.root.TryGetComponent(out Stun stun);
+        animator.Play(unitVariables.animations.parryAnimation.name);
+        Invoke("Exit", unitVariables.animations.parryAnimation.length);
 
+        //gets the refrence tothe attack that hit you, then gets the stun component from the root of the attack in the hiarchy, then changes the stun
+        Transform enemyTransform = unitVariables.lastAttackToHit.transform;
+        Transform rootTransform = unitVariables.lastAttackToHit.transform.root;
+        while (enemyTransform.gameObject.layer != HelperFunctions.layers["Enemys"] &&enemyTransform!=rootTransform) {
+            enemyTransform = enemyTransform.parent;
+            
+        }
+        enemyTransform.TryGetComponent(out Stun stun);
         stun?.ChangeCurrentValue(StunAmount);
         CinemachineEffectScript.instance.ScreenShake(shakeIntensity, shakeTime);
         

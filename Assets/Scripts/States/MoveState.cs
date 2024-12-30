@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class MoveState : State
 {
-    [SerializeField] private AnimationClip runClip;
+    public float moveSpeed = 300;
     
     public override void Enter() {
-        animator.Play(runClip.name);
+        animator.Play(unitVariables.animations.runAnimation.name);
     }
 }

@@ -10,6 +10,7 @@ public abstract class State : MonoBehaviour {
     public bool recovering { get; protected set; } = false;
     public float interuptable = 0;//{ get; protected set; } = 0;
     public bool stateDone;
+    public bool canTransitionToSelf = false;
     protected Unit unitVariables;
     protected Stun stun;
     protected void Start() {

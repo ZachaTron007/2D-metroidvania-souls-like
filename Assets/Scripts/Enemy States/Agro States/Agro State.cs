@@ -6,7 +6,6 @@ public class AgroState : State
 {
 
     [SerializeField] private float agroSpeed = 250;
-    [SerializeField] protected AnimationClip runClip;
 
     public override void Enter() {
         
@@ -15,7 +14,14 @@ public class AgroState : State
         Run();
     }
     protected virtual void Run() {
-        animator.Play(runClip.name);
-        rb.linearVelocity = new Vector2(unitVariables.GetDirection() * agroSpeed * Time.deltaTime, rb.linearVelocity.y);
+        if (unitVariables.IsGroundInFront()) {
+            animator.Play(unitVariables.animations.runAnimation.name);
+            
+            rb.linearVelocity = new Vector2(unitVariables.GetDirection() * agroSpeed * Time.deltaTime, rb.linearVelocity.y);
+        } else {
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            animator.Play(unitVariables.animations.idelAnimation.name);
+        }
+
     }
 }

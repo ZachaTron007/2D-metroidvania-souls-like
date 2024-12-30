@@ -3,10 +3,8 @@ using UnityEngine;
 
 public class BaseIdelState : State
 {
-    [SerializeField] protected AnimationClip idelAniamtion;
-    [SerializeField] protected AnimationClip walkAnimation;
-    [SerializeField] private float walkBackDistance;
-    [SerializeField] protected float walkSpeed = 500;
+    [SerializeField] private float walkBackDistance = 10;
+    [SerializeField] protected float walkSpeed = 200;
     [SerializeField] private float forgetTime = 4;
     private Vector2 startPos;
     private int startDir;
@@ -40,15 +38,15 @@ public class BaseIdelState : State
         if (needsRetreating) {
             unitVariables.SetDirection((unitVariables.transform.position.x - startPos.x > walkBackDistance) ? -1 : 1);
             rb.linearVelocity = new Vector2(unitVariables.GetDirection()*walkSpeed*Time.deltaTime, rb.linearVelocityY);
-            animator.Play(walkAnimation.name);
+            animator.Play(unitVariables.animations.runAnimation.name);
         } else {
             IdelFunctionality();
             unitVariables.SetDirection(startDir);
         }
     }
     protected virtual void Stay() {
-        rb.linearVelocity = Vector2.zero;
-        animator.Play(idelAniamtion.name);
+        rb.linearVelocity = new Vector2(0,rb.linearVelocity.y);
+        animator.Play(unitVariables.animations.idelAnimation.name);
         
     }
 }

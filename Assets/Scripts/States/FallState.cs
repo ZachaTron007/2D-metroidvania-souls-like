@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class FallState : State
 {
-    [SerializeField] private AnimationClip fallClip;
     [SerializeField] private float fallGravMultiplier = 3f;
     
     private float terminalVelocity = 15;
@@ -20,7 +19,7 @@ public class FallState : State
         }
     }
     public override void Enter() {
-        animator.Play(fallClip.name);
+        animator.Play(unitVariables.animations.fallAniamtion.name);
         //reset gravity
         rb.gravityScale = 2;
     }

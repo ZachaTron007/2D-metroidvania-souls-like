@@ -4,39 +4,33 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public class PlayerAttack : ParentMeleeAttack {
+    private float attackTime;
     [SerializeField] protected AttackInfo[] basicCombo;
     [SerializeField] private int attackNum = -1;
     [SerializeField] private AnimationClip currentClip;
-    [SerializeField] private float currentClipTime;
+    [SerializeField] public float currentClipTime;
 
 
     // Update is called once per frame
     private void Awake() {
         currentAttack = basicCombo[0];
+        canTransitionToSelf = true;
     }
     public override void Enter() {
         base.Enter();
+        
         UpdateAttack();
-        unitVariables.attackTime = 0;
         StartCoroutine(attack);
-        unitVariables.attackTime = 0;/*
-        if (unitVariables.attackTime >= currentClipTime) {
-            
-            
-            
-        } else {
-            Exit();
-        }*/
 
     }
 
     public override void Exit() {
         base.Exit();
-        unitVariables.attackTime = 0;
+        attackTime = 0;
     }
-    public override void UpdateState() {
+    public void Update() {
 
-        //attackTime += Time.deltaTime;
+        attackTime += Time.deltaTime;
     }
 
     public void UpdateAttack() {
@@ -47,7 +41,7 @@ public class PlayerAttack : ParentMeleeAttack {
         if (attackNum >= basicCombo.Length) {
             attackNum = 0;
         }
-        if (unitVariables.attackTime >= comboEndTime) {
+        if (attackTime >= comboEndTime) {
             attackNum = 0;
         }
         //sets the current attack

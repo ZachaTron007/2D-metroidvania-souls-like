@@ -22,7 +22,7 @@ public class AttackInfo : DamageScript
 
 
 
-    private void Awake() {
+    private void Update() {
         float inverseSpeed = 1 / speed;
         length = clip.length * inverseSpeed;
         attackHitBox = GetComponent<BoxCollider2D>();
@@ -36,9 +36,6 @@ public class AttackInfo : DamageScript
         startMovingFrames *= speed;
         clip.spee = speed;*/
         
-
-    }
-    private void Update() {
 
     }
 

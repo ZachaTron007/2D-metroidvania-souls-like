@@ -2,13 +2,12 @@ using UnityEngine;
 
 public class ParryRecoverState : State
 {
-    [SerializeField] private AnimationClip parryRecoverAnimation;
     [SerializeField] private float parryRecoverTime;
     private float parryRecoverTimer;
 
     public override void Enter() {
         interuptable = 1f;
-        animator.Play(parryRecoverAnimation.name);
+        animator.Play(unitVariables.animations.HurtAnimation.name);
 
     }
 

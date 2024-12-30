@@ -4,7 +4,6 @@ using UnityEngine.InputSystem.Android;
 public class StunnedState : State
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    [SerializeField] private AnimationClip stunClip;
     private float unStunTimer;
     private float unStunTime = 3f;
     void Awake()
@@ -16,7 +15,7 @@ public class StunnedState : State
         stun.canChange = false;
         stun.SetCurrentValue(0);
         unStunTimer = 0;
-        animator.Play(stunClip.name);
+        animator.Play(unitVariables.animations.HurtAnimation.name);
     }
 
     public override void UpdateState() {

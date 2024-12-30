@@ -4,17 +4,16 @@ using UnityEngine;
 
 public class HurtState : State
 {
-    [SerializeField] protected AnimationClip damageClip;
     [SerializeField] private float recoveryTime;
     private void Start() {
         
     }
     public override void Enter() {
-        if (damageClip.length > recoveryTime) {
-            recoveryTime = damageClip.length;
+        if (unitVariables.animations.HurtAnimation.length > recoveryTime) {
+            recoveryTime = unitVariables.animations.HurtAnimation.length;
         }
         interuptable = .9f;
-        animator.Play(damageClip.name);
+        animator.Play(unitVariables.animations.HurtAnimation.name);
         Invoke(nameof(Exit), recoveryTime);
     }
 

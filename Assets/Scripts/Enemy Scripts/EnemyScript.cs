@@ -37,36 +37,41 @@ public abstract class EnemyScript : Unit {
      * collider enter and exit events for agro and attack range
      */
     protected void AgroRangeEnter(Collider2D other) {
-        if (other.gameObject.tag == "Player") {
+        if (other.gameObject.CompareTag("Player")) {
             //isWithinAgroRange = true;
 
         }
     }
 
     protected void AgroRangeStayEnter(Collider2D other) {
-        if (!other.gameObject.CompareTag("Player")) {
+        if (other.gameObject.CompareTag("Player")) {
             agroDelayCounter += Time.deltaTime;
             if (agroDelayCounter >= agroDelay) {
                 isWithinAgroRange = true;
+                Vector2 directionOfPlayer = other.gameObject.transform.position - gameObject.transform.position;
+                SetDirection(ShouldSwitchDirection(GetDirection(), directionOfPlayer));
             }
         }
     }
     protected void AgroRangeStay(Collider2D other) {
-        if (other.gameObject.tag == "Player" && isWithinAgroRange == true) {
-                Vector2 directionOfPlayer = other.gameObject.transform.position - gameObject.transform.position;
-                SetDirection(ShouldSwitchDirection(GetDirection(), directionOfPlayer));
-                isWithinAgroRange = IsPlayerBlocked(directionOfPlayer);
+        if (other.gameObject.tag == "Player") {
+            isWithinAgroRange = true;
+
+            Vector2 directionOfPlayer = other.gameObject.transform.position - gameObject.transform.position;
+            int dir = ShouldSwitchDirection(GetDirection(), directionOfPlayer);
+            SetDirection(dir);
+            isWithinAgroRange = IsPlayerBlocked(directionOfPlayer);
             }
     }
     protected void AgroRangeExit(Collider2D other) {
-        if (other.gameObject.tag == "Player") {
+        if (other.gameObject.CompareTag("Player")) {
             agroDelayCounter = 0;
             isWithinAgroRange = false;
         }
     }
 
     protected void AttackRangeEnter(Collider2D other) {
-        if (other.gameObject.tag == "Player") {
+        if (other.gameObject.CompareTag("Player")) {
             engaged = true;
             isWithinAttackRange = true;
         }
@@ -87,12 +92,7 @@ public abstract class EnemyScript : Unit {
      */
     private int ShouldSwitchDirection(int direction,Vector2 PlayerDirection) {
         float turnGracePeriod = mainCollider.hitBox.size.x / 2;
-        if (Mathf.Abs(PlayerDirection.x) > turnGracePeriod && state.interuptable>0) {
-            direction = PlayerDirection.x > 0 ? 1 : -1;
-            SetDirection(direction);
-            return direction;
-        }
-
+        if (Mathf.Abs(PlayerDirection.x) > turnGracePeriod && state.interuptable == 0) return PlayerDirection.x > 0 ? 1 : -1;
         return direction;
     }
     /*

@@ -11,7 +11,7 @@ public class PlayerIdelState : State
 
     public override void Enter() {
         base.Enter();
-        animator.Play(idelClip.name);
+        animator.Play(unitVariables.animations.idelAnimation.name);
         //rb.linearVelocity = Vector2.zero;
     }
 }

@@ -58,7 +58,7 @@ public class ParentMeleeAttack : State {
         yield return new WaitForSeconds(endHitBoxTime);
         rb.linearVelocity = Vector2.zero;
         currentAttack.attackHitBox.enabled = false;
-        float recoveryTime = (startHitBoxTime + endHitBoxTime + startHitBoxTime >= length) ? 0 : ( length - (startHitBoxTime + endHitBoxTime + startMovingTime));
+        float recoveryTime = 0;//(startHitBoxTime + endHitBoxTime + startHitBoxTime >= length) ? 0 : ( length - (startHitBoxTime + endHitBoxTime + startMovingTime));
         yield return new WaitForSeconds(recoveryTime);
         Exit();
     }

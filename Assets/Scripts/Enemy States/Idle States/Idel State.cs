@@ -29,7 +29,7 @@ public class IdelState : BaseIdelState {
         base.Stay();
     }
     private void Walk() {
-        animator.Play(walkAnimation.name);
+        animator.Play(unitVariables.animations.runAnimation.name);
         rb.linearVelocity = new Vector2(unitVariables.GetDirection() * walkSpeed * Time.deltaTime, rb.linearVelocity.y);
     }
     

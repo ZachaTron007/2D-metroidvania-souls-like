@@ -8,6 +8,7 @@ using UnityEngine.InputSystem.LowLevel;
 public abstract class Unit : MonoBehaviour
 {
     [Header("Components required by States")]
+    public AnimationCollection animations;
     protected Health health;
     protected Stun stun;
     public IncludeRBLayers includeRBLayers;
@@ -29,7 +30,6 @@ public abstract class Unit : MonoBehaviour
     [HideInInspector] public AttackInfo lastAttackToHit;
     public event Action parried;
     [Header("Properties")]
-    [HideInInspector] public float attackTime;
     [HideInInspector] public bool canBeHit = true;
     [HideInInspector] public bool isRecovering = false;
     [SerializeField] private int direction = 1;//{ get; protected set; } = 1;
@@ -96,8 +96,14 @@ public abstract class Unit : MonoBehaviour
                 state = newState;
                 SwitchStateActions();
                 return newState;
+            } else if(state.stateDone&&state.canTransitionToSelf) {
+                state.ResetState(newState);
+                state = newState;
+                SwitchStateActions(); 
+                return newState;
             }
         }
+
         return state;
     }
     protected virtual void SwitchStateActions() {
@@ -163,7 +169,7 @@ public abstract class Unit : MonoBehaviour
         int layerNumber = HelperFunctions.layers["Level"]; ;
         float distanceAdditon = 0.1f;
 
-        RaycastHit2D groundAvailible = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon, new Vector3(transform.position.x + (mainCollider.hitBox.size.x / 2) * direction, transform.position.y, 0), true);
+        RaycastHit2D groundAvailible = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon*2, new Vector3(transform.position.x + (mainCollider.hitBox.size.x / 2) * direction, transform.position.y+distanceAdditon, 0), true);
         return groundAvailible;
     }
     /*

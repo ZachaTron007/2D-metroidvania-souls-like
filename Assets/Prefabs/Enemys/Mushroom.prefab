@@ -46,7 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interuptable: 0
   stateDone: 0
-  parryRecoverAnimation: {fileID: 7400000, guid: a0da54ff6a44f444c8ca206b51b533ad, type: 2}
   parryRecoverTime: 0.5
 --- !u!1 &307003340171468623
 GameObject:
@@ -100,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34ad0a77965941e43a79cd5fc1262350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animations: {fileID: 0}
   includeRBLayers: {fileID: 1263580818619396342}
   rb: {fileID: 1451567078689242758}
   animatior: {fileID: 2800441836790963117}
@@ -249,7 +249,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interuptable: 0
   stateDone: 0
-  deathClip: {fileID: 7400000, guid: cb5ae9683b131ad469b063d89ac4c6ac, type: 2}
   startTime: 4
   speed: 0.2
 --- !u!1 &949736954057920423
@@ -475,7 +474,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interuptable: 0
   stateDone: 0
-  idelAniamtion: {fileID: 7400000, guid: b93675a41286cce41bf3eb46a34171fd, type: 2}
   recoverTime: 0.6
 --- !u!1 &2482319661677688900
 GameObject:
@@ -558,7 +556,6 @@ MonoBehaviour:
   interuptable: 0
   stateDone: 0
   agroSpeed: 1000
-  runClip: {fileID: 7400000, guid: e6f72b5bf5c9a064d8b3f1045c7693f7, type: 2}
 --- !u!1 &3298532770467917953
 GameObject:
   m_ObjectHideFlags: 0
@@ -837,7 +834,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interuptable: 0
   stateDone: 0
-  damageClip: {fileID: 7400000, guid: a0da54ff6a44f444c8ca206b51b533ad, type: 2}
   recoveryTime: 1
 --- !u!1 &4562446710317064488
 GameObject:
@@ -1116,7 +1112,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interuptable: 0
   stateDone: 0
-  fallClip: {fileID: 7400000, guid: d756094fc5e8c594ba2e2ba808fe9a90, type: 2}
   fallGravMultiplier: 3
 --- !u!1 &6378681004047907528
 GameObject:
@@ -1164,7 +1159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interuptable: 0
   stateDone: 0
-  runClip: {fileID: 7400000, guid: e6f72b5bf5c9a064d8b3f1045c7693f7, type: 2}
+  moveSpeed: 300
 --- !u!1 &6873516749006557680
 GameObject:
   m_ObjectHideFlags: 0

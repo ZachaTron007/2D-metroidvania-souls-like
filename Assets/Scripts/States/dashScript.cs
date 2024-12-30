@@ -8,7 +8,7 @@ public class dashScript : State
     
     //protected new bool interuptable = false;
     private IncludeRBLayers layers;
-    [SerializeField] private AnimationClip dashClip;
+    public int dashCount = 1;
     [SerializeField] private float dashSpeed = 15;
     [SerializeField] private float dashduration = 0.2f;
     private BoxCollider2D hitBox;
@@ -27,24 +27,15 @@ public class dashScript : State
         yield return null;
     }
     
-
-
-    public override void UpdateState() {
-
-    }
     public override void Enter() {
+        
         interuptable = 1f;
-        if (dashClip) {
-            animator.Play(dashClip.name);
-        }
+        animator.Play(unitVariables.animations.idelAnimation.name);
         StartCoroutine(dash());
     }
     public override void Exit() {
-        
+        dashCount -= 1;
         rb.linearVelocity = Vector2.zero;
         stateDone = true;
-    }
-    private void dashReset() {
-        dashing = false;
     }
 }
