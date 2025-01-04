@@ -414,6 +414,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interuptable: 0
   stateDone: 0
+  canTransitionToSelf: 0
   agroSpeed: 150
 --- !u!1 &3137445016241391336
 GameObject:
@@ -461,6 +462,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interuptable: 0
   stateDone: 0
+  canTransitionToSelf: 0
   moveSpeed: 300
 --- !u!1 &3350916029109910897
 GameObject:
@@ -525,7 +527,6 @@ MonoBehaviour:
   attackState: {fileID: 2914919024056419318}
   dieState: {fileID: 7768447194407861672}
   lastAttackToHit: {fileID: 0}
-  attackTime: 0
   canBeHit: 1
   isRecovering: 0
   direction: -1
@@ -646,6 +647,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interuptable: 0
   stateDone: 0
+  canTransitionToSelf: 0
   currentAttack: {fileID: 0}
   attackSpeedModifier: 1
   attackLungeSpeed: 0
@@ -791,6 +793,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interuptable: 0
   stateDone: 0
+  canTransitionToSelf: 0
   recoveryTime: 1
 --- !u!1 &3795354482318749612
 GameObject:
@@ -930,6 +933,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interuptable: 0
   stateDone: 0
+  canTransitionToSelf: 0
   recoverTime: 0.6
 --- !u!1 &5233052503838960461
 GameObject:
@@ -1285,6 +1289,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interuptable: 0
   stateDone: 0
+  canTransitionToSelf: 0
   parryRecoverTime: 0.5
 --- !u!1 &7186490434539820560
 GameObject:
@@ -1366,6 +1371,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interuptable: 0
   stateDone: 0
+  canTransitionToSelf: 0
   startTime: 4
   speed: 0.2
 --- !u!1 &7964963169464356266
@@ -1414,6 +1420,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interuptable: 0
   stateDone: 0
+  canTransitionToSelf: 0
   fallGravMultiplier: 3
 --- !u!1 &8145951768316461982
 GameObject:
@@ -1461,6 +1468,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interuptable: 0
   stateDone: 0
+  canTransitionToSelf: 0
   walkBackDistance: 0
   walkSpeed: 50
   forgetTime: 2

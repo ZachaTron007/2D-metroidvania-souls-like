@@ -36,19 +36,21 @@ public class PlayerState : Unit {
     [SerializeField] public BlockRecoverState blockRecoverState;
     [SerializeField] public ParryState parryState;
     [SerializeField] protected PlayerIdelState idelState;
+    [SerializeField] protected GlideState glideState;
     private InputScript inputScript;
     //[SerializeField] protected PlayerAttack melee;
 
     //public event Action <bool> parried;
     //buttons 
     public float bufferTime = .2f;
-     float bufferCounter = 0;
+    float bufferCounter = 0;
     public KeyCode lastKey;
     const KeyCode jump = KeyCode.Space;
     const KeyCode dash = KeyCode.LeftShift;
+    public const KeyCode glideButton = KeyCode.Space;
     const KeyCode blockButton = KeyCode.Mouse1;
     const KeyCode attackButton = KeyCode.Mouse0;
-    private KeyCode[] buttons = new KeyCode[] { jump, dash , blockButton, attackButton };
+    private KeyCode[] buttons = new KeyCode[] { jump, dash , blockButton, attackButton, glideButton};
 
 
     protected override void EventSubscribe() {
@@ -78,7 +80,7 @@ public class PlayerState : Unit {
         blockState.Setup(rb, animatior, this);
         parryState.Setup(rb, animatior, this);
         blockRecoverState.Setup(rb, animatior,this);
-        //melee.Setup(rb, animatior, this);
+        glideState.Setup(rb, animatior, this);
         hurtState.Setup(rb, animatior, this);
         state = idelState;
 
@@ -121,7 +123,13 @@ public class PlayerState : Unit {
 
             //checks to see if you are falling
         } else if (rb.linearVelocity.y < 0) {
-            newState = fallState;
+            if (lastKey == glideButton) {
+                newState = glideState;
+            } else if (state != glideState) {
+                newState = fallState;
+            } else if (state.stateDone) {
+                newState = fallState;
+            }
         }
         dashCount += Time.deltaTime;
         if (lastKey == dash && dashCount >= dashCool) {

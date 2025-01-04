@@ -55,6 +55,7 @@ public abstract class Unit : MonoBehaviour
      * components that are special to that unit are setup in their class
      */
     protected void ComponentSetup() {
+        state = fallState;
         includeRBLayers = GetComponent<IncludeRBLayers>();
         health = GetComponent<Health>();
         TryGetComponent(out stun);

@@ -13,11 +13,12 @@ public abstract class State : MonoBehaviour {
     public bool canTransitionToSelf = false;
     protected Unit unitVariables;
     protected Stun stun;
+    /*
     protected void Start() {
         if (!animator || !rb || !unitVariables) {
             Debug.Log("YOU HAVENT CALLED SETUP ON " + gameObject.name + "!!!, ON UNIT: "+transform.root.name);
         }
-    }
+    }*/
     public virtual void UpdateState () {
 
     }
@@ -26,6 +27,7 @@ public abstract class State : MonoBehaviour {
     }
     public virtual void Exit () {
         stateDone = true;
+
     }
 
     public void Setup (Rigidbody2D rb, Animator animator,Unit unitVariables,Stun stun = null) { 
@@ -40,5 +42,12 @@ public abstract class State : MonoBehaviour {
         newState.stateDone = false;
         newState.Enter();
     }
+
+    public virtual void collisionDetectionEnter(Collision2D collider) { }
+    public virtual void triggerDetectionEnter(Collider2D collider) {
+    }
+    public virtual void collisionDetectionExit(Collision2D collider) { }
+    public virtual void triggerDetectionExit(Collider2D collider) { }
+    public virtual void triggerDetectionStay(Collider2D collider) { }
 
 }
