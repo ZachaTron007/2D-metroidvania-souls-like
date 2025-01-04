@@ -46,6 +46,10 @@ public abstract class Unit : MonoBehaviour
         this.direction = direction;
         sr.flipX = direction < 0;
     }
+    [ContextMenu("Flip Directions")]
+    public void FlipDirection() {
+        SetDirection(GetDirection()*-1);
+    }
     public bool GetGroundedState() => grounded;
 
 

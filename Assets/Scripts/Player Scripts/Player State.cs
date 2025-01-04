@@ -62,6 +62,7 @@ public class PlayerState : Unit {
     }
 
     private void Awake() {
+        Debug.Log(transform.parent);
         //get the input system
         playerControls = new PlayerControls();
         inputScript = GetComponent<InputScript>();
@@ -202,6 +203,10 @@ public class PlayerState : Unit {
 
     public void StateChanges() {
         StateChange(blockRecoverState);
+    }
+
+    public void HitSuccess() {
+        
     }
 
 

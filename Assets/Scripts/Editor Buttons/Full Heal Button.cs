@@ -6,20 +6,21 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
-//[CustomEditor(typeof(PlayerState))]
-[CustomEditor(typeof(Health))]
-public class Test : Editor
+[CustomEditor(typeof(SwordEnemyScript))]
+public class FullHealButton : Editor
 {
     public override void OnInspectorGUI() {
-        Health button = (Health)target;
+        SwordEnemyScript enemyScript = (SwordEnemyScript)target;
+        
         
         DrawDefaultInspector();
         
-        if (GUILayout.Button("Full Heal")) {
-            button.Heal(1000);
+        if (GUILayout.Button("Flip Directions")) {
+            enemyScript.FlipDirection();
 
         }
         
+
     }
     
 }

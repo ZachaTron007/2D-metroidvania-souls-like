@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public static class HelperFunctions {
@@ -19,5 +20,48 @@ public static class HelperFunctions {
         }
         return binaryLayers;
     }
+
+    public static T getParentTransformComponent<T>(Transform baseTransform) where T : class{
+        T goalScript = null;
+        while (goalScript == null) {
+            baseTransform.TryGetComponent(out goalScript);
+            if (!baseTransform.parent) {
+                break;
+            }
+            baseTransform = baseTransform.parent;
+        }
+        return goalScript;
+    }
+    public static Transform getParentTransformlayer(Transform baseTransform,string layerName) {
+        while (baseTransform.gameObject.layer != layers[layerName]) {
+            if (!baseTransform.parent) {
+                break;
+            }
+            baseTransform = baseTransform.parent;
+        }
+        if (baseTransform.gameObject.layer != layers[layerName]) return null;
+        return baseTransform;
+    }
+    public static Transform getParentTransformlayer(Transform baseTransform, int layerNum) {
+        while (baseTransform.gameObject.layer != layerNum) {
+            if (!baseTransform.parent) {
+                break;
+            }
+            baseTransform = baseTransform.parent;
+        }
+        if (baseTransform.gameObject.layer != layerNum) return null;
+        return baseTransform;
+    }
+    public static Transform getParentTransformaTag(Transform baseTransform, string tagName) {
+        while (baseTransform.gameObject.CompareTag(tagName)) {
+            if (!baseTransform.parent) {
+                break;
+            }
+            baseTransform = baseTransform.parent;
+        }
+        if (baseTransform.gameObject.CompareTag(tagName)) return null;
+        return baseTransform;
+    }
+
 
 }
