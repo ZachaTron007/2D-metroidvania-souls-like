@@ -596,6 +596,11 @@ MonoBehaviour:
   startMovingTime: 0
   startHitBoxTime: 1
   endHitBoxTime: 3
+  destroyDelay: 0.3
+  effectSpeed: 1
+  xOffset: 0
+  yOffSet: 0
+  eeffect: {fileID: 0}
 --- !u!1 &2720542548723612446
 GameObject:
   m_ObjectHideFlags: 0
@@ -1178,6 +1183,10 @@ MonoBehaviour:
   grounded: 0
   kyoteTime: 0
   doubleJump: 0
+  yoffset: 0.1
+  destroyDelay: 0.5
+  effectSpeed: 0
+  puff: {fileID: 0}
   grav: 2
   wallSliding: 0
   wallJump: 0
@@ -1394,6 +1403,11 @@ MonoBehaviour:
   startMovingTime: 0
   startHitBoxTime: 1
   endHitBoxTime: 3
+  destroyDelay: 0.3
+  effectSpeed: 1
+  xOffset: 0
+  yOffSet: 0
+  eeffect: {fileID: 0}
 --- !u!1 &6991230870829561537
 GameObject:
   m_ObjectHideFlags: 0
@@ -1481,6 +1495,10 @@ MonoBehaviour:
   grounded: 0
   kyoteTime: 0
   doubleJump: 0
+  yoffset: 0.1
+  destroyDelay: 0.5
+  effectSpeed: 0
+  puff: {fileID: 0}
   grav: 2
 --- !u!1 &7433520069569163201
 GameObject:
@@ -1805,6 +1823,11 @@ MonoBehaviour:
   startMovingTime: 0
   startHitBoxTime: 2
   endHitBoxTime: 5
+  destroyDelay: 0.3
+  effectSpeed: 1
+  xOffset: 0
+  yOffSet: 0
+  eeffect: {fileID: 0}
 --- !u!1 &8392276947747122436
 GameObject:
   m_ObjectHideFlags: 0
@@ -1907,4 +1930,9 @@ MonoBehaviour:
   dashCount: 1
   dashSpeed: 22
   dashduration: 0.13
+  effectSpeed: 1
+  xOffset: 0
+  yOffset: 0
+  destroyDelay: 0.5
+  eeffect: {fileID: 0}
   dashing: 0

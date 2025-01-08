@@ -24,6 +24,7 @@ public class GlideState : State
     }
     public override void UpdateState() {
         if (Input.GetKeyUp(KeyCode.Space)) {
+            currentDraft = null;
             Exit();
         }
 
