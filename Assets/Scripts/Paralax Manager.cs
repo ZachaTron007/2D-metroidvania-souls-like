@@ -4,7 +4,7 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 public class ParalaxManager : MonoBehaviour
 {
     public static ParalaxManager instance;
-    [SerializeField] private Cinemachine.CinemachineVirtualCamera vcam;
+    [SerializeField] public Cinemachine.CinemachineVirtualCamera vcam;
     [HideInInspector] public Vector2 speed;
     [SerializeField] private float paralaxMultiplier = 1;
     void Start()

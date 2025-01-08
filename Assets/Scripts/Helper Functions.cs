@@ -21,7 +21,7 @@ public static class HelperFunctions {
         return binaryLayers;
     }
 
-    public static T getParentTransformComponent<T>(Transform baseTransform) where T : class{
+    public static T getParentTransfromComponent<T>(Transform baseTransform) where T : class{
         T goalScript = null;
         while (goalScript == null) {
             baseTransform.TryGetComponent(out goalScript);
@@ -62,6 +62,14 @@ public static class HelperFunctions {
         if (baseTransform.gameObject.CompareTag(tagName)) return null;
         return baseTransform;
     }
+    /*
+    public static GameObject EffectPlayer(GameObject playedEffect,Vector3 startPos, float destroyDelay,Quaternion rotation, float animSpeed = 1) {
+        GameObject effect = Instantiate(playedEffect, startPos, rotation);
+        Destroy(effect, destroyDelay);
+        if(animSpeed!=1)    effect.GetComponent<Animator>().speed = animSpeed;
+
+        return playedEffect;
+    }*/
 
 
 }

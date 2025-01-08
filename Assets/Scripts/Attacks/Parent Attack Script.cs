@@ -41,7 +41,7 @@ public class ParentMeleeAttack : State {
         interuptable = .1f;
         animator.speed = currentAttack.speed;
         animator.Play(currentAttack.clip.name);
-        rb.linearVelocity = Vector2.zero;
+        rb.linearVelocity = new Vector2(0, rb.linearVelocityY);// Vector2.zero;
         float startMovingTime = currentAttack.startMovingTime * attackSpeed;
         yield return new WaitForSeconds(startMovingTime);
         //Debug.Log(currentAttack.startMovingTime);
@@ -50,13 +50,13 @@ public class ParentMeleeAttack : State {
         //currentAttack.attackHitBox.enabled = true;
         float startHitBoxTime = currentAttack.startHitBoxTime * attackSpeed;
         yield return new WaitForSeconds(startHitBoxTime * attackSpeed);
-        rb.linearVelocity = Vector2.zero;
+        //rb.linearVelocity = Vector2.zero;
         interuptable = .6f;
         currentAttack.attackHitBox.enabled = true;
         currentAttack.attackHitBox.offset = offsetVector();
         float endHitBoxTime = currentAttack.endHitBoxTime * attackSpeed;
         yield return new WaitForSeconds(endHitBoxTime);
-        rb.linearVelocity = Vector2.zero;
+        //rb.linearVelocity = Vector2.zero;
         currentAttack.attackHitBox.enabled = false;
         float recoveryTime = 0;//(startHitBoxTime + endHitBoxTime + startHitBoxTime >= length) ? 0 : ( length - (startHitBoxTime + endHitBoxTime + startMovingTime));
         yield return new WaitForSeconds(recoveryTime);

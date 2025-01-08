@@ -297,6 +297,7 @@ MonoBehaviour:
   idelState: {fileID: 2760532947694410976}
   glideState: {fileID: 0}
   bufferTime: 0.2
+  arielForce: 10
   lastKey: 0
 --- !u!50 &5659295172002192011
 Rigidbody2D:

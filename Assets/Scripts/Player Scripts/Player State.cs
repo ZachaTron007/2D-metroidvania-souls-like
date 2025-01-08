@@ -43,6 +43,7 @@ public class PlayerState : Unit {
     //public event Action <bool> parried;
     //buttons 
     public float bufferTime = .2f;
+    public float arielForce = 10f;
     float bufferCounter = 0;
     public KeyCode lastKey;
     const KeyCode jump = KeyCode.Space;
@@ -62,7 +63,6 @@ public class PlayerState : Unit {
     }
 
     private void Awake() {
-        Debug.Log(transform.parent);
         //get the input system
         playerControls = new PlayerControls();
         inputScript = GetComponent<InputScript>();
@@ -137,10 +137,11 @@ public class PlayerState : Unit {
             newState = Dash;
             dashCount = 0;
         }
+        if (lastKey == attackButton) {
+            newState = attackState;
+        }
         if (grounded) {
-            if (lastKey == attackButton) {
-                newState = attackState;
-            }
+            
             if (lastKey == blockButton) {
                 newState = blockState;
             }
@@ -206,7 +207,15 @@ public class PlayerState : Unit {
     }
 
     public void HitSuccess() {
-        
+
+
+        /*
+        Debug.Log("Buffer");
+        if (!grounded) {
+            rb.linearVelocity = new Vector2(0, 0);
+            rb.AddForce(new Vector2(0, arielForce));
+
+        }*/
     }
 
 

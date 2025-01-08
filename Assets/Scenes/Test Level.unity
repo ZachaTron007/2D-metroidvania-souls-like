@@ -119,6 +119,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &3692141
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6445666186361868708, guid: 9deea548c44c9ac4e94d6932a0d85eaf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 40.638016
+      objectReference: {fileID: 0}
+    - target: {fileID: 6445666186361868708, guid: 9deea548c44c9ac4e94d6932a0d85eaf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.1066078
+      objectReference: {fileID: 0}
+    - target: {fileID: 6445666186361868708, guid: 9deea548c44c9ac4e94d6932a0d85eaf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6445666186361868708, guid: 9deea548c44c9ac4e94d6932a0d85eaf, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6445666186361868708, guid: 9deea548c44c9ac4e94d6932a0d85eaf, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6445666186361868708, guid: 9deea548c44c9ac4e94d6932a0d85eaf, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6445666186361868708, guid: 9deea548c44c9ac4e94d6932a0d85eaf, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6445666186361868708, guid: 9deea548c44c9ac4e94d6932a0d85eaf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6445666186361868708, guid: 9deea548c44c9ac4e94d6932a0d85eaf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6445666186361868708, guid: 9deea548c44c9ac4e94d6932a0d85eaf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6445666186361868711, guid: 9deea548c44c9ac4e94d6932a0d85eaf, type: 3}
+      propertyPath: m_Name
+      value: FX003_01
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9deea548c44c9ac4e94d6932a0d85eaf, type: 3}
 --- !u!1 &19352552
 GameObject:
   m_ObjectHideFlags: 0
@@ -3086,8 +3143,32 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4389947265746843862, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: eeffect
+      value: 
+      objectReference: {fileID: 1967835574231978638, guid: 3e196c9e632c76841a71cb6e2dc6d010, type: 3}
+    - target: {fileID: 4389947265746843862, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: xOffset
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4389947265746843862, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: yOffSet
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4389947265746843862, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: effectSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4389947265746843862, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: destroyDelay
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4389947265746843862, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: endHitBoxFrames
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4389947265746843862, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: ScreenShakeMagnitude
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4851268065011625167, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: m_IsActive
@@ -3102,12 +3183,28 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5748622122044369809, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: puff
+      value: 
+      objectReference: {fileID: 1604227354005263177, guid: d6d04e4b024a73147a9b9f10d607f384, type: 3}
+    - target: {fileID: 5748622122044369809, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: yoffset
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5748622122044369809, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: kyoteTime
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 5748622122044369809, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: jumpHeight
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5748622122044369809, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: effectSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5748622122044369809, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: destroyDelay
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 5748622122044369809, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: jumpVelocity
@@ -3146,6 +3243,26 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6489775057103274142, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: eeffect
+      value: 
+      objectReference: {fileID: 1967835574231978638, guid: 3e196c9e632c76841a71cb6e2dc6d010, type: 3}
+    - target: {fileID: 6489775057103274142, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: xOffset
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489775057103274142, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: yOffSet
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489775057103274142, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: effectSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489775057103274142, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: destroyDelay
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489775057103274142, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: endHitBoxFrames
       value: 10
       objectReference: {fileID: 0}
@@ -3156,6 +3273,26 @@ PrefabInstance:
     - target: {fileID: 8060508606102360622, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: speed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8060508606102360622, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: eeffect
+      value: 
+      objectReference: {fileID: 1967835574231978638, guid: 3e196c9e632c76841a71cb6e2dc6d010, type: 3}
+    - target: {fileID: 8060508606102360622, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: xOffset
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8060508606102360622, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: yOffSet
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8060508606102360622, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: effectSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8060508606102360622, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: destroyDelay
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8060508606102360622, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: endHitBoxFrames
@@ -3170,12 +3307,32 @@ PrefabInstance:
       value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 8471434802479641984, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: eeffect
+      value: 
+      objectReference: {fileID: 1604227354005263177, guid: d6d04e4b024a73147a9b9f10d607f384, type: 3}
+    - target: {fileID: 8471434802479641984, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: xOffset
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8471434802479641984, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: yOffset
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8471434802479641984, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: dashSpeed
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8471434802479641984, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: effectSpeed
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8471434802479641984, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: dashduration
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8471434802479641984, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: destroyDelay
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8471434802479641984, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: interuptable
@@ -3403,3 +3560,4 @@ SceneRoots:
   - {fileID: 1314610943}
   - {fileID: 885595889}
   - {fileID: 1761429372}
+  - {fileID: 3692141}

@@ -10,6 +10,10 @@ public class JumpScript : State
     public bool grounded = false;
     public float kyoteTime;
     public int doubleJump = 0;
+    [SerializeField] private float yoffset = .1f;
+    [SerializeField] private float destroyDelay = .5f;
+    [SerializeField] private float effectSpeed = 0;
+    [SerializeField] private GameObject puff;
 
     // Start is called before the first frame update
     public float grav = 2;
@@ -38,7 +42,11 @@ public class JumpScript : State
         }
         
     }
+
     public override void Enter() {
+        GameObject effect = Instantiate(puff, new Vector3(unitVariables.transform.position.x, unitVariables.transform.position.y + yoffset, unitVariables.transform.position.z),new Quaternion(0,0,0,0));
+        Destroy(effect,destroyDelay);
+        effect.GetComponent<Animator>().speed = effectSpeed;
         //jumpVelocity = Mathf.Sqrt(Physics.gravity.y * 2 * jumpHeight * -2);
         animator.Play(unitVariables.animations.jumpAnimation.name);
         Jump();

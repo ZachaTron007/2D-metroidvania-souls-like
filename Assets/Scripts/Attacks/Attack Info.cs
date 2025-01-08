@@ -40,7 +40,6 @@ public class AttackInfo : DamageScript
     }
 
     public virtual void VisualEffect() {
-        
         CinemachineEffectScript.instance.ScreenShake(ScreenShakeMagnitude, .2f);
     }
 }

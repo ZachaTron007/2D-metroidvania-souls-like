@@ -16,6 +16,7 @@ public class BackgroundMove : MonoBehaviour
     {
         Vector2 newSpeed = ParalaxManager.instance.speed * paralaxModifier;
         transform.position += new Vector3(newSpeed.x, newSpeed.y,0);
-        
+        //transform.position = new Vector3(transform.position.x, ParalaxManager.instance.vcam.transform.position.y, transform.position.z);
+
     }
 }

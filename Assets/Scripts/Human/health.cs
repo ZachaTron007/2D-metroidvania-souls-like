@@ -82,7 +82,7 @@ public class Health : ReducableStats {
             } else {
                 unitVariables.lastAttackToHit = attackInfo;
                 Damage(attackInfo.damage);
-                PlayerState state = HelperFunctions.getParentTransformComponent<PlayerState>(attackInfo.gameObject.transform);
+                PlayerState state = HelperFunctions.getParentTransfromComponent<PlayerState>(attackInfo.gameObject.transform);
                 //Debug.Log(attackInfo.gameObject.transform.root.name);
                 if (state) {
                     state.HitSuccess();
