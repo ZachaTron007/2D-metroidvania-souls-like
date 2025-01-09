@@ -28,11 +28,14 @@ public class SwordEnemyScript : EnemyScript {
         recoverState.Setup(rb, animatior, this, stun);
         parryRecoverState.Setup(rb, animatior, this, stun);
         stunnedState.Setup(rb, animatior, this, stun);
-        state = idelState;
-        state.Enter();
+        
         AgroAttackColliders();
 
 
+    }
+    private void Start() {
+        state = idelState;
+        state.Enter();
     }
     protected override void EventUnsubscribe() {
         base.EventUnsubscribe();

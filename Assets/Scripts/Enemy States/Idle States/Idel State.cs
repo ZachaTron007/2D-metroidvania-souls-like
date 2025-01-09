@@ -22,16 +22,13 @@ public class IdelState : BaseIdelState {
         base.Enter();
         switchTime = Random.Range(lowSwitchTime, highSwitchTime);
         switchCounter = 0;
-        IdelFunctionality = Stay;
+        IdelFunctionality = IdelFunctionalityChooser();
         
     }
     protected override void Stay() {
         base.Stay();
     }
-    private void Walk() {
-        animator.Play(unitVariables.animations.runAnimation.name);
-        rb.linearVelocity = new Vector2(unitVariables.GetDirection() * walkSpeed * Time.deltaTime, rb.linearVelocity.y);
-    }
+    
     
     public override void FixedUpdateState() {
         //rb.linearVelocity = new Vector2(unitVariables.GetDirection() * speed * Time.fixedDeltaTime, rb.linearVelocity.y);
@@ -41,11 +38,15 @@ public class IdelState : BaseIdelState {
         base.UpdateState();
         switchCounter += Time.deltaTime;
         if (switchCounter > switchTime) {
-            IdelFunctionality = IdelFunctionalities[Random.Range(0, IdelFunctionalities.Length)];
+            IdelFunctionality = IdelFunctionalityChooser();
             switchTime = Random.Range(lowSwitchTime, highSwitchTime);
             switchCounter = 0;
         }
-        IdelFunctionality();
+        
     }
-    
+
+    protected override IdelFunctionalityDelegate IdelFunctionalityChooser() {
+        return IdelFunctionalities[Random.Range(0, IdelFunctionalities.Length)];
+    }
+
 }

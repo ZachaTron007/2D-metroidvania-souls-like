@@ -55,13 +55,14 @@ public abstract class EnemyScript : Unit {
     }
     protected void AgroRangeStay(Collider2D other) {
         if (other.gameObject.tag == "Player") {
-            isWithinAgroRange = true;
-
-            Vector2 directionOfPlayer = other.gameObject.transform.position - gameObject.transform.position;
-            int dir = ShouldSwitchDirection(GetDirection(), directionOfPlayer);
-            SetDirection(dir);
-            isWithinAgroRange = IsPlayerBlocked(directionOfPlayer);
+            //isWithinAgroRange = true;
+            if (isWithinAgroRange) {
+                Vector2 directionOfPlayer = other.gameObject.transform.position - gameObject.transform.position;
+                int dir = ShouldSwitchDirection(GetDirection(), directionOfPlayer);
+                SetDirection(dir);
+                isWithinAgroRange = IsPlayerBlocked(directionOfPlayer);
             }
+        }
     }
     protected void AgroRangeExit(Collider2D other) {
         if (other.gameObject.CompareTag("Player")) {
