@@ -20,6 +20,7 @@ public class ParentMeleeAttack : State {
         attack = Attack();
     }
     public override void Enter() {
+        base.Enter();
         attack = Attack();
     }
     protected Vector2 offsetVector() {
@@ -63,10 +64,10 @@ public class ParentMeleeAttack : State {
         Exit();
     }
     public override void Exit() {
+        base.Exit();
         currentAttack.attackHitBox.enabled = false;
         animator.speed = 1;
         StopCoroutine(attack);
-        stateDone = true;
     }
 
 }

@@ -1,6 +1,6 @@
 using NUnit.Framework.Internal;
 using System.Collections;
-using System.Collections.Generic;
+using System.Collections.Generic; 
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,10 +12,10 @@ public class dashScript : State
     public int dashCount = 1;
     [SerializeField] private float dashSpeed = 15;
     [SerializeField] private float dashduration = 0.2f;
-    [SerializeField] private float effectSpeed = 1;
-    [SerializeField] private float xOffset;
-    [SerializeField] private float yOffset;
-    [SerializeField] private float destroyDelay = .5f;
+    private float effectSpeed = 1.7f;
+    private float xOffset = .8f;
+    private float yOffset = .5f;
+    private float destroyDelay = .4f;
     [SerializeField] private GameObject eeffect;
     private BoxCollider2D hitBox;
     public bool dashing;
@@ -38,14 +38,13 @@ public class dashScript : State
     }
     
     public override void Enter() {
-        
+        base.Enter();
         interuptable = 1f;
         animator.Play(unitVariables.animations.idelAnimation.name);
         StartCoroutine(dash());
     }
     public override void Exit() {
+        base.Exit();
         dashCount -= 1;
-        rb.linearVelocity = Vector2.zero;
-        stateDone = true;
     }
 }

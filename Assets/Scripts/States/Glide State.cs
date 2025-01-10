@@ -15,6 +15,7 @@ public class GlideState : State
     }
     public override void Enter() {
         base.Enter();
+        interuptable = .1f;
         unitVariables.mainCollider.triggerStay += triggerDetectionStay;
         unitVariables.mainCollider.triggerExit += triggerDetectionExit;
         ChangeSpeed(fallSpeed);
@@ -23,6 +24,7 @@ public class GlideState : State
         rb.gravityScale = 0;
     }
     public override void UpdateState() {
+        base.UpdateState();
         if (Input.GetKeyUp(KeyCode.Space)) {
             currentDraft = null;
             Exit();

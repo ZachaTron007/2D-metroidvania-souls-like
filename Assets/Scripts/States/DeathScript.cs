@@ -6,6 +6,7 @@ public class DeathScript : State
     private float times = 0;
     [SerializeField] private float speed = 0.2f;
     public override void Enter() {
+        base.Enter();
         interuptable = 1;
         animator.Play(unitVariables.animations.deathAnimation.name);
         times = 0;
@@ -14,11 +15,12 @@ public class DeathScript : State
     }
 
     public override void FixedUpdateState() {
+        base.FixedUpdateState();
         rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
     }
 
     public override void UpdateState() {
-        
+        base.UpdateState();
         if (times >= startTime) {
             times += Time.deltaTime*speed;
             float alpha = 1 - (times-startTime);

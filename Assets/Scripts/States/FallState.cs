@@ -12,6 +12,7 @@ public class FallState : State
     }
 
     public override void FixedUpdateState() {
+        base.FixedUpdateState();
         if (rb.linearVelocity.y > -terminalVelocity) {
             fallGravity();
         } else {
@@ -19,12 +20,13 @@ public class FallState : State
         }
     }
     public override void Enter() {
+        base.Enter();
         animator.Play(unitVariables.animations.fallAniamtion.name);
         //reset gravity
         rb.gravityScale = 2;
     }
     public override void UpdateState() {
-        
+        base.UpdateState();
         if (unitVariables.GetGroundedState()) {
             Exit();
         }

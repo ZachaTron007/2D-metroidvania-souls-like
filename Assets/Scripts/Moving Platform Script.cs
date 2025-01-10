@@ -6,7 +6,9 @@ public class MovingPlatformScript : MonoBehaviour
     [SerializeField] private Vector2 endPoint;
     private Rigidbody2D rb;
     private Vector2 endPoint2;
-    private Vector2 direction;
+    protected Vector2 direction;
+    protected Vector2 goalPos;
+
     private float totalDistance;
     private bool canTurn = true;
     public float StayTime = 2;
@@ -20,33 +22,46 @@ public class MovingPlatformScript : MonoBehaviour
         direction.Normalize();
         totalDistance = Mathf.Abs(HelperFunctions.PointToDistance(endPoint2, endPoint));
         rb = GetComponent<Rigidbody2D>();
+        goalPos = endPoint;
+        ResetCounter();
     }
 
     // Update is called once per frame
     void Update()
     {
-        rb.linearVelocity = (Vector3)direction*moveSpeed*Time.deltaTime;
+        MoveSpeed();
         float distance = HelperFunctions.PointToDistance(transform.position, endPoint);
         float distance2 = HelperFunctions.PointToDistance(transform.position, endPoint2);
-
+        //Debug.Log(distance + " " + distance2);
+        //Debug.Log(totalDistance);
         if (canTurn) {
             if (distance > totalDistance || distance2 > totalDistance) {
-                
-                
-                counter += Time.deltaTime;
-                if (counter < StayTime) {
+
+
+                if (counter == 0) {
+                    Invoke(nameof(ResetCounter), StayTime + 1);
+                }else if (counter < StayTime) {
                     rb.linearVelocity = Vector3.zero;
                 } else {
                     direction *= -1;
                     canTurn = false;
-                    rb.linearVelocity = (Vector3)direction * moveSpeed * Time.deltaTime;
+                    MoveSpeed();
                 }
-                Invoke(nameof(ResetCounter), StayTime+1);
+                counter += Time.deltaTime;
+                    
+                if(distance > totalDistance) {
+                    goalPos = endPoint;
+                } else {
+                    goalPos = endPoint2;
+                }
+
             }
         }
     }
-
-    private void ResetCounter() {
+    protected virtual void MoveSpeed() {
+        rb.linearVelocity = (Vector3)direction * moveSpeed * Time.deltaTime;
+    }
+    protected virtual void ResetCounter() {
         canTurn = true;
         counter = 0;
     }

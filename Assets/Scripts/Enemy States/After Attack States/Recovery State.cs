@@ -6,6 +6,7 @@ public class RecoveryState : State
 {
     [SerializeField] protected float recoverTime = 1;
     public override void Enter() {
+        base.Enter();
         animator.Play(unitVariables.animations.idelAnimation.name);
         rb.linearVelocity = Vector2.zero;
         interuptable = .6f;
@@ -18,6 +19,7 @@ public class RecoveryState : State
     }
 
     public override void UpdateState() {
+        base.UpdateState();
         rb.linearVelocity = Vector2.zero;
     }
 }

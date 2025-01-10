@@ -15,6 +15,7 @@ public class BlockState : State
 
 
     public override void Enter() {
+        base.Enter();
         rb.linearVelocity = new Vector2(0,rb.linearVelocity.y);
         canParry = true;
         parryCounter = 0;
@@ -24,6 +25,7 @@ public class BlockState : State
     }
 
     public override void UpdateState() {
+        base.UpdateState();
         parryCounter += Time.deltaTime;
         if (parryCounter > parryWindow) {
             canParry = false;
@@ -34,8 +36,8 @@ public class BlockState : State
     }
 
     public override void Exit() {
+        base.Exit();
         blocking = false;
-        stateDone = true;
         canParry = false;
     }
 

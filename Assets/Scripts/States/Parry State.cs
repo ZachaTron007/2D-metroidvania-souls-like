@@ -9,6 +9,7 @@ public class ParryState : State
     [SerializeField] private float StunAmount = 10;
     private float counter;
     public override void Enter() {
+        base.Enter();
         counter = 0;
         interuptable = .3f;
         animator.Play(unitVariables.animations.parryAnimation.name);
@@ -26,11 +27,9 @@ public class ParryState : State
         CinemachineEffectScript.instance.ScreenShake(shakeIntensity, shakeTime);
         
     }
-    public override void Exit() {
-        stateDone = true;
-    }
     public override void UpdateState() {
         /*
+        base.UpdateState()
         counter += Time.deltaTime;
         if (counter < timeFreezeTime) {
             Time.timeScale = timeSpeed;

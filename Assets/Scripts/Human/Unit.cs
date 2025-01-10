@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro.EditorUtilities;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
 
@@ -33,9 +34,7 @@ public abstract class Unit : MonoBehaviour
     [HideInInspector] public bool canBeHit = true;
     [HideInInspector] public bool isRecovering = false;
     [SerializeField] private int direction = 1;//{ get; protected set; } = 1;
-    protected float moveSpeed = 250;
     protected bool grounded;
-    [HideInInspector] public bool engaged;
     private float kyoteTimeCounter;
     /*
      * summary:
@@ -94,25 +93,38 @@ public abstract class Unit : MonoBehaviour
      * you give a box dimentions as a parameter
      */
 
-    protected State CanSwitchState(State newState) {
-        if (newState.interuptable >= state.interuptable || state.stateDone || state.interuptable == 0) {
-            if (state != newState) {
-                state.ResetState(newState);
-                state = newState;
-                SwitchStateActions();
+    protected State CanSwitchState(State newState, State oldState) {
+        if (!oldState) {
+            SwitchStateActions(newState, oldState);
+            return newState;
+        } else if (!newState) {
+            if (oldState.IsStateDone()||oldState.interuptable==0) {
+                return null;
+            } else {
+                //SwitchStateActions(newState, oldState);
+                return oldState;
+            }
+        } else {
+        }
+        if (newState.interuptable >= oldState.interuptable || oldState.IsStateDone() || oldState.interuptable == 0) {
+            if (oldState != newState) {
+                SwitchStateActions(newState, oldState);
+
                 return newState;
-            } else if(state.stateDone&&state.canTransitionToSelf) {
-                state.ResetState(newState);
-                state = newState;
-                SwitchStateActions(); 
+            } else if (oldState.IsStateDone() && oldState.canTransitionToSelf) {
+                SwitchStateActions(newState,oldState);
                 return newState;
             }
         }
 
-        return state;
+        return oldState;
     }
-    protected virtual void SwitchStateActions() {
-
+    protected virtual void SwitchStateActions(State newState,State oldState) {
+        if (oldState) {
+            oldState.ResetState(newState);
+        } else if(newState) {
+            newState.ResetState(newState);
+        }
     }
     protected bool GroundTouch() {
         Vector2 BoxDimentions = new Vector2(.1f, .1f);

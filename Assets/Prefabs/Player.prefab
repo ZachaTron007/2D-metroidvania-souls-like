@@ -287,10 +287,21 @@ MonoBehaviour:
   canBeHit: 1
   isRecovering: 0
   direction: 1
-  engaged: 0
+  move:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 342ca8dc-34c1-4cc2-b999-81a3a9dc9a7a
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  xVelState: {fileID: 0}
+  yVelState: {fileID: 0}
   Dash: {fileID: 8471434802479641984}
   wallActions: {fileID: 1451001638846000934}
   moveState: {fileID: 545213728974159921}
+  decerateMoveState: {fileID: 0}
   blockState: {fileID: 811300300784513735}
   blockRecoverState: {fileID: 9069043031560186155}
   parryState: {fileID: 5315851485427623027}
@@ -434,7 +445,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
-  stateDone: 0
   canTransitionToSelf: 0
   fallGravMultiplier: 3
 --- !u!1 &2485842863330998876
@@ -482,7 +492,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
-  stateDone: 0
   canTransitionToSelf: 0
   dust: {fileID: 7054879024249494992, guid: ea7a63df68e2d744987636e487d1f802, type: 3}
   knockbackSpeed: 10
@@ -646,7 +655,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
-  stateDone: 0
   canTransitionToSelf: 0
   recoveryTime: 1
   knockbackX: 6
@@ -698,7 +706,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
-  stateDone: 0
   canTransitionToSelf: 0
   startTime: 0
   speed: 1
@@ -812,9 +819,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
-  stateDone: 0
   canTransitionToSelf: 0
   moveSpeed: 300
+  accSpeed: 0
+  velPower: 0
 --- !u!1 &4434563391041593556
 GameObject:
   m_ObjectHideFlags: 0
@@ -1124,7 +1132,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
-  stateDone: 0
   canTransitionToSelf: 0
   parryWindow: 0.1
   blocking: 0
@@ -1175,19 +1182,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
-  stateDone: 0
   canTransitionToSelf: 0
   jumpVelocity: 5
   jumpHeight: 3
   lowJumpMultiplier: 20
   grounded: 0
   kyoteTime: 0
-  doubleJump: 0
-  yoffset: 0.1
-  destroyDelay: 0.5
-  effectSpeed: 0
+  remainingJumps: 0
   puff: {fileID: 0}
-  grav: 2
   wallSliding: 0
   wallJump: 0
 --- !u!1 &5849605177917012123
@@ -1236,7 +1238,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
-  stateDone: 0
   canTransitionToSelf: 0
   currentAttack: {fileID: 0}
   attackSpeedModifier: 1
@@ -1294,7 +1295,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
-  stateDone: 0
   canTransitionToSelf: 0
   idelClip: {fileID: 7400000, guid: 25c891cb0c6f9254ab9e614f7fd82c78, type: 2}
 --- !u!1 &6949226957807085175
@@ -1487,19 +1487,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
-  stateDone: 0
   canTransitionToSelf: 0
   jumpVelocity: 5
   jumpHeight: 3
   lowJumpMultiplier: 10
   grounded: 0
   kyoteTime: 0
-  doubleJump: 0
-  yoffset: 0.1
-  destroyDelay: 0.5
-  effectSpeed: 0
+  remainingJumps: 0
   puff: {fileID: 0}
-  grav: 2
 --- !u!1 &7433520069569163201
 GameObject:
   m_ObjectHideFlags: 0
@@ -1873,7 +1868,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
-  stateDone: 0
   canTransitionToSelf: 0
   timeFreezeTime: 0.5
   shakeTime: 0.2
@@ -1925,14 +1919,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
-  stateDone: 0
   canTransitionToSelf: 0
   dashCount: 1
   dashSpeed: 22
   dashduration: 0.13
-  effectSpeed: 1
-  xOffset: 0
-  yOffset: 0
-  destroyDelay: 0.5
   eeffect: {fileID: 0}
   dashing: 0

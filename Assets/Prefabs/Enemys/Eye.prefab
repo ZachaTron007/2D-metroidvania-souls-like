@@ -413,7 +413,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
-  stateDone: 0
   canTransitionToSelf: 0
   agroSpeed: 150
 --- !u!1 &3137445016241391336
@@ -461,9 +460,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
-  stateDone: 0
   canTransitionToSelf: 0
   moveSpeed: 300
+  accSpeed: 0
+  velPower: 0
 --- !u!1 &3350916029109910897
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,7 +530,6 @@ MonoBehaviour:
   canBeHit: 1
   isRecovering: 0
   direction: -1
-  engaged: 0
   AwarenessColliders:
   - {fileID: 3795354482318749612}
   - {fileID: 2159275857710037923}
@@ -646,7 +645,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
-  stateDone: 0
   canTransitionToSelf: 0
   currentAttack: {fileID: 0}
   attackSpeedModifier: 1
@@ -792,7 +790,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
-  stateDone: 0
   canTransitionToSelf: 0
   recoveryTime: 1
 --- !u!1 &3795354482318749612
@@ -932,7 +929,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
-  stateDone: 0
   canTransitionToSelf: 0
   recoverTime: 0.6
 --- !u!1 &5233052503838960461
@@ -1288,7 +1284,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
-  stateDone: 0
   canTransitionToSelf: 0
   parryRecoverTime: 0.5
 --- !u!1 &7186490434539820560
@@ -1370,7 +1365,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
-  stateDone: 0
   canTransitionToSelf: 0
   startTime: 4
   speed: 0.2
@@ -1419,7 +1413,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
-  stateDone: 0
   canTransitionToSelf: 0
   fallGravMultiplier: 3
 --- !u!1 &8145951768316461982
@@ -1467,11 +1460,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
-  stateDone: 0
   canTransitionToSelf: 0
   walkBackDistance: 0
   walkSpeed: 50
   forgetTime: 2
+  startPos: {x: 0, y: 0}
   point: {x: 0, y: 0, z: 0}
   hitBoxScript: {fileID: 3624540402643955331}
   idelSpeed: 100

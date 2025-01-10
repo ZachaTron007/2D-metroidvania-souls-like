@@ -73,7 +73,6 @@ public abstract class EnemyScript : Unit {
 
     protected void AttackRangeEnter(Collider2D other) {
         if (other.gameObject.CompareTag("Player")) {
-            engaged = true;
             isWithinAttackRange = true;
         }
     }
@@ -82,7 +81,6 @@ public abstract class EnemyScript : Unit {
     }
     protected void AttackRangeExit(Collider2D other) {
         if (other.gameObject.tag == "Player") {
-            engaged = false;
             isWithinAttackRange = false;
         }
     }

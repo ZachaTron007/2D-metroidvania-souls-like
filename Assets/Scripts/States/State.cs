@@ -9,10 +9,14 @@ public abstract class State : MonoBehaviour {
     protected Animator animator;
     public bool recovering { get; protected set; } = false;
     public float interuptable = 0;//{ get; protected set; } = 0;
-    public bool stateDone;
+    [SerializeField] private bool stateDone = false;
     public bool canTransitionToSelf = false;
     protected Unit unitVariables;
+    protected PlayerState playerVariables;
     protected Stun stun;
+    public bool IsStateDone() {
+        return stateDone;
+    }
     /*
     protected void Start() {
         if (!animator || !rb || !unitVariables) {
@@ -24,23 +28,24 @@ public abstract class State : MonoBehaviour {
     }
     public virtual void FixedUpdateState () { }
     public virtual void Enter () {
+        stateDone = false;
     }
     public virtual void Exit () {
         stateDone = true;
 
     }
 
-    public void Setup (Rigidbody2D rb, Animator animator,Unit unitVariables,Stun stun = null) { 
+    public void Setup (Rigidbody2D rb, Animator animator,Unit unitVariables,Stun stun = null, PlayerState playerVariables = null) { 
         this.rb = rb;
         this.animator = animator;
         this.unitVariables = unitVariables;
         this.stun = stun;
+        this.playerVariables = playerVariables;
 
     }
     public void ResetState (State newState) {
         Exit();
-        newState.stateDone = false;
-        newState.Enter();
+        newState?.Enter();
     }
 
     public virtual void collisionDetectionEnter(Collision2D collider) { }

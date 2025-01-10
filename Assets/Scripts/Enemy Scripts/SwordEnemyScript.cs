@@ -86,7 +86,7 @@ public class SwordEnemyScript : EnemyScript {
             newState = manualState;
         }
 
-        state = CanSwitchState(newState);
+        state = CanSwitchState(newState, state);
 
     }
 

@@ -5,10 +5,8 @@ using UnityEngine;
 public class HurtState : State
 {
     [SerializeField] private float recoveryTime;
-    private void Start() {
-        
-    }
     public override void Enter() {
+        base.Enter();
         if (unitVariables.animations.HurtAnimation.length > recoveryTime) {
             recoveryTime = unitVariables.animations.HurtAnimation.length;
         }
@@ -17,12 +15,8 @@ public class HurtState : State
         Invoke(nameof(Exit), recoveryTime);
     }
 
-    // Update is called once per frame
-    public override void Exit() {
-        stateDone = true;
-        
-    }
     public override void FixedUpdateState() {
+        base.FixedUpdateState();
         rb.linearVelocity = Vector2.zero;
     }
     

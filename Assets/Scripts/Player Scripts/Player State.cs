@@ -9,14 +9,17 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.UIElements;
 
 public class PlayerState : Unit {
     private PlayerControls playerControls;
-    private InputAction move;
+    public InputAction move;
     private CapsuleCollider2D clipCollider;
     //movements
     [Header("Player Variables")]
+    public State xVelState;
+    public State yVelState;
     //public float direction { get; private set; } = 1;
 
     private float dashCount;
@@ -32,6 +35,7 @@ public class PlayerState : Unit {
     [SerializeField] private dashScript Dash;
     [SerializeField] private wallActionsScript wallActions;
     [SerializeField] public MoveState moveState;
+    [SerializeField] public DecelerateMoveScript decerateMoveState;
     [SerializeField] public BlockState blockState;
     [SerializeField] public BlockRecoverState blockRecoverState;
     [SerializeField] public ParryState parryState;
@@ -77,6 +81,7 @@ public class PlayerState : Unit {
         fallState.Setup(rb, animatior, this);
         Dash.Setup(rb, animatior, this);
         moveState.Setup(rb, animatior, this);
+        decerateMoveState.Setup(rb, animatior, this);
         idelState.Setup(rb, animatior, this);
         blockState.Setup(rb, animatior, this);
         parryState.Setup(rb, animatior, this);
@@ -104,69 +109,96 @@ public class PlayerState : Unit {
         //if you arent on the ground
         moveVetcor = move.ReadValue<Vector2>();
         StateChange();
-        state.UpdateState();
+        yVelState?.UpdateState();
+        state?.UpdateState();
+    }
+    private void FixedUpdate() {
+        state?.FixedUpdateState();
+        if (!state) {
+            xVelState?.FixedUpdateState();
+            yVelState?.FixedUpdateState();
+        }
     }
 
-
+    /*
+     * Summary:
+     * Handles changing of states
+     * runs a selection function for each state machine
+     * then checks if you can switch to that state
+     */
 
     protected override void StateChange(State manualState = null) {
-        State newState = state;
-        if (grounded && state != jumpScript) {
-            //checks to see if you are moving
-            if (moveVetcor.x != 0) {
-                newState = moveState;
-            } else {
-                newState = idelState;
-            }
-            if (lastKey == jump) {
-                newState = jumpScript;
-            }
-
-            //checks to see if you are falling
-        } else if (rb.linearVelocity.y < 0) {
-            if (lastKey == glideButton) {
-                newState = glideState;
-            } else if (state != glideState) {
-                newState = fallState;
-            } else if (state.stateDone) {
-                newState = fallState;
-            }
+        State newXVelState = XAxisStateChange();
+        State newYVelState = YAxisStateChange();
+        State newActionState = ActionStateChange();
+        if (!newYVelState && !newXVelState&&!newActionState) {
+            newActionState = idelState;
         }
+        state = CanSwitchState(newActionState,state);
+        yVelState = CanSwitchState(newYVelState,yVelState);
+        xVelState = CanSwitchState(newXVelState, xVelState);
+
+    }
+    /*
+     * handles the state changing logic
+     */
+    private State XAxisStateChange() {
+        if (moveVetcor.x != 0) {
+            return moveState;
+        } else if (Mathf.Abs(rb.linearVelocityX) > decerateMoveState.exitSpeed) {
+            return decerateMoveState;
+        }
+        if (!xVelState) {
+            rb.linearVelocity = new Vector2(0, rb.linearVelocityY);
+        }
+        return null;
+    }
+    private State YAxisStateChange() {
+        Debug.Log("grounded state: " + GetGroundedState());
+        
+        if (GetGroundedState()) {
+            if (lastKey == jump) {
+                return jumpScript;
+            }
+        }else if(lastKey == glideButton) {
+            return glideState;
+        } if (!yVelState && rb.linearVelocityY < 0) {
+            return fallState;
+        }
+        if (!yVelState) {
+            rb.linearVelocity = new Vector2(rb.linearVelocityX, 0);
+        }
+        return null;
+    }
+    private State ActionStateChange() {
         dashCount += Time.deltaTime;
         if (lastKey == dash && dashCount >= dashCool) {
-            newState = Dash;
             dashCount = 0;
+            return Dash;
+        } else if (lastKey == attackButton) {
+            return attackState;
+        } else if (lastKey == blockButton) {
+            return blockState;
         }
-        if (lastKey == attackButton) {
-            newState = attackState;
-        }
-        if (grounded) {
-            
-            if (lastKey == blockButton) {
-                newState = blockState;
-            }
-        }
-        if (manualState) {
-            newState = manualState;
-        }
-        state = CanSwitchState(newState);
+        return null;
     }
-    protected override void SwitchStateActions() {
-        base.SwitchStateActions();
-        lastKey = KeyCode.None;
+    /*
+     * what todo when you swiutch states
+     */
+    protected override void SwitchStateActions(State newState,State oldState) {
+        base.SwitchStateActions(newState,oldState);
+        //lastKey = KeyCode.None;
     }
+    /*
+     * done with state logic
+     */
 
-    private void FixedUpdate() {
-        state.FixedUpdateState();
-        if(state.interuptable==0) {
-            Run();
-        }
-    }
-
+    /*
+     * handles the inputs
+     * checks to see if you are pressing one of them
+     * includes an input buffer to add leway
+     */
     
-    private void Run() {
-        rb.linearVelocity = new Vector2(moveVetcor.x * moveState.moveSpeed * Time.fixedDeltaTime, rb.linearVelocity.y);
-    }
     public KeyCode GetInput(KeyCode[]buttons) {
         
         for (int i = 0; i < buttons.Length; i++){
@@ -183,7 +215,9 @@ public class PlayerState : Unit {
         return lastKey;
 
     }
-
+    /*
+     * what happens when you get hurt
+     */
     protected override void GetHurt(bool hit, DamageScript EnemyAttack) {
         base.GetHurt(hit, EnemyAttack);
         if (!hit) {

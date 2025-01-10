@@ -14,6 +14,7 @@ public class BlockRecoverState : State
     private float counter;
 
     public override void Enter() {
+        base.Enter();
         originalMaterial = rb.sharedMaterial;
         frictionyMaterial.friction = friction;
         rb.sharedMaterial = frictionyMaterial;
@@ -26,8 +27,8 @@ public class BlockRecoverState : State
 
     }
     public override void Exit() {
+        base.Exit();
         rb.sharedMaterial = originalMaterial;
-        stateDone = true;
         rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         Destroy(slideDust);
     }
