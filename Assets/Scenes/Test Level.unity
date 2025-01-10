@@ -1375,6 +1375,55 @@ Transform:
   - {fileID: 1732436223}
   m_Father: {fileID: 1620162966}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &827408797
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 827408798}
+  - component: {fileID: 827408799}
+  m_Layer: 3
+  m_Name: Deceleration State
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &827408798
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827408797}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1612897741}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &827408799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827408797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a896de297a7ca47b830cd5b6f53da0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interuptable: 0
+  stateDone: 0
+  canTransitionToSelf: 0
+  decerationSpeed: 3
+  exitSpeed: 1
 --- !u!1 &852856276
 GameObject:
   m_ObjectHideFlags: 0
@@ -3560,6 +3609,10 @@ PrefabInstance:
       value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 5748622122044369809, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: interuptable
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5748622122044369809, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: jumpVelocity
       value: 11.5
       objectReference: {fileID: 0}
@@ -3595,6 +3648,10 @@ PrefabInstance:
       propertyPath: move.m_Name
       value: Move
       objectReference: {fileID: 0}
+    - target: {fileID: 6378908112458984836, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: decerateMoveState
+      value: 
+      objectReference: {fileID: 827408799}
     - target: {fileID: 6489775057103274142, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: speed
       value: 1
@@ -3733,6 +3790,9 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8780527505926899338, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       insertIndex: 2
+      addedObject: {fileID: 827408798}
+    - targetCorrespondingSourceObject: {fileID: 8780527505926899338, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      insertIndex: 3
       addedObject: {fileID: 59612224}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
