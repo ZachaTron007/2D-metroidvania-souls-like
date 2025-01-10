@@ -380,12 +380,11 @@ GameObject:
   m_Component:
   - component: {fileID: 167193827}
   - component: {fileID: 167193826}
-  - component: {fileID: 167193828}
   - component: {fileID: 167193824}
-  - component: {fileID: 167193823}
   - component: {fileID: 167193822}
+  - component: {fileID: 167193828}
   m_Layer: 6
-  m_Name: Moving Platform (1)
+  m_Name: Crumbling Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -437,25 +436,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!251 &167193823
-PlatformEffector2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 167193821}
-  m_Enabled: 1
-  m_UseColliderMask: 1
-  m_ColliderMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RotationalOffset: 0
-  m_UseOneWay: 1
-  m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
-  m_UseSideFriction: 0
-  m_UseSideBounce: 0
-  m_SideArc: 1
 --- !u!50 &167193824
 Rigidbody2D:
   serializedVersion: 5
@@ -562,13 +542,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 167193821}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78cd5d3fcdd29404494cdcbdc8dbe411, type: 3}
+  m_Script: {fileID: 11500000, guid: 92357591c7e5eb344869176cf2b81a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 500
-  endPoint: {x: 48, y: 2.080232}
-  StayTime: 2
-  totalMoveTime: 1
+  totalCrumbleTime: 2
+  returnTime: 4
 --- !u!1001 &265808380
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3466,7 +3444,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 545213728974159921, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: moveSpeed
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 545213728974159921, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: decelerateSpeed

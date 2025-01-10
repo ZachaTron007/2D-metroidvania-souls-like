@@ -94,8 +94,8 @@ public class PlayerState : Unit {
 
     // Update is called once per frame
 
-    void Update() {
-        grounded = GroundTouch();
+    protected override void Update() {
+        base.Update();
         lastKey = GetInput(buttons);
         //horizontal movement
 
@@ -154,8 +154,7 @@ public class PlayerState : Unit {
         return null;
     }
     private State YAxisStateChange() {
-        Debug.Log("grounded state: " + GetGroundedState());
-        
+
         if (GetGroundedState()) {
             if (lastKey == jump) {
                 return jumpScript;

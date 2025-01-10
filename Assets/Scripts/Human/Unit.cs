@@ -57,6 +57,9 @@ public abstract class Unit : MonoBehaviour
      * a required function for all units to setup the nessessary components,
      * components that are special to that unit are setup in their class
      */
+    protected virtual void Update() {
+        grounded = GroundTouch();
+    }
     protected void ComponentSetup() {
         state = fallState;
         includeRBLayers = GetComponent<IncludeRBLayers>();

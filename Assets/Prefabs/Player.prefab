@@ -445,6 +445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
+  stateDone: 0
   canTransitionToSelf: 0
   fallGravMultiplier: 3
 --- !u!1 &2485842863330998876
@@ -492,6 +493,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
+  stateDone: 0
   canTransitionToSelf: 0
   dust: {fileID: 7054879024249494992, guid: ea7a63df68e2d744987636e487d1f802, type: 3}
   knockbackSpeed: 10
@@ -655,6 +657,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
+  stateDone: 0
   canTransitionToSelf: 0
   recoveryTime: 1
   knockbackX: 6
@@ -706,6 +709,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
+  stateDone: 0
   canTransitionToSelf: 0
   startTime: 0
   speed: 1
@@ -819,6 +823,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
+  stateDone: 0
   canTransitionToSelf: 0
   moveSpeed: 300
   accSpeed: 0
@@ -1132,6 +1137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
+  stateDone: 0
   canTransitionToSelf: 0
   parryWindow: 0.1
   blocking: 0
@@ -1182,6 +1188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
+  stateDone: 0
   canTransitionToSelf: 0
   jumpVelocity: 5
   jumpHeight: 3
@@ -1238,6 +1245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
+  stateDone: 0
   canTransitionToSelf: 0
   currentAttack: {fileID: 0}
   attackSpeedModifier: 1
@@ -1295,6 +1303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
+  stateDone: 0
   canTransitionToSelf: 0
   idelClip: {fileID: 7400000, guid: 25c891cb0c6f9254ab9e614f7fd82c78, type: 2}
 --- !u!1 &6949226957807085175
@@ -1487,6 +1496,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
+  stateDone: 0
   canTransitionToSelf: 0
   jumpVelocity: 5
   jumpHeight: 3
@@ -1868,6 +1878,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
+  stateDone: 0
   canTransitionToSelf: 0
   timeFreezeTime: 0.5
   shakeTime: 0.2
@@ -1919,6 +1930,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interuptable: 0
+  stateDone: 0
   canTransitionToSelf: 0
   dashCount: 1
   dashSpeed: 22
