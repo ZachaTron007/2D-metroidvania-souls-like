@@ -141,6 +141,15 @@ public abstract class Unit : MonoBehaviour
         
         if (groundHitMiddle||groundHitMiddle||groundHitRight) {
             kyoteTimeCounter = 0;
+            CrumblingPlatformScript platformScript;
+            if (groundHitLeft) {
+                groundHitLeft.gameObject.TryGetComponent(out platformScript);
+            } else if(groundHitMiddle) {
+                groundHitRight.gameObject.TryGetComponent(out platformScript);
+            } else if (groundHitRight) {
+                groundHitRight.gameObject.TryGetComponent(out platformScript);
+            }
+            //platformScript?.
             return true;
             
         } else {
