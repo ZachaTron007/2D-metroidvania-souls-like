@@ -21,5 +21,6 @@ public class SameTimeMovingPlatform : MovingPlatformScript
         //Debug.Log(goalPos);
 
 
+
     }
 }

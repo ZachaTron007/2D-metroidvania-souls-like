@@ -36,6 +36,7 @@ public abstract class Unit : MonoBehaviour
     [SerializeField] private int direction = 1;//{ get; protected set; } = 1;
     protected bool grounded;
     private float kyoteTimeCounter;
+    private CustomPlatformBase lastPlat = null;
     /*
      * summary:
      * get and sets
@@ -129,36 +130,48 @@ public abstract class Unit : MonoBehaviour
             newState.ResetState(newState);
         }
     }
+    private void PlatformScriptLogic(CustomPlatformBase scriptCollected) {
+        
+        if (scriptCollected != lastPlat&&scriptCollected) {
+            scriptCollected?.EnterOnCustomPlatform(rb);
+        }
+        scriptCollected?.StayOnCustomPlatform(rb);
+        //Debug.Log("Collected: "+scriptCollected?.name+", last Plat: "+lastPlat?.name);
+        if (lastPlat && !scriptCollected) {
+            
+            lastPlat.ExitOnCustomPlatform(rb);
+        }
+        lastPlat = scriptCollected;
+    }
     protected bool GroundTouch() {
         Vector2 BoxDimentions = new Vector2(.1f, .1f);
         //hits walls
         int layerNumber = HelperFunctions.layers["Level"];
 
         float distanceAdditon = -.4f+mainCollider.hitBox.size.y/2;
-        RaycastHit2D groundHitLeft = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon, new Vector3(transform.position.x - mainCollider.hitBox.size.x/2, transform.position.y + .2f, 0));
-        RaycastHit2D groundHitMiddle = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon,new Vector3(transform.position.x, transform.position.y + .2f, 0),true);
-        RaycastHit2D groundHitRight = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon,new Vector3(transform.position.x + mainCollider.hitBox.size.x/2, transform.position.y + .2f, 0));
-        
-        if (groundHitMiddle||groundHitMiddle||groundHitRight) {
+        RaycastHit2D[] rays = new RaycastHit2D[3];
+        CustomPlatformBase platformScript = null;
+        bool grounded = false;
+        for(int i = 0; i < rays.Length; i++) {
+            rays[i] = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon, new Vector3(transform.position.x - (i-1)*(mainCollider.hitBox.size.x / 2), transform.position.y + .2f, 0));
+            if (rays[i]) {
+                rays[i].collider.gameObject.TryGetComponent(out platformScript);
+                grounded = true; 
+                break;
+            }
+        }
+        PlatformScriptLogic(platformScript);
+        if (grounded) {
             kyoteTimeCounter = 0;
-            CrumblingPlatformScript platformScript;
-            if (groundHitLeft) {
-                groundHitLeft.gameObject.TryGetComponent(out platformScript);
-            } else if(groundHitMiddle) {
-                groundHitRight.gameObject.TryGetComponent(out platformScript);
-            } else if (groundHitRight) {
-                groundHitRight.gameObject.TryGetComponent(out platformScript);
-            }
-            //platformScript?.
-            return true;
-            
-        } else {
-            kyoteTimeCounter += Time.deltaTime;
-            if (kyoteTimeCounter > jumpScript.kyoteTime) {
-                return false;
-            }
             return true;
         }
+        kyoteTimeCounter += Time.deltaTime;
+        if (kyoteTimeCounter > jumpScript.kyoteTime) {
+            return false;
+        }
+        PlatformScriptLogic(platformScript);
+        return true;
+
     }
 
     protected int LayerNumToLayerMask(int layerNumber) {

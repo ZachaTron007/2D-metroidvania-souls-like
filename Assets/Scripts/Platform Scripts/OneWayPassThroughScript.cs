@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class OneWayPassThroughScript : MonoBehaviour
+public class OneWayPassThroughScript : CustomPlatformBase
 {
     [SerializeField] private Sensors playerSensor;
     private BoxCollider2D mainCollider;
@@ -23,5 +23,7 @@ public class OneWayPassThroughScript : MonoBehaviour
             Debug.Log("Player is not Under");
             mainCollider.excludeLayers = 0;
         }
+
     }
+    
 }

@@ -1,7 +1,7 @@
 using TMPro.Examples;
 using UnityEngine;
 
-public class CrumblingPlatformScript : MonoBehaviour
+public class CrumblingPlatformScript : CustomPlatformBase
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private BoxCollider2D collider;

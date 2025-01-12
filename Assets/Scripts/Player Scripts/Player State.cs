@@ -113,10 +113,11 @@ public class PlayerState : Unit {
         state?.UpdateState();
     }
     private void FixedUpdate() {
+        yVelState?.FixedUpdateState();
         state?.FixedUpdateState();
         if (!state) {
             xVelState?.FixedUpdateState();
-            yVelState?.FixedUpdateState();
+            
         }
     }
 
@@ -159,9 +160,10 @@ public class PlayerState : Unit {
             if (lastKey == jump) {
                 return jumpScript;
             }
-        }else if(lastKey == glideButton) {
+            return null; 
+        } else if (lastKey == glideButton) {
             return glideState;
-        } if (!yVelState && rb.linearVelocityY < 0) {
+        }else if(yVelState != glideState && rb.linearVelocityY < 0) {
             return fallState;
         }
         if (!yVelState) {

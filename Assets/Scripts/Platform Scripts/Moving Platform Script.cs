@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MovingPlatformScript : MonoBehaviour
+public class MovingPlatformScript : CustomPlatformBase
 {
     [SerializeField] private float moveSpeed = 10;
     [SerializeField] private Vector2 endPoint;
@@ -10,6 +10,7 @@ public class MovingPlatformScript : MonoBehaviour
     protected Vector2 goalPos;
 
     private float totalDistance;
+    private bool changedSpeeds;
     private bool canTurn = true;
     public float StayTime = 2;
     private float counter;
@@ -29,6 +30,8 @@ public class MovingPlatformScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector2 speed = rb.linearVelocity;
+        changedSpeeds = false;
         MoveSpeed();
         float distance = HelperFunctions.PointToDistance(transform.position, endPoint);
         float distance2 = HelperFunctions.PointToDistance(transform.position, endPoint2);
@@ -57,6 +60,7 @@ public class MovingPlatformScript : MonoBehaviour
 
             }
         }
+        if (rb.linearVelocity != speed)     changedSpeeds = true;
     }
     protected virtual void MoveSpeed() {
         rb.linearVelocity = (Vector3)direction * moveSpeed * Time.deltaTime;
@@ -64,5 +68,10 @@ public class MovingPlatformScript : MonoBehaviour
     protected virtual void ResetCounter() {
         canTurn = true;
         counter = 0;
+    }
+
+    public override void StayOnCustomPlatform(Rigidbody2D rb) {
+        base.StayOnCustomPlatform(rb);
+        if (changedSpeeds) rb.linearVelocity = Vector3.zero ;
     }
 }
