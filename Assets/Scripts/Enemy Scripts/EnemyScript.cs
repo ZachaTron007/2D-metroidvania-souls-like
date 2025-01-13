@@ -15,16 +15,7 @@ public abstract class EnemyScript : Unit {
     [SerializeField] private float agroDelay = .5f;
     private float agroDelayCounter;
 
-    protected bool WallCheck() {
-        //layers to hit
-        int layerNumber = 6;
-        RaycastHit2D hit = ShootRay(GetDirection(), layerNumber, maxDist);
-        if (hit) {
-            return true;
-        }
-        
-        return false;
-    }
+    
 
 
     private enum ColliderType {

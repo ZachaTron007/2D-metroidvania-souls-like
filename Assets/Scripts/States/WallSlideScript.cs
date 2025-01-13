@@ -3,22 +3,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class wallActionsScript : JumpScript
+public class WallSlideScript : State
 {
     //wallJump
-    private float wallJumpSpeed = 100;
-    private float wallJumpDuration = 0.3f;
+    //private float wallJumpSpeed = 100;
+    //private float wallJumpDuration = 0.3f;
     //wallslide 
     private float wallSlideSpeed = 3;
-    public bool wallSliding = false;
     public bool wallJump = false;
-    // Start is called before the first frame update  
-    public void wallSlide(Rigidbody2D rb) {
-        wallSliding = true;
-        rb.gravityScale = 0;
-        rb.linearVelocity = -Vector2.up * wallSlideSpeed;
-    }
+    [SerializeField] private GameObject dust;
 
+    public override void Enter() {
+        base.Enter();
+        animator.Play(unitVariables.animations.wallSlideAnimation.name);
+    }
+    // Start is called before the first frame update  
+    public override void UpdateState() {
+        rb.gravityScale = 0;
+        rb.linearVelocity = -Vector2.up * wallSlideSpeed;/*
+        slideDust = Instantiate(dust, this.transform);
+        slideDust.transform.rotation = rotation;
+    */}
+    /*
     public IEnumerator WallJump(float dashDirection, Rigidbody2D rb) {
         wallSliding = false;
         wallJump = true;
@@ -33,6 +39,6 @@ public class wallActionsScript : JumpScript
 
     private void wallJumpReset() {
         wallJump = false;
-    }
+    }*/
 
 }

@@ -49,7 +49,7 @@ public class SwordEnemyScript : EnemyScript {
     }
     // Update is called once per frame
     void Update() {
-        if (WallCheck()) {
+        if (WallCheck(.3f)) {
             SetDirection(-GetDirection());
         }
 

@@ -108,7 +108,6 @@ public abstract class Unit : MonoBehaviour
                 //SwitchStateActions(newState, oldState);
                 return oldState;
             }
-        } else {
         }
         if (newState.interuptable >= oldState.interuptable || oldState.IsStateDone() || oldState.interuptable == 0) {
             if (oldState != newState) {
@@ -172,6 +171,16 @@ public abstract class Unit : MonoBehaviour
         PlatformScriptLogic(platformScript);
         return true;
 
+    }
+
+    protected bool WallCheck(float maxDist) {
+        //layers to hit
+        RaycastHit2D hit = ShootRayDirection(GetDirection()*Vector2.right, HelperFunctions.layers["Level"], maxDist+mainCollider.hitBox.size.x/2, new Vector3(transform.position.x + (mainCollider.hitBox.offset.x * (mainCollider.hitBox.size.x/2-.2f)), transform.position.y+(mainCollider.hitBox.offset.y*(mainCollider.hitBox.size.y/2)),0));
+        if (hit) {
+            return true;
+        }
+
+        return false;
     }
 
     protected int LayerNumToLayerMask(int layerNumber) {

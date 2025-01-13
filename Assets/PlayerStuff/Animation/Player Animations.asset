@@ -20,3 +20,5 @@ MonoBehaviour:
   fallAniamtion: {fileID: 7400000, guid: 43d359c6c9490644db2522f5467eddc9, type: 2}
   jumpAnimation: {fileID: 7400000, guid: b9398fa9b1275b5478cc3e6cc602be91, type: 2}
   blockAnimation: {fileID: 7400000, guid: 5b40edfa3ab173045936606cf6d81c11, type: 2}
+  wallSlideAnimation: {fileID: 7400000, guid: 31520ddd5a9981e41a2d0b88ccdd1c61, type: 2}
+  wallJumpAnimation: {fileID: 0}

@@ -10,4 +10,6 @@ public class AnimationCollection : ScriptableObject
     public AnimationClip fallAniamtion;
     public AnimationClip jumpAnimation;
     public AnimationClip blockAnimation;
+    public AnimationClip wallSlideAnimation;
+    public AnimationClip wallJumpAnimation;
 }

@@ -545,8 +545,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92357591c7e5eb344869176cf2b81a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalCrumbleTime: 2
-  returnTime: 4
 --- !u!1001 &265808380
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -912,6 +910,17 @@ MonoBehaviour:
   m_AmplitudeGain: 0
   m_FrequencyGain: 1
   mNoiseOffsets: {x: 20.29071, y: -98.45627, z: 443.52695}
+--- !u!114 &434260807 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1451001638846000934, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+  m_PrefabInstance: {fileID: 2898413512102226661}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 106eaa60f2199ed4fa7dc17e9a78df66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1651,7 +1660,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 307003340171468623, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1025974863289018806, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
       propertyPath: interuptable
@@ -1695,11 +1704,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6348218199326715150, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.41
+      value: -1.31
       objectReference: {fileID: 0}
     - target: {fileID: 6348218199326715150, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.09
+      value: -3.32
       objectReference: {fileID: 0}
     - target: {fileID: 6348218199326715150, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2860,7 +2869,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d063f48c2df4ad448f78f76ff8ef4bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draftSpeed: 10
 --- !u!4 &1799630287 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1081542097645294638, guid: 0dd83fad650632b4c9fb4145b5b34478, type: 3}
@@ -3001,7 +3009,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2010801886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3014,9 +3022,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1fa33f7927e1204fbf487e2af75e330, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 500
-  endPoint: {x: 35, y: 5}
-  StayTime: 2
 --- !u!212 &2010801887
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3626,6 +3631,10 @@ PrefabInstance:
       propertyPath: move.m_Name
       value: Move
       objectReference: {fileID: 0}
+    - target: {fileID: 6378908112458984836, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: wallSlideScript
+      value: 
+      objectReference: {fileID: 434260807}
     - target: {fileID: 6378908112458984836, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: decerateMoveState
       value: 
