@@ -299,7 +299,7 @@ MonoBehaviour:
   xVelState: {fileID: 0}
   yVelState: {fileID: 0}
   Dash: {fileID: 8471434802479641984}
-  wallActions: {fileID: 1451001638846000934}
+  wallSlideScript: {fileID: 0}
   moveState: {fileID: 545213728974159921}
   decerateMoveState: {fileID: 0}
   blockState: {fileID: 811300300784513735}
@@ -1190,15 +1190,9 @@ MonoBehaviour:
   interuptable: 0
   stateDone: 0
   canTransitionToSelf: 0
-  jumpVelocity: 5
-  jumpHeight: 3
-  lowJumpMultiplier: 20
-  grounded: 0
-  kyoteTime: 0
-  remainingJumps: 0
-  puff: {fileID: 0}
-  wallSliding: 0
   wallJump: 0
+  dust: {fileID: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &5849605177917012123
 GameObject:
   m_ObjectHideFlags: 0

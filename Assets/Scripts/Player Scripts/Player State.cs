@@ -35,6 +35,7 @@ public class PlayerState : Unit {
     [SerializeField] private dashScript Dash;
     [SerializeField] private WallSlideScript wallSlideScript;
     [SerializeField] public MoveState moveState;
+    [SerializeField] private MoveState wallJumpMove;
     [SerializeField] public DecelerateMoveScript decerateMoveState;
     [SerializeField] public BlockState blockState;
     [SerializeField] public BlockRecoverState blockRecoverState;
@@ -147,6 +148,9 @@ public class PlayerState : Unit {
      * handles the state changing logic
      */
     private State XAxisStateChange() {
+        if (WallCheck(.01f)) {
+            return wallJumpMove;
+        }
         if (moveVetcor.x != 0) {
             return moveState;
         } else if (Mathf.Abs(rb.linearVelocityX) > decerateMoveState.exitSpeed) {
@@ -158,21 +162,20 @@ public class PlayerState : Unit {
         return null;
     }
     private State YAxisStateChange() {
+        if (lastKey == jump && jumpScript.remainingJumps > 0) {
+            return jumpScript;
+        }
         if (GetGroundedState()) {
-            if (lastKey == jump) {
-                return jumpScript;
-            }
-            return null;
-        } else if (lastKey == glideButton) {
-            return glideState;
+            jumpScript.ResetJumpAmount();
         } else if (rb.linearVelocityY < 0) {
             if (WallCheck(.01f)) {
+                jumpScript.ResetJumpAmount();
                 return wallSlideScript;
-            }
-            if (yVelState != glideState) {
+            }else {
                 return fallState;
             }
         }
+        
    
         if (!yVelState) {
             rb.linearVelocity = new Vector2(rb.linearVelocityX, 0);

@@ -10,7 +10,7 @@ public class JumpScript : State
     public bool grounded = false;
     [HideInInspector] public float kyoteTime = .2f;
     [HideInInspector] public int remainingJumps = 0;
-    private int totalJumps;
+    private int totalJumps = 2;
     private float yoffset = .5f;
     private float destroyDelay = .4f;
     private float effectSpeed = 1.5f;

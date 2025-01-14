@@ -23,12 +23,13 @@ public class WallSlideScript : State
     public override void UpdateState() {
         rb.gravityScale = 0;
         rb.linearVelocity = -Vector2.up * wallSlideSpeed;
-        slideDust = Instantiate(dust, transform.position, rotation, transform);
+        //slideDust = Instantiate(dust, transform.position, rotation, transform);
+        
     }
 
     public override void Exit() {
         base.Exit();
-        Destroy(slideDust);
+        //Destroy(slideDust);
     }
     /*
     public IEnumerator WallJump(float dashDirection, Rigidbody2D rb) {
