@@ -12,6 +12,8 @@ public class WallSlideScript : State
     private float wallSlideSpeed = 3;
     public bool wallJump = false;
     [SerializeField] private GameObject dust;
+    private GameObject slideDust;
+    public Quaternion rotation;
 
     public override void Enter() {
         base.Enter();
@@ -20,10 +22,14 @@ public class WallSlideScript : State
     // Start is called before the first frame update  
     public override void UpdateState() {
         rb.gravityScale = 0;
-        rb.linearVelocity = -Vector2.up * wallSlideSpeed;/*
-        slideDust = Instantiate(dust, this.transform);
-        slideDust.transform.rotation = rotation;
-    */}
+        rb.linearVelocity = -Vector2.up * wallSlideSpeed;
+        slideDust = Instantiate(dust, transform.position, rotation, transform);
+    }
+
+    public override void Exit() {
+        base.Exit();
+        Destroy(slideDust);
+    }
     /*
     public IEnumerator WallJump(float dashDirection, Rigidbody2D rb) {
         wallSliding = false;

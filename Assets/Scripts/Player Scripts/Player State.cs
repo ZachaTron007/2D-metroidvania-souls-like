@@ -166,7 +166,7 @@ public class PlayerState : Unit {
         } else if (lastKey == glideButton) {
             return glideState;
         } else if (rb.linearVelocityY < 0) {
-            if (WallCheck(.1f)) {
+            if (WallCheck(.01f)) {
                 return wallSlideScript;
             }
             if (yVelState != glideState) {

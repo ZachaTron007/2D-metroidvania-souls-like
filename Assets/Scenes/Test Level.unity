@@ -545,6 +545,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92357591c7e5eb344869176cf2b81a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  totalCrumbleTime: 2
+  returnTime: 4
 --- !u!1001 &265808380
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2249,6 +2251,71 @@ Transform:
   - {fileID: 1840302399}
   m_Father: {fileID: 1314610943}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1252198960
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5942911980636352213, guid: ea7a63df68e2d744987636e487d1f802, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 39.15406
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942911980636352213, guid: ea7a63df68e2d744987636e487d1f802, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.4664967
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942911980636352213, guid: ea7a63df68e2d744987636e487d1f802, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942911980636352213, guid: ea7a63df68e2d744987636e487d1f802, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942911980636352213, guid: ea7a63df68e2d744987636e487d1f802, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942911980636352213, guid: ea7a63df68e2d744987636e487d1f802, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942911980636352213, guid: ea7a63df68e2d744987636e487d1f802, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942911980636352213, guid: ea7a63df68e2d744987636e487d1f802, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942911980636352213, guid: ea7a63df68e2d744987636e487d1f802, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942911980636352213, guid: ea7a63df68e2d744987636e487d1f802, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7054879024249494992, guid: ea7a63df68e2d744987636e487d1f802, type: 3}
+      propertyPath: m_Name
+      value: Dust
+      objectReference: {fileID: 0}
+    - target: {fileID: 9169138475835080887, guid: ea7a63df68e2d744987636e487d1f802, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9169138475835080887, guid: ea7a63df68e2d744987636e487d1f802, type: 3}
+      propertyPath: m_FlipY
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ea7a63df68e2d744987636e487d1f802, type: 3}
 --- !u!4 &1309007468 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3221665841039631346, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
@@ -2869,6 +2936,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d063f48c2df4ad448f78f76ff8ef4bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  draftSpeed: 0
 --- !u!4 &1799630287 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1081542097645294638, guid: 0dd83fad650632b4c9fb4145b5b34478, type: 3}
@@ -3022,6 +3090,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1fa33f7927e1204fbf487e2af75e330, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 10
+  endPoint: {x: 0, y: 0}
+  StayTime: 2
 --- !u!212 &2010801887
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3467,6 +3538,10 @@ PrefabInstance:
       propertyPath: interuptable
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 1451001638846000934, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: dust
+      value: 
+      objectReference: {fileID: 7054879024249494992, guid: ea7a63df68e2d744987636e487d1f802, type: 3}
     - target: {fileID: 1823725907995604638, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: fallGravMultiplier
       value: 3.5
@@ -3966,3 +4041,4 @@ SceneRoots:
   - {fileID: 1761429372}
   - {fileID: 2010801888}
   - {fileID: 167193827}
+  - {fileID: 1252198960}
