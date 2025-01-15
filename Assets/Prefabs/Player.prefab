@@ -301,6 +301,7 @@ MonoBehaviour:
   Dash: {fileID: 8471434802479641984}
   wallSlideScript: {fileID: 0}
   moveState: {fileID: 545213728974159921}
+  wallJumpMove: {fileID: 0}
   decerateMoveState: {fileID: 0}
   blockState: {fileID: 811300300784513735}
   blockRecoverState: {fileID: 9069043031560186155}
@@ -826,6 +827,7 @@ MonoBehaviour:
   stateDone: 0
   canTransitionToSelf: 0
   moveSpeed: 300
+  weight: 0
   accSpeed: 0
   velPower: 0
 --- !u!1 &4434563391041593556

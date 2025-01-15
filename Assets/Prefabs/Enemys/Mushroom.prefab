@@ -1166,6 +1166,7 @@ MonoBehaviour:
   stateDone: 0
   canTransitionToSelf: 0
   moveSpeed: 300
+  weight: 0
   accSpeed: 0
   velPower: 0
 --- !u!1 &6873516749006557680

@@ -14,6 +14,7 @@ public class WallJumpX : MoveState
     }
 
     public override void UpdateState() {
+        //Debug.Log(weight);
         counter -= Time.deltaTime;
         weight = Mathf.Lerp(0,1 ,1-(counter/totalSpeedTransfer));
         if (weight == 1) Exit();

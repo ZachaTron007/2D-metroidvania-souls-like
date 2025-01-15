@@ -82,6 +82,7 @@ public class PlayerState : Unit {
         fallState.Setup(rb, animatior, this);
         Dash.Setup(rb, animatior, this);
         moveState.Setup(rb, animatior, this);
+        wallJumpMove.Setup(rb, animatior, this);
         decerateMoveState.Setup(rb, animatior, this);
         idelState.Setup(rb, animatior, this);
         blockState.Setup(rb, animatior, this);
@@ -112,6 +113,7 @@ public class PlayerState : Unit {
         moveVetcor = move.ReadValue<Vector2>();
         StateChange();
         yVelState?.UpdateState();
+        xVelState?.UpdateState();
         state?.UpdateState();
     }
     private void FixedUpdate() {
@@ -148,7 +150,7 @@ public class PlayerState : Unit {
      * handles the state changing logic
      */
     private State XAxisStateChange() {
-        if (WallCheck(.01f)) {
+        if (WallCheck(.01f)&&lastKey == jump&&moveVetcor.x==GetDirection()) {
             return wallJumpMove;
         }
         if (moveVetcor.x != 0) {
@@ -165,15 +167,15 @@ public class PlayerState : Unit {
         if (lastKey == jump && jumpScript.remainingJumps > 0) {
             return jumpScript;
         }
+        if (WallCheck(.01f) && moveVetcor.x == GetDirection()) {
+            if (lastKey == jump) return jumpScript;
+            //jumpScript.ResetDoubleJump();
+            return wallSlideScript;
+        }
         if (GetGroundedState()) {
             jumpScript.ResetJumpAmount();
         } else if (rb.linearVelocityY < 0) {
-            if (WallCheck(.01f)) {
-                jumpScript.ResetJumpAmount();
-                return wallSlideScript;
-            }else {
-                return fallState;
-            }
+            return fallState;
         }
         
    

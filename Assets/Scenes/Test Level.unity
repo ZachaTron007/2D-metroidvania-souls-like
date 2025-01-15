@@ -2447,8 +2447,8 @@ MonoBehaviour:
   weight: 0
   accSpeed: 0
   velPower: 0
-  totalSpeedTransfer: 0.5
-  forceAdded: 2
+  totalSpeedTransfer: 0.3
+  forceAdded: 100
 --- !u!1 &1420063801
 GameObject:
   m_ObjectHideFlags: 0
@@ -3550,6 +3550,10 @@ PrefabInstance:
       propertyPath: move.m_Name
       value: Move
       objectReference: {fileID: 0}
+    - target: {fileID: 6378908112458984836, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: wallJumpMove
+      value: 
+      objectReference: {fileID: 1370031034}
     - target: {fileID: 6378908112458984836, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: wallSlideScript
       value: 
