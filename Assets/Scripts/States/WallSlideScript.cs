@@ -3,49 +3,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WallSlideScript : State
+public class WallSlideScript : RbVelocityLerp
 {
     //wallJump
     //private float wallJumpSpeed = 100;
     //private float wallJumpDuration = 0.3f;
     //wallslide 
     private float wallSlideSpeed = 3;
+    [SerializeField] private float maxWallSlideSpeed = 3;
     public bool wallJump = false;
     [SerializeField] private GameObject dust;
     private GameObject slideDust;
     public Quaternion rotation;
 
     public override void Enter() {
+        rb.gravityScale = 0;
         base.Enter();
         animator.Play(unitVariables.animations.wallSlideAnimation.name);
     }
     // Start is called before the first frame update  
     public override void UpdateState() {
-        rb.gravityScale = 0;
-        rb.linearVelocity = -Vector2.up * wallSlideSpeed;
+        
+        //rb.linearVelocity = -Vector2.up * wallSlideSpeed;
         //slideDust = Instantiate(dust, transform.position, rotation, transform);
         
+    }
+    public override void FixedUpdateState() {
+        base.FixedUpdateState();
+        rb.AddForce(Vector2.down * movement);
     }
 
     public override void Exit() {
         base.Exit();
+        rb.gravityScale = 0;
         //Destroy(slideDust);
     }
-    /*
-    public IEnumerator WallJump(float dashDirection, Rigidbody2D rb) {
-        wallSliding = false;
-        wallJump = true;
-        Jump();
-        Invoke("wallJumpReset", wallJumpDuration);
-        while (wallJump) {
-            rb.linearVelocity = new Vector2(dashDirection * wallJumpSpeed * Time.fixedDeltaTime, rb.linearVelocity.y);
-            yield return null;
-        }
-        yield return null;
+
+    protected override float GetTargetSpeed() {
+        return maxWallSlideSpeed;
     }
-
-    private void wallJumpReset() {
-        wallJump = false;
-    }*/
-
 }

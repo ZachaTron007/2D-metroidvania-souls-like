@@ -2,26 +2,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Windows.Speech;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
-public class MoveState : State
+public class MoveState : RbVelocityLerp
 {
     [SerializeField] private float moveSpeed = 300;
-    public float weight = 1;
-    [SerializeField] private float accSpeed;
-    [SerializeField] private float velPower;
-
+    private float biDirectionalWeight = 1;
+    private float weight;
+    private float startWeight = 1;
+    private float endWeight = 0;
+    
+    public float forceAdded = 2;
+    public float totalSpeedTransfer = .5f;
+    private float weightTransferSpeed = .5f;
+    private float counter;
     public override void Enter() {
         base.Enter();
         animator.Play(unitVariables.animations.runAnimation.name);
     }
-    public override void FixedUpdateState() {
+    public override void FixedUpdateState() { 
+        
         base.FixedUpdateState();
-        float targetSpeed = GetTargetSpeed();
-        float speedDiffrence = targetSpeed - rb.linearVelocityX;
-        float movement = Mathf.Pow(Mathf.Abs(speedDiffrence) * accSpeed, velPower) * Mathf.Sign(speedDiffrence);
-        rb.AddForce(movement * Vector2.right);
+        rb.AddForce(movement*Vector2.right);
     }
-    protected virtual float GetTargetSpeed() {
-        return moveSpeed * unitVariables.GetDirection()*weight;
+    
+
+    public override void UpdateState() {
+        if (counter > 0) {
+            counter -= Time.deltaTime;
+            biDirectionalWeight = Mathf.Lerp(startWeight, endWeight, 1 - (counter / weightTransferSpeed));
+        }
+    }
+
+    public void SetBiDirectionalWeight(float startWeight, float goalWeight, float speed = .5f) {
+        endWeight = goalWeight;
+        this.startWeight = startWeight;
+        weightTransferSpeed = speed;
+        counter = weightTransferSpeed;
+    }
+    public void SetWeight(float newWeight) {
+        weight = newWeight;
+    }
+    protected override float GetTargetSpeed() {
+        return moveSpeed * unitVariables.GetDirection()*biDirectionalWeight+weight;
     }
 }

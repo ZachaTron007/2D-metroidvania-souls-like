@@ -35,6 +35,7 @@ public class PlayerState : Unit {
     [SerializeField] private dashScript Dash;
     [SerializeField] private WallSlideScript wallSlideScript;
     [SerializeField] public MoveState moveState;
+    private MoveState xMovment;
     [SerializeField] private MoveState wallJumpMove;
     [SerializeField] public DecelerateMoveScript decerateMoveState;
     [SerializeField] public BlockState blockState;
@@ -150,8 +151,9 @@ public class PlayerState : Unit {
      * handles the state changing logic
      */
     private State XAxisStateChange() {
-        if (WallCheck(.01f)&&lastKey == jump&&moveVetcor.x==GetDirection()) {
-            return wallJumpMove;
+        if (yVelState == wallSlideScript) {
+            //moveState.SetWeight(0,1,moveState.totalSpeedTransfer);
+            
         }
         if (moveVetcor.x != 0) {
             return moveState;
@@ -167,7 +169,8 @@ public class PlayerState : Unit {
         if (lastKey == jump && jumpScript.remainingJumps > 0) {
             return jumpScript;
         }
-        if (WallCheck(.01f) && moveVetcor.x == GetDirection()) {
+        if (WallCheck(.01f) && moveVetcor.x == GetDirection()|| WallCheck(.01f) && yVelState ==wallSlideScript) {
+            
             if (lastKey == jump) return jumpScript;
             //jumpScript.ResetDoubleJump();
             return wallSlideScript;

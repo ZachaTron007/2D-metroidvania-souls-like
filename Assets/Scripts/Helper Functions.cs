@@ -71,5 +71,11 @@ public static class HelperFunctions {
         return playedEffect;
     }*/
 
+    public static float LerpHelper(float startValue, float endValue, float totalTime, float counter) {
+        counter += Time.deltaTime;
+        return Mathf.Lerp(startValue, endValue, 1-(counter/totalTime));
+
+    }
+
 
 }
