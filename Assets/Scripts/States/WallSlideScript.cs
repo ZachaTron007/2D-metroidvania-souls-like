@@ -17,6 +17,7 @@ public class WallSlideScript : RbVelocityLerp
     public Quaternion rotation;
 
     public override void Enter() {
+        rb.linearVelocity = Vector2.zero;
         rb.gravityScale = 0;
         base.Enter();
         animator.Play(unitVariables.animations.wallSlideAnimation.name);

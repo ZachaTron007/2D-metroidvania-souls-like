@@ -3525,11 +3525,15 @@ PrefabInstance:
       objectReference: {fileID: 7054879024249494992, guid: ea7a63df68e2d744987636e487d1f802, type: 3}
     - target: {fileID: 1451001638846000934, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: accSpeed
-      value: 0.2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1451001638846000934, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: velPower
-      value: 1
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1451001638846000934, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: maxWallSlideSpeed
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1823725907995604638, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: fallGravMultiplier
@@ -3788,8 +3792,16 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8471434802479641984, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: accelRate
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8471434802479641984, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: dashSpeed
-      value: 15
+      value: 29
+      objectReference: {fileID: 0}
+    - target: {fileID: 8471434802479641984, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: decelRate
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8471434802479641984, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: effectSpeed
@@ -3797,7 +3809,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8471434802479641984, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: dashduration
-      value: 0.2
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8471434802479641984, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: destroyDelay
