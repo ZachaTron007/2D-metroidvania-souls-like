@@ -63,12 +63,22 @@ public class dashScript : RbVelocityLerp {
     private void SlowDown() {
         speed = dashSpeedLow;
         accSpeed = decelRate;
-        interuptable = 0f;
-        Invoke(nameof(Exit),forceExitTime);
+        //interuptable = 0f;
+        //Invoke(nameof(Exit),forceExitTime);
     }
+
+    public override void UpdateState() {
+        base.UpdateState();
+        //Debug.Log(speed);
+        if (rb.linearVelocityX <= dashSpeedLow+.5f&&speed == dashSpeedLow) {
+            Exit();
+        }
+    }
+
     public override void FixedUpdateState() {
         base.FixedUpdateState();
-        rb.AddForce(speed*unitVariables.GetDirection()*Vector2.right);
+        Debug.Log("Moving by: " + (movement * Vector2.right));
+        rb.AddForce(movement*unitVariables.GetDirection()*Vector2.right);
 
     }
     protected override float GetTargetSpeed() {

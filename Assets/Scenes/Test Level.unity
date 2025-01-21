@@ -1011,7 +1011,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0.000000017717728, y: 0.000000073120695, z: -1.2955326e-15, w: 1}
-  m_LocalPosition: {x: 34.06, y: 3.6800003, z: -10}
+  m_LocalPosition: {x: 34.06, y: -9.1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2356,7 +2356,7 @@ Transform:
   m_GameObject: {fileID: 1328372060}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 34.06, y: 3.6800003, z: -10}
+  m_LocalPosition: {x: 34.06, y: -9.1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3557,7 +3557,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3221665841039631346, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.68
+      value: -11.1
       objectReference: {fileID: 0}
     - target: {fileID: 3221665841039631346, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3792,16 +3792,20 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8471434802479641984, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: velPower
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8471434802479641984, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: accelRate
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8471434802479641984, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: dashSpeed
-      value: 29
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8471434802479641984, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: decelRate
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8471434802479641984, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: effectSpeed

@@ -10,6 +10,7 @@ public abstract class RbVelocityLerp : State {
         float targetSpeed = GetTargetSpeed();
         float speedDiffrence = targetSpeed - rb.linearVelocityX;
         movement = Mathf.Pow(Mathf.Abs(speedDiffrence) * accSpeed, velPower) * Mathf.Sign(speedDiffrence);
+        Debug.Log("Target: "+targetSpeed + ", movment: "+movement+", on " + gameObject.name);
         
     }
     protected abstract float GetTargetSpeed();

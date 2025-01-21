@@ -6,7 +6,7 @@ using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCou
 
 public class MoveState : RbVelocityLerp
 {
-    [SerializeField] private float moveSpeed = 300;
+    [SerializeField] private float moveSpeed = 5;
     private float biDirectionalWeight = 1;
     private float weight;
     private float startWeight = 1;
@@ -24,6 +24,7 @@ public class MoveState : RbVelocityLerp
         
         base.FixedUpdateState();
         rb.AddForce(movement*Vector2.right);
+        //Debug.Log("Adding Force");
     }
     
 
