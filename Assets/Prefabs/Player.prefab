@@ -826,10 +826,11 @@ MonoBehaviour:
   interuptable: 0
   stateDone: 0
   canTransitionToSelf: 0
-  moveSpeed: 300
-  weight: 0
   accSpeed: 0
   velPower: 0
+  moveSpeed: 300
+  forceAdded: 2
+  totalSpeedTransfer: 0.5
 --- !u!1 &4434563391041593556
 GameObject:
   m_ObjectHideFlags: 0
@@ -1192,6 +1193,9 @@ MonoBehaviour:
   interuptable: 0
   stateDone: 0
   canTransitionToSelf: 0
+  accSpeed: 0
+  velPower: 0
+  maxWallSlideSpeed: 3
   wallJump: 0
   dust: {fileID: 0}
   rotation: {x: 0, y: 0, z: 0, w: 0}
@@ -1928,8 +1932,15 @@ MonoBehaviour:
   interuptable: 0
   stateDone: 0
   canTransitionToSelf: 0
+  accSpeed: 0
+  velPower: 0
   dashCount: 1
   dashSpeed: 22
+  dashSpeedLow: 3
   dashduration: 0.13
+  accelRate: 1
+  decelRate: 1
+  forceExitTime: 0.2
+  speed: 0
   eeffect: {fileID: 0}
   dashing: 0

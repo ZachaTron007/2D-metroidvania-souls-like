@@ -48,6 +48,7 @@ public class dashScript : RbVelocityLerp {
         speed = dashSpeed;
         accSpeed = accelRate;
         interuptable = .9f;
+        rb.gravityScale = 0f;
         animator.Play(unitVariables.animations.idelAnimation.name);
         hitBox.excludeLayers = HelperFunctions.LayerMaskCreator(new int[] { 3, 7, 8 });
         Vector3 startPos = unitVariables.transform.position;
@@ -76,6 +77,7 @@ public class dashScript : RbVelocityLerp {
 
     public override void Exit() {
         base.Exit();
+        rb.gravityScale = HelperFunctions.regularGavityScale;
         dashCount -= 1;
     }
 }

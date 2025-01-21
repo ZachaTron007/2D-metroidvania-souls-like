@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
 public static class HelperFunctions {
+    public static float regularGavityScale = 2f;
     public static Dictionary<string, int> layers =
         new Dictionary<string, int>() { { "Default", 0 }, { "TransparentFX", 1 }, { "Ignore Raycast", 2 }, { "Player", 3 }, { "Water", 4 }, { "UI", 5 }, { "Level", 6 }, { "Enemys", 7 }, { "Enemy Attacks", 8 }, { "Player Attacks", 9 }, };
 
