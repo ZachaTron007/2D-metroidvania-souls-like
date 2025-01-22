@@ -41,6 +41,7 @@ public class WallSlideScript : RbVelocityLerp
     }
 
     protected override float GetTargetSpeed() {
+        dir = Vector2.up;
         return maxWallSlideSpeed;
     }
 }

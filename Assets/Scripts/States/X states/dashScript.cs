@@ -48,7 +48,6 @@ public class dashScript : RbVelocityLerp {
         speed = dashSpeed;
         accSpeed = accelRate;
         interuptable = .9f;
-        rb.gravityScale = 0f;
         animator.Play(unitVariables.animations.idelAnimation.name);
         hitBox.excludeLayers = HelperFunctions.LayerMaskCreator(new int[] { 3, 7, 8 });
         Vector3 startPos = unitVariables.transform.position;
@@ -56,7 +55,7 @@ public class dashScript : RbVelocityLerp {
         Destroy(effect, destroyDelay);
         effect.GetComponent<Animator>().speed = effectSpeed;
         Invoke(nameof(SlowDown),dashduration);
-        rb.gravityScale = 2f;
+        rb.gravityScale = 0f;
         //StartCoroutine(dash());
 
     }
@@ -69,7 +68,6 @@ public class dashScript : RbVelocityLerp {
 
     public override void UpdateState() {
         base.UpdateState();
-        //Debug.Log(speed);
         if (rb.linearVelocityX <= dashSpeedLow+.5f&&speed == dashSpeedLow) {
             Exit();
         }
@@ -77,12 +75,12 @@ public class dashScript : RbVelocityLerp {
 
     public override void FixedUpdateState() {
         base.FixedUpdateState();
-        Debug.Log("Moving by: " + (movement * Vector2.right));
-        rb.AddForce(movement*unitVariables.GetDirection()*Vector2.right);
+        rb.AddForce(movement*Vector2.right);
 
     }
     protected override float GetTargetSpeed() {
-        return speed;
+        dir = Vector2.right;
+        return speed * unitVariables.GetDirection();
     }
 
     public override void Exit() {

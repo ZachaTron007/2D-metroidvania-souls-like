@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.Examples;
 using UnityEngine;
 using UnityEngine.Windows.Speech;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
@@ -28,10 +29,11 @@ public class MoveState : RbVelocityLerp
     }
     
 
-    public override void UpdateState() {
+    public void Update() {
         if (counter > 0) {
             counter -= Time.deltaTime;
             biDirectionalWeight = Mathf.Lerp(startWeight, endWeight, 1 - (counter / weightTransferSpeed));
+            Debug.Log(biDirectionalWeight);
         }
     }
 
@@ -45,6 +47,7 @@ public class MoveState : RbVelocityLerp
         weight = newWeight;
     }
     protected override float GetTargetSpeed() {
-        return moveSpeed * unitVariables.GetDirection()*biDirectionalWeight+weight;
+        dir = Vector2.right;
+        return (unitVariables.GetDirection() == Mathf.Sign(biDirectionalWeight)) ? moveSpeed * unitVariables.GetDirection() * Mathf.Abs(biDirectionalWeight) + weight : moveSpeed * unitVariables.GetDirection() + weight;
     }
 }
