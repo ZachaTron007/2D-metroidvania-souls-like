@@ -33,7 +33,6 @@ public class MoveState : RbVelocityLerp
         if (counter > 0) {
             counter -= Time.deltaTime;
             biDirectionalWeight = Mathf.Lerp(startWeight, endWeight, 1 - (counter / weightTransferSpeed));
-            Debug.Log(biDirectionalWeight);
         }
     }
 

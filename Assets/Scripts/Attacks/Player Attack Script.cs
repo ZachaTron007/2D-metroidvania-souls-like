@@ -37,7 +37,7 @@ public class PlayerAttack : ParentMeleeAttack {
         //makes attack num go up
         attackNum++;
         //resets attackNum to be withijn the combo
-        float comboEndTime = currentClipTime + .5f;
+        float comboEndTime = currentClipTime + .2f;
         if (attackNum >= basicCombo.Length) {
             attackNum = 0;
         }

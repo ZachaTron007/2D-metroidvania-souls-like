@@ -43,6 +43,7 @@ public class PlayerState : Unit {
     [SerializeField] public ParryState parryState;
     [SerializeField] protected PlayerIdelState idelState;
     [SerializeField] protected GlideState glideState;
+
     private InputScript inputScript;
     //[SerializeField] protected PlayerAttack melee;
 
@@ -169,10 +170,12 @@ public class PlayerState : Unit {
         if (lastKey == jump && jumpScript.remainingJumps > 0) {
             return jumpScript;
         }
+        Debug.Log(WallCheck(.01f));
         if (WallCheck(.01f) && moveVetcor.x == GetDirection() || WallCheck(.01f) && yVelState == wallSlideScript) {
-
+            //Debug.Log("wall sliding");
             if (lastKey == jump) {
-                //rb.AddForce(new Vector2(moveState.forceAdded, 0));
+                Debug.Log("wall jump");
+                rb.AddForce(new Vector2(moveState.forceAdded, 0));
                 moveState.SetBiDirectionalWeight(0, -GetDirection());
                 return jumpScript;
                     
