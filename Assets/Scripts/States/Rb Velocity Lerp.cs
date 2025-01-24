@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class RbVelocityLerp : State
 {
     [Header("Lerp Settings")]
-    [SerializeField] protected float totalTime;
+    [SerializeField] protected float totalTime = 1;
     protected Vector2 dir;
     protected float startSpeed;
     //protected float targetSpeed;
@@ -14,8 +14,9 @@ public abstract class RbVelocityLerp : State
         float targetSpeed = GetTargetSpeed();
         movement = HelperFunctions.LerpHelper(startValue: startSpeed, endValue: targetSpeed, totalTime: totalTime, counter:  ref counter) * dir;
         movement-= rb.linearVelocity;
-        if(counter <= 0) { FinishedLerping(); }
-        Debug.Log(targetSpeed);
+        rb.linearVelocity += movement;
+        if (counter <= 0) { FinishedLerping(); }
+        //Debug.Log(targetSpeed);
 
 
     }

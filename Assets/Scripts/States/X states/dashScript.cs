@@ -37,35 +37,19 @@ public class dashScript : RbVelocityLerp {
         base.Enter();
         speed = dashSpeed;
         ResetLerp(startSpeed: rb.linearVelocityX, totalTime: dashduration);
-        //accSpeed = accelRate;
         interuptable = .9f;
         animator.Play(unitVariables.animations.idelAnimation.name);
         hitBox.excludeLayers = HelperFunctions.LayerMaskCreator(new int[] { 3, 7, 8 });
         Vector3 startPos = unitVariables.transform.position;
         unitVariables.SpawnEffect(eeffect, startPos, Quaternion.Euler(0, 0, -90 * unitVariables.GetDirection()), destroyDelay,new Vector2(xOffset,yOffset), effectSpeed);
         rb.gravityScale = 0f;
-        //StartCoroutine(dash());
 
     }
     protected override void FinishedLerping() {
-        if (speed == dashSpeedLow) { Exit(); } else {
+        if (speed == dashSpeed){
             speed = dashSpeedLow;
             ResetLerp(startSpeed: dashSpeed, totalTime: forceExitTime);
-        }
-    }
-
-    public override void UpdateState() {
-        base.UpdateState();/*
-        if (rb.linearVelocityX <= dashSpeedLow+.5f&&speed == dashSpeedLow) {
-            Exit();
-        }*/
-    }
-
-    public override void FixedUpdateState() {
-        base.FixedUpdateState();
-        //rb.AddForce(movement*Vector2.right);
-        rb.linearVelocity += movement;
-
+        }else { Exit(); }
     }
     protected override float GetTargetSpeed() {
         dir = Vector2.right;

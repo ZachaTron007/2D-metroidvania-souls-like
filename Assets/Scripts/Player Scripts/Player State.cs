@@ -170,22 +170,23 @@ public class PlayerState : Unit {
         if (lastKey == jump && jumpScript.remainingJumps > 0) {
             return jumpScript;
         }
-        Debug.Log(WallCheck(.01f));
-        if (WallCheck(.01f) && moveVetcor.x == GetDirection() || WallCheck(.01f) && yVelState == wallSlideScript) {
+        //Debug.Log(WallCheck(.01f));
+        
+        if (GetGroundedState()) {
+            jumpScript.ResetJumpAmount();
+        } else if (WallCheck(.01f) && moveVetcor.x == GetDirection() || WallCheck(.01f) && yVelState == wallSlideScript) {
             //Debug.Log("wall sliding");
             if (lastKey == jump) {
                 Debug.Log("wall jump");
                 rb.AddForce(new Vector2(moveState.forceAdded, 0));
                 moveState.SetBiDirectionalWeight(0, -GetDirection());
                 return jumpScript;
-                    
-             }
+
+            }
             //jumpScript.ResetDoubleJump();
             return wallSlideScript;
         }
-        if (GetGroundedState()) {
-            jumpScript.ResetJumpAmount();
-        } else if (rb.linearVelocityY < 0) {
+        else if (rb.linearVelocityY < 0) {
             return fallState;
         }
         

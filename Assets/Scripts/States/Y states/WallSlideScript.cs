@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WallSlideScript : RbVelocitySlerp
+public class WallSlideScript : RbVelocityLerp
 {
     //wallJump
     //private float wallJumpSpeed = 100;
@@ -19,6 +19,7 @@ public class WallSlideScript : RbVelocitySlerp
     public override void Enter() {
         rb.linearVelocity = Vector2.zero;
         rb.gravityScale = 0;
+        ResetLerp(startSpeed: 0, totalTime: totalTime);
         base.Enter();
         animator.Play(unitVariables.animations.wallSlideAnimation.name);
     }
@@ -36,12 +37,17 @@ public class WallSlideScript : RbVelocitySlerp
 
     public override void Exit() {
         base.Exit();
-        rb.gravityScale = 0;
-        //Destroy(slideDust);
+        rb.gravityScale = HelperFunctions.regularGavityScale;
     }
 
     protected override float GetTargetSpeed() {
-        dir = Vector2.up;
+        dir = Vector2.down;
+        
         return maxWallSlideSpeed;
+    }
+
+    protected override void FinishedLerping() {
+        
+
     }
 }
