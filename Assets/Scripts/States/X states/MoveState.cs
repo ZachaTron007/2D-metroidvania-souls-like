@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Windows.Speech;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
-public class MoveState : RbVelocityLerp
+public class MoveState : RbVelocitySlerp
 {
     [SerializeField] private float moveSpeed = 5;
     private float biDirectionalWeight = 1;

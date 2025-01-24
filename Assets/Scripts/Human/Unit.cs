@@ -1,3 +1,4 @@
+using NUnit.Framework.Internal;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -223,6 +224,14 @@ public abstract class Unit : MonoBehaviour
         RaycastHit2D groundAvailible = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon*2, new Vector3(transform.position.x + (mainCollider.hitBox.size.x / 2) * direction, transform.position.y+distanceAdditon, 0), true);
         return groundAvailible;
     }
+
+    public void SpawnEffect(GameObject effect, Vector2 startPos, Quaternion rotation, float destroyDelay, Vector2 offset = new Vector2(), float effectSpeed = 1) {
+        if(offset == new Vector2())     offset = Vector2.zero;
+        effect = Instantiate(effect, startPos + offset, rotation);
+        effect.GetComponent<Animator>().speed = effectSpeed;
+        Destroy(effect, destroyDelay);
+    }
+
     /*
      * used to flip the sprite
      */

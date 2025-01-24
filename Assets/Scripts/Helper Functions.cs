@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-
 public static class HelperFunctions {
     public static float regularGavityScale = 2f;
     public static Dictionary<string, int> layers =
@@ -73,9 +72,13 @@ public static class HelperFunctions {
         return playedEffect;
     }*/
 
-    public static float LerpHelper(float startValue, float endValue, float totalTime, float counter) {
-        counter += Time.deltaTime;
-        return Mathf.Lerp(startValue, endValue, 1-(counter/totalTime));
+    public static float LerpHelper(float startValue, float endValue, float totalTime, ref float counter) {
+        if (counter > 0) {
+            counter -= Time.deltaTime;
+            return Mathf.Lerp(startValue, endValue, 1 - (counter / totalTime));
+        }
+        return endValue;
+        
 
     }
 

@@ -1,16 +1,29 @@
 using UnityEngine;
 
-public abstract class RbVelocityLerp : State {
-    [SerializeField] protected float accSpeed;
-    [SerializeField] protected float velPower;
+public abstract class RbVelocityLerp : State
+{
+    [Header("Lerp Settings")]
+    [SerializeField] protected float totalTime;
     protected Vector2 dir;
+    protected float startSpeed;
     //protected float targetSpeed;
     protected Vector2 movement;
+    [SerializeField] protected float counter;
     public override void FixedUpdateState() {
         base.FixedUpdateState();
         float targetSpeed = GetTargetSpeed();
-        Vector2 speedDiffrence = new Vector2(targetSpeed - rb.linearVelocityX*dir.x, targetSpeed - rb.linearVelocityY * dir.y);
-        movement = new Vector2(Mathf.Pow(Mathf.Abs(speedDiffrence.x) * accSpeed, velPower), Mathf.Pow(Mathf.Abs(speedDiffrence.y) * accSpeed, velPower)) * new Vector2(Mathf.Sign(speedDiffrence.x), Mathf.Sign(speedDiffrence.y));
+        movement = HelperFunctions.LerpHelper(startValue: startSpeed, endValue: targetSpeed, totalTime: totalTime, counter:  ref counter) * dir;
+        movement-= rb.linearVelocity;
+        if(counter <= 0) { FinishedLerping(); }
+        Debug.Log(targetSpeed);
+
+
+    }
+    protected abstract void FinishedLerping();
+    protected void ResetLerp(float startSpeed, float totalTime) {
+        this.startSpeed = startSpeed;
+        this.totalTime = totalTime;
+        counter = totalTime;
         
     }
     protected abstract float GetTargetSpeed();

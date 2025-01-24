@@ -1,5 +1,40 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &99250234376187961
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2082036912370781415}
+  m_Layer: 3
+  m_Name: Y Axis State
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2082036912370781415
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 99250234376187961}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2934614981414606279}
+  - {fileID: 2378811939695712898}
+  - {fileID: 1480310317852831661}
+  - {fileID: 6656790109618703717}
+  m_Father: {fileID: 8780527505926899338}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &298632558188287487
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,7 +267,6 @@ GameObject:
   - component: {fileID: 5659295172002192011}
   - component: {fileID: 8863627079275564475}
   - component: {fileID: 1963964075353710027}
-  - component: {fileID: 7307670183575024488}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -271,7 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acfa8e83a9a006f43a7196c9da0e3c88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animations: {fileID: 0}
+  animations: {fileID: 11400000, guid: ae449c8fe7c47cb4e818c953e59c5d7c, type: 2}
   includeRBLayers: {fileID: 0}
   rb: {fileID: 5659295172002192011}
   animatior: {fileID: 2352879121751320502}
@@ -288,7 +322,7 @@ MonoBehaviour:
   isRecovering: 0
   direction: 1
   move:
-    m_Name: 
+    m_Name: Move
     m_Type: 0
     m_ExpectedControlType: 
     m_Id: 342ca8dc-34c1-4cc2-b999-81a3a9dc9a7a
@@ -299,16 +333,16 @@ MonoBehaviour:
   xVelState: {fileID: 0}
   yVelState: {fileID: 0}
   Dash: {fileID: 8471434802479641984}
-  wallSlideScript: {fileID: 0}
+  wallSlideScript: {fileID: 1451001638846000934}
   moveState: {fileID: 545213728974159921}
-  wallJumpMove: {fileID: 0}
-  decerateMoveState: {fileID: 0}
+  wallJumpMove: {fileID: 8632781043206730513}
+  decerateMoveState: {fileID: 6970764412413427489}
   blockState: {fileID: 811300300784513735}
   blockRecoverState: {fileID: 9069043031560186155}
   parryState: {fileID: 5315851485427623027}
   idelState: {fileID: 2760532947694410976}
-  glideState: {fileID: 0}
-  bufferTime: 0.2
+  glideState: {fileID: 228091857993890362}
+  bufferTime: 0.25
   arielForce: 10
   lastKey: 0
 --- !u!50 &5659295172002192011
@@ -385,22 +419,6 @@ MonoBehaviour:
   canChange: 1
   blockState: {fileID: 811300300784513735}
   hitBox: {fileID: 5833950777563335456}
---- !u!114 &7307670183575024488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2141310683926542077}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe6eb7fab781db8488e1a11aac4e3c72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jump: 32
-  dash: 304
-  blockButton: 324
-  attackButton: 323
 --- !u!1 &2228295328164167332
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,7 +449,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8780527505926899338}
+  m_Father: {fileID: 2082036912370781415}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1823725907995604638
 MonoBehaviour:
@@ -448,7 +466,56 @@ MonoBehaviour:
   interuptable: 0
   stateDone: 0
   canTransitionToSelf: 0
-  fallGravMultiplier: 3
+  fallGravMultiplier: 3.5
+--- !u!1 &2397863388044711813
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4187474514362074397}
+  - component: {fileID: 6970764412413427489}
+  m_Layer: 3
+  m_Name: Deceleration State
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4187474514362074397
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2397863388044711813}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2116218009650946320}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6970764412413427489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2397863388044711813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a896de297a7ca47b830cd5b6f53da0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interuptable: 0
+  stateDone: 0
+  canTransitionToSelf: 0
+  decerationSpeed: 3
+  exitSpeed: 1
 --- !u!1 &2485842863330998876
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,7 +560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e63fe178284354418a8e1bada1f150a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0
+  interuptable: 0.3
   stateDone: 0
   canTransitionToSelf: 0
   dust: {fileID: 7054879024249494992, guid: ea7a63df68e2d744987636e487d1f802, type: 3}
@@ -603,16 +670,16 @@ MonoBehaviour:
   ScreenShakeMagnitude: 0.1
   speed: 1
   startHitBoxFrames: 1
-  endHitBoxFrames: 3
+  endHitBoxFrames: 7
   startMovingFrames: 0
   startMovingTime: 0
   startHitBoxTime: 1
   endHitBoxTime: 3
-  destroyDelay: 0.3
-  effectSpeed: 1
-  xOffset: 0
-  yOffSet: 0
-  eeffect: {fileID: 0}
+  destroyDelay: 0.2
+  effectSpeed: 3
+  xOffset: 1
+  yOffSet: 0.5
+  eeffect: {fileID: 1967835574231978638, guid: 3e196c9e632c76841a71cb6e2dc6d010, type: 3}
 --- !u!1 &2720542548723612446
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,7 +724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18a817285d6a7094ea91708d60e1acd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0
+  interuptable: 0.3
   stateDone: 0
   canTransitionToSelf: 0
   recoveryTime: 1
@@ -709,7 +776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e431256567fe5c34fa8c392de2da1fd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0
+  interuptable: 1
   stateDone: 0
   canTransitionToSelf: 0
   startTime: 0
@@ -809,7 +876,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8780527505926899338}
+  m_Father: {fileID: 2116218009650946320}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &545213728974159921
 MonoBehaviour:
@@ -826,11 +893,60 @@ MonoBehaviour:
   interuptable: 0
   stateDone: 0
   canTransitionToSelf: 0
-  accSpeed: 0
-  velPower: 0
-  moveSpeed: 300
-  forceAdded: 2
+  accSpeed: 0.5
+  velPower: 2
+  moveSpeed: 5
+  forceAdded: 100
   totalSpeedTransfer: 0.5
+--- !u!1 &4267413449271094011
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2934614981414606279}
+  - component: {fileID: 228091857993890362}
+  m_Layer: 3
+  m_Name: Glide State
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2934614981414606279
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4267413449271094011}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2082036912370781415}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &228091857993890362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4267413449271094011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22b6576457c3a114d80130787719d9d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interuptable: 0
+  stateDone: 0
+  canTransitionToSelf: 0
+  fallSpeed: -3
+  totalTransitionTime: 0.5
 --- !u!1 &4434563391041593556
 GameObject:
   m_ObjectHideFlags: 0
@@ -919,9 +1035,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7626bf65ef4c0640b2a46077331c24a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stat: {fileID: 0}
-  totalTime: 0
-  ReduceHearBarTime: 0.7
+  stat: {fileID: 1963964075353710027}
+  totalTime: 2
+  ReduceHearBarTime: 1
 --- !u!1 &4717247890369168496
 GameObject:
   m_ObjectHideFlags: 0
@@ -1088,11 +1204,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 829768048239696737}
-  - {fileID: 8515370148860703193}
-  - {fileID: 2378811939695712898}
-  - {fileID: 6656790109618703717}
-  - {fileID: 2690923438287197957}
-  - {fileID: 1480310317852831661}
+  - {fileID: 2116218009650946320}
+  - {fileID: 2082036912370781415}
   m_Father: {fileID: 1138596272068104886}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5753551939639635088
@@ -1139,10 +1252,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f42d673267ea8a4d8e1527d369e4452, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0
+  interuptable: 0.2
   stateDone: 0
   canTransitionToSelf: 0
-  parryWindow: 0.1
+  parryWindow: 0.2
   blocking: 0
   parryCounter: 0
   canParry: 0
@@ -1176,7 +1289,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8780527505926899338}
+  m_Father: {fileID: 2082036912370781415}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1451001638846000934
 MonoBehaviour:
@@ -1193,11 +1306,11 @@ MonoBehaviour:
   interuptable: 0
   stateDone: 0
   canTransitionToSelf: 0
-  accSpeed: 0
-  velPower: 0
-  maxWallSlideSpeed: 3
+  accSpeed: 1
+  velPower: 0.5
+  maxWallSlideSpeed: 1
   wallJump: 0
-  dust: {fileID: 0}
+  dust: {fileID: 7054879024249494992, guid: ea7a63df68e2d744987636e487d1f802, type: 3}
   rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &5849605177917012123
 GameObject:
@@ -1244,11 +1357,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c25aef9a538554e46b152a87835f2843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0
+  interuptable: 0.1
   stateDone: 0
   canTransitionToSelf: 0
   currentAttack: {fileID: 0}
-  attackSpeedModifier: 1
+  attackSpeedModifier: 1.2
   attackLungeSpeed: 0
   lookDirection: {x: 0, y: 0}
   basicCombo:
@@ -1407,16 +1520,16 @@ MonoBehaviour:
   ScreenShakeMagnitude: 0.2
   speed: 1
   startHitBoxFrames: 2
-  endHitBoxFrames: 5
+  endHitBoxFrames: 10
   startMovingFrames: 0
   startMovingTime: 0
   startHitBoxTime: 1
   endHitBoxTime: 3
-  destroyDelay: 0.3
-  effectSpeed: 1
-  xOffset: 0
-  yOffSet: 0
-  eeffect: {fileID: 0}
+  destroyDelay: 0.2
+  effectSpeed: 3
+  xOffset: 1
+  yOffSet: 0.6
+  eeffect: {fileID: 1967835574231978638, guid: 3e196c9e632c76841a71cb6e2dc6d010, type: 3}
 --- !u!1 &6991230870829561537
 GameObject:
   m_ObjectHideFlags: 0
@@ -1481,7 +1594,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8780527505926899338}
+  m_Father: {fileID: 2082036912370781415}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5748622122044369809
 MonoBehaviour:
@@ -1495,16 +1608,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eccad9cc1fc6dc24b8a7ec2278a9da42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0
+  interuptable: 0.1
   stateDone: 0
   canTransitionToSelf: 0
-  jumpVelocity: 5
+  jumpVelocity: 11.5
   jumpHeight: 3
   lowJumpMultiplier: 10
   grounded: 0
-  kyoteTime: 0
+  kyoteTime: 0.2
   remainingJumps: 0
-  puff: {fileID: 0}
+  puff: {fileID: 1604227354005263177, guid: d6d04e4b024a73147a9b9f10d607f384, type: 3}
 --- !u!1 &7433520069569163201
 GameObject:
   m_ObjectHideFlags: 0
@@ -1628,8 +1741,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a95a1ccc94106fc49bb82ee53c2f583b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stat: {fileID: 0}
-  totalTime: 0
+  stat: {fileID: 1963964075353710027}
+  totalTime: 0.3
+--- !u!1 &7954599209769813038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2116218009650946320}
+  m_Layer: 3
+  m_Name: X Axis State
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2116218009650946320
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7954599209769813038}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8515370148860703193}
+  - {fileID: 2690923438287197957}
+  - {fileID: 6763406977376186596}
+  - {fileID: 4187474514362074397}
+  m_Father: {fileID: 8780527505926899338}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7955318845054117935
 GameObject:
   m_ObjectHideFlags: 0
@@ -1820,19 +1968,19 @@ MonoBehaviour:
   attackHitBox: {fileID: 0}
   parryable: 0
   moveWhile: 1
-  ScreenShakeMagnitude: 0.5
+  ScreenShakeMagnitude: 1
   speed: 1
   startHitBoxFrames: 2
-  endHitBoxFrames: 5
+  endHitBoxFrames: 12
   startMovingFrames: 0
   startMovingTime: 0
   startHitBoxTime: 2
   endHitBoxTime: 5
   destroyDelay: 0.3
-  effectSpeed: 1
-  xOffset: 0
-  yOffSet: 0
-  eeffect: {fileID: 0}
+  effectSpeed: 2
+  xOffset: 1
+  yOffSet: 0.5
+  eeffect: {fileID: 1967835574231978638, guid: 3e196c9e632c76841a71cb6e2dc6d010, type: 3}
 --- !u!1 &8392276947747122436
 GameObject:
   m_ObjectHideFlags: 0
@@ -1877,7 +2025,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f290a0c03a2fb14392a331dea16599d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0
+  interuptable: 0.3
   stateDone: 0
   canTransitionToSelf: 0
   timeFreezeTime: 0.5
@@ -1915,7 +2063,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8780527505926899338}
+  m_Father: {fileID: 2116218009650946320}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8471434802479641984
 MonoBehaviour:
@@ -1929,18 +2077,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb7c01455a7b374ab3968741bcf4026, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interuptable: 0.4
+  stateDone: 0
+  canTransitionToSelf: 0
+  accSpeed: 0
+  velPower: 1
+  dashCount: 1
+  dashSpeed: 10
+  dashSpeedLow: 3
+  dashduration: 0.3
+  accelRate: 10
+  decelRate: 5
+  forceExitTime: 0.2
+  speed: 0
+  eeffect: {fileID: 1604227354005263177, guid: d6d04e4b024a73147a9b9f10d607f384, type: 3}
+  dashing: 0
+--- !u!1 &9078111606694831101
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6763406977376186596}
+  - component: {fileID: 8632781043206730513}
+  m_Layer: 3
+  m_Name: Wall Jump X State
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6763406977376186596
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9078111606694831101}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2116218009650946320}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8632781043206730513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9078111606694831101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ed26cd1c36e07643afa34ed84a3f931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   interuptable: 0
   stateDone: 0
   canTransitionToSelf: 0
   accSpeed: 0
   velPower: 0
-  dashCount: 1
-  dashSpeed: 22
-  dashSpeedLow: 3
-  dashduration: 0.13
-  accelRate: 1
-  decelRate: 1
-  forceExitTime: 0.2
-  speed: 0
-  eeffect: {fileID: 0}
-  dashing: 0
+  moveSpeed: 300
+  forceAdded: 100
+  totalSpeedTransfer: 0.3

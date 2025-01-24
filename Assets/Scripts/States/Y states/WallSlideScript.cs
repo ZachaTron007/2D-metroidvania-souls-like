@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WallSlideScript : RbVelocityLerp
+public class WallSlideScript : RbVelocitySlerp
 {
     //wallJump
     //private float wallJumpSpeed = 100;
