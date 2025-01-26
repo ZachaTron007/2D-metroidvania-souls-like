@@ -14,7 +14,7 @@ public class PlayerAttack : ParentMeleeAttack {
     // Update is called once per frame
     private void Awake() {
         currentAttack = basicCombo[0];
-        canTransitionToSelf = true;
+        canInteruptSelf = true;
     }
     public override void Enter() {
         base.Enter();

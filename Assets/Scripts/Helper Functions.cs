@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -22,6 +23,9 @@ public static class HelperFunctions {
         return binaryLayers;
     }
 
+    /*
+     * Get parent objects with diffrent methods
+     */
     public static T getParentTransfromComponent<T>(Transform baseTransform) where T : class{
         T goalScript = null;
         while (goalScript == null) {
@@ -71,15 +75,12 @@ public static class HelperFunctions {
 
         return playedEffect;
     }*/
-
-    public static float LerpHelper(float startValue, float endValue, float totalTime, ref float counter) {
+    public static float LerpHelper(float startValue, float endValue, float totalTime, ref float counter, AnimationCurve curve=null) {
         if (counter > 0) {
             counter -= Time.deltaTime;
-            return Mathf.Lerp(startValue, endValue, 1 - (counter / totalTime));
+            return (curve==null)?Mathf.Lerp(startValue, endValue, 1 - (counter / totalTime)): Mathf.Lerp(startValue, endValue, curve.Evaluate(1 - (counter / totalTime)));
         }
         return endValue;
-        
-
     }
 
 

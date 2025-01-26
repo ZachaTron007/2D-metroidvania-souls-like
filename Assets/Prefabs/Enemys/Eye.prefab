@@ -412,9 +412,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a23d4d58a5ac11a4fa9b468b073b872e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0
-  stateDone: 0
-  canTransitionToSelf: 0
+  <interuptable>k__BackingField: 0
+  <canInteruptSelf>k__BackingField: 0
   agroSpeed: 150
 --- !u!1 &3137445016241391336
 GameObject:
@@ -460,11 +459,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0f9d6451abeeab449cfde50845b9ee9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0
-  stateDone: 0
-  canTransitionToSelf: 0
+  <interuptable>k__BackingField: 0
+  <canInteruptSelf>k__BackingField: 0
   totalTime: 1
   counter: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   moveSpeed: 300
   forceAdded: 2
   totalSpeedTransfer: 0.5
@@ -648,9 +652,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34043891a15171d449096c60985d7bad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0
-  stateDone: 0
-  canTransitionToSelf: 0
+  <interuptable>k__BackingField: 0
+  <canInteruptSelf>k__BackingField: 0
   currentAttack: {fileID: 0}
   attackSpeedModifier: 1
   attackLungeSpeed: 0
@@ -794,9 +797,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b36af5dcd66b2114a9d70ba9bc8bc4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0
-  stateDone: 0
-  canTransitionToSelf: 0
+  <interuptable>k__BackingField: 0
+  <canInteruptSelf>k__BackingField: 0
   recoveryTime: 1
 --- !u!1 &3795354482318749612
 GameObject:
@@ -934,9 +936,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 024acaf7bac77754aa2d4fade6fb991a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0
-  stateDone: 0
-  canTransitionToSelf: 0
+  <interuptable>k__BackingField: 0
+  <canInteruptSelf>k__BackingField: 0
   recoverTime: 0.6
 --- !u!1 &5233052503838960461
 GameObject:
@@ -1290,9 +1291,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa9b907a176652d4c8e85a5a20871f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0
-  stateDone: 0
-  canTransitionToSelf: 0
+  <interuptable>k__BackingField: 0
+  <canInteruptSelf>k__BackingField: 0
   parryRecoverTime: 0.5
 --- !u!1 &7186490434539820560
 GameObject:
@@ -1372,9 +1372,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e431256567fe5c34fa8c392de2da1fd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0
-  stateDone: 0
-  canTransitionToSelf: 0
+  <interuptable>k__BackingField: 0
+  <canInteruptSelf>k__BackingField: 0
   startTime: 4
   speed: 0.2
 --- !u!1 &7964963169464356266
@@ -1421,9 +1420,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e320b8e8ff298d45a998ef4de6d9bc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0
-  stateDone: 0
-  canTransitionToSelf: 0
+  <interuptable>k__BackingField: 0
+  <canInteruptSelf>k__BackingField: 0
   fallGravMultiplier: 3
 --- !u!1 &8145951768316461982
 GameObject:
@@ -1469,9 +1467,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 545f2374f79fb1f4391bd4856771dd85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0
-  stateDone: 0
-  canTransitionToSelf: 0
+  <interuptable>k__BackingField: 0
+  <canInteruptSelf>k__BackingField: 0
   walkBackDistance: 0
   walkSpeed: 50
   forgetTime: 2

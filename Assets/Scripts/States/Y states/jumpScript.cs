@@ -4,18 +4,17 @@ using UnityEngine;
 
 public class JumpScript : State
 {
+    [Header("Jump Settings")]
     [SerializeField] private float jumpVelocity = 5;
     [SerializeField] private float jumpHeight = 3;
     [SerializeField] private float lowJumpMultiplier = 20f;
-    public bool grounded = false;
     [HideInInspector] public float kyoteTime = .2f;
-    [HideInInspector] public int remainingJumps = 0;
-    private int totalJumps = 1;
+    public int remainingAirBorneJumps = 0;
+    private int TotalAirBorneJumps = 0;
     private float yoffset = .5f;
     private float destroyDelay = .4f;
     private float effectSpeed = 1.5f;
     [SerializeField] private GameObject puff;
-    private float grav = 2;
 
     // Update is called once per frame
 
@@ -24,8 +23,8 @@ public class JumpScript : State
         //makes the y component change
         rb.linearVelocity = new Vector2(rb.linearVelocityX,jumpVelocity);
         
-        rb.gravityScale = grav;
-        remainingJumps -= 1;
+        rb.gravityScale = HelperFunctions.regularGavityScale;
+        remainingAirBorneJumps -= 1;
 
     }
 
@@ -47,14 +46,13 @@ public class JumpScript : State
     public override void Enter() {
         base.Enter();
         interuptable = .1f;
-        GameObject effect = Instantiate(puff, new Vector3(unitVariables.transform.position.x, unitVariables.transform.position.y + yoffset, unitVariables.transform.position.z),new Quaternion(0,0,0,0));
-        Destroy(effect,destroyDelay);
-        effect.GetComponent<Animator>().speed = effectSpeed;
+        unitVariables.SpawnEffect(puff,unitVariables.transform.position, new Quaternion(0, 0, 0, 0), destroyDelay,new Vector2(0,yoffset),effectSpeed: effectSpeed);
+
         //jumpVelocity = Mathf.Sqrt(Physics.gravity.y * 2 * jumpHeight * -2);
         animator.Play(unitVariables.animations.jumpAnimation.name);
         Jump();
     }
-    public void ResetJumpAmount() => remainingJumps = totalJumps;
-    public void ResetDoubleJump() => remainingJumps = 1;
+    public void ResetJumpAmount() => remainingAirBorneJumps = TotalAirBorneJumps;
+    public void ResetDoubleJump() => remainingAirBorneJumps = 1;
 
 }

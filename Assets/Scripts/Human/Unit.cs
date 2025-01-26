@@ -92,30 +92,30 @@ public abstract class Unit : MonoBehaviour
      */
     protected abstract void StateChange(State manualSate = null);
     //protected abstract void GetHurt();
-    /*
-     * summary:
-     * sends a boxcast down to see if you are touching the ground,
-     * you give a box dimentions as a parameter
-     */
 
     protected State CanSwitchState(State newState, State oldState) {
+        //if you dont have an old state, automaticly siwtch to newstate
         if (!oldState) {
             SwitchStateActions(newState, oldState);
             return newState;
         } else if (!newState) {
+            //if you arnt switching to a new state
+            //if you are done with the old state then exit
             if (oldState.IsStateDone()||oldState.interuptable==0) {
                 return null;
-            } else {
-                //SwitchStateActions(newState, oldState);
-                return oldState;
             }
+            //if not continue
+            return oldState;
         }
+        //if you can switch states
         if (newState.interuptable >= oldState.interuptable || oldState.IsStateDone() || oldState.interuptable == 0) {
+            //if the states are diffrent
             if (oldState != newState) {
                 SwitchStateActions(newState, oldState);
-
                 return newState;
-            } else if (oldState.IsStateDone() && oldState.canTransitionToSelf) {
+
+            } else if (oldState.IsStateDone() && oldState.canInteruptSelf) {
+                //if they are the same check if it is done, or if you can switch to the same state
                 SwitchStateActions(newState,oldState);
                 return newState;
             }
@@ -131,14 +131,13 @@ public abstract class Unit : MonoBehaviour
         }
     }
     private void PlatformScriptLogic(CustomPlatformBase scriptCollected) {
-        
+        //if you are on a platform you wernt on last frame
         if (scriptCollected != lastPlat&&scriptCollected) {
             scriptCollected?.EnterOnCustomPlatform(rb);
         }
         scriptCollected?.StayOnCustomPlatform(rb);
-        //Debug.Log("Collected: "+scriptCollected?.name+", last Plat: "+lastPlat?.name);
+        //if you left a platform this frame
         if (lastPlat && !scriptCollected) {
-            
             lastPlat.ExitOnCustomPlatform(rb);
         }
         lastPlat = scriptCollected;

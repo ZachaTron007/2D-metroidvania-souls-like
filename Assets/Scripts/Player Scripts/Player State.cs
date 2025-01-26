@@ -167,19 +167,23 @@ public class PlayerState : Unit {
         return null;
     }
     private State YAxisStateChange() {
-        if (lastKey == jump && jumpScript.remainingJumps > 0) {
-            return jumpScript;
+        if (lastKey == jump) {
+            if (GetGroundedState()) {
+                return jumpScript;
+            } else if (jumpScript.remainingAirBorneJumps > 0) {
+                return jumpScript;
+            }
         }
         //Debug.Log(WallCheck(.01f));
         
         if (GetGroundedState()) {
             jumpScript.ResetJumpAmount();
+
         } else if (WallCheck(.01f) && moveVetcor.x == GetDirection() || WallCheck(.01f) && yVelState == wallSlideScript) {
-            //Debug.Log("wall sliding");
             if (lastKey == jump) {
-                Debug.Log("wall jump");
+                Debug.Log("wall jump");/*
                 rb.AddForce(new Vector2(moveState.forceAdded, 0));
-                moveState.SetBiDirectionalWeight(0, -GetDirection());
+                moveState.SetBiDirectionalWeight(0, -GetDirection());*/
                 return jumpScript;
 
             }

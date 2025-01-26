@@ -48,7 +48,7 @@ public class dashScript : RbVelocityLerp {
     protected override void FinishedLerping() {
         if (speed == dashSpeed){
             speed = dashSpeedLow;
-            ResetLerp(startSpeed: dashSpeed, totalTime: forceExitTime, Vector2.right);
+            ResetLerp(startSpeed: dashSpeed*unitVariables.GetDirection(), totalTime: forceExitTime, Vector2.right);
         }else { Exit(); }
     }
     protected override float GetTargetSpeed() {

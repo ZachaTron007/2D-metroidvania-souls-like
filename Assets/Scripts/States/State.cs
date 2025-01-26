@@ -7,12 +7,11 @@ using UnityEngine.InputSystem.LowLevel;
 public abstract class State : MonoBehaviour {
     protected Rigidbody2D rb;
     protected Animator animator;
-    public bool recovering { get; protected set; } = false;
-    public float interuptable = 0;//{ get; protected set; } = 0;
-    [SerializeField] private bool stateDone = false;
-    public bool canTransitionToSelf = false;
+    private bool stateDone = false;
+    [field: Header("State Properties")]
+    [field: SerializeField] public float interuptable { get; protected set; } = 0;
+    [field: SerializeField] public bool canInteruptSelf { get; protected set; } = false;
     protected Unit unitVariables;
-    protected PlayerState playerVariables;
     protected Stun stun;
     public bool IsStateDone() {
         return stateDone;
@@ -35,12 +34,11 @@ public abstract class State : MonoBehaviour {
 
     }
 
-    public void Setup (Rigidbody2D rb, Animator animator,Unit unitVariables,Stun stun = null, PlayerState playerVariables = null) { 
+    public void Setup (Rigidbody2D rb, Animator animator,Unit unitVariables,Stun stun = null) { 
         this.rb = rb;
         this.animator = animator;
         this.unitVariables = unitVariables;
         this.stun = stun;
-        this.playerVariables = playerVariables;
 
     }
     public void ResetState (State newState) {

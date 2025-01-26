@@ -463,9 +463,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e320b8e8ff298d45a998ef4de6d9bc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0
-  stateDone: 0
-  canTransitionToSelf: 0
+  <interuptable>k__BackingField: 0
+  <canInteruptSelf>k__BackingField: 0
   fallGravMultiplier: 3.5
 --- !u!1 &2397863388044711813
 GameObject:
@@ -511,9 +510,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66a896de297a7ca47b830cd5b6f53da0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0
-  stateDone: 0
-  canTransitionToSelf: 0
+  <interuptable>k__BackingField: 0
+  <canInteruptSelf>k__BackingField: 0
   decerationSpeed: 3
   exitSpeed: 1
 --- !u!1 &2485842863330998876
@@ -560,9 +558,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e63fe178284354418a8e1bada1f150a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0.3
-  stateDone: 0
-  canTransitionToSelf: 0
+  <interuptable>k__BackingField: 0
+  <canInteruptSelf>k__BackingField: 0
   dust: {fileID: 7054879024249494992, guid: ea7a63df68e2d744987636e487d1f802, type: 3}
   knockbackSpeed: 10
   knockbackTime: 1
@@ -724,9 +721,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18a817285d6a7094ea91708d60e1acd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0.3
-  stateDone: 0
-  canTransitionToSelf: 0
+  <interuptable>k__BackingField: 0
+  <canInteruptSelf>k__BackingField: 0
   recoveryTime: 1
   knockbackX: 6
   knockbackY: 7
@@ -776,9 +772,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e431256567fe5c34fa8c392de2da1fd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 1
-  stateDone: 0
-  canTransitionToSelf: 0
+  <interuptable>k__BackingField: 0
+  <canInteruptSelf>k__BackingField: 0
   startTime: 0
   speed: 1
 --- !u!1 &2848829874432488794
@@ -890,11 +885,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0f9d6451abeeab449cfde50845b9ee9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0
-  stateDone: 0
-  canTransitionToSelf: 0
+  <interuptable>k__BackingField: 0
+  <canInteruptSelf>k__BackingField: 0
   totalTime: 1
   counter: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   moveSpeed: 5
   forceAdded: 100
   totalSpeedTransfer: 0.5
@@ -942,9 +942,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22b6576457c3a114d80130787719d9d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0
-  stateDone: 0
-  canTransitionToSelf: 0
+  <interuptable>k__BackingField: 0
+  <canInteruptSelf>k__BackingField: 0
   fallSpeed: -3
   totalTransitionTime: 0.5
 --- !u!1 &4434563391041593556
@@ -1252,9 +1251,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f42d673267ea8a4d8e1527d369e4452, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0.2
-  stateDone: 0
-  canTransitionToSelf: 0
+  <interuptable>k__BackingField: 0
+  <canInteruptSelf>k__BackingField: 0
   parryWindow: 0.2
   blocking: 0
   parryCounter: 0
@@ -1303,11 +1301,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 106eaa60f2199ed4fa7dc17e9a78df66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0
-  stateDone: 0
-  canTransitionToSelf: 0
+  <interuptable>k__BackingField: 0
+  <canInteruptSelf>k__BackingField: 0
   totalTime: 1
   counter: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   maxWallSlideSpeed: 1
   wallJump: 0
   dust: {fileID: 7054879024249494992, guid: ea7a63df68e2d744987636e487d1f802, type: 3}
@@ -1357,9 +1360,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c25aef9a538554e46b152a87835f2843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0.1
-  stateDone: 0
-  canTransitionToSelf: 0
+  <interuptable>k__BackingField: 0
+  <canInteruptSelf>k__BackingField: 0
   currentAttack: {fileID: 0}
   attackSpeedModifier: 1.2
   attackLungeSpeed: 0
@@ -1415,9 +1417,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ccafe2391980aa49aed831ac087f003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0
-  stateDone: 0
-  canTransitionToSelf: 0
+  <interuptable>k__BackingField: 0
+  <canInteruptSelf>k__BackingField: 0
   idelClip: {fileID: 7400000, guid: 25c891cb0c6f9254ab9e614f7fd82c78, type: 2}
 --- !u!1 &6949226957807085175
 GameObject:
@@ -1608,15 +1609,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eccad9cc1fc6dc24b8a7ec2278a9da42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0.1
-  stateDone: 0
-  canTransitionToSelf: 0
+  <interuptable>k__BackingField: 0
+  <canInteruptSelf>k__BackingField: 0
   jumpVelocity: 11.5
   jumpHeight: 3
   lowJumpMultiplier: 10
-  grounded: 0
   kyoteTime: 0.2
-  remainingJumps: 0
+  remainingAirBorneJumps: 0
   puff: {fileID: 1604227354005263177, guid: d6d04e4b024a73147a9b9f10d607f384, type: 3}
 --- !u!1 &7433520069569163201
 GameObject:
@@ -2025,9 +2024,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f290a0c03a2fb14392a331dea16599d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0.3
-  stateDone: 0
-  canTransitionToSelf: 0
+  <interuptable>k__BackingField: 0
+  <canInteruptSelf>k__BackingField: 0
   timeFreezeTime: 0.5
   shakeTime: 0.2
   shakeIntensity: 2.5
@@ -2077,11 +2075,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb7c01455a7b374ab3968741bcf4026, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0.4
-  stateDone: 0
-  canTransitionToSelf: 0
+  <interuptable>k__BackingField: 0
+  <canInteruptSelf>k__BackingField: 0
   totalTime: 1
   counter: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   dashCount: 1
   dashSpeed: 10
   dashSpeedLow: 3
@@ -2134,11 +2137,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ed26cd1c36e07643afa34ed84a3f931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interuptable: 0
-  stateDone: 0
-  canTransitionToSelf: 0
+  <interuptable>k__BackingField: 0
+  <canInteruptSelf>k__BackingField: 0
   totalTime: 1
   counter: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   moveSpeed: 300
   forceAdded: 100
   totalSpeedTransfer: 0.3
