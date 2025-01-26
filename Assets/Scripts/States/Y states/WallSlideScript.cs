@@ -9,7 +9,6 @@ public class WallSlideScript : RbVelocityLerp
     //private float wallJumpSpeed = 100;
     //private float wallJumpDuration = 0.3f;
     //wallslide 
-    private float wallSlideSpeed = 3;
     [SerializeField] private float maxWallSlideSpeed = 3;
     public bool wallJump = false;
     [SerializeField] private GameObject dust;
@@ -17,22 +16,11 @@ public class WallSlideScript : RbVelocityLerp
     public Quaternion rotation;
 
     public override void Enter() {
-        rb.linearVelocity = Vector2.zero;
-        rb.gravityScale = 0;
-        ResetLerp(startSpeed: 0, totalTime: totalTime);
         base.Enter();
+        rb.linearVelocity = Vector3.zero;
+        rb.gravityScale = 0;
+        ResetLerp(startSpeed: rb.linearVelocity.y, totalTime: totalTime, Vector2.up);
         animator.Play(unitVariables.animations.wallSlideAnimation.name);
-    }
-    // Start is called before the first frame update  
-    public override void UpdateState() {
-        
-        //rb.linearVelocity = -Vector2.up * wallSlideSpeed;
-        //slideDust = Instantiate(dust, transform.position, rotation, transform);
-        
-    }
-    public override void FixedUpdateState() {
-        base.FixedUpdateState();
-        rb.AddForce(Vector2.down * movement);
     }
 
     public override void Exit() {
@@ -41,8 +29,6 @@ public class WallSlideScript : RbVelocityLerp
     }
 
     protected override float GetTargetSpeed() {
-        dir = Vector2.down;
-        
         return maxWallSlideSpeed;
     }
 

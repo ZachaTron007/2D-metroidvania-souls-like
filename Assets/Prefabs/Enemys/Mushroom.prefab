@@ -1165,8 +1165,8 @@ MonoBehaviour:
   interuptable: 0
   stateDone: 0
   canTransitionToSelf: 0
-  accSpeed: 0
-  velPower: 0
+  totalTime: 1
+  counter: 0
   moveSpeed: 300
   forceAdded: 2
   totalSpeedTransfer: 0.5

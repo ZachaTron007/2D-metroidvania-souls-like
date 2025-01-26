@@ -893,8 +893,8 @@ MonoBehaviour:
   interuptable: 0
   stateDone: 0
   canTransitionToSelf: 0
-  accSpeed: 0.5
-  velPower: 2
+  totalTime: 1
+  counter: 0
   moveSpeed: 5
   forceAdded: 100
   totalSpeedTransfer: 0.5
@@ -1306,8 +1306,8 @@ MonoBehaviour:
   interuptable: 0
   stateDone: 0
   canTransitionToSelf: 0
-  accSpeed: 1
-  velPower: 0.5
+  totalTime: 1
+  counter: 0
   maxWallSlideSpeed: 1
   wallJump: 0
   dust: {fileID: 7054879024249494992, guid: ea7a63df68e2d744987636e487d1f802, type: 3}
@@ -2080,14 +2080,12 @@ MonoBehaviour:
   interuptable: 0.4
   stateDone: 0
   canTransitionToSelf: 0
-  accSpeed: 0
-  velPower: 1
+  totalTime: 1
+  counter: 0
   dashCount: 1
   dashSpeed: 10
   dashSpeedLow: 3
   dashduration: 0.3
-  accelRate: 10
-  decelRate: 5
   forceExitTime: 0.2
   speed: 0
   eeffect: {fileID: 1604227354005263177, guid: d6d04e4b024a73147a9b9f10d607f384, type: 3}
@@ -2139,8 +2137,8 @@ MonoBehaviour:
   interuptable: 0
   stateDone: 0
   canTransitionToSelf: 0
-  accSpeed: 0
-  velPower: 0
+  totalTime: 1
+  counter: 0
   moveSpeed: 300
   forceAdded: 100
   totalSpeedTransfer: 0.3

@@ -36,7 +36,7 @@ public class dashScript : RbVelocityLerp {
     public override void Enter() {
         base.Enter();
         speed = dashSpeed;
-        ResetLerp(startSpeed: rb.linearVelocityX, totalTime: dashduration);
+        ResetLerp(startSpeed: rb.linearVelocityX, totalTime: dashduration, Vector2.right);
         interuptable = .9f;
         animator.Play(unitVariables.animations.idelAnimation.name);
         hitBox.excludeLayers = HelperFunctions.LayerMaskCreator(new int[] { 3, 7, 8 });
@@ -48,11 +48,10 @@ public class dashScript : RbVelocityLerp {
     protected override void FinishedLerping() {
         if (speed == dashSpeed){
             speed = dashSpeedLow;
-            ResetLerp(startSpeed: dashSpeed, totalTime: forceExitTime);
+            ResetLerp(startSpeed: dashSpeed, totalTime: forceExitTime, Vector2.right);
         }else { Exit(); }
     }
     protected override float GetTargetSpeed() {
-        dir = Vector2.right;
         return speed * unitVariables.GetDirection();
     }
 
