@@ -35,6 +35,7 @@ public abstract class Unit : MonoBehaviour
     [HideInInspector] public bool canBeHit = true;
     [HideInInspector] public bool isRecovering = false;
     [SerializeField] private int direction = 1;//{ get; protected set; } = 1;
+    public Vector2 unModifiedSpeed = new Vector2(0,0);
     protected bool grounded;
     private float kyoteTimeCounter;
     private CustomPlatformBase lastPlat = null;
@@ -61,6 +62,7 @@ public abstract class Unit : MonoBehaviour
      */
     protected virtual void Update() {
         grounded = GroundTouch();
+        rb.linearVelocity = unModifiedSpeed;
     }
     protected void ComponentSetup() {
         state = fallState;

@@ -17,7 +17,7 @@ public class WallSlideScript : RbVelocityLerp
 
     public override void Enter() {
         base.Enter();
-        rb.linearVelocity = Vector3.zero;
+        unitVariables.unModifiedSpeed = Vector3.zero;
         rb.gravityScale = 0;
         ResetLerp(startSpeed: rb.linearVelocity.y, totalTime: totalTime, Vector2.up);
         animator.Play(unitVariables.animations.wallSlideAnimation.name);

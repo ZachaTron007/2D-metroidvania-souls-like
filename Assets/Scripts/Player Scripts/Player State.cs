@@ -152,8 +152,7 @@ public class PlayerState : Unit {
      * handles the state changing logic
      */
     private State XAxisStateChange() {
-        if (yVelState == wallSlideScript) {
-            //moveState.SetWeight(0,1,moveState.totalSpeedTransfer);
+        if (WallCheck(.01f) && (yVelState == wallSlideScript||yVelState==jumpScript)) {
             
         }
         if (moveVetcor.x != 0) {
@@ -181,9 +180,7 @@ public class PlayerState : Unit {
 
         } else if (WallCheck(.01f) && moveVetcor.x == GetDirection() || WallCheck(.01f) && yVelState == wallSlideScript) {
             if (lastKey == jump) {
-                Debug.Log("wall jump");/*
-                rb.AddForce(new Vector2(moveState.forceAdded, 0));
-                moveState.SetBiDirectionalWeight(0, -GetDirection());*/
+                
                 return jumpScript;
 
             }

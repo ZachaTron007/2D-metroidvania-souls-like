@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DecelerateMoveScript : State
+public class DecelerateMoveScript : RbVelocityLerp
 {
     [SerializeField] private float decerationSpeed = 1;
     public float exitSpeed = 1;
@@ -13,6 +13,10 @@ public class DecelerateMoveScript : State
             Exit();
         }
     }
-
+    protected override float GetTargetSpeed() {
+        return 0;
+    }
+    protected override void FinishedLerping() {
+    }
 
 }

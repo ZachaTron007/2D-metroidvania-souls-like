@@ -70,8 +70,18 @@ public class MovingPlatformScript : CustomPlatformBase
         counter = 0;
     }
 
-    public override void StayOnCustomPlatform(Rigidbody2D rb) {
-        base.StayOnCustomPlatform(rb);
-        if (changedSpeeds) rb.linearVelocity = Vector3.zero ;
+    public override void StayOnCustomPlatform(Rigidbody2D playerRB) {
+        base.StayOnCustomPlatform(playerRB);
+        if (changedSpeeds) playerRB.linearVelocity = Vector3.zero ;
+    }
+    public override void EnterOnCustomPlatform(Rigidbody2D playerRB) {
+        base.EnterOnCustomPlatform(playerRB);
+        Debug.Log("Entered");
+
+        playerRB.linearVelocity += rb.linearVelocity ;
+    }
+    public override void ExitOnCustomPlatform(Rigidbody2D playerRB) {
+        base.EnterOnCustomPlatform(playerRB);
+        playerRB.linearVelocity -= rb.linearVelocity;
     }
 }
