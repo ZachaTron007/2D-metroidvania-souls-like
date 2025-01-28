@@ -8,15 +8,15 @@ public class FallState : State
     
     private float terminalVelocity = 15;
     private void fallGravity() {
-        rb.linearVelocity += Vector2.up * Physics.gravity.y * (fallGravMultiplier - rb.gravityScale) * Time.deltaTime;
+        unitVariables.unModifiedSpeed += Vector2.up * Physics.gravity.y * (fallGravMultiplier - rb.gravityScale) * Time.deltaTime;
     }
 
     public override void FixedUpdateState() {
         base.FixedUpdateState();
-        if (rb.linearVelocity.y > -terminalVelocity) {
+        if (unitVariables.unModifiedSpeed.y > -terminalVelocity) {
             fallGravity();
         } else {
-            rb.linearVelocity =new Vector2(rb.linearVelocity.x, -terminalVelocity);
+            unitVariables.unModifiedSpeed = new Vector2(rb.linearVelocity.x, -terminalVelocity);
         }
     }
     public override void Enter() {
