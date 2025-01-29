@@ -37,27 +37,22 @@ public class MovingPlatformScript : CustomPlatformBase
         float distance2 = HelperFunctions.PointToDistance(transform.position, endPoint2);
         //Debug.Log(distance + " " + distance2);
         //Debug.Log(totalDistance);
-        if (canTurn) {
-            if (distance > totalDistance || distance2 > totalDistance) {
+        if (canTurn&&(distance > totalDistance || distance2 > totalDistance)) {
+            if (counter == 0) {
+                Invoke(nameof(ResetCounter), StayTime + 1);
+            } else if (counter < StayTime) {
+                rb.linearVelocity = Vector3.zero;
+            } else {
+                direction *= -1;
+                canTurn = false;
+                MoveSpeed();
+            }
+            counter += Time.deltaTime;
 
-
-                if (counter == 0) {
-                    Invoke(nameof(ResetCounter), StayTime + 1);
-                }else if (counter < StayTime) {
-                    rb.linearVelocity = Vector3.zero;
-                } else {
-                    direction *= -1;
-                    canTurn = false;
-                    MoveSpeed();
-                }
-                counter += Time.deltaTime;
-                    
-                if(distance > totalDistance) {
-                    goalPos = endPoint;
-                } else {
-                    goalPos = endPoint2;
-                }
-
+            if (distance > totalDistance) {
+                goalPos = endPoint;
+            } else {
+                goalPos = endPoint2;
             }
         }
         if (rb.linearVelocity != speed)     changedSpeeds = true;

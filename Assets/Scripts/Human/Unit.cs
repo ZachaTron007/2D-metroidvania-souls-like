@@ -41,6 +41,8 @@ public abstract class Unit : MonoBehaviour
     protected bool grounded;
     private float kyoteTimeCounter;
     private CustomPlatformBase lastPlat = null;
+    public float grav = 9.8f;
+    public float gravityForce;
     /*
      * summary:
      * get and sets
@@ -65,7 +67,18 @@ public abstract class Unit : MonoBehaviour
     protected virtual void Update() {
         grounded = GroundTouch();
         //modifiedLinearVelocity.y = rb.linearVelocity.y;
+        if (unModifiedSpeed.y == 0) {
+            gravityForce = 0;
+        }
+        if (!grounded) {
+            gravityForce -= grav * rb.gravityScale;
+            Debug.Log("Unmodified Speed: " + unModifiedSpeed);
+            unModifiedSpeed += new Vector2(0, gravityForce);
+            Debug.Log("Modified Speed: " + unModifiedSpeed);
+            //rb.AddForce(Vector2.down * grav * rb.gravityScale);
+        }
         rb.linearVelocity = unModifiedSpeed;
+
     }
     protected void ComponentSetup() {
         state = fallState;
