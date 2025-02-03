@@ -7,7 +7,7 @@ public class DecelerateMoveScript : RbVelocityLerp
 
     public override void Enter() {
         base.Enter();
-        ResetLerp(unitVariables.unModifiedSpeed.x, totalTime, Vector2.right);
+        ResetLerp(rb.linearVelocity.x, totalTime, Vector2.right);
     }
     protected override float GetTargetSpeed() {
         return 0;

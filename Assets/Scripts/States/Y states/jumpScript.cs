@@ -20,7 +20,7 @@ public class JumpScript : State
 
     public void Jump() {
         //makes the y component change
-        unitVariables.unModifiedSpeed += new Vector2(0,jumpVelocity);
+        unitVariables.rb.linearVelocity = new Vector2(0,jumpVelocity);
         Debug.Log("Jump");
         rb.gravityScale = HelperFunctions.regularGavityScale;
         remainingAirBorneJumps -= 1;
@@ -37,7 +37,7 @@ public class JumpScript : State
     public override void FixedUpdateState() {
         base.FixedUpdateState();
         if (!Input.GetKey(KeyCode.Space)) {
-            unitVariables.unModifiedSpeed += Vector2.up * Physics.gravity.y * (lowJumpMultiplier - rb.gravityScale) * Time.fixedDeltaTime;
+            unitVariables.rb.linearVelocity += Vector2.up * Physics.gravity.y * (lowJumpMultiplier - rb.gravityScale) * Time.fixedDeltaTime;
         }
         
     }

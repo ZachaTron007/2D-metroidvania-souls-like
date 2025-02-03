@@ -14,7 +14,7 @@ public abstract class RbVelocityLerp : State
         float targetSpeed = GetTargetSpeed();
         movement = HelperFunctions.LerpHelper(startSpeed, targetSpeed, totalTime, ref counter, curve) * dir;
         movement-= rb.linearVelocity * new Vector2(Mathf.Abs(dir.x), Mathf.Abs(dir.y));
-        unitVariables.unModifiedSpeed += movement;
+        rb.linearVelocity += movement;
         if (counter <= 0) { FinishedLerping(); }
     }
     protected abstract void FinishedLerping();

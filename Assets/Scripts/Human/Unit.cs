@@ -35,9 +35,7 @@ public abstract class Unit : MonoBehaviour
     [HideInInspector] public bool canBeHit = true;
     [HideInInspector] public bool isRecovering = false;
     [SerializeField] private int direction = 1;//{ get; protected set; } = 1;
-    public Vector2 unModifiedSpeed = new Vector2(0,0);
-    public Vector2 modifiedSpeed = new Vector2(0, 0);
-    public Vector2 modifiedLinearVelocity = new Vector2(0, 0);
+    public Vector2 forceAdded = new Vector2(0, 0);
     protected bool grounded;
     private float kyoteTimeCounter;
     private CustomPlatformBase lastPlat = null;
@@ -66,19 +64,6 @@ public abstract class Unit : MonoBehaviour
      */
     protected virtual void Update() {
         grounded = GroundTouch();
-        //modifiedLinearVelocity.y = rb.linearVelocity.y;
-        if (unModifiedSpeed.y == 0) {
-            gravityForce = 0;
-        }
-        if (!grounded) {
-            gravityForce -= grav * rb.gravityScale;
-            Debug.Log("Unmodified Speed: " + unModifiedSpeed);
-            unModifiedSpeed += new Vector2(0, gravityForce);
-            Debug.Log("Modified Speed: " + unModifiedSpeed);
-            //rb.AddForce(Vector2.down * grav * rb.gravityScale);
-        }
-        rb.linearVelocity = unModifiedSpeed;
-
     }
     protected void ComponentSetup() {
         state = fallState;
@@ -151,7 +136,9 @@ public abstract class Unit : MonoBehaviour
     private void PlatformScriptLogic(CustomPlatformBase scriptCollected) {
         //if you are on a platform you wernt on last frame
         if (scriptCollected != lastPlat&&scriptCollected) {
+            Debug.Log(scriptCollected);
             scriptCollected?.EnterOnCustomPlatform(rb);
+            
         }
         scriptCollected?.StayOnCustomPlatform(rb);
         //if you left a platform this frame
