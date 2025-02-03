@@ -136,8 +136,7 @@ public abstract class Unit : MonoBehaviour
     private void PlatformScriptLogic(CustomPlatformBase scriptCollected) {
         //if you are on a platform you wernt on last frame
         if (scriptCollected != lastPlat&&scriptCollected) {
-            Debug.Log(scriptCollected);
-            scriptCollected?.EnterOnCustomPlatform(rb);
+            scriptCollected.EnterOnCustomPlatform(rb);
             
         }
         scriptCollected?.StayOnCustomPlatform(rb);

@@ -6,6 +6,7 @@ public class MovingPlatformScript : CustomPlatformBase
     [SerializeField] protected float moveSpeed = 10;
     [SerializeField] private Vector2 endPoint;
     private Vector2 endPoint2;
+    private Rigidbody2D rb;
     [SerializeField] private float StayTime = 2;
     private float counter;
     protected float totalTime;
@@ -13,6 +14,7 @@ public class MovingPlatformScript : CustomPlatformBase
 
     protected virtual void Awake()
     {
+        rb = GetComponent<Rigidbody2D>();
         endPoint2 = transform.position;
         totalTime = HelperFunctions.PointToDistance(endPoint2, endPoint)*moveSpeed;
         counter = totalTime;
@@ -20,10 +22,12 @@ public class MovingPlatformScript : CustomPlatformBase
 
     void Update()
     {
-        float deltaX = HelperFunctions.LerpHelper(endPoint.x, endPoint2.x, totalTime, ref counter);
-        float deltaY = HelperFunctions.LerpHelper(endPoint.y, endPoint2.y, totalTime, ref counter);
-        
+        float deltaX = HelperFunctions.LerpHelper(endPoint.x, endPoint2.x, totalTime, ref counter);// - transform.position.x;
+        float deltaY = HelperFunctions.LerpHelper(endPoint.y, endPoint2.y, totalTime, ref counter);// - transform.position.y;
+        //Debug.Log("Plat Vel: "+deltaX);
         transform.position = new Vector2(deltaX, deltaY);
+        //rb.linearVelocity = new Vector2(deltaX, deltaY);
+        ForceAppliedToUnits(new Vector2(deltaX-transform.position.x,deltaY-transform.position.y));
         if (counter <= 0) {
             moveCounter += Time.deltaTime;
             if(moveCounter > StayTime) ResetCounter();

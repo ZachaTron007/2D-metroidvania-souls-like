@@ -19,7 +19,8 @@ public abstract class CustomPlatformBase : MonoBehaviour
         //Debug.Log("Stay Platform");
     }
     public virtual void EnterOnCustomPlatform(Rigidbody2D rb) {
-        rbsEffected.Add(rb, rb);
+        //rbsEffected.Add(rb, rb);
+        Debug.Log("Player rb: " + rb);
         rbEffected = rb;
     }
     public virtual void ExitOnCustomPlatform(Rigidbody2D rb) {
@@ -28,9 +29,12 @@ public abstract class CustomPlatformBase : MonoBehaviour
     }
 
     protected void ForceAppliedToUnits(Vector2 dir, float force = 1) {
-        Unit unitEffected = rbEffected?.gameObject.GetComponent<Unit>();
-        if (unitEffected != null) {
+        Unit unitEffected = null;
+        rbEffected?.gameObject.TryGetComponent(out unitEffected);
+        //Debug.Log("Unit: " + unitEffected);
+        if (unitEffected){//.forceAdded!=(force*dir)) {
             rbEffected.linearVelocity -= unitEffected.forceAdded;
+            Debug.Log("Force Added" + force * dir);
             unitEffected.forceAdded = force * dir;
         }
         
