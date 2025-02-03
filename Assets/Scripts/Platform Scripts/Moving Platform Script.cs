@@ -20,18 +20,19 @@ public class MovingPlatformScript : CustomPlatformBase
         counter = totalTime;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         float deltaX = HelperFunctions.LerpHelper(endPoint.x, endPoint2.x, totalTime, ref counter);// - transform.position.x;
         float deltaY = HelperFunctions.LerpHelper(endPoint.y, endPoint2.y, totalTime, ref counter);// - transform.position.y;
-        //Debug.Log("Plat Vel: "+deltaX);
+        ForceAppliedToUnits(new Vector2(transform.position.x - deltaX,transform.position.y - deltaY) / Time.fixedDeltaTime);
         transform.position = new Vector2(deltaX, deltaY);
         //rb.linearVelocity = new Vector2(deltaX, deltaY);
-        ForceAppliedToUnits(new Vector2(deltaX-transform.position.x,deltaY-transform.position.y));
+        
         if (counter <= 0) {
             moveCounter += Time.deltaTime;
             if(moveCounter > StayTime) ResetCounter();
         }
+
     }
     protected virtual void ResetCounter() {
         moveCounter = 0;
