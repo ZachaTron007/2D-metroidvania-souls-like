@@ -5,7 +5,7 @@ using UnityEngine.Windows.Speech;
 
 public abstract class CustomPlatformBase : MonoBehaviour
 {
-    private Dictionary<Rigidbody2D,Rigidbody2D> rbsEffected;
+    private List<Rigidbody2D> rbsEffected;
     private Rigidbody2D rbEffected;
     protected Vector2 direction;
     private float speed;
@@ -15,28 +15,26 @@ public abstract class CustomPlatformBase : MonoBehaviour
         ForceAppliedToUnits(direction, speed);
     }
 
-    public virtual void StayOnCustomPlatform(Rigidbody2D rb) {
-        //Debug.Log("Stay Platform");
+    public void StayOnCustomPlatform(Rigidbody2D rb) {
+        
     }
-    public virtual void EnterOnCustomPlatform(Rigidbody2D rb) {
-        //rbsEffected.Add(rb, rb);
-        Debug.Log("Player rb: " + rb);
-        rbEffected = rb;
+    public void EnterOnCustomPlatform(Rigidbody2D rb) {
+        //rbEffected = rb;
+        rbsEffected.Add(rb);
+        ForceAppliedToUnits(direction, speed);
     }
-    public virtual void ExitOnCustomPlatform(Rigidbody2D rb) {
+    public void ExitOnCustomPlatform(Rigidbody2D rb) {
         rbsEffected.Remove(rb);
         rbEffected = null;
     }
 
     protected void ForceAppliedToUnits(Vector2 dir, float force = 1) {
-        Unit unitEffected = null;
-        rbEffected?.gameObject.TryGetComponent(out unitEffected);
-        //Debug.Log("Unit: " + unitEffected);
-        if (unitEffected){//.forceAdded!=(force*dir)) {
-            rbEffected.linearVelocity -= unitEffected.forceAdded;
-            Debug.Log("Force Added" + force * dir);
+        foreach (Rigidbody2D rb in rbsEffected) {
+            Unit unitEffected = null;
+            rb.gameObject.TryGetComponent(out unitEffected);
+            rb.linearVelocity -= unitEffected.forceAdded;
             unitEffected.forceAdded = force * dir;
         }
-        
+
     }
 }

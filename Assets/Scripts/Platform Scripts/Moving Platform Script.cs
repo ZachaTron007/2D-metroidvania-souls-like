@@ -42,16 +42,5 @@ public class MovingPlatformScript : CustomPlatformBase
         endPoint2 = tempEndPoint;
     }
 
-    public override void StayOnCustomPlatform(Rigidbody2D playerRB) {
-        base.StayOnCustomPlatform(playerRB);
-        ForceAppliedToUnits(direction, GetSpeed());
-    }
-    public override void EnterOnCustomPlatform(Rigidbody2D playerRB) {
-        base.EnterOnCustomPlatform(playerRB);
-    }
-    public override void ExitOnCustomPlatform(Rigidbody2D playerRB) {
-        base.EnterOnCustomPlatform(playerRB);
-    }
-
     
 }
