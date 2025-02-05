@@ -4,7 +4,6 @@ using UnityEngine.InputSystem.Android;
 public class RepositionState : RecoveryState {
     [SerializeField] private AnimationClip walkAniamtion;
     [SerializeField] private float disengageSpeed = 50;
-    [SerializeField] private float engageSpeed = 50;
     private delegate void WaitingDelegate(int direction,float speed);
     private WaitingDelegate waitingDelegate;
     private float counter;

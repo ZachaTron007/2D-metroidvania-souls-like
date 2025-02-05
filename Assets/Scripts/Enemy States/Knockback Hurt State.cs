@@ -6,7 +6,9 @@ public class KnockbackHurtState : HurtState
     [SerializeField] private float knockbackY = 0.5f;
     [SerializeField] private float knockbackTime = 0.5f;
     [SerializeField] private float upTime = 0.5f;
-
+    protected void Start() {
+        clip = unitVariables.animations.HurtAnimation;
+    }
     public override void Enter() {
         base.Enter();
         interuptable = .4f;

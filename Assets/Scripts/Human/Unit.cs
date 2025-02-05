@@ -11,6 +11,7 @@ public abstract class Unit : MonoBehaviour
 {
     [Header("Components required by States")]
     public AnimationCollection animations;
+    public LinkedList<AnimationClip> animationList = new LinkedList<AnimationClip> { };
     protected Health health;
     protected Stun stun;
     public IncludeRBLayers includeRBLayers;
@@ -127,10 +128,12 @@ public abstract class Unit : MonoBehaviour
         return oldState;
     }
     protected virtual void SwitchStateActions(State newState,State oldState) {
+        //Debug.Log("Calling Exit on" + oldState);
         if (oldState) {
+            Debug.Log("should call exit on: "+oldState);
             oldState.ResetState(newState);
         } else if(newState) {
-            newState.ResetState(newState);
+            newState.ResetState(newState,false);
         }
     }
     private void PlatformScriptLogic(CustomPlatformBase scriptCollected) {

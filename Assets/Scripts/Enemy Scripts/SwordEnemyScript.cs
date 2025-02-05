@@ -48,7 +48,7 @@ public class SwordEnemyScript : EnemyScript {
         stun.MaxValueReached += ChangeToStunState;
     }
     // Update is called once per frame
-    void Update() {
+    protected override void Update() {
         if (WallCheck(.3f)) {
             SetDirection(-GetDirection());
         }

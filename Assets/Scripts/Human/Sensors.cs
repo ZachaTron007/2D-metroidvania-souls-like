@@ -13,7 +13,7 @@ public class Sensors : MonoBehaviour {
     public BoxCollider2D hitBox;
 
     public event Action <Collision2D> collisionEnter;
-    public event Action<Collision2D> collisionExit;
+    public event Action <Collision2D> collisionExit;
 
     private void Awake() {
         hitBox = GetComponent<BoxCollider2D>();

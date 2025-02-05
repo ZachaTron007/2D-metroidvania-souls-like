@@ -13,8 +13,8 @@ public class ParentMeleeAttack : State {
     private int tempDirection;
     protected IEnumerator attack;
 
-    // Start is called before the first frame update
-    void Start() {
+    protected void Start() {
+        clip = currentAttack.clip;
         interuptable = .8f;
         tempDirection = unitVariables.GetDirection();
         attack = Attack();
@@ -22,6 +22,8 @@ public class ParentMeleeAttack : State {
     public override void Enter() {
         base.Enter();
         attack = Attack();
+        clip = currentAttack.clip;
+
     }
     protected Vector2 offsetVector() {
         return new Vector2(unitVariables.GetDirection() * Mathf.Abs(currentAttack.attackHitBox.offset.x), Mathf.Abs(currentAttack.attackHitBox.offset.y));
@@ -41,7 +43,7 @@ public class ParentMeleeAttack : State {
         float length = (currentAttack.length * attackSpeed);// - currentAttack.clip.frameRate * attackSpeed;
         interuptable = .1f;
         animator.speed = currentAttack.speed;
-        animator.Play(currentAttack.clip.name);
+        
         rb.linearVelocity = new Vector2(0, rb.linearVelocityY);// Vector2.zero;
         float startMovingTime = currentAttack.startMovingTime * attackSpeed;
         yield return new WaitForSeconds(startMovingTime);

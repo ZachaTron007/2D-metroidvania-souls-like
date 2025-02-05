@@ -6,7 +6,6 @@ using UnityEngine.Windows.Speech;
 public abstract class CustomPlatformBase : MonoBehaviour
 {
     private List<Rigidbody2D> rbsEffected = new List<Rigidbody2D> { };
-    private Rigidbody2D rbEffected;
     protected Vector2 direction;
     private float speed;
     protected float GetSpeed() => speed;
@@ -25,7 +24,6 @@ public abstract class CustomPlatformBase : MonoBehaviour
     }
     public void ExitOnCustomPlatform(Rigidbody2D rb) {
         rbsEffected.Remove(rb);
-        rbEffected = null;
     }
 
     protected void ForceAppliedToUnits(Vector2 dir, float force = 1) {

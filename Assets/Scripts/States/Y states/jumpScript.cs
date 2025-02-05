@@ -6,7 +6,7 @@ public class JumpScript : State
 {
     [Header("Jump Settings")]
     [SerializeField] private float jumpVelocity = 5;
-    [SerializeField] private float jumpHeight = 3;
+    //[SerializeField] private float jumpHeight = 3;
     [SerializeField] private float lowJumpMultiplier = 20f;
     [HideInInspector] public float kyoteTime = .2f;
     public int remainingAirBorneJumps = 0;
@@ -17,20 +17,22 @@ public class JumpScript : State
     [SerializeField] private GameObject puff;
 
     // Update is called once per frame
-
-    public void Jump() {
-        //makes the y component change
-        unitVariables.rb.linearVelocity = new Vector2(0,jumpVelocity);
-        Debug.Log("Jump");
-        rb.gravityScale = HelperFunctions.regularGavityScale;
-        remainingAirBorneJumps -= 1;
-
+    protected void Start() {
+        clip = unitVariables.animations.jumpAnimation;
+    }
+    public override void Enter() {
+        base.Enter();
+        interuptable = .1f;
+        unitVariables.SpawnEffect(puff, unitVariables.transform.position, new Quaternion(0, 0, 0, 0), destroyDelay, new Vector2(0, yoffset), effectSpeed: effectSpeed);
+        //jumpVelocity = Mathf.Sqrt(Physics.gravity.y * 2 * jumpHeight * -2);
+        Jump();
     }
 
     public override void UpdateState() {
         base.UpdateState();
-        if (rb.linearVelocityY <= 0) {
-            Exit();
+        if (rb.linearVelocityY < 0) {
+            Debug.Log("Exiting Jump State");
+            StateIsDone();
         }
 
     }
@@ -41,15 +43,13 @@ public class JumpScript : State
         }
         
     }
+    
+    public void Jump() {
+        //makes the y component change
+        unitVariables.rb.linearVelocity = new Vector2(0, jumpVelocity);
+        rb.gravityScale = HelperFunctions.regularGavityScale;
+        remainingAirBorneJumps -= 1;
 
-    public override void Enter() {
-        base.Enter();
-        interuptable = .1f;
-        unitVariables.SpawnEffect(puff,unitVariables.transform.position, new Quaternion(0, 0, 0, 0), destroyDelay,new Vector2(0,yoffset),effectSpeed: effectSpeed);
-
-        //jumpVelocity = Mathf.Sqrt(Physics.gravity.y * 2 * jumpHeight * -2);
-        animator.Play(unitVariables.animations.jumpAnimation.name);
-        Jump();
     }
     public void ResetJumpAmount() => remainingAirBorneJumps = TotalAirBorneJumps;
     public void ResetDoubleJump() => remainingAirBorneJumps = 1;

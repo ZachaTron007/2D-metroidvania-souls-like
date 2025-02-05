@@ -28,8 +28,8 @@ public class dashScript : RbVelocityLerp {
     [SerializeField] private GameObject eeffect;
     private BoxCollider2D hitBox;
     public bool dashing;
-
-    private void Start() {
+    protected void Start() {
+        clip = unitVariables.animations.idelAnimation;
         hitBox = unitVariables.mainCollider.GetComponent<BoxCollider2D>();
     }
     
@@ -38,7 +38,6 @@ public class dashScript : RbVelocityLerp {
         speed = dashSpeed;
         ResetLerp(startSpeed: rb.linearVelocityX, totalTime: dashduration, Vector2.right);
         interuptable = .9f;
-        animator.Play(unitVariables.animations.idelAnimation.name);
         hitBox.excludeLayers = HelperFunctions.LayerMaskCreator(new int[] { 3, 7, 8 });
         Vector3 startPos = unitVariables.transform.position;
         unitVariables.SpawnEffect(eeffect, startPos, Quaternion.Euler(0, 0, -90 * unitVariables.GetDirection()), destroyDelay,new Vector2(xOffset,yOffset), effectSpeed);
@@ -49,14 +48,14 @@ public class dashScript : RbVelocityLerp {
         if (speed == dashSpeed){
             speed = dashSpeedLow;
             ResetLerp(startSpeed: dashSpeed*unitVariables.GetDirection(), totalTime: forceExitTime, Vector2.right);
-        }else { Exit(); }
+        }else { StateIsDone(); }
     }
     protected override float GetTargetSpeed() {
         return speed * unitVariables.GetDirection();
     }
 
-    public override void Exit() {
-        base.Exit();
+    protected override void StateIsDone() {
+        base.StateIsDone();
         rb.gravityScale = HelperFunctions.regularGavityScale;
         dashCount -= 1;
     }

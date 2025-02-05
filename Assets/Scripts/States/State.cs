@@ -7,7 +7,8 @@ using UnityEngine.InputSystem.LowLevel;
 public abstract class State : MonoBehaviour {
     protected Rigidbody2D rb;
     protected Animator animator;
-    private bool stateDone = false;
+    protected AnimationClip clip;
+    public bool stateDone = false;
     [field: Header("State Properties")]
     [field: SerializeField] public float interuptable { get; protected set; } = 0;
     [field: SerializeField] public bool canInteruptSelf { get; protected set; } = false;
@@ -15,6 +16,9 @@ public abstract class State : MonoBehaviour {
     protected Stun stun;
     public bool IsStateDone() {
         return stateDone;
+    }
+    protected virtual void StateIsDone() {
+        stateDone = (stateDone)? false : true ;
     }
     /*
     protected void Start() {
@@ -28,21 +32,40 @@ public abstract class State : MonoBehaviour {
     public virtual void FixedUpdateState () { }
     public virtual void Enter () {
         stateDone = false;
+        //Debug.Log("Animation Count: "+unitVariables.animationList.Count);
+        unitVariables.animationList.AddLast(clip);
+        //Debug.Log(unitVariables.animationList[0].name);
+        //Debug.Log(unitVariables.animationList.Count);
+        animator.Play(unitVariables.animationList.Last.Value.name);
+
+        
     }
     public virtual void Exit () {
-        stateDone = true;
+        if (true) {
+            Debug.Log("Calling Exit on: "+gameObject.name);
+            stateDone = true;
+            Debug.Log("___________________________________________________");
+            Debug.Log("Removing: " + clip.name);
+            if (unitVariables.animationList.Count > 0) unitVariables.animationList.Remove(clip);
+            if (unitVariables.animationList.Count > 0) animator.Play(unitVariables.animationList.Last.Value.name);
+            string clips = "List: ";
+            foreach (AnimationClip clip in unitVariables.animationList) {
+                clips += clip.name + ",  ";
+            }
+            Debug.Log(clips);
+        }
 
     }
 
-    public void Setup (Rigidbody2D rb, Animator animator,Unit unitVariables,Stun stun = null) { 
+    public void Setup (Rigidbody2D rb, Animator animator, Unit unitVariables,Stun stun = null) { 
         this.rb = rb;
         this.animator = animator;
         this.unitVariables = unitVariables;
         this.stun = stun;
 
     }
-    public void ResetState (State newState) {
-        Exit();
+    public void ResetState (State newState, bool hasOldState = true) {
+        if(hasOldState) Exit();
         newState?.Enter();
     }
 

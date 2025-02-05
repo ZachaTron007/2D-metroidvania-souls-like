@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,15 +13,16 @@ public class BlockState : State
     [SerializeField] public float parryCounter;
     public bool canParry;
     //[SerializeField] Health health;
-
-
+    protected void Start() {
+        clip = unitVariables.animations.blockAnimation;
+    }
     public override void Enter() {
         base.Enter();
         rb.linearVelocity = new Vector2(0,rb.linearVelocity.y);
         canParry = true;
         parryCounter = 0;
-        Block();
-        interuptable = .2f;
+        blocking = true;
+    interuptable = .2f;
 
     }
 
@@ -31,21 +33,16 @@ public class BlockState : State
             canParry = false;
         }
         if (Input.GetMouseButtonUp(1)||!Input.GetMouseButton(1)) {
-            Exit();
+            StateIsDone();
         }
     }
 
-    public override void Exit() {
-        base.Exit();
+    protected override void StateIsDone() {
+        base.StateIsDone();
         blocking = false;
         canParry = false;
     }
 
-    public void Block() {
-        animator.Play(unitVariables.animations.blockAnimation.name);
-        //float parryWindow = .5f;
-        blocking = true;
-    }
     public bool? IsBlockingAttack(AttackInfo enemyAttack) {
         if (blocking) {
             

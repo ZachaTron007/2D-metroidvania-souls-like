@@ -35,7 +35,6 @@ public class PlayerState : Unit {
     [SerializeField] private dashScript Dash;
     [SerializeField] private WallSlideScript wallSlideScript;
     [SerializeField] public MoveState moveState;
-    private MoveState xMovment;
     [SerializeField] private MoveState wallJumpMove;
     [SerializeField] public DecelerateMoveScript decerateMoveState;
     [SerializeField] public BlockState blockState;
@@ -139,12 +138,12 @@ public class PlayerState : Unit {
         State newYVelState = YAxisStateChange();
         State newActionState = ActionStateChange();
         if(manualState != null) newActionState = manualState;
-
+        //Debug.Log(newYVelState);
         if (!newYVelState && !newXVelState&&!newActionState) {
             newActionState = idelState;
         }
-        state = CanSwitchState(newActionState,state);
-        yVelState = CanSwitchState(newYVelState,yVelState);
+        state = CanSwitchState(newActionState, state);
+        yVelState = CanSwitchState(newYVelState, yVelState);
         xVelState = CanSwitchState(newXVelState, xVelState);
 
     }
@@ -174,28 +173,28 @@ public class PlayerState : Unit {
             }
         }
         //Debug.Log(WallCheck(.01f));
-        
+
         if (GetGroundedState()) {
             jumpScript.ResetJumpAmount();
 
         } else if (WallCheck(.01f) && moveVetcor.x == GetDirection() || WallCheck(.01f) && yVelState == wallSlideScript) {
             if (lastKey == jump) {
-                
+
                 return jumpScript;
 
             }
             //jumpScript.ResetDoubleJump();
             return wallSlideScript;
-        }
-        else if (rb.linearVelocityY < 0) {
+        } else if (rb.linearVelocityY < 0) {
             return fallState;
+        } else {
+
+            if (!yVelState) {
+                //rb.linearVelocity = new Vector2(rb.linearVelocityX, 0);
+            }
+            return null;
         }
-        
-   
-        if (!yVelState) {
-            rb.linearVelocity = new Vector2(rb.linearVelocityX, 0);
-        }
-        return null;
+        return yVelState;
     }
     private State ActionStateChange() {
         dashCount += Time.deltaTime;

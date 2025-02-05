@@ -10,8 +10,8 @@ public class GlideState : State
     private float goalSpeed;
     private float startFallSpeed;
     private DraftScript currentDraft;
-    private void Awake() {
-        interuptable = 0f;
+    protected void Start() {
+        clip = unitVariables.animations.fallAniamtion;
     }
     public override void Enter() {
         base.Enter();
@@ -19,15 +19,13 @@ public class GlideState : State
         unitVariables.mainCollider.triggerStay += triggerDetectionStay;
         unitVariables.mainCollider.triggerExit += triggerDetectionExit;
         ChangeSpeed(fallSpeed);
-
-        animator.Play(unitVariables.animations.fallAniamtion.name);
         rb.gravityScale = 0;
     }
     public override void UpdateState() {
         base.UpdateState();
         if (!Input.GetKey(KeyCode.Space)) {
             currentDraft = null;
-            Exit();
+            StateIsDone();
         }
 
         if (transitionTime>0) {
@@ -44,8 +42,8 @@ public class GlideState : State
         goalSpeed = endSpeed;
         startFallSpeed = rb.linearVelocityY;
     }
-    public override void Exit() {
-        base.Exit();
+    protected override void StateIsDone() {
+        base.StateIsDone();
         unitVariables.mainCollider.triggerStay -= triggerDetectionStay;
         unitVariables.mainCollider.triggerExit -= triggerDetectionExit;
         rb.gravityScale = 2f;

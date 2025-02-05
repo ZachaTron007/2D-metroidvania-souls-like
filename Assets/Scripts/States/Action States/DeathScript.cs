@@ -5,10 +5,13 @@ public class DeathScript : State
     [SerializeField] private float startTime = 4;
     private float times = 0;
     [SerializeField] private float speed = 0.2f;
+    protected void Start() {
+        clip = unitVariables.animations.deathAnimation;
+    }
+
     public override void Enter() {
         base.Enter();
         interuptable = 1;
-        animator.Play(unitVariables.animations.deathAnimation.name);
         times = 0;
         Debug.Log("Death");
 

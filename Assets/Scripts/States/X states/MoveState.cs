@@ -16,10 +16,12 @@ public class MoveState : RbVelocityLerp
     public float totalSpeedTransfer = .5f;
     private float weightTransferSpeed = .5f;
     private float counterr;
+    protected void Start() {
+        clip = unitVariables.animations.runAnimation;
+    }
     public override void Enter() {
         base.Enter();
         ResetLerp(startSpeed: (rb.linearVelocityX>moveSpeed)? rb.linearVelocityX:0, totalTime: totalTime, Vector2.right);
-        animator.Play(unitVariables.animations.runAnimation.name);
     }
     public override void FixedUpdateState() {
         base.FixedUpdateState();

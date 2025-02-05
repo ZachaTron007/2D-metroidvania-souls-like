@@ -7,6 +7,9 @@ public class FallState : State
     [SerializeField] private float fallGravMultiplier = 3f;
     
     private float terminalVelocity = 15;
+    protected void Start() {
+        clip = unitVariables.animations.fallAniamtion;
+    }
     private void fallGravity() {
         rb.linearVelocity += Vector2.up * Physics.gravity.y * (fallGravMultiplier - rb.gravityScale) * Time.deltaTime;
     }
@@ -20,15 +23,15 @@ public class FallState : State
         }
     }
     public override void Enter() {
+        
         base.Enter();
-        animator.Play(unitVariables.animations.fallAniamtion.name);
         //reset gravity
-        rb.gravityScale = 2;
+        rb.gravityScale = HelperFunctions.regularGavityScale;
     }
     public override void UpdateState() {
         base.UpdateState();
         if (unitVariables.GetGroundedState()) {
-            Exit();
+            StateIsDone();
         }
 
 

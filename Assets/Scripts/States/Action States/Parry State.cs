@@ -7,12 +7,12 @@ public class ParryState : State
     [SerializeField] private float shakeIntensity;
     [SerializeField] private float timeSpeed;
     [SerializeField] private float StunAmount = 10;
-    private float counter;
+    protected void Start() {
+        clip = unitVariables.animations.parryAnimation;
+    }
     public override void Enter() {
         base.Enter();
-        counter = 0;
         interuptable = .3f;
-        animator.Play(unitVariables.animations.parryAnimation.name);
         Invoke("Exit", unitVariables.animations.parryAnimation.length);
 
         //gets the refrence tothe attack that hit you, then gets the stun component from the root of the attack in the hiarchy, then changes the stun
