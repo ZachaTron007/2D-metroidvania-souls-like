@@ -23,7 +23,6 @@ public class FallState : State
         }
     }
     public override void Enter() {
-        
         base.Enter();
         //reset gravity
         rb.gravityScale = HelperFunctions.regularGavityScale;

@@ -35,7 +35,7 @@ public class PlayerState : Unit {
     [SerializeField] private dashScript Dash;
     [SerializeField] private WallSlideScript wallSlideScript;
     [SerializeField] public MoveState moveState;
-    [SerializeField] private MoveState wallJumpMove;
+    [SerializeField] private WallJumpX wallJumpMove;
     [SerializeField] public DecelerateMoveScript decerateMoveState;
     [SerializeField] public BlockState blockState;
     [SerializeField] public BlockRecoverState blockRecoverState;
@@ -139,7 +139,7 @@ public class PlayerState : Unit {
         State newActionState = ActionStateChange();
         if(manualState != null) newActionState = manualState;
         //Debug.Log(newYVelState);
-        if (!newYVelState && !newXVelState&&!newActionState) {
+        if (!newYVelState && !newXVelState&&!newActionState&&GetGroundedState()) {
             newActionState = idelState;
         }
         state = CanSwitchState(newActionState, state);
@@ -151,8 +151,8 @@ public class PlayerState : Unit {
      * handles the state changing logic
      */
     private State XAxisStateChange() {
-        if (WallCheck(.01f) && (yVelState == wallSlideScript||yVelState==jumpScript)) {
-            
+        if (WallCheck(.01f) && (yVelState==jumpScript)) {
+            return wallJumpMove;
         }
         if (moveVetcor.x != 0) {
             return moveState;
@@ -185,16 +185,10 @@ public class PlayerState : Unit {
             }
             //jumpScript.ResetDoubleJump();
             return wallSlideScript;
-        } else if (rb.linearVelocityY < 0) {
+        } else if (rb.linearVelocityY <= 0) {
             return fallState;
-        } else {
-
-            if (!yVelState) {
-                //rb.linearVelocity = new Vector2(rb.linearVelocityX, 0);
-            }
-            return null;
         }
-        return yVelState;
+        return null;
     }
     private State ActionStateChange() {
         dashCount += Time.deltaTime;

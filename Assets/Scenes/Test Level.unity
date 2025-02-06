@@ -2805,6 +2805,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89b536f8eb6709c49ac0f86fdbda51af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateDone: 0
   <interuptable>k__BackingField: 0
   <canInteruptSelf>k__BackingField: 0
   walkBackDistance: 10
@@ -2878,6 +2879,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e92a79e573403674d8ed3f8e8f4c6416, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateDone: 0
   <interuptable>k__BackingField: 0
   <canInteruptSelf>k__BackingField: 0
 --- !u!4 &1920778019
@@ -3938,6 +3940,14 @@ PrefabInstance:
     - target: {fileID: 8471434802479641984, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: curve.m_Curve.Array.data[1].tangentMode
       value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632781043206730513, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632781043206730513, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: speed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8632781043206730513, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: curve.m_Curve.Array.size

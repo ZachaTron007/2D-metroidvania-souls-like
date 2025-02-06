@@ -99,13 +99,14 @@ public abstract class Unit : MonoBehaviour
 
     protected State CanSwitchState(State newState, State oldState) {
         //if you dont have an old state, automaticly siwtch to newstate
-        if (!oldState) {
+            if (!oldState) {
             SwitchStateActions(newState, oldState);
             return newState;
         } else if (!newState) {
             //if you arnt switching to a new state
             //if you are done with the old state then exit
             if (oldState.IsStateDone()||oldState.interuptable==0) {
+                SwitchStateActions(newState, oldState);
                 return null;
             }
             //if not continue
@@ -130,7 +131,7 @@ public abstract class Unit : MonoBehaviour
     protected virtual void SwitchStateActions(State newState,State oldState) {
         //Debug.Log("Calling Exit on" + oldState);
         if (oldState) {
-            Debug.Log("should call exit on: "+oldState);
+            //Debug.Log("should call exit on: "+oldState);
             oldState.ResetState(newState);
         } else if(newState) {
             newState.ResetState(newState,false);

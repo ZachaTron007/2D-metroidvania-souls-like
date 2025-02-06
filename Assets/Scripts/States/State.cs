@@ -32,28 +32,15 @@ public abstract class State : MonoBehaviour {
     public virtual void FixedUpdateState () { }
     public virtual void Enter () {
         stateDone = false;
-        //Debug.Log("Animation Count: "+unitVariables.animationList.Count);
         unitVariables.animationList.AddLast(clip);
-        //Debug.Log(unitVariables.animationList[0].name);
-        //Debug.Log(unitVariables.animationList.Count);
         animator.Play(unitVariables.animationList.Last.Value.name);
 
         
     }
     public virtual void Exit () {
-        if (true) {
-            Debug.Log("Calling Exit on: "+gameObject.name);
-            stateDone = true;
-            Debug.Log("___________________________________________________");
-            Debug.Log("Removing: " + clip.name);
-            if (unitVariables.animationList.Count > 0) unitVariables.animationList.Remove(clip);
-            if (unitVariables.animationList.Count > 0) animator.Play(unitVariables.animationList.Last.Value.name);
-            string clips = "List: ";
-            foreach (AnimationClip clip in unitVariables.animationList) {
-                clips += clip.name + ",  ";
-            }
-            Debug.Log(clips);
-        }
+        stateDone = true;
+        unitVariables.animationList.Remove(clip);
+        if (unitVariables.animationList.Count > 0) animator.Play(unitVariables.animationList.Last.Value.name);
 
     }
 

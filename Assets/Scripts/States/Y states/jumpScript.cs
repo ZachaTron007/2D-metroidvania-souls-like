@@ -31,7 +31,6 @@ public class JumpScript : State
     public override void UpdateState() {
         base.UpdateState();
         if (rb.linearVelocityY < 0) {
-            Debug.Log("Exiting Jump State");
             StateIsDone();
         }
 
