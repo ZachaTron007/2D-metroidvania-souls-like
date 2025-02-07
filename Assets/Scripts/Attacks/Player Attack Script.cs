@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.Examples;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -8,7 +9,8 @@ public class PlayerAttack : ParentMeleeAttack {
     [SerializeField] protected AttackInfo[] basicCombo;
     [SerializeField] private int attackNum = -1;
     [SerializeField] private AnimationClip currentClip;
-    [SerializeField] public float currentClipTime;
+    public float currentClipTime;
+    [SerializeField] private float comboEndTime = .2f;
 
 
     // Update is called once per frame
@@ -37,7 +39,7 @@ public class PlayerAttack : ParentMeleeAttack {
         //makes attack num go up
         attackNum++;
         //resets attackNum to be withijn the combo
-        float comboEndTime = currentClipTime + .2f;
+        float comboEndTime = currentClipTime + this.comboEndTime;
         if (attackNum >= basicCombo.Length) {
             attackNum = 0;
         }
@@ -47,6 +49,6 @@ public class PlayerAttack : ParentMeleeAttack {
         //sets the current attack
         currentAttack = basicCombo[attackNum];
         currentClip = currentAttack.clip;
-        currentClipTime = currentAttack.length;
+        currentClipTime = currentAttack.length * (1/attackSpeedModifier);
     }
 }

@@ -14,7 +14,7 @@ using UnityEngine.UIElements;
 
 public class PlayerState : Unit {
     private PlayerControls playerControls;
-    public InputAction move;
+    private InputAction move;
     private CapsuleCollider2D clipCollider;
     //movements
     [Header("Player Variables")]
@@ -33,6 +33,7 @@ public class PlayerState : Unit {
     //scrupts
     [Header("States")]
     [SerializeField] private dashScript Dash;
+    [SerializeField] private JumpScript wallJumpY;
     [SerializeField] private WallSlideScript wallSlideScript;
     [SerializeField] public MoveState moveState;
     [SerializeField] private WallJumpX wallJumpMove;
@@ -78,7 +79,7 @@ public class PlayerState : Unit {
         ComponentSetup();
         move = playerControls.Player.Move;
         move.Enable();
-
+        wallJumpY.Setup(rb,animatior,this);
         jumpScript.Setup(rb, animatior, this);
         fallState.Setup(rb, animatior, this);
         Dash.Setup(rb, animatior, this);
@@ -151,7 +152,7 @@ public class PlayerState : Unit {
      * handles the state changing logic
      */
     private State XAxisStateChange() {
-        if (WallCheck(.01f) && (yVelState==jumpScript)) {
+        if (yVelState==wallJumpY) {
             return wallJumpMove;
         }
         if (moveVetcor.x != 0) {
@@ -172,7 +173,6 @@ public class PlayerState : Unit {
                 return jumpScript;
             }
         }
-        //Debug.Log(WallCheck(.01f));
 
         if (GetGroundedState()) {
             jumpScript.ResetJumpAmount();
@@ -180,7 +180,7 @@ public class PlayerState : Unit {
         } else if (WallCheck(.01f) && moveVetcor.x == GetDirection() || WallCheck(.01f) && yVelState == wallSlideScript) {
             if (lastKey == jump) {
 
-                return jumpScript;
+                return wallJumpY;
 
             }
             //jumpScript.ResetDoubleJump();

@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 public class ParentMeleeAttack : State {
 
     [SerializeField] public AttackInfo currentAttack;
-    [SerializeField] private float attackSpeedModifier = 1;
+    [SerializeField] protected float attackSpeedModifier = 1;
     [SerializeField] private float attackLungeSpeed;
     //[SerializeField] private float attackSpeed = 1;
     public Vector2 lookDirection;
@@ -63,10 +63,10 @@ public class ParentMeleeAttack : State {
         currentAttack.attackHitBox.enabled = false;
         float recoveryTime = 0;//(startHitBoxTime + endHitBoxTime + startHitBoxTime >= length) ? 0 : ( length - (startHitBoxTime + endHitBoxTime + startMovingTime));
         yield return new WaitForSeconds(recoveryTime);
-        Exit();
+        StateIsDone();
     }
-    public override void Exit() {
-        base.Exit();
+    protected override void StateIsDone() {
+        base.StateIsDone();
         currentAttack.attackHitBox.enabled = false;
         animator.speed = 1;
         StopCoroutine(attack);

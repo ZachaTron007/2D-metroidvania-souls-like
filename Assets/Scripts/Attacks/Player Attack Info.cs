@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerAttackInfo : AttackInfo
 {
-
+    [Header("Effect Info")]
     [SerializeField] private float destroyDelay = .3f;
     [SerializeField] private float effectSpeed = 1;
     [SerializeField] private float xOffset, yOffSet;

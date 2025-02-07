@@ -20,17 +20,8 @@ public abstract class Unit : MonoBehaviour
     public SpriteRenderer sr;
     public Sensors mainCollider;
     [Header("Current State")]
-
     public State state;
-    [Header("Required Unit States")]
-    //[SerializeField] protected PlayerIdelState idelState;
-//    [SerializeField] protected ParentMeleeAttack melee;
-    [SerializeField] protected HurtState hurtState;
-    [SerializeField] protected JumpScript jumpScript;
-    [SerializeField] protected FallState fallState;
-    [SerializeField] protected ParentMeleeAttack attackState;
-    [SerializeField] protected DeathScript dieState;
-    [HideInInspector] public AttackInfo lastAttackToHit;
+    
     public event Action parried;
     [Header("Properties")]
     [HideInInspector] public bool canBeHit = true;
@@ -40,8 +31,15 @@ public abstract class Unit : MonoBehaviour
     protected bool grounded;
     private float kyoteTimeCounter;
     private CustomPlatformBase lastPlat = null;
-    public float grav = 9.8f;
-    public float gravityForce;
+    [Header("Required Unit States")]
+    //[SerializeField] protected PlayerIdelState idelState;
+    //    [SerializeField] protected ParentMeleeAttack melee;
+    [SerializeField] protected HurtState hurtState;
+    [SerializeField] protected JumpScript jumpScript;
+    [SerializeField] protected FallState fallState;
+    [SerializeField] protected ParentMeleeAttack attackState;
+    [SerializeField] protected DeathScript dieState;
+    [HideInInspector] public AttackInfo lastAttackToHit;
     /*
      * summary:
      * get and sets
