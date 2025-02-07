@@ -3726,6 +3726,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1355561024}
     - target: {fileID: 6378908112458984836, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: wallJumpY
+      value: 
+      objectReference: {fileID: 1004777210}
+    - target: {fileID: 6378908112458984836, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: animations
       value: 
       objectReference: {fileID: 11400000, guid: ae449c8fe7c47cb4e818c953e59c5d7c, type: 2}
