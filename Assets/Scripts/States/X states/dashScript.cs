@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem.Android;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
-public class dashScript : RbVelocityLerp {
+public class dashScript : LerpingInhertedClass {
     
     //protected new bool interuptable = false;
     private IncludeRBLayers layers;
@@ -28,6 +28,7 @@ public class dashScript : RbVelocityLerp {
     [SerializeField] private GameObject eeffect;
     private BoxCollider2D hitBox;
     public bool dashing;
+    private RbVelocityLerp dashMovment;
     protected void Start() {
         clip = unitVariables.animations.idelAnimation;
         hitBox = unitVariables.mainCollider.GetComponent<BoxCollider2D>();
@@ -36,7 +37,7 @@ public class dashScript : RbVelocityLerp {
     public override void Enter() {
         base.Enter();
         speed = dashSpeed;
-        ResetLerp(startSpeed: rb.linearVelocityX, totalTime: dashduration, Vector2.right);
+        dashMovment = new RbVelocityLerp(startSpeed: rb.linearVelocityX, targetSpeed: speed*unitVariables.GetDirection(),totalTime, dir: new Vector2(1,0),rb, curve, this);
         interuptable = .9f;
         hitBox.excludeLayers = HelperFunctions.LayerMaskCreator(new int[] { 3, 7, 8 });
         Vector3 startPos = unitVariables.transform.position;
@@ -44,14 +45,16 @@ public class dashScript : RbVelocityLerp {
         rb.gravityScale = 0f;
 
     }
-    protected override void FinishedLerping() {
+    public override void FixedUpdateState() {
+        base.FixedUpdateState();
+        dashMovment.FixedUpdate();
+    }
+
+    public override void FinishedLerping() {
         if (speed == dashSpeed){
             speed = dashSpeedLow;
-            ResetLerp(startSpeed: dashSpeed*unitVariables.GetDirection(), totalTime: forceExitTime, Vector2.right);
+            dashMovment.ResetLerp(startSpeed: dashSpeed*unitVariables.GetDirection(), targetSpeed: speed*unitVariables.GetDirection(), totalTime: forceExitTime, Vector2.right);
         }else { StateIsDone(); }
-    }
-    protected override float GetTargetSpeed() {
-        return speed * unitVariables.GetDirection();
     }
 
     protected override void StateIsDone() {

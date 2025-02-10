@@ -5,8 +5,7 @@ using UnityEngine;
 using UnityEngine.Windows.Speech;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
-public class MoveState : RbVelocityLerp
-{
+public class MoveState : LerpingInhertedClass {
     [SerializeField] private float moveSpeed = 5;
     private float biDirectionalWeight = 1;
     private float weight;
@@ -16,16 +15,21 @@ public class MoveState : RbVelocityLerp
     public float totalSpeedTransfer = .5f;
     private float weightTransferSpeed = .5f;
     private float counterr;
+    private RbVelocityLerp horizontalMovment;
     protected void Start() {
         clip = unitVariables.animations.runAnimation;
     }
     public override void Enter() {
         base.Enter();
-        ResetLerp(startSpeed: (rb.linearVelocityX>moveSpeed)? rb.linearVelocityX:0, totalTime: totalTime, Vector2.right);
+        float unWeightedSpeed = moveSpeed * unitVariables.GetDirection() + weight;
+        float weightedSpeed = moveSpeed * unitVariables.GetDirection() * Mathf.Abs(biDirectionalWeight) + weight;
+        float TargetSpeed = (unitVariables.GetDirection() == Mathf.Sign(biDirectionalWeight)) ? weightedSpeed : unWeightedSpeed;
+        horizontalMovment = new RbVelocityLerp(startSpeed: (rb.linearVelocityX > moveSpeed) ? rb.linearVelocityX : 0, targetSpeed: totalTime, totalTime: totalTime, Vector2.right,rb,curve);
     }
     public override void FixedUpdateState() {
         base.FixedUpdateState();
-        //rb.AddForce(movement*Vector2.right);
+        horizontalMovment.FixedUpdate();
+        
     }
     
 
@@ -44,12 +48,5 @@ public class MoveState : RbVelocityLerp
     }
     public void SetWeight(float newWeight) {
         weight = newWeight;
-    }
-    protected override float GetTargetSpeed() {
-        return (unitVariables.GetDirection() == Mathf.Sign(biDirectionalWeight)) ? moveSpeed * unitVariables.GetDirection() * Mathf.Abs(biDirectionalWeight) + weight : moveSpeed * unitVariables.GetDirection() + weight;
-    }
-
-    protected override void FinishedLerping() {
-        
     }
 }

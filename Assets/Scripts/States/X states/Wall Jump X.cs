@@ -1,20 +1,22 @@
 using UnityEngine;
 
-public class WallJumpX : RbVelocityLerp
+public class WallJumpX : LerpingInhertedClass
 {
     [SerializeField] private float speed;
+    private RbVelocityLerp horizontalMovment;
     private void Start() {
         clip = unitVariables.animations.jumpAnimation;
     }
     public override void Enter() {
         base.Enter();
         interuptable = .1f;
-        ResetLerp(speed, totalTime,Vector2.right);
+        horizontalMovment = new RbVelocityLerp(startSpeed: speed, targetSpeed: 0,totalTime, new Vector2(0,1),rb, curve, this);
     }
-    protected override float GetTargetSpeed() {
-        return 0;
+    public override void FixedUpdateState() {
+        base.FixedUpdateState();
+        horizontalMovment.FixedUpdate();
     }
-    protected override void FinishedLerping() {
+    public override void FinishedLerping() {
         StateIsDone();
     }
 }

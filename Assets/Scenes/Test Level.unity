@@ -3378,6 +3378,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 545213728974159921, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: totalTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 545213728974159921, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: forceAdded
       value: 100
       objectReference: {fileID: 0}
@@ -3395,7 +3399,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 545213728974159921, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: curve.m_Curve.Array.data[1].time
-      value: 0.24319144
+      value: 0.13440682
       objectReference: {fileID: 0}
     - target: {fileID: 545213728974159921, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: curve.m_Curve.Array.data[2].time
@@ -3415,7 +3419,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 545213728974159921, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: curve.m_Curve.Array.data[1].value
-      value: 0.21709989
+      value: 0.252878
       objectReference: {fileID: 0}
     - target: {fileID: 545213728974159921, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: curve.m_Curve.Array.data[2].value
