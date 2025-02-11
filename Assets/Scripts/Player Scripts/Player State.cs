@@ -153,7 +153,7 @@ public class PlayerState : Unit {
      */
     private State XAxisStateChange() {
         if (yVelState==wallJumpY) {
-            return wallJumpMove;
+            //return wallJumpMove;
         }
         if (moveVetcor.x != 0) {
             return moveState;

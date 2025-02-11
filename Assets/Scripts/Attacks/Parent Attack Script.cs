@@ -5,7 +5,8 @@ using UnityEngine.UIElements;
 
 public class ParentMeleeAttack : State {
 
-    [SerializeField] public AttackInfo currentAttack;
+    public AttackInfo currentAttack;
+    public float attackTime;
     [SerializeField] protected float attackSpeedModifier = 1;
     [SerializeField] private float attackLungeSpeed;
     //[SerializeField] private float attackSpeed = 1;
@@ -22,6 +23,7 @@ public class ParentMeleeAttack : State {
     public override void Enter() {
         base.Enter();
         attack = Attack();
+
         clip = currentAttack.clip;
 
     }
@@ -46,11 +48,6 @@ public class ParentMeleeAttack : State {
         
         rb.linearVelocity = new Vector2(0, rb.linearVelocityY);// Vector2.zero;
         float startMovingTime = currentAttack.startMovingTime * attackSpeed;
-        yield return new WaitForSeconds(startMovingTime);
-        //Debug.Log(currentAttack.startMovingTime);
-        //Debug.Log(currentAttack.startHitBoxTime);
-        //rb.linearVelocity = new Vector2(unitVariables.GetDirection() * attackLungeSpeed, rb.linearVelocity.y);
-        //currentAttack.attackHitBox.enabled = true;
         float startHitBoxTime = currentAttack.startHitBoxTime * attackSpeed;
         yield return new WaitForSeconds(startHitBoxTime * attackSpeed);
         //rb.linearVelocity = Vector2.zero;
@@ -61,12 +58,19 @@ public class ParentMeleeAttack : State {
         yield return new WaitForSeconds(endHitBoxTime);
         //rb.linearVelocity = Vector2.zero;
         currentAttack.attackHitBox.enabled = false;
-        float recoveryTime = 0;//(startHitBoxTime + endHitBoxTime + startHitBoxTime >= length) ? 0 : ( length - (startHitBoxTime + endHitBoxTime + startMovingTime));
+        float recoveryTime = (startHitBoxTime + endHitBoxTime >= length) ? 0 : ( length - (startHitBoxTime + endHitBoxTime + startMovingTime));/*
+        Debug.Log("--------------------------------");
+        Debug.Log(currentAttack.name);
+        Debug.Log("Time till state done: "+recoveryTime);
+        */
         yield return new WaitForSeconds(recoveryTime);
+        //Debug.Log("State Should be Done");
         StateIsDone();
+        yield return null;
     }
     protected override void StateIsDone() {
         base.StateIsDone();
+        //Debug.Log("Done: "+IsStateDone());
         currentAttack.attackHitBox.enabled = false;
         animator.speed = 1;
         StopCoroutine(attack);

@@ -15,8 +15,8 @@ public class MoveState : LerpingInhertedClass {
     public float totalSpeedTransfer = .5f;
     private float weightTransferSpeed = .5f;
     private float counterr;
-    private RbVelocityLerp horizontalMovment;
-    protected void Start() {
+    protected override void Start() {
+        base.Start();
         clip = unitVariables.animations.runAnimation;
     }
     public override void Enter() {
@@ -24,12 +24,14 @@ public class MoveState : LerpingInhertedClass {
         float unWeightedSpeed = moveSpeed * unitVariables.GetDirection() + weight;
         float weightedSpeed = moveSpeed * unitVariables.GetDirection() * Mathf.Abs(biDirectionalWeight) + weight;
         float TargetSpeed = (unitVariables.GetDirection() == Mathf.Sign(biDirectionalWeight)) ? weightedSpeed : unWeightedSpeed;
-        horizontalMovment = new RbVelocityLerp(startSpeed: (rb.linearVelocityX > moveSpeed) ? rb.linearVelocityX : 0, targetSpeed: totalTime, totalTime: totalTime, Vector2.right,rb,curve);
+        movment[0] = new RbVelocityLerp(startSpeed: (rb.linearVelocityX > moveSpeed) ? rb.linearVelocityX : 0, TargetSpeed, totalTime, Vector2.right,rb,curve);
     }
     public override void FixedUpdateState() {
         base.FixedUpdateState();
-        horizontalMovment.FixedUpdate();
-        
+        float unWeightedSpeed = moveSpeed * unitVariables.GetDirection() + weight;
+        float weightedSpeed = moveSpeed * unitVariables.GetDirection() * Mathf.Abs(biDirectionalWeight) + weight;
+        float TargetSpeed = (unitVariables.GetDirection() == Mathf.Sign(biDirectionalWeight)) ? weightedSpeed : unWeightedSpeed;
+        movment[0].ChangeTargetSpeed(TargetSpeed);
     }
     
 
@@ -48,5 +50,10 @@ public class MoveState : LerpingInhertedClass {
     }
     public void SetWeight(float newWeight) {
         weight = newWeight;
+    }
+
+    protected override void StateIsDone() {
+        base.StateIsDone();
+        movment[0] = null;
     }
 }

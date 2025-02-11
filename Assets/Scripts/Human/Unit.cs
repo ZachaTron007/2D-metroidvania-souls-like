@@ -97,10 +97,12 @@ public abstract class Unit : MonoBehaviour
 
     protected State CanSwitchState(State newState, State oldState) {
         //if you dont have an old state, automaticly siwtch to newstate
-            if (!oldState) {
+        
+        if (!oldState) {
             SwitchStateActions(newState, oldState);
             return newState;
         } else if (!newState) {
+            //if (oldState.name == "Attack Hitbox") Debug.Log("Box");
             //if you arnt switching to a new state
             //if you are done with the old state then exit
             if (oldState.IsStateDone()||oldState.interuptable==0) {
@@ -110,6 +112,7 @@ public abstract class Unit : MonoBehaviour
             //if not continue
             return oldState;
         }
+        //if (oldState.name == "Attack Hitbox") Debug.Log("Box");
         //if you can switch states
         if (newState.interuptable >= oldState.interuptable || oldState.IsStateDone() || oldState.interuptable == 0) {
             //if the states are diffrent
@@ -119,6 +122,7 @@ public abstract class Unit : MonoBehaviour
 
             } else if (oldState.IsStateDone() && oldState.canInteruptSelf) {
                 //if they are the same check if it is done, or if you can switch to the same state
+                Debug.Log(oldState.name);
                 SwitchStateActions(newState,oldState);
                 return newState;
             }

@@ -12,7 +12,7 @@ public static class HelperFunctions {
         float distance = Mathf.Sqrt(Mathf.Pow(point2.x - point1.x, 2) + Mathf.Pow(point2.y - point1.y, 2));
         return distance;
     }
-
+    
     public static LayerMask LayerMaskCreator(int[] layers) {
         LayerMask binaryLayers = 0;
         if (layers.Length > 0) {

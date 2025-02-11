@@ -5,12 +5,12 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public class PlayerAttack : ParentMeleeAttack {
-    private float attackTime;
     [SerializeField] protected AttackInfo[] basicCombo;
     [SerializeField] private int attackNum = -1;
     [SerializeField] private AnimationClip currentClip;
     public float currentClipTime;
     [SerializeField] private float comboEndTime = .2f;
+    
 
 
     // Update is called once per frame
@@ -22,6 +22,7 @@ public class PlayerAttack : ParentMeleeAttack {
         base.Enter();
         
         UpdateAttack();
+        StopCoroutine(attack);
         StartCoroutine(attack);
 
     }
@@ -37,7 +38,7 @@ public class PlayerAttack : ParentMeleeAttack {
 
     public void UpdateAttack() {
         //makes attack num go up
-        attackNum++;
+            attackNum++;
         //resets attackNum to be withijn the combo
         float comboEndTime = currentClipTime + this.comboEndTime;
         if (attackNum >= basicCombo.Length) {

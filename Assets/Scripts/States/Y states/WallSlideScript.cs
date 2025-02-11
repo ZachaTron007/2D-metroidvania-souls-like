@@ -14,14 +14,14 @@ public class WallSlideScript : LerpingInhertedClass
     [SerializeField] private GameObject dust;
     private GameObject slideDust;
     public Quaternion rotation;
-    private RbVelocityLerp wallSlideMovment;
-    protected void Start() {
+    protected override void Start() {
+        base.Start();
         clip = unitVariables.animations.wallSlideAnimation;
     }
     public override void Enter() {
         base.Enter();
         rb.linearVelocity = Vector3.zero;
-        wallSlideMovment = new RbVelocityLerp(startSpeed: rb.linearVelocity.y, targetSpeed: maxWallSlideSpeed, totalTime: totalTime, Vector2.up,rb, curve);
+        movment[0] = new RbVelocityLerp(startSpeed: rb.linearVelocity.y, targetSpeed: maxWallSlideSpeed, totalTime: totalTime, Vector2.up,rb, curve);
         rb.gravityScale = 0;
     }
 

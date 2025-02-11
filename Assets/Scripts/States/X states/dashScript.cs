@@ -15,8 +15,6 @@ public class dashScript : LerpingInhertedClass {
     [SerializeField] private float dashSpeed = 15;
     [SerializeField] private float dashSpeedLow = 3;
     [SerializeField] private float dashduration = 0.2f;
-    //[SerializeField] private float accelRate = 1;
-    //[SerializeField] private float decelRate = 1;
     [SerializeField] private float forceExitTime = .2f;
     [SerializeField] private float speed;
     
@@ -28,8 +26,8 @@ public class dashScript : LerpingInhertedClass {
     [SerializeField] private GameObject eeffect;
     private BoxCollider2D hitBox;
     public bool dashing;
-    private RbVelocityLerp dashMovment;
-    protected void Start() {
+    protected override void Start() {
+        base.Start();
         clip = unitVariables.animations.idelAnimation;
         hitBox = unitVariables.mainCollider.GetComponent<BoxCollider2D>();
     }
@@ -37,7 +35,7 @@ public class dashScript : LerpingInhertedClass {
     public override void Enter() {
         base.Enter();
         speed = dashSpeed;
-        dashMovment = new RbVelocityLerp(startSpeed: rb.linearVelocityX, targetSpeed: speed*unitVariables.GetDirection(),totalTime, dir: new Vector2(1,0),rb, curve, this);
+        movment[0] = new RbVelocityLerp(startSpeed: rb.linearVelocityX, targetSpeed: speed*unitVariables.GetDirection(),dashduration, dir: new Vector2(1,0),rb, curve, this);
         interuptable = .9f;
         hitBox.excludeLayers = HelperFunctions.LayerMaskCreator(new int[] { 3, 7, 8 });
         Vector3 startPos = unitVariables.transform.position;
@@ -45,15 +43,11 @@ public class dashScript : LerpingInhertedClass {
         rb.gravityScale = 0f;
 
     }
-    public override void FixedUpdateState() {
-        base.FixedUpdateState();
-        dashMovment.FixedUpdate();
-    }
 
     public override void FinishedLerping() {
         if (speed == dashSpeed){
             speed = dashSpeedLow;
-            dashMovment.ResetLerp(startSpeed: dashSpeed*unitVariables.GetDirection(), targetSpeed: speed*unitVariables.GetDirection(), totalTime: forceExitTime, Vector2.right);
+            movment[0].ResetLerp(startSpeed: dashSpeed*unitVariables.GetDirection(), targetSpeed: speed*unitVariables.GetDirection(), totalTime: forceExitTime, Vector2.right);
         }else { StateIsDone(); }
     }
 
