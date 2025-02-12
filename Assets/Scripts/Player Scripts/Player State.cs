@@ -33,7 +33,7 @@ public class PlayerState : Unit {
     //scrupts
     [Header("States")]
     [SerializeField] private dashScript Dash;
-    [SerializeField] private JumpScript wallJumpY;
+    [SerializeField] private WallJumpScript wallJumpY;
     [SerializeField] private WallSlideScript wallSlideScript;
     [SerializeField] public MoveState moveState;
     [SerializeField] private WallJumpX wallJumpMove;
@@ -43,7 +43,6 @@ public class PlayerState : Unit {
     [SerializeField] public ParryState parryState;
     [SerializeField] protected PlayerIdelState idelState;
     [SerializeField] protected GlideState glideState;
-
     private InputScript inputScript;
     //[SerializeField] protected PlayerAttack melee;
 
@@ -119,11 +118,11 @@ public class PlayerState : Unit {
         state?.UpdateState();
     }
     private void FixedUpdate() {
-        yVelState?.FixedUpdateState();
         state?.FixedUpdateState();
-        if (!state) {
+        if (state == null || state.interuptable == 0) {
             xVelState?.FixedUpdateState();
-            
+            yVelState?.FixedUpdateState();
+
         }
     }
 
@@ -152,52 +151,68 @@ public class PlayerState : Unit {
      * handles the state changing logic
      */
     private State XAxisStateChange() {
-        if (yVelState==wallJumpY) {
-            //return wallJumpMove;
-        }
+        //move
         if (moveVetcor.x != 0) {
             return moveState;
-        } else if (Mathf.Abs(rb.linearVelocityX) > decerateMoveState.exitSpeed) {
+        }
+        //decelerate
+        if (Mathf.Abs(rb.linearVelocityX) > decerateMoveState.exitSpeed) {
             return decerateMoveState;
         }
+        //reset movment
         if (!xVelState) {
             rb.linearVelocity = new Vector2(0, rb.linearVelocityY);
         }
         return null;
     }
     private State YAxisStateChange() {
+        //jump logic
         if (lastKey == jump) {
+            //jump
             if (GetGroundedState()) {
                 return jumpScript;
-            } else if (jumpScript.remainingAirBorneJumps > 0) {
+            }
+            //double jump
+            if (jumpScript.remainingAirBorneJumps > 0) {
                 return jumpScript;
             }
         }
-
+        //reset jumps
         if (GetGroundedState()) {
             jumpScript.ResetJumpAmount();
 
-        } else if (WallCheck(.01f) && moveVetcor.x == GetDirection() || WallCheck(.01f) && yVelState == wallSlideScript) {
-            if (lastKey == jump) {
-
+        }else
+        //wall slide
+        if (WallCheck(.01f) && moveVetcor.x == GetDirection() || WallCheck(.01f) && yVelState == wallSlideScript) {
+            //wall jump
+            if (Input.GetKeyDown(jump)) {
                 return wallJumpY;
-
             }
-            //jumpScript.ResetDoubleJump();
             return wallSlideScript;
-        } else if (rb.linearVelocityY <= 0) {
+        }else
+        //fall state
+        if (rb.linearVelocityY <= 0) {
             return fallState;
         }
         return null;
     }
     private State ActionStateChange() {
         dashCount += Time.deltaTime;
+        //wallJump
+        if (yVelState == wallJumpY&&WallCheck(.01f)) {
+            return wallJumpMove;
+        }
+        //dash
         if (lastKey == dash && dashCount >= dashCool) {
             dashCount = 0;
             return Dash;
-        } else if (lastKey == attackButton) {
+        }
+        //attack
+        if (lastKey == attackButton) {
             return attackState;
-        } else if (lastKey == blockButton) {
+        }
+        //block
+        if (lastKey == blockButton) {
             return blockState;
         }
         return null;

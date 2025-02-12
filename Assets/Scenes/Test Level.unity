@@ -1940,6 +1940,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eccad9cc1fc6dc24b8a7ec2278a9da42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1090876994 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2082036912370781415, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+  m_PrefabInstance: {fileID: 2898413512102226661}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1109656204
 GameObject:
   m_ObjectHideFlags: 0
@@ -2186,6 +2191,58 @@ Transform:
   - {fileID: 1840302399}
   m_Father: {fileID: 1314610943}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1214814659
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1214814660}
+  - component: {fileID: 1214814661}
+  m_Layer: 3
+  m_Name: Jump State (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1214814660
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214814659}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1090876994}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1214814661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214814659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bbc166606a3a1949b50b2376196e3be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateDone: 0
+  <interuptable>k__BackingField: 0.1
+  <canInteruptSelf>k__BackingField: 0
+  jumpVelocity: 11.5
+  lowJumpMultiplier: 10
+  kyoteTime: 0.2
+  remainingAirBorneJumps: 0
+  puff: {fileID: 0}
 --- !u!4 &1309007468 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3221665841039631346, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
@@ -3732,7 +3789,7 @@ PrefabInstance:
     - target: {fileID: 6378908112458984836, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: wallJumpY
       value: 
-      objectReference: {fileID: 1004777210}
+      objectReference: {fileID: 1214814661}
     - target: {fileID: 6378908112458984836, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: animations
       value: 
@@ -4012,7 +4069,10 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 7307670183575024488, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2082036912370781415, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 1214814660}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
 --- !u!114 &2898413512102226662 stripped

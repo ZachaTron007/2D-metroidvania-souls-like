@@ -120,9 +120,9 @@ public abstract class Unit : MonoBehaviour
                 SwitchStateActions(newState, oldState);
                 return newState;
 
+
             } else if (oldState.IsStateDone() && oldState.canInteruptSelf) {
                 //if they are the same check if it is done, or if you can switch to the same state
-                Debug.Log(oldState.name);
                 SwitchStateActions(newState,oldState);
                 return newState;
             }

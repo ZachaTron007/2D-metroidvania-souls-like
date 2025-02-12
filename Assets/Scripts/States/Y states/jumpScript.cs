@@ -23,7 +23,7 @@ public class JumpScript : State
     public override void Enter() {
         base.Enter();
         interuptable = .1f;
-        unitVariables.SpawnEffect(puff, unitVariables.transform.position, new Quaternion(0, 0, 0, 0), destroyDelay, new Vector2(0, yoffset), effectSpeed: effectSpeed);
+        //unitVariables.SpawnEffect(puff, unitVariables.transform.position, new Quaternion(0, 0, 0, 0), destroyDelay, new Vector2(0, yoffset), effectSpeed: effectSpeed);
         //jumpVelocity = Mathf.Sqrt(Physics.gravity.y * 2 * jumpHeight * -2);
         Jump();
     }
