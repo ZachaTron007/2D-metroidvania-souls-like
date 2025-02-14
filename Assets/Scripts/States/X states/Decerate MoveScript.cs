@@ -11,6 +11,10 @@ public class DecelerateMoveScript : LerpingInhertedClass
         base.Enter();
         movment[0] = new RbVelocityLerp(startSpeed: rb.linearVelocity.x, targetSpeed: 0, totalTime, dir: Vector2.right,rb, curve);
     }
+    public override void Exit() { 
+        base.Exit();
+        rb.linearVelocity = new Vector2 (0, rb.linearVelocityY);
+    }
 
 
 }

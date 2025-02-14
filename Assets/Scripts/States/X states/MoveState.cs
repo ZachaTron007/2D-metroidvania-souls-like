@@ -54,6 +54,5 @@ public class MoveState : LerpingInhertedClass {
 
     protected override void StateIsDone() {
         base.StateIsDone();
-        movment[0] = null;
     }
 }

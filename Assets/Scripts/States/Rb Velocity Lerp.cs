@@ -5,9 +5,9 @@ public class RbVelocityLerp
     [Header("Lerp Settings")]
     [SerializeField] protected float totalTime = 1;
     private Vector2 dir;
-    private float startSpeed;
-    private Vector2 movement;
-    private float targetSpeed;
+    public float startSpeed;
+    public Vector2 movement;
+    public float targetSpeed;
     [SerializeField] private float counter;
     [SerializeField] private AnimationCurve curve;
     private LerpingInhertedClass lerpClass;

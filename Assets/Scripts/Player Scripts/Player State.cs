@@ -119,7 +119,7 @@ public class PlayerState : Unit {
     }
     private void FixedUpdate() {
         state?.FixedUpdateState();
-        if (state == null || state.interuptable == 0) {
+        if (state == null || state.interuptable < 0.2f) {
             xVelState?.FixedUpdateState();
             yVelState?.FixedUpdateState();
 
@@ -142,6 +142,7 @@ public class PlayerState : Unit {
         if (!newYVelState && !newXVelState&&!newActionState&&GetGroundedState()) {
             newActionState = idelState;
         }
+        //if (state?.name == "Wall Jump X State") Debug.Log("new State " + newActionState);
         state = CanSwitchState(newActionState, state);
         yVelState = CanSwitchState(newYVelState, yVelState);
         xVelState = CanSwitchState(newXVelState, xVelState);
@@ -161,7 +162,7 @@ public class PlayerState : Unit {
         }
         //reset movment
         if (!xVelState) {
-            rb.linearVelocity = new Vector2(0, rb.linearVelocityY);
+            //rb.linearVelocity = new Vector2(0, rb.linearVelocityY);
         }
         return null;
     }
@@ -199,7 +200,7 @@ public class PlayerState : Unit {
     private State ActionStateChange() {
         dashCount += Time.deltaTime;
         //wallJump
-        if (yVelState == wallJumpY&&WallCheck(.01f)) {
+        if (yVelState == wallJumpY||state==wallJumpMove&&state.IsStateDone()==false) {
             return wallJumpMove;
         }
         //dash
