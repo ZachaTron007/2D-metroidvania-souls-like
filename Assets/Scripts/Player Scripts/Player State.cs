@@ -120,8 +120,8 @@ public class PlayerState : Unit {
     private void FixedUpdate() {
         state?.FixedUpdateState();
         if (state == null || state.interuptable < 0.2f) {
-            xVelState?.FixedUpdateState();
             yVelState?.FixedUpdateState();
+            if (state == null || state.interuptable==0) xVelState?.FixedUpdateState();
 
         }
     }

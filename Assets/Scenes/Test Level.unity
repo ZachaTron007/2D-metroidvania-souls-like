@@ -4015,6 +4015,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8632781043206730513, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: totalTime
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632781043206730513, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: curve.m_Curve.Array.size
       value: 2
       objectReference: {fileID: 0}
