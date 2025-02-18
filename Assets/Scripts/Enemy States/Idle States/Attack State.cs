@@ -15,9 +15,11 @@ public class EnemyAttackState : ParentMeleeAttack
      *  2. starts the attack function
      *  */
     public override void Enter() {
+        currentAttack = randomAttackPicker(attacks);
+        Debug.Log(currentAttack.name);
         base.Enter();
         interuptable = 1f;
-        currentAttack = randomAttackPicker(attacks);
+        
         
         StartCoroutine(attack);
     }

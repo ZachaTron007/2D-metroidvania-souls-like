@@ -16,16 +16,15 @@ public class ParentMeleeAttack : State {
 
     protected void Start() {
         clip = unitVariables.animations.parryAnimation;
-        //clip = currentAttack.clip;
+        
         interuptable = .8f;
         tempDirection = unitVariables.GetDirection();
         attack = Attack();
     }
     public override void Enter() {
+        clip = currentAttack.clip;
         base.Enter();
         attack = Attack();
-
-        clip = currentAttack.clip;
 
     }
     protected Vector2 offsetVector() {

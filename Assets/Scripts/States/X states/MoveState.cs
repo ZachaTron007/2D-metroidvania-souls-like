@@ -17,7 +17,6 @@ public class MoveState : LerpingInhertedClass {
     private float counterr;
     protected override void Start() {
         base.Start();
-        Debug.Log(unitVariables.animations);
         clip = unitVariables.animations.runAnimation;
     }
     public override void Enter() {

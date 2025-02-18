@@ -40,7 +40,7 @@ public abstract class State : MonoBehaviour {
     public virtual void Exit () {
         stateDone = true;
         unitVariables.animationList.Remove(clip);
-        if (unitVariables.animationList.Count > 0) animator.Play(unitVariables.animationList.Last.Value.name);
+        if (unitVariables.animationList.Count > 0) animator.Play(unitVariables.animationList.Last.Value?.name);
 
     }
 
