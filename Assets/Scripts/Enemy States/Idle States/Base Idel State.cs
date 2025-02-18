@@ -17,6 +17,7 @@ public class BaseIdelState : State
     private void Start() {
         startPos = unitVariables.transform.localPosition;
         startDir = unitVariables.GetDirection();
+        clip = unitVariables.animations.idelAnimation;
     }
 
     public override void Enter() {

@@ -5,6 +5,9 @@ using UnityEngine;
 public class HurtState : State
 {
     [SerializeField] private float recoveryTime;
+    private void Start() {
+        clip = unitVariables.animations.HurtAnimation;
+    }
     public override void Enter() {
         base.Enter();
         if (unitVariables.animations.HurtAnimation.length > recoveryTime) {

@@ -5,6 +5,9 @@ using UnityEngine;
 public class RecoveryState : State
 {
     [SerializeField] protected float recoverTime = 1;
+    private void Start() {
+        clip = unitVariables.animations.runAnimation;
+    }
     public override void Enter() {
         base.Enter();
         animator.Play(unitVariables.animations.idelAnimation.name);

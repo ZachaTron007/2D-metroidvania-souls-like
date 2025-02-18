@@ -4,7 +4,9 @@ public class ParryRecoverState : State
 {
     [SerializeField] private float parryRecoverTime;
     private float parryRecoverTimer;
-
+    private void Start() {
+        clip = unitVariables.animations.HurtAnimation;
+    }
     public override void Enter() {
         base.Enter();
         interuptable = 1f;

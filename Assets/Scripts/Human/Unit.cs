@@ -73,7 +73,7 @@ public abstract class Unit : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         //mainCollider = GetComponent<BoxCollider2D>();
         hurtState?.Setup(rb, animatior, this);
-        jumpScript.Setup(rb, animatior, this);
+        jumpScript?.Setup(rb, animatior, this);
         fallState?.Setup(rb, animatior, this);
         attackState?.Setup(rb, animatior, this);
         dieState.Setup(rb, animatior, this);

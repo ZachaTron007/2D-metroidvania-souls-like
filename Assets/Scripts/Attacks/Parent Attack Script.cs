@@ -15,7 +15,8 @@ public class ParentMeleeAttack : State {
     protected IEnumerator attack;
 
     protected void Start() {
-        clip = currentAttack.clip;
+        clip = unitVariables.animations.parryAnimation;
+        //clip = currentAttack.clip;
         interuptable = .8f;
         tempDirection = unitVariables.GetDirection();
         attack = Attack();

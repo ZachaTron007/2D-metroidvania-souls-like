@@ -17,12 +17,14 @@ public class SwordEnemyScript : EnemyScript {
     [SerializeField] protected BaseIdelState idelState;
     [SerializeField] protected ParryRecoverState parryRecoverState;
     [SerializeField] private StunnedState stunnedState;
+    [SerializeField] private MoveState moveState;
 
     private void Awake() {
         ComponentSetup();
 
         //attacks
         //state = idelState;
+        moveState.Setup(rb, animatior, this, stun);
         idelState.Setup(rb, animatior, this, stun);
         agroState.Setup(rb, animatior,this, stun);
         recoverState.Setup(rb, animatior, this, stun);

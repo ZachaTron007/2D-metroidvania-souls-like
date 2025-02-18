@@ -10,6 +10,9 @@ public class StunnedState : State
     {
         interuptable = .8f;
     }
+    private void Start() {
+        clip = unitVariables.animations.HurtAnimation;
+    }
 
     public override void Enter() {
         stun.canChange = false;

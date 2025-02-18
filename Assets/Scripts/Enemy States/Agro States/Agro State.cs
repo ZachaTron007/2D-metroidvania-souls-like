@@ -7,6 +7,9 @@ public class AgroState : State
 
     [SerializeField] private float agroSpeed = 250;
 
+    private void Start() {
+        clip = unitVariables.animations.runAnimation;
+    }
     public override void Enter() {
         
     }

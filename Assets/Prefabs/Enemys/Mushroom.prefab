@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa9b907a176652d4c8e85a5a20871f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateDone: 0
   <interuptable>k__BackingField: 0
   <canInteruptSelf>k__BackingField: 0
   parryRecoverTime: 0.5
@@ -99,22 +100,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34ad0a77965941e43a79cd5fc1262350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animations: {fileID: 0}
+  animations: {fileID: 11400000, guid: c26cbe4b598df5242867a25128f045df, type: 2}
   includeRBLayers: {fileID: 1263580818619396342}
   rb: {fileID: 1451567078689242758}
   animatior: {fileID: 2800441836790963117}
   sr: {fileID: 8180763228079067998}
   mainCollider: {fileID: 8095037249191559851}
   state: {fileID: 0}
+  canBeHit: 1
+  isRecovering: 0
+  direction: -1
+  forceAdded: {x: 0, y: 0}
   hurtState: {fileID: 3025884121326495278}
   jumpScript: {fileID: 0}
   fallState: {fileID: 3251601611502233521}
   attackState: {fileID: 8345824504673228524}
   dieState: {fileID: 1025974863289018806}
   lastAttackToHit: {fileID: 0}
-  canBeHit: 1
-  isRecovering: 0
-  direction: -1
   AwarenessColliders:
   - {fileID: 9195928638989692723}
   - {fileID: 4562446710317064488}
@@ -123,9 +125,9 @@ MonoBehaviour:
   playerState: {fileID: 0}
   agroState: {fileID: 2748392427310820698}
   recoverState: {fileID: 6943752663608861617}
-  idelState: {fileID: 0}
+  idelState: {fileID: 6861004596460652119}
   parryRecoverState: {fileID: 1156267643509344644}
-  stunnedState: {fileID: 0}
+  stunnedState: {fileID: 3851759932186145582}
 --- !u!50 &1451567078689242758
 Rigidbody2D:
   serializedVersion: 5
@@ -165,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4866ef3ccf198e54b99558f20d14c9cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MAX_VALUE: 100
+  MAX_VALUE: 200
   currentValue: 0
   canChange: 1
   blockState: {fileID: 0}
@@ -200,7 +202,7 @@ MonoBehaviour:
   currentValue: 0
   canChange: 1
   stunReduceSpeed: 5
-  resetStunTime: 2
+  resetStunTime: 1
 --- !u!1 &621064297686850798
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,6 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e431256567fe5c34fa8c392de2da1fd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateDone: 0
   <interuptable>k__BackingField: 0
   <canInteruptSelf>k__BackingField: 0
   startTime: 4
@@ -258,6 +261,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7280183685329247630}
+  - component: {fileID: 6861004596460652119}
   m_Layer: 3
   m_Name: Ledge Idel State
   m_TagString: Untagged
@@ -280,6 +284,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7956593012235945853}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6861004596460652119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949736954057920423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89b536f8eb6709c49ac0f86fdbda51af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateDone: 0
+  <interuptable>k__BackingField: 0
+  <canInteruptSelf>k__BackingField: 0
+  walkBackDistance: 10
+  walkSpeed: 200
+  forgetTime: 4
+  startPos: {x: 0, y: 0}
+  lowSwitchTime: 1
+  highSwitchTime: 2
 --- !u!1 &1734708864105190849
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,9 +442,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34043891a15171d449096c60985d7bad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateDone: 0
   <interuptable>k__BackingField: 0
   <canInteruptSelf>k__BackingField: 0
   currentAttack: {fileID: 0}
+  attackTime: 0
   attackSpeedModifier: 1
   attackLungeSpeed: 2
   lookDirection: {x: 0, y: 0}
@@ -470,6 +497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 024acaf7bac77754aa2d4fade6fb991a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateDone: 0
   <interuptable>k__BackingField: 0
   <canInteruptSelf>k__BackingField: 0
   recoverTime: 0.6
@@ -505,6 +533,7 @@ Transform:
   - {fileID: 4207435001580836355}
   - {fileID: 6995202755097541976}
   - {fileID: 5265676095404191695}
+  - {fileID: 4328206786953750095}
   m_Father: {fileID: 4671629526930948553}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3297763330385900253
@@ -551,9 +580,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a23d4d58a5ac11a4fa9b468b073b872e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateDone: 0
   <interuptable>k__BackingField: 0
   <canInteruptSelf>k__BackingField: 0
-  agroSpeed: 1000
+  agroSpeed: 700
 --- !u!1 &3298532770467917953
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,7 +624,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3298532770467917953}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -740,7 +770,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.54, y: 0.55}
+  m_Offset: {x: 0.25, y: 0.55}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -750,7 +780,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.23, y: 1.01}
+  m_Size: {x: 0.77, y: 1.01}
   m_EdgeRadius: 0
 --- !u!1 &3323101205317439886
 GameObject:
@@ -786,6 +816,53 @@ Transform:
   - {fileID: 2672195410878255435}
   m_Father: {fileID: 6348218199326715150}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3450069856563177640
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4328206786953750095}
+  - component: {fileID: 3851759932186145582}
+  m_Layer: 0
+  m_Name: Stun State
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4328206786953750095
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3450069856563177640}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2072253502144396822}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3851759932186145582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3450069856563177640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e92a79e573403674d8ed3f8e8f4c6416, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateDone: 0
+  <interuptable>k__BackingField: 0
+  <canInteruptSelf>k__BackingField: 0
 --- !u!1 &3792512956071398209
 GameObject:
   m_ObjectHideFlags: 0
@@ -830,6 +907,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b36af5dcd66b2114a9d70ba9bc8bc4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateDone: 0
   <interuptable>k__BackingField: 0
   <canInteruptSelf>k__BackingField: 0
   recoveryTime: 1
@@ -965,7 +1043,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4709704573764377279}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -992,7 +1070,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.13, y: 0.62}
+  m_Offset: {x: 0.49, y: 0.62}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1108,6 +1186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e320b8e8ff298d45a998ef4de6d9bc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateDone: 0
   <interuptable>k__BackingField: 0
   <canInteruptSelf>k__BackingField: 0
   fallGravMultiplier: 3
@@ -1155,10 +1234,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0f9d6451abeeab449cfde50845b9ee9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateDone: 0
   <interuptable>k__BackingField: 0
   <canInteruptSelf>k__BackingField: 0
   totalTime: 1
-  counter: 0
   curve:
     serializedVersion: 2
     m_Curve: []
