@@ -18,9 +18,9 @@ TagManager:
   - Enemys
   - Enemy Attacks
   - Player Attacks
-  - 
-  - 
-  - 
+  - DeAgro hitBox
+  - Agro hitBox
+  - Attack hitBox
   - 
   - 
   - 

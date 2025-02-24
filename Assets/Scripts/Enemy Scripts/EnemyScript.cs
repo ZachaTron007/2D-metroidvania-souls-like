@@ -7,17 +7,15 @@ using UnityEngine;
 public abstract class EnemyScript : Unit {
     protected float maxDist = .3f;
     [Header("Awareness Colliders")]
-    [SerializeField] protected GameObject[] AwarenessColliders = new GameObject[3];
+    //[SerializeField] protected GameObject[] AwarenessColliders = new GameObject[3];
+    [SerializeField] protected GameObject awarenessColliderParent;
+    [SerializeField] protected List<GameObject> awarenessColliders = new List<GameObject>();
     protected BoxCollider2D[] hitboxes = new BoxCollider2D[3];
     protected Sensors[] sensors = new Sensors[3];
     protected bool isWithinAgroRange = false;
     protected bool isWithinAttackRange = false;
     [SerializeField] private float agroDelay = .5f;
     private float agroDelayCounter;
-
-    
-
-
     private enum ColliderType {
         agro,
         deAgro,
@@ -113,9 +111,15 @@ public abstract class EnemyScript : Unit {
      * runs when the object is created
      */
     protected void AgroAttackColliders() {
+        List<Sensors> colliders = new List<Sensors>();
+        awarenessColliderParent.GetComponentsInChildren<Sensors>(true, colliders);
+        foreach(Sensors collider in colliders) {
+            //if(collider.gameObject.layer)
+        }
+        
         for (int i = 0; i < 3; i++) {
-            sensors[i] = AwarenessColliders[i].GetComponent<Sensors>();
-            hitboxes[i] = AwarenessColliders[i].GetComponent<BoxCollider2D>();
+            sensors[i] = awarenessColliders[i].GetComponent<Sensors>();
+            hitboxes[i] = awarenessColliders[i].GetComponent<BoxCollider2D>();
         }
 
         sensors[(int)ColliderType.agro].triggerEnter += AgroRangeEnter;
