@@ -16,6 +16,9 @@ public abstract class EnemyScript : Unit {
     protected bool isWithinAttackRange = false;
     [SerializeField] private float agroDelay = .5f;
     private float agroDelayCounter;
+
+    private delegate void EventDelegate(Collider2D other);
+    private EventDelegate[,] listOfEvents;
     private enum ColliderType {
         agro,
         deAgro,
@@ -23,9 +26,66 @@ public abstract class EnemyScript : Unit {
     }
     /*
      * summary:
+     * subscribing to the events
+     * runs when the object is created
+     */
+    protected void AgroAttackColliders() {
+        listOfEvents = new EventDelegate[,] { { AgroRangeEnter, null, null }, { null, AgroRangeStay, AgroRangeExit }, { AttackRangeEnter, AttackRangeStay, AttackRangeExit } };
+
+        List<Sensors> colliders = new List<Sensors>();
+        awarenessColliderParent.GetComponentsInChildren(true, colliders);
+        for (int i = 0; i < colliders.Count; i++) {
+            int j = 1;//collider.gameObject.layer-10;
+            //sensors[j] = collider.GetComponent<Sensors>();
+            //sensors[j] += listOfEvents[]
+            hitboxes[j] = awarenessColliders[i].GetComponent<BoxCollider2D>();
+            //if(collider.gameObject.layer)
+        }
+
+        for (int i = 0; i < 3; i++) {
+            sensors[i] = awarenessColliders[i].GetComponent<Sensors>();
+            hitboxes[i] = awarenessColliders[i].GetComponent<BoxCollider2D>();
+        }
+
+        sensors[(int)ColliderType.agro].triggerEnter += AgroRangeEnter;
+        sensors[(int)ColliderType.agro].triggerStay += AgroRangeStayEnter;
+        sensors[(int)ColliderType.deAgro].triggerStay += AgroRangeStay;
+        sensors[(int)ColliderType.deAgro].triggerExit += AgroRangeExit;
+        sensors[(int)ColliderType.attack].triggerEnter += AttackRangeEnter;
+        sensors[(int)ColliderType.attack].triggerStay += AttackRangeStay;
+        sensors[(int)ColliderType.attack].triggerExit += AttackRangeExit;
+        if (health != null)
+            health.dieEvent += Die;
+    }
+
+    /*
+     * summary:
+     * unsubscribing to the events
+     * runs when the object is dies
+     */
+    public void DisableEventColliders(Action<Collider2D>[] subsriberEvents, Sensors[] sensors) {
+        foreach (Sensors sensor in sensors) {
+            foreach (Action<Collider2D> subsriberEvent in subsriberEvents) {
+                sensor.triggerEnter -= subsriberEvent;
+                sensor.triggerExit -= subsriberEvent;
+            }
+        }
+
+    }
+    /*
+     * summary:
+     * an event function that calls the function to unsubscribe to the events
+     */
+    protected override void EventUnsubscribe() {
+        base.EventUnsubscribe();
+        DisableEventColliders(new Action<Collider2D>[] { AgroRangeEnter, AgroRangeStayEnter, AgroRangeStay, AgroRangeExit, AttackRangeEnter, AttackRangeExit }, sensors);
+        health.dieEvent -= Die;
+    }
+    /*
+     * summary:
      * collider enter and exit events for agro and attack range
      */
-    protected void AgroRangeEnter(Collider2D other) {
+    protected static void AgroRangeEnter(Collider2D other) {
         if (other.gameObject.CompareTag("Player")) {
             //isWithinAgroRange = true;
 
@@ -105,57 +165,7 @@ public abstract class EnemyScript : Unit {
         }
     }
 
-    /*
-     * summary:
-     * subscribing to the events
-     * runs when the object is created
-     */
-    protected void AgroAttackColliders() {
-        List<Sensors> colliders = new List<Sensors>();
-        awarenessColliderParent.GetComponentsInChildren<Sensors>(true, colliders);
-        foreach(Sensors collider in colliders) {
-            //if(collider.gameObject.layer)
-        }
-        
-        for (int i = 0; i < 3; i++) {
-            sensors[i] = awarenessColliders[i].GetComponent<Sensors>();
-            hitboxes[i] = awarenessColliders[i].GetComponent<BoxCollider2D>();
-        }
-
-        sensors[(int)ColliderType.agro].triggerEnter += AgroRangeEnter;
-        sensors[(int)ColliderType.agro].triggerStay += AgroRangeStayEnter;
-        sensors[(int)ColliderType.deAgro].triggerStay += AgroRangeStay;
-        sensors[(int)ColliderType.deAgro].triggerExit += AgroRangeExit;
-        sensors[(int)ColliderType.attack].triggerEnter += AttackRangeEnter;
-        sensors[(int)ColliderType.attack].triggerStay += AttackRangeStay;
-        sensors[(int)ColliderType.attack].triggerExit += AttackRangeExit;
-        if(health!=null)
-            health.dieEvent += Die;
-    }
-
-    /*
-     * summary:
-     * unsubscribing to the events
-     * runs when the object is dies
-     */
-    public void DisableEventColliders(Action<Collider2D>[] subsriberEvents, Sensors[] sensors) {
-        foreach (Sensors sensor in sensors) {
-            foreach (Action<Collider2D> subsriberEvent in subsriberEvents) {
-                sensor.triggerEnter -= subsriberEvent;
-                sensor.triggerExit -= subsriberEvent;
-            }
-        }
-        
-    }
-    /*
-     * summary:
-     * an event function that calls the function to unsubscribe to the events
-     */
-    protected override void EventUnsubscribe() {
-        base.EventUnsubscribe();
-        DisableEventColliders(new Action<Collider2D>[] { AgroRangeEnter, AgroRangeStayEnter, AgroRangeStay, AgroRangeExit, AttackRangeEnter, AttackRangeExit }, sensors);
-        health.dieEvent -= Die;
-    }
+    
     
 
 }

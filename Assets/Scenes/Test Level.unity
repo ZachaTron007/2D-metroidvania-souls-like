@@ -65241,6 +65241,10 @@ PrefabInstance:
       propertyPath: 'awarenessColliders.Array.data[2]'
       value: 
       objectReference: {fileID: 1936047658}
+    - target: {fileID: 9195928638989692723, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 4562446710317064488, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
