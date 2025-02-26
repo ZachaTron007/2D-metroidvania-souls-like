@@ -7,6 +7,7 @@ using System.Threading;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 
 public class SwordEnemyScript : EnemyScript {
     //scrupts
@@ -67,29 +68,31 @@ public class SwordEnemyScript : EnemyScript {
 
     protected override void StateChange(State manualState = null) {
         State newState = state;
-        if (!isWithinAgroRange) {
-            newState = idelState;
-        } else {
-            if (isRecovering) {
-                newState = recoverState; 
-            } 
-            else if (!isWithinAttackRange) {
-                newState = agroState;
-            } else {
-                newState = attackState;
-            }
-
-        }
-        
-        if (rb.linearVelocity.y < -.0001) {
-            newState = fallState;
-        }
+        newState = BehaviorController();
         if (manualState) {
             newState = manualState;
         }
 
         state = CanSwitchState(newState, state);
 
+    }
+    private State BehaviorController() {
+        if (isWithinAgroRange) {
+            return agroState;
+        }
+
+        if (isRecovering) {
+            return recoverState;
+        }
+        if (isWithinAttackRange) {
+            return attackState;
+        }
+
+        if (rb.linearVelocity.y < -.0001) {
+            return fallState;
+        }
+        
+        return idelState;
     }
 
     private void getParryed() {

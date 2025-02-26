@@ -65145,6 +65145,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3318328629022161023, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 4498218414796284765, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
       propertyPath: endHitBoxFrames
       value: 29
@@ -65232,22 +65236,23 @@ PrefabInstance:
     - target: {fileID: 8562985491263770973, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
       propertyPath: 'awarenessColliders.Array.data[0]'
       value: 
-      objectReference: {fileID: 1126460676}
+      objectReference: {fileID: 0}
     - target: {fileID: 8562985491263770973, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
       propertyPath: 'awarenessColliders.Array.data[1]'
       value: 
-      objectReference: {fileID: 1126460676}
+      objectReference: {fileID: 0}
     - target: {fileID: 8562985491263770973, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
       propertyPath: 'awarenessColliders.Array.data[2]'
       value: 
       objectReference: {fileID: 1936047658}
     - target: {fileID: 9195928638989692723, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 4562446710317064488, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
+    - {fileID: 9195928638989692723, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
@@ -66107,11 +66112,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ed26cd1c36e07643afa34ed84a3f931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1126460676 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9195928638989692723, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
-  m_PrefabInstance: {fileID: 571628654}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1129038568
 GameObject:
   m_ObjectHideFlags: 0

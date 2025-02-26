@@ -7,18 +7,15 @@ using UnityEngine;
 public abstract class EnemyScript : Unit {
     protected float maxDist = .3f;
     [Header("Awareness Colliders")]
-    //[SerializeField] protected GameObject[] AwarenessColliders = new GameObject[3];
     [SerializeField] protected GameObject awarenessColliderParent;
-    [SerializeField] protected List<GameObject> awarenessColliders = new List<GameObject>();
-    protected BoxCollider2D[] hitboxes = new BoxCollider2D[3];
-    protected Sensors[] sensors = new Sensors[3];
+    protected List<BoxCollider2D> hitboxes = new List<BoxCollider2D> { };
+    protected List<Sensors> sensors = new List<Sensors> { };
     protected bool isWithinAgroRange = false;
     protected bool isWithinAttackRange = false;
     [SerializeField] private float agroDelay = .5f;
     private float agroDelayCounter;
 
-    private delegate void EventDelegate(Collider2D other);
-    private EventDelegate[,] listOfEvents;
+    private Action<Collider2D>[,] listOfEvents;
     private enum ColliderType {
         agro,
         deAgro,
@@ -30,30 +27,28 @@ public abstract class EnemyScript : Unit {
      * runs when the object is created
      */
     protected void AgroAttackColliders() {
-        listOfEvents = new EventDelegate[,] { { AgroRangeEnter, null, null }, { null, AgroRangeStay, AgroRangeExit }, { AttackRangeEnter, AttackRangeStay, AttackRangeExit } };
-
+        //sets the list of colldier functions
+        listOfEvents = new Action<Collider2D>[,] { { AgroRangeEnter, AgroRangeStay, null }, { null , DeAgroRangeStay, DeAgroRangeExit }, { AttackRangeEnter, AttackRangeStay, AttackRangeExit } };
+        //gets a list of the awarness colliders
         List<Sensors> colliders = new List<Sensors>();
         awarenessColliderParent.GetComponentsInChildren(true, colliders);
+        int j = 0;
         for (int i = 0; i < colliders.Count; i++) {
-            int j = 1;//collider.gameObject.layer-10;
-            //sensors[j] = collider.GetComponent<Sensors>();
-            //sensors[j] += listOfEvents[]
-            hitboxes[j] = awarenessColliders[i].GetComponent<BoxCollider2D>();
-            //if(collider.gameObject.layer)
+            //normalizes the pointer to the awarness collider
+            int EventLoctor = colliders[i].gameObject.layer - 10;
+            //if in range of the amount of colliders
+            if (EventLoctor >= 0 && EventLoctor < listOfEvents.Length) {
+                /*
+                 * Assiging Events and Colliders
+                 */
+                sensors.Add(colliders[i].GetComponent<Sensors>());
+                sensors[j].triggerEnter += listOfEvents[EventLoctor, 0];
+                sensors[j].triggerStay += listOfEvents[EventLoctor, 1];
+                sensors[j].triggerExit += listOfEvents[EventLoctor, 2];
+                hitboxes.Add(colliders[i].GetComponent<BoxCollider2D>());
+            } else break;
+            j++;
         }
-
-        for (int i = 0; i < 3; i++) {
-            sensors[i] = awarenessColliders[i].GetComponent<Sensors>();
-            hitboxes[i] = awarenessColliders[i].GetComponent<BoxCollider2D>();
-        }
-
-        sensors[(int)ColliderType.agro].triggerEnter += AgroRangeEnter;
-        sensors[(int)ColliderType.agro].triggerStay += AgroRangeStayEnter;
-        sensors[(int)ColliderType.deAgro].triggerStay += AgroRangeStay;
-        sensors[(int)ColliderType.deAgro].triggerExit += AgroRangeExit;
-        sensors[(int)ColliderType.attack].triggerEnter += AttackRangeEnter;
-        sensors[(int)ColliderType.attack].triggerStay += AttackRangeStay;
-        sensors[(int)ColliderType.attack].triggerExit += AttackRangeExit;
         if (health != null)
             health.dieEvent += Die;
     }
@@ -63,7 +58,7 @@ public abstract class EnemyScript : Unit {
      * unsubscribing to the events
      * runs when the object is dies
      */
-    public void DisableEventColliders(Action<Collider2D>[] subsriberEvents, Sensors[] sensors) {
+    public void DisableEventColliders(Action<Collider2D>[] subsriberEvents, List<Sensors> sensors) {
         foreach (Sensors sensor in sensors) {
             foreach (Action<Collider2D> subsriberEvent in subsriberEvents) {
                 sensor.triggerEnter -= subsriberEvent;
@@ -78,7 +73,7 @@ public abstract class EnemyScript : Unit {
      */
     protected override void EventUnsubscribe() {
         base.EventUnsubscribe();
-        DisableEventColliders(new Action<Collider2D>[] { AgroRangeEnter, AgroRangeStayEnter, AgroRangeStay, AgroRangeExit, AttackRangeEnter, AttackRangeExit }, sensors);
+        DisableEventColliders(new Action<Collider2D>[] { AgroRangeEnter, AgroRangeStay, DeAgroRangeStay, DeAgroRangeExit, AttackRangeEnter, AttackRangeExit }, sensors);
         health.dieEvent -= Die;
     }
     /*
@@ -92,7 +87,7 @@ public abstract class EnemyScript : Unit {
         }
     }
 
-    protected void AgroRangeStayEnter(Collider2D other) {
+    protected void AgroRangeStay(Collider2D other) {
         if (other.gameObject.CompareTag("Player")) {
             agroDelayCounter += Time.deltaTime;
             if (agroDelayCounter >= agroDelay) {
@@ -102,7 +97,7 @@ public abstract class EnemyScript : Unit {
             }
         }
     }
-    protected void AgroRangeStay(Collider2D other) {
+    protected void DeAgroRangeStay(Collider2D other) {
         if (other.gameObject.tag == "Player") {
             //isWithinAgroRange = true;
             if (isWithinAgroRange) {
@@ -113,7 +108,7 @@ public abstract class EnemyScript : Unit {
             }
         }
     }
-    protected void AgroRangeExit(Collider2D other) {
+    protected void DeAgroRangeExit(Collider2D other) {
         if (other.gameObject.CompareTag("Player")) {
             agroDelayCounter = 0;
             isWithinAgroRange = false;
