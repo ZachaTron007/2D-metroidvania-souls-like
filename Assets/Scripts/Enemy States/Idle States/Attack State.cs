@@ -16,11 +16,7 @@ public class EnemyAttackState : ParentMeleeAttack
      *  */
     public override void Enter() {
         currentAttack = randomAttackPicker(attacks);
-        Debug.Log(currentAttack.name);
         base.Enter();
-        interuptable = 1f;
-        
-        
         StartCoroutine(attack);
     }
     public override void FixedUpdateState() {
@@ -29,8 +25,8 @@ public class EnemyAttackState : ParentMeleeAttack
 
     public override void Exit() {
         base.Exit();
-        
-        unitVariables.isRecovering = true;
+        //unitVariables.isRecovering = true;
+        unitVariables.StateChange();
     }
 
     private AttackInfo randomAttackPicker(AttackInfo[] attacks) {

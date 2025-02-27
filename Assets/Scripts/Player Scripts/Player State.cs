@@ -133,7 +133,7 @@ public class PlayerState : Unit {
      * then checks if you can switch to that state
      */
 
-    protected override void StateChange(State manualState = null) {
+    public override void StateChange(State manualState = null) {
         State newXVelState = XAxisStateChange();
         State newYVelState = YAxisStateChange();
         State newActionState = ActionStateChange();
