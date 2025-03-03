@@ -92,7 +92,7 @@ public abstract class Unit : MonoBehaviour
      * summary:
      * meant to be inherited and the logic to change the state is stored in here
      */
-    public abstract void StateChange(State manualSate = null);
+    protected abstract void StateChange(State manualSate = null);
     //protected abstract void GetHurt();
 
     protected State CanSwitchState(State newState, State oldState) {
