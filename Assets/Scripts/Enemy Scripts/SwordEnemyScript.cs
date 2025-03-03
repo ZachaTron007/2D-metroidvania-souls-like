@@ -57,6 +57,7 @@ public class SwordEnemyScript : EnemyScript {
         }
 
         state.UpdateState();
+        //InteruptrableStateChange();
         StateChange();
         directionFlip();
         
@@ -65,7 +66,7 @@ public class SwordEnemyScript : EnemyScript {
         state.FixedUpdateState();
     }
 
-    public override void StateChange(State manualState = null) {
+    protected override void StateChange(State manualState = null) {
         State newState = state;
         newState = BehaviorController();
         if (manualState) {
@@ -83,7 +84,6 @@ public class SwordEnemyScript : EnemyScript {
         if (isRecovering) {
             return recoverState;
         }
-
         if (isWithinAttackRange) {
             return attackState;
         }
