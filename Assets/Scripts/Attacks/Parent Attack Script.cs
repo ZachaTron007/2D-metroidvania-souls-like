@@ -16,8 +16,8 @@ public class ParentMeleeAttack : State {
 
     protected void Start() {
         clip = unitVariables.animations.parryAnimation;
-        
-        interuptable = .8f;
+
+        interuptable = .1f;
         tempDirection = unitVariables.GetDirection();
         attack = Attack();
     }
@@ -25,6 +25,7 @@ public class ParentMeleeAttack : State {
         clip = currentAttack.clip;
         base.Enter();
         attack = Attack();
+        animator.speed = currentAttack.speed;
 
     }
     protected Vector2 offsetVector() {
@@ -41,38 +42,34 @@ public class ParentMeleeAttack : State {
      *  5. starts the recovery state
      */
     protected IEnumerator Attack() {
-        float attackSpeed = currentAttack.speed * 1/attackSpeedModifier;
-        float length = (currentAttack.length * attackSpeed);// - currentAttack.clip.frameRate * attackSpeed;
-        interuptable = .1f;
-        animator.speed = currentAttack.speed;
+        float attackSpeed = currentAttack.speed * (1/attackSpeedModifier);
+        float length = currentAttack.length * attackSpeed;
         
-        rb.linearVelocity = new Vector2(0, rb.linearVelocityY);// Vector2.zero;
+        
+        rb.linearVelocity = new Vector2(0, rb.linearVelocityY);
         float startMovingTime = currentAttack.startMovingTime * attackSpeed;
         float startHitBoxTime = currentAttack.startHitBoxTime * attackSpeed;
+
         yield return new WaitForSeconds(startHitBoxTime * attackSpeed);
-        //rb.linearVelocity = Vector2.zero;
+
         interuptable = .6f;
         currentAttack.attackHitBox.enabled = true;
         currentAttack.attackHitBox.offset = offsetVector();
         float endHitBoxTime = currentAttack.endHitBoxTime * attackSpeed;
+
         yield return new WaitForSeconds(endHitBoxTime);
-        //rb.linearVelocity = Vector2.zero;
         currentAttack.attackHitBox.enabled = false;
-        float recoveryTime = (startHitBoxTime + endHitBoxTime >= length) ? 0 : ( length - (startHitBoxTime + endHitBoxTime + startMovingTime));/*
-        Debug.Log("--------------------------------");
-        Debug.Log(currentAttack.name);
-        Debug.Log("Time till state done: "+recoveryTime);
-        */
+        float recoveryTime = (startHitBoxTime + endHitBoxTime >= length) ? 0 : ( length - (startHitBoxTime + endHitBoxTime + startMovingTime));
+
         yield return new WaitForSeconds(recoveryTime);
-        //Debug.Log("State Should be Done");
+
         StateIsDone();
         yield return null;
     }
     protected override void StateIsDone() {
         base.StateIsDone();
-        //Debug.Log("Done: "+IsStateDone());
-        currentAttack.attackHitBox.enabled = false;
         animator.speed = 1;
+        interuptable = .1f;
         StopCoroutine(attack);
     }
 

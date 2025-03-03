@@ -65145,6 +65145,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1258361261296067503, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
+      propertyPath: m_Size.x
+      value: 3.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 1258361261296067503, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
+      propertyPath: m_Size.y
+      value: 1.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 1258361261296067503, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
+      propertyPath: m_Offset.x
+      value: 1.49
+      objectReference: {fileID: 0}
     - target: {fileID: 3318328629022161023, guid: 34f485dc743a3fc42b1019ad1dcdca04, type: 3}
       propertyPath: m_Layer
       value: 12
