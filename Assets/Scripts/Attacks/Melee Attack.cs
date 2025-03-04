@@ -1,20 +1,14 @@
 using System.Collections;
 using UnityEngine;
 
-public class MeleeAttack : ParentMeleeAttack
+public class MeleeAttack : ParentMeleeAttack, IAttackable
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected IEnumerator attack;
-    protected override void Start() {
-        base.Start();
-        clip = unitVariables.animations.parryAnimation;
 
-        interuptable = .8f;
-        attack = Attack();
-    }
-    public override void Enter() {
-        base.Enter();
-        attack = Attack();
+    public void Attack() {
+        StartCoroutine(attack);
+
     }
 
     /*
@@ -27,7 +21,7 @@ public class MeleeAttack : ParentMeleeAttack
      *  4. waits for the attack animation to finish, if it hasn't finished already
      *  5. starts the recovery state
      */
-    protected IEnumerator Attack() {
+    protected IEnumerator AttackCoroutine() {
         float attackSpeed = currentAttack.speed * 1 / attackSpeedModifier;
         float length = (currentAttack.length * attackSpeed);// - currentAttack.clip.frameRate * attackSpeed;
         interuptable = .1f;

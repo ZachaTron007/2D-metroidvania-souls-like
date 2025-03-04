@@ -4,7 +4,7 @@ using TMPro.Examples;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class PlayerAttack : MeleeAttack {
+public class PlayerAttack : ParentMeleeAttack {
     [SerializeField] protected AttackInfo[] basicCombo;
     [SerializeField] private int attackNum = -1;
     [SerializeField] private AnimationClip currentClip;
