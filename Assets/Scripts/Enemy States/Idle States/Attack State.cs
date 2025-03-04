@@ -16,12 +16,11 @@ public class EnemyAttackState : ParentMeleeAttack
      *  */
     public override void Enter() {
         currentAttack = randomAttackPicker(attacks);
-        Debug.Log(currentAttack.name);
         base.Enter();
         interuptable = 1f;
         
         
-        StartCoroutine(attack);
+        //StartCoroutine(attack);
     }
     public override void FixedUpdateState() {
         //rb.linearVelocity = Vector2.zero;

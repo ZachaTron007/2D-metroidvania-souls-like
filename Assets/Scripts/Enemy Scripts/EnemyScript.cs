@@ -35,7 +35,7 @@ public abstract class EnemyScript : Unit {
         int j = 0;
         for (int i = 0; i < colliders.Count; i++) {
             //normalizes the pointer to the awarness collider
-            int EventLoctor = colliders[i].gameObject.layer - 10;
+            int EventLoctor = colliders[i].gameObject.layer - HelperFunctions.layers["Agro hitBox"];
             //if in range of the amount of colliders
             if (EventLoctor >= 0 && EventLoctor < listOfEvents.Length) {
                 /*

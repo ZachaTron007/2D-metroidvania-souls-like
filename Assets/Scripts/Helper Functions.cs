@@ -6,7 +6,21 @@ using UnityEngine;
 public static class HelperFunctions {
     public static float regularGavityScale = 2f;
     public static Dictionary<string, int> layers =
-        new Dictionary<string, int>() { { "Default", 0 }, { "TransparentFX", 1 }, { "Ignore Raycast", 2 }, { "Player", 3 }, { "Water", 4 }, { "UI", 5 }, { "Level", 6 }, { "Enemys", 7 }, { "Enemy Attacks", 8 }, { "Player Attacks", 9 }, };
+        new Dictionary<string, int>() {
+            { "Default", 0 },
+            { "TransparentFX", 1 },
+            { "Ignore Raycast", 2 },
+            { "Player", 3 },
+            { "Water", 4 },
+            { "UI", 5 },
+            { "Level", 6 },
+            { "Enemys", 7 },
+            { "Enemy Attacks", 8 },
+            { "Player Attacks", 9 },
+            { "Agro hitBox", 10 },
+            { "DeAgro hitBox", 11 },
+            { "Attack hitBox", 12 } 
+        };
 
     public static float PointToDistance(Vector2 point1, Vector2 point2) {
         float distance = Mathf.Sqrt(Mathf.Pow(point2.x - point1.x, 2) + Mathf.Pow(point2.y - point1.y, 2));
