@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Resources;
 using System.Threading;
+using TMPro.Examples;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -100,6 +101,7 @@ public class PlayerState : Unit {
 
     protected override void Update() {
         base.Update();
+        
         lastKey = GetInput(buttons);
         //horizontal movement
 
@@ -116,6 +118,7 @@ public class PlayerState : Unit {
         yVelState?.UpdateState();
         xVelState?.UpdateState();
         state?.UpdateState();
+        
     }
     private void FixedUpdate() {
         state?.FixedUpdateState();
@@ -133,11 +136,11 @@ public class PlayerState : Unit {
      * then checks if you can switch to that state
      */
 
-    protected override void StateChange(State manualState = null) {
+    public override void StateChange(State manualState = null) {
         State newXVelState = XAxisStateChange();
         State newYVelState = YAxisStateChange();
         State newActionState = ActionStateChange();
-        if(manualState != null) newActionState = manualState;
+        if (manualState != null) { newActionState = manualState;};
         //Debug.Log(newYVelState);
         if (!newYVelState && !newXVelState&&!newActionState&&GetGroundedState()) {
             newActionState = idelState;

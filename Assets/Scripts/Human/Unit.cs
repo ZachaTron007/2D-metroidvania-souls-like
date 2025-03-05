@@ -37,7 +37,7 @@ public abstract class Unit : MonoBehaviour
     [SerializeField] protected HurtState hurtState;
     [SerializeField] protected JumpScript jumpScript;
     [SerializeField] protected FallState fallState;
-    [SerializeField] protected ParentMeleeAttack attackState;
+    [SerializeField] protected AttackManager attackState;
     [SerializeField] protected DeathScript dieState;
     [HideInInspector] public AttackInfo lastAttackToHit;
     /*
@@ -92,12 +92,12 @@ public abstract class Unit : MonoBehaviour
      * summary:
      * meant to be inherited and the logic to change the state is stored in here
      */
-    protected abstract void StateChange(State manualSate = null);
+    public abstract void StateChange(State manualSate = null);
     //protected abstract void GetHurt();
 
     protected State CanSwitchState(State newState, State oldState) {
         //if you dont have an old state, automaticly siwtch to newstate
-        
+        Debug.Log("OldState: " + state+"New State: "+newState);
         if (!oldState) {
             SwitchStateActions(newState, oldState);
             return newState;

@@ -66,7 +66,7 @@ public class SwordEnemyScript : EnemyScript {
         state.FixedUpdateState();
     }
 
-    protected override void StateChange(State manualState = null) {
+    public override void StateChange(State manualState = null) {
         State newState = state;
         newState = BehaviorController();
         if (manualState) {

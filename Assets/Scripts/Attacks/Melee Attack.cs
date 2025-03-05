@@ -1,12 +1,17 @@
 using System.Collections;
+using TMPro.Examples;
 using UnityEngine;
 
-public class MeleeAttack : ParentMeleeAttack, IAttackable
+public class MeleeAttack : ParentMeleeAttack
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected IEnumerator attack;
 
-    public void Attack() {
+    public override void Enter() {
+        base.Enter();
+        
+        //Debug.Log("Attacking: "+gameObject.name);
+        attack = AttackCoroutine();
         StartCoroutine(attack);
 
     }
@@ -21,12 +26,11 @@ public class MeleeAttack : ParentMeleeAttack, IAttackable
      *  4. waits for the attack animation to finish, if it hasn't finished already
      *  5. starts the recovery state
      */
-    protected IEnumerator AttackCoroutine() {
+    public IEnumerator AttackCoroutine() {
         float attackSpeed = currentAttack.speed * 1 / attackSpeedModifier;
+        
         float length = (currentAttack.length * attackSpeed);// - currentAttack.clip.frameRate * attackSpeed;
         interuptable = .1f;
-        Debug.Log("Attacking");
-
         rb.linearVelocity = new Vector2(0, rb.linearVelocityY);// Vector2.zero;
         float startMovingTime = currentAttack.startMovingTime * attackSpeed;
         float startHitBoxTime = currentAttack.startHitBoxTime * attackSpeed;
@@ -45,7 +49,7 @@ public class MeleeAttack : ParentMeleeAttack, IAttackable
         Debug.Log("Time till state done: "+recoveryTime);
         */
         yield return new WaitForSeconds(recoveryTime);
-        //Debug.Log("State Should be Done");
+        Debug.Log("State Should be Done");
         StateIsDone();
         yield return null;
     }

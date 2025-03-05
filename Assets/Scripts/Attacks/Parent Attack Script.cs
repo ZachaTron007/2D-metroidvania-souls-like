@@ -15,7 +15,7 @@ public class ParentMeleeAttack : State {
         unitVariables.mainCollider.enabled = status;
     }
     protected virtual void Start() {
-        clip = unitVariables.animations.parryAnimation;
+        currentAttack = GetComponent<AttackInfo>();
         interuptable = .8f;
     }
     public override void Enter() {

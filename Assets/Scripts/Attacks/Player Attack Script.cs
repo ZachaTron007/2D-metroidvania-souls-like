@@ -4,7 +4,7 @@ using TMPro.Examples;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class PlayerAttack : ParentMeleeAttack {
+public class PlayerAttack : AttackManager {
     [SerializeField] protected AttackInfo[] basicCombo;
     [SerializeField] private int attackNum = -1;
     [SerializeField] private AnimationClip currentClip;
@@ -20,9 +20,11 @@ public class PlayerAttack : ParentMeleeAttack {
     }
     public override void Enter() {
         base.Enter();
-        
         UpdateAttack();
-
+        State attackState = currentAttack.gameObject.GetComponent<ParentMeleeAttack>();
+        attackState.Setup(rb, animator, unitVariables, stun);
+        unitVariables.StateChange(attackState);
+        Exit();
     }
 
     public override void Exit() {

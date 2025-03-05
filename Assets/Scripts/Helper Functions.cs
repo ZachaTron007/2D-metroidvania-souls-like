@@ -5,6 +5,7 @@ using UnityEngine;
 
 public static class HelperFunctions {
     public static float regularGavityScale = 2f;
+    //layers
     public static Dictionary<string, int> layers =
         new Dictionary<string, int>() {
             { "Default", 0 },
