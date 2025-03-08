@@ -97,7 +97,7 @@ public abstract class Unit : MonoBehaviour
 
     protected State CanSwitchState(State newState, State oldState) {
         //if you dont have an old state, automaticly siwtch to newstate
-        Debug.Log("OldState: " + state+"New State: "+newState);
+        //Debug.Log("OldState: " + state+"New State: "+newState);
         if (!oldState) {
             SwitchStateActions(newState, oldState);
             return newState;

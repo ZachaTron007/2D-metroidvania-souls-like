@@ -20,18 +20,13 @@ public abstract class State : MonoBehaviour {
     protected virtual void StateIsDone() {
         stateDone = (stateDone)? false : true ;
     }
-    /*
-    protected void Start() {
-        if (!animator || !rb || !unitVariables) {
-            Debug.Log("YOU HAVENT CALLED SETUP ON " + gameObject.name + "!!!, ON UNIT: "+transform.root.name);
-        }
-    }*/
     public virtual void UpdateState () {
 
     }
     public virtual void FixedUpdateState () { }
     public virtual void Enter () {
         stateDone = false;
+        Debug.Log(clip);
         unitVariables.animationList.AddLast(clip);
         animator.Play(unitVariables.animationList.Last.Value.name);
 

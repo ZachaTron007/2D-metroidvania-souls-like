@@ -44,6 +44,7 @@ public class PlayerState : Unit {
     [SerializeField] public ParryState parryState;
     [SerializeField] protected PlayerIdelState idelState;
     [SerializeField] protected GlideState glideState;
+    [SerializeField] protected State attack;
     private InputScript inputScript;
     //[SerializeField] protected PlayerAttack melee;
 
@@ -93,6 +94,7 @@ public class PlayerState : Unit {
         glideState.Setup(rb, animatior, this);
         wallSlideScript.Setup(rb, animatior, this);
         hurtState.Setup(rb, animatior, this);
+        attack.Setup(rb, animatior, this);
         state = idelState;
 
     }
@@ -145,7 +147,6 @@ public class PlayerState : Unit {
         if (!newYVelState && !newXVelState&&!newActionState&&GetGroundedState()) {
             newActionState = idelState;
         }
-        //if (state?.name == "Wall Jump X State") Debug.Log("new State " + newActionState);
         state = CanSwitchState(newActionState, state);
         yVelState = CanSwitchState(newYVelState, yVelState);
         xVelState = CanSwitchState(newXVelState, xVelState);
@@ -213,7 +214,7 @@ public class PlayerState : Unit {
         }
         //attack
         if (lastKey == attackButton) {
-            return attackState;
+            return attack;
         }
         //block
         if (lastKey == blockButton) {
@@ -226,7 +227,7 @@ public class PlayerState : Unit {
      */
     protected override void SwitchStateActions(State newState,State oldState) {
         base.SwitchStateActions(newState,oldState);
-        //lastKey = KeyCode.None;
+        lastKey = KeyCode.None;
     }
     /*
      * done with state logic

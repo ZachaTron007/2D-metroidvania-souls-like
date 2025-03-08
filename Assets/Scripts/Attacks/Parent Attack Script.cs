@@ -12,14 +12,14 @@ public class ParentMeleeAttack : State {
     public Vector2 lookDirection;
     
     protected void SetHitBoxStatus(bool status) {
-        unitVariables.mainCollider.enabled = status;
+        currentAttack.attackHitBox.enabled = status;
     }
     protected virtual void Start() {
         currentAttack = GetComponent<AttackInfo>();
+        clip = currentAttack.clip;
         interuptable = .8f;
     }
     public override void Enter() {
-        clip = currentAttack.clip;
         base.Enter();
         animator.speed = currentAttack.speed;
     }

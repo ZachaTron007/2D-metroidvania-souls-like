@@ -16,7 +16,7 @@ public class PlayerAttack : AttackManager {
     // Update is called once per frame
     private void Awake() {
         currentAttack = basicCombo[0];
-        canInteruptSelf = true;
+        //canInteruptSelf = true;
     }
     public override void Enter() {
         base.Enter();
@@ -38,12 +38,12 @@ public class PlayerAttack : AttackManager {
 
     public void UpdateAttack() {
         //makes attack num go up
-            attackNum++;
+        if(attackTime>=basicCombo.Length-.2f)
+        attackNum++;
+        attackNum = attackNum % basicCombo.Length;
         //resets attackNum to be withijn the combo
         float comboEndTime = currentClipTime + this.comboEndTime;
-        if (attackNum >= basicCombo.Length) {
-            attackNum = 0;
-        }
+        
         if (attackTime >= comboEndTime) {
             attackNum = 0;
         }

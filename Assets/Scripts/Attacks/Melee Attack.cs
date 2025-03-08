@@ -10,7 +10,6 @@ public class MeleeAttack : ParentMeleeAttack
     public override void Enter() {
         base.Enter();
         
-        //Debug.Log("Attacking: "+gameObject.name);
         attack = AttackCoroutine();
         StartCoroutine(attack);
 
@@ -28,9 +27,7 @@ public class MeleeAttack : ParentMeleeAttack
      */
     public IEnumerator AttackCoroutine() {
         float attackSpeed = currentAttack.speed * 1 / attackSpeedModifier;
-        
         float length = (currentAttack.length * attackSpeed);// - currentAttack.clip.frameRate * attackSpeed;
-        interuptable = .1f;
         rb.linearVelocity = new Vector2(0, rb.linearVelocityY);// Vector2.zero;
         float startMovingTime = currentAttack.startMovingTime * attackSpeed;
         float startHitBoxTime = currentAttack.startHitBoxTime * attackSpeed;
@@ -43,18 +40,16 @@ public class MeleeAttack : ParentMeleeAttack
         yield return new WaitForSeconds(endHitBoxTime);
         //rb.linearVelocity = Vector2.zero;
         SetHitBoxStatus(false);
-        float recoveryTime = (startHitBoxTime + endHitBoxTime >= length) ? 0 : (length - (startHitBoxTime + endHitBoxTime + startMovingTime));/*
-        Debug.Log("--------------------------------");
-        Debug.Log(currentAttack.name);
-        Debug.Log("Time till state done: "+recoveryTime);
-        */
+        float recoveryTime = (startHitBoxTime + endHitBoxTime >= length) ? 0 : (length - (startHitBoxTime + endHitBoxTime + startMovingTime));
+
         yield return new WaitForSeconds(recoveryTime);
-        Debug.Log("State Should be Done");
+        //Debug.Log("State Should be Done");
         StateIsDone();
         yield return null;
     }
-    protected override void StateIsDone() {
-        base.StateIsDone();
+    public override void Exit() {
+        base.Exit();
+        interuptable = .1f;
         StopCoroutine(attack);
     }
 }
