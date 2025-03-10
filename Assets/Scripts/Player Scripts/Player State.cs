@@ -33,23 +33,35 @@ public class PlayerState : Unit {
     public Vector2 moveVetcor { get; private set; }
     //scrupts
     [Header("States")]
+    [Header("X Axis States")]
     [SerializeField] private dashScript Dash;
-    [SerializeField] private WallJumpScript wallJumpY;
-    [SerializeField] private WallSlideScript wallSlideScript;
+    [SerializeField] public DecelerateMoveScript decerateMoveState;
     [SerializeField] public MoveState moveState;
     [SerializeField] private WallJumpX wallJumpMove;
-    [SerializeField] public DecelerateMoveScript decerateMoveState;
+
+    [Header("Y Axis States")]
+    [SerializeField] private WallJumpScript wallJumpY;
+    [SerializeField] private WallSlideScript wallSlideScript;
+    [SerializeField] protected GlideState glideState;
+
+    [Header("Action States")]
     [SerializeField] public BlockState blockState;
     [SerializeField] public BlockRecoverState blockRecoverState;
     [SerializeField] public ParryState parryState;
     [SerializeField] protected PlayerIdelState idelState;
-    [SerializeField] protected GlideState glideState;
-    [SerializeField] protected State attack;
+
+    [Header("Attacks")]
+    [SerializeField] protected ParentMeleeAttack[] basicCombo = new ParentMeleeAttack[3];
+    public float attackTime;
+    [SerializeField] private float comboEndTime = 0.2f;
+    public ParentMeleeAttack currentAttack;
+    private int attackNum;
     private InputScript inputScript;
     //[SerializeField] protected PlayerAttack melee;
 
     //public event Action <bool> parried;
     //buttons 
+    [Header("Attributes")]
     public float bufferTime = .2f;
     public float arielForce = 10f;
     float bufferCounter = 0;
@@ -94,7 +106,9 @@ public class PlayerState : Unit {
         glideState.Setup(rb, animatior, this);
         wallSlideScript.Setup(rb, animatior, this);
         hurtState.Setup(rb, animatior, this);
-        attack.Setup(rb, animatior, this);
+        for (int i = 0; i < basicCombo.Length; i++) {
+            basicCombo[i].Setup(rb, animatior, this);
+        }
         state = idelState;
 
     }
@@ -214,13 +228,32 @@ public class PlayerState : Unit {
         }
         //attack
         if (lastKey == attackButton) {
-            return attack;
+            return basicComboAttackPicker();
         }
         //block
         if (lastKey == blockButton) {
             return blockState;
         }
         return null;
+    }
+    /*
+     * summary: picks an attack from the basic combo
+     */
+    private State basicComboAttackPicker() {
+        currentAttack = basicCombo[attackNum];
+        if (basicCombo[attackNum] == currentAttack) {
+            attackNum++;
+            attackNum = (attackNum+1) % basicCombo.Length;
+        }
+        Debug.Log("AttackNum: "+attackNum+1+", attack: "+currentAttack+", AttackNum increased: "+ (currentAttack != basicCombo[attackNum]));
+        
+        //resets attackNum to be withijn the combo
+        float comboEndTime = currentAttack.currentAttack.length + this.comboEndTime;
+        attackTime += Time.deltaTime;
+        if (attackTime >= comboEndTime) {
+            attackNum = 0;
+        }
+        return basicCombo[attackNum];
     }
     /*
      * what todo when you swiutch states

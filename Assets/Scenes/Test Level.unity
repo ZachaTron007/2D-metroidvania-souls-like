@@ -67962,6 +67962,34 @@ PrefabInstance:
       propertyPath: decerateMoveState
       value: 
       objectReference: {fileID: 340252736}
+    - target: {fileID: 6378908112458984836, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: basicCombo.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378908112458984836, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: 'basicCombo.Array.data[0]'
+      value: 
+      objectReference: {fileID: 743004667}
+    - target: {fileID: 6378908112458984836, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: 'basicCombo.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1569584870}
+    - target: {fileID: 6378908112458984836, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: 'basicCombo.Array.data[2]'
+      value: 
+      objectReference: {fileID: 132009168}
+    - target: {fileID: 6378908112458984836, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: 'basicCombo.Array.data[3]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378908112458984836, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: 'basicCombo.Array.data[4]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378908112458984836, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
+      propertyPath: 'basicCombo.Array.data[5]'
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6489775057103274142, guid: 0784408cf68a9f34ebb882c585a2f648, type: 3}
       propertyPath: speed
       value: 1

@@ -37,7 +37,6 @@ public abstract class Unit : MonoBehaviour
     [SerializeField] protected HurtState hurtState;
     [SerializeField] protected JumpScript jumpScript;
     [SerializeField] protected FallState fallState;
-    [SerializeField] protected AttackManager attackState;
     [SerializeField] protected DeathScript dieState;
     [HideInInspector] public AttackInfo lastAttackToHit;
     /*
@@ -75,7 +74,6 @@ public abstract class Unit : MonoBehaviour
         hurtState?.Setup(rb, animatior, this);
         jumpScript?.Setup(rb, animatior, this);
         fallState?.Setup(rb, animatior, this);
-        attackState?.Setup(rb, animatior, this);
         dieState.Setup(rb, animatior, this);
         EventSubscribe();
     }
@@ -252,7 +250,7 @@ public abstract class Unit : MonoBehaviour
     }
     protected abstract void Die();
     public void HitCollided(bool hit) {
-        AttackInfo attack = attackState.currentAttack;
+        AttackInfo attack = null;
         
     }
 

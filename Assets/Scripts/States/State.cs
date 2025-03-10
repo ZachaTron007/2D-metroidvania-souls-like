@@ -26,7 +26,6 @@ public abstract class State : MonoBehaviour {
     public virtual void FixedUpdateState () { }
     public virtual void Enter () {
         stateDone = false;
-        Debug.Log(clip);
         unitVariables.animationList.AddLast(clip);
         animator.Play(unitVariables.animationList.Last.Value.name);
 

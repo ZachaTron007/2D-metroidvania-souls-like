@@ -85,7 +85,7 @@ public class SwordEnemyScript : EnemyScript {
             return recoverState;
         }
         if (isWithinAttackRange) {
-            return attackState;
+            //return attackState;
         }
 
         if (rb.linearVelocity.y < -.0001) {
