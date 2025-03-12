@@ -9,7 +9,6 @@ public class MeleeAttack : ParentMeleeAttack
 
     public override void Enter() {
         base.Enter();
-        Debug.Log("Entering: "+gameObject.name);
         attack = AttackCoroutine();
         StartCoroutine(attack);
 

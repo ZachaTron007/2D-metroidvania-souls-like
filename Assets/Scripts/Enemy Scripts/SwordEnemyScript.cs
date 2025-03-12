@@ -19,6 +19,7 @@ public class SwordEnemyScript : EnemyScript {
     [SerializeField] protected ParryRecoverState parryRecoverState;
     [SerializeField] private StunnedState stunnedState;
     [SerializeField] private MoveState moveState;
+    [SerializeField] private List<ParentMeleeAttack> attacks = new List<ParentMeleeAttack>{};
 
     private void Awake() {
         ComponentSetup();
@@ -31,7 +32,9 @@ public class SwordEnemyScript : EnemyScript {
         recoverState.Setup(rb, animatior, this, stun);
         parryRecoverState.Setup(rb, animatior, this, stun);
         stunnedState.Setup(rb, animatior, this, stun);
-        
+        for (int i = 0; i < attacks.Count; i++) {
+            attacks[i].Setup(rb, animatior, this, stun);
+        }
         AgroAttackColliders();
 
 
@@ -77,15 +80,19 @@ public class SwordEnemyScript : EnemyScript {
 
     }
     private State BehaviorController() {
-        if (isWithinAgroRange) {
-            return agroState;
-        }
-
+        
+        Debug.Log(isRecovering);
         if (isRecovering) {
             return recoverState;
         }
+        Debug.Log("Should be attacking: "+isWithinAttackRange);
         if (isWithinAttackRange) {
-            //return attackState;
+            Debug.Log("Should be charging");
+            return attacks[2];
+            return attacks[UnityEngine.Random.Range(0,attacks.Count-1)];
+        }
+        if (isWithinAgroRange) {
+            return agroState;
         }
 
         if (rb.linearVelocity.y < -.0001) {

@@ -39,6 +39,7 @@ public abstract class Unit : MonoBehaviour
     [SerializeField] protected FallState fallState;
     [SerializeField] protected DeathScript dieState;
     [HideInInspector] public AttackInfo lastAttackToHit;
+    public ParentMeleeAttack currentAttack;
     /*
      * summary:
      * get and sets

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.Examples;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -17,10 +18,12 @@ public class ParentMeleeAttack : State {
     protected virtual void Start() {
         currentAttack = GetComponent<AttackInfo>();
         clip = currentAttack.clip;
+        //Debug.Log("Anim: "+clip);
         interuptable = .8f;
     }
     public override void Enter() {
         base.Enter();
+        unitVariables.currentAttack = this;
         animator.speed = currentAttack.speed;
     }
     protected Vector2 offsetVector() {

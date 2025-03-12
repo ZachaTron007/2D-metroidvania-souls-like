@@ -54,7 +54,7 @@ public class PlayerState : Unit {
     [SerializeField] protected ParentMeleeAttack[] basicCombo = new ParentMeleeAttack[3];
     public float attackTime;
     [SerializeField] private float comboEndTime = 0.2f;
-    public ParentMeleeAttack currentAttack;
+    
     private int attackNum;
     private InputScript inputScript;
     //[SerializeField] protected PlayerAttack melee;
@@ -240,18 +240,18 @@ public class PlayerState : Unit {
      * summary: picks an attack from the basic combo
      */
     private State basicComboAttackPicker() {
-        currentAttack = basicCombo[attackNum];
         if (basicCombo[attackNum] == currentAttack) {
-            attackNum++;
             attackNum = (attackNum+1) % basicCombo.Length;
         }
-        Debug.Log("AttackNum: "+attackNum+1+", attack: "+currentAttack+", AttackNum increased: "+ (currentAttack != basicCombo[attackNum]));
-        
+        //Debug.Log("AttackNum: "+attackNum+1+", attack: "+currentAttack+", AttackNum increased: "+ (currentAttack != basicCombo[attackNum]));
+
         //resets attackNum to be withijn the combo
-        float comboEndTime = currentAttack.currentAttack.length + this.comboEndTime;
-        attackTime += Time.deltaTime;
-        if (attackTime >= comboEndTime) {
-            attackNum = 0;
+        if (currentAttack) {
+            float comboEndTime = currentAttack.currentAttack.length + this.comboEndTime;
+            attackTime += Time.deltaTime;
+            if (attackTime >= comboEndTime) {
+                attackNum = 0;
+            }
         }
         return basicCombo[attackNum];
     }
