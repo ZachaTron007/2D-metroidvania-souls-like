@@ -20,7 +20,7 @@ public class AttackInfo : DamageScript
     [HideInInspector] public float startHitBoxTime;
     [HideInInspector] public float endHitBoxTime;
 
-
+    
 
     private void Update() {
         float inverseSpeed = 1 / speed;

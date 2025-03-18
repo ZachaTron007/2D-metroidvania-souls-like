@@ -11,7 +11,7 @@ public class TempButton : Editor
         DrawDefaultInspector();
 
         if (GUILayout.Button("Hit Collided")) {
-            button.HitSuccess();
+            //button.HitSuccess();
 
         }
 

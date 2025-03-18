@@ -80,14 +80,10 @@ public class SwordEnemyScript : EnemyScript {
 
     }
     private State BehaviorController() {
-        
-        Debug.Log(isRecovering);
         if (isRecovering) {
             return recoverState;
         }
-        Debug.Log("Should be attacking: "+isWithinAttackRange);
         if (isWithinAttackRange) {
-            Debug.Log("Should be charging");
             return attacks[2];
             return attacks[UnityEngine.Random.Range(0,attacks.Count-1)];
         }

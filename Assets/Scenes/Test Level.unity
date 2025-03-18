@@ -66368,7 +66368,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   stun: 1
-  clip: {fileID: 7400000, guid: 9cd2b44f20570c1479e48045113e57d2, type: 2}
+  clip: {fileID: 7400000, guid: e6f72b5bf5c9a064d8b3f1045c7693f7, type: 2}
   length: 0
   attackHitBox: {fileID: 0}
   parryable: 0

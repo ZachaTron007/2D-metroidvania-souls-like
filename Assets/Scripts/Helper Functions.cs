@@ -93,7 +93,7 @@ public static class HelperFunctions {
     public static float LerpHelper(float startValue, float endValue, float totalTime, ref float counter, AnimationCurve curve=null) {
         if (counter > 0) {
             counter -= Time.deltaTime;
-            return (curve==null)?Mathf.Lerp(startValue, endValue, 1 - (counter / totalTime)): Mathf.Lerp(startValue, endValue, curve.Evaluate(1 - (counter / totalTime)));
+            return (curve==null) ? Mathf.Lerp(startValue, endValue, 1 - (counter / totalTime)): Mathf.Lerp(startValue, endValue, curve.Evaluate(1 - (counter / totalTime)));
         }
         return endValue;
     }

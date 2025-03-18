@@ -11,14 +11,17 @@ public class ParentMeleeAttack : State {
     [SerializeField] protected float attackSpeedModifier = 1;
     //[SerializeField] private float attackSpeed = 1;
     public Vector2 lookDirection;
-    
+
+    public virtual void HitCollided(Unit hitUnit) {
+
+    }
+
     protected void SetHitBoxStatus(bool status) {
         currentAttack.attackHitBox.enabled = status;
     }
     protected virtual void Start() {
         currentAttack = GetComponent<AttackInfo>();
         clip = currentAttack.clip;
-        //Debug.Log("Anim: "+clip);
         interuptable = .8f;
     }
     public override void Enter() {
@@ -32,7 +35,6 @@ public class ParentMeleeAttack : State {
     
     protected override void StateIsDone() {
         base.StateIsDone();
-        //Debug.Log("Done: "+IsStateDone());
         SetHitBoxStatus(false);
         animator.speed = 1;
     }

@@ -15,12 +15,10 @@ public class ChargeAttack : ParentMeleeAttack
         interuptable = .3f;
     }
     public override void Enter() {
-        clip = unitVariables.animations.runAnimation;
         base.Enter();
         Attack();
     }
     private void Attack() {
-        Debug.Log("Starting Charge");
         charge = new RbVelocityLerp(startSpeed: 0,chargeSpeed * unitVariables.GetDirection(), chargeTime, Vector2.right, rb, chargeCurve, FinishedLerpingEvent: SlowDown);
         SetHitBoxStatus(true);
     }
@@ -30,8 +28,14 @@ public class ChargeAttack : ParentMeleeAttack
         charge.FixedUpdate();
     }
     private void SlowDown() {
-        Debug.Log("Slowing Down");
         charge.ResetLerp(chargeSpeed * unitVariables.GetDirection(), 0, slowTime, Vector2.right, Exit);
+    }
+
+    public override void HitCollided(Unit hitUnit) {
+        base.HitCollided(hitUnit);
+        //Debug.Log(unitVariables.rb.linearVelocityX);
+        hitUnit.rb.AddForce(unitVariables.rb.linearVelocityX * Vector2.right);
+        unitVariables.StateChange(gameObject.GetComponentInChildren<State>());
     }
 
     public override void Exit() {

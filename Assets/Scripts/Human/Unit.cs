@@ -248,11 +248,12 @@ public abstract class Unit : MonoBehaviour
     }
 
     protected virtual void GetHurt(bool hit,DamageScript enemyAttack) {
+
     }
     protected abstract void Die();
-    public void HitCollided(bool hit) {
-        AttackInfo attack = null;
-        
+
+    public virtual void HitSucsess() {
+
     }
 
     protected void onParry() {

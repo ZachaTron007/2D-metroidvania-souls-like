@@ -218,7 +218,7 @@ public class PlayerState : Unit {
     private State ActionStateChange() {
         dashCount += Time.deltaTime;
         //wallJump
-        if (yVelState == wallJumpY||state==wallJumpMove&&state.IsStateDone()==false) {
+        if (yVelState == wallJumpY||state==wallJumpMove&&state.IsStateDone() == false) {
             return wallJumpMove;
         }
         //dash
@@ -313,7 +313,7 @@ public class PlayerState : Unit {
         StateChange(blockRecoverState);
     }
 
-    public void HitSuccess() {
+    public override void HitSucsess() {
 
 
         /*

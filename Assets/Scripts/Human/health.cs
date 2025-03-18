@@ -17,14 +17,14 @@ public class Health : ReducableStats {
     //[SerializeField] private float parryWindow = 5f;
     public event Action<bool, DamageScript> hitEvent;
     public event Action dieEvent;
-    private Unit unitVariables;
+    private Unit unitvariables;
 
     // Update is called once per frame
 
     private void Awake() {
         currentValue = MAX_VALUE;
-        unitVariables = GetComponent<Unit>();
-        sr = unitVariables.sr;
+        unitvariables = GetComponent<Unit>();
+        sr = unitvariables.sr;
         normalColor = sr.color;
         hurtColor /= 255;
         hitBox.triggerEnter += GetHit;
@@ -76,16 +76,17 @@ public class Health : ReducableStats {
             //checks to see if the attack would be blocked
             AttackInfo attackInfo = collision.GetComponent<AttackInfo>();
             if (blockState?.IsBlockingAttack(attackInfo) ?? false) {
-                unitVariables.lastAttackToHit = attackInfo;
+                unitvariables.lastAttackToHit = attackInfo;
                 hitEvent?.Invoke(false, null);
             } else {
-                unitVariables.lastAttackToHit = attackInfo;
+                unitvariables.lastAttackToHit = attackInfo;
                 Damage(attackInfo.damage);
-                PlayerState state = HelperFunctions.getParentTransfromComponent<PlayerState>(attackInfo.gameObject.transform);
                 //Debug.Log(attackInfo.gameObject.transform.root.name);
-                if (state) {
-                    state.HitSuccess();
-                }
+                
+                unitvariables.HitSucsess();
+                //tell the attack that hit you that it hit you
+                attackInfo.GetComponent<ParentMeleeAttack>().HitCollided(unitvariables);
+                //tell the unit that you got hit and by what attack
                 hitEvent?.Invoke(true, attackInfo);
                 //damageAmount = attackInfo.damage;
                 attackInfo.VisualEffect();
