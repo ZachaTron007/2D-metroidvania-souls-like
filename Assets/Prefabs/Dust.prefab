@@ -123,4 +123,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 057c70f5dc2b0034d9d766390db65ce8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  direction: 0
   dustClip: {fileID: 7400000, guid: 5a47b951f16250245a0a53cb7e4f3e08, type: 2}

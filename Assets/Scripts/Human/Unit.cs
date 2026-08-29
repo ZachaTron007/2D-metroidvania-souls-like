@@ -1,39 +1,58 @@
+using NUnit.Framework.Internal;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro.EditorUtilities;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 public abstract class Unit : MonoBehaviour
 {
     [Header("Components required by States")]
+    public AnimationCollection animations;
+    public LinkedList<AnimationClip> animationList = new LinkedList<AnimationClip> { };
     protected Health health;
+    protected Stun stun;
+    public IncludeRBLayers includeRBLayers;
     public Rigidbody2D rb;
     public Animator animatior;
-    protected SpriteRenderer sr;
-    [SerializeField] protected Sensors mainCollider;
+    public SpriteRenderer sr;
+    public Sensors mainCollider;
     [Header("Current State")]
-
     public State state;
-    [Header("Required Unit States")]
-    //[SerializeField] protected PlayerIdelState idelState;
-//    [SerializeField] protected ParentMeleeAttack melee;
-    [SerializeField] protected HurtState hurtState;
-    [SerializeField] protected FallState fallState;
-    [SerializeField] protected ParentMeleeAttack attackState;
-    [SerializeField] protected DeathScript dieState;
+    
     public event Action parried;
     [Header("Properties")]
-    public float attackTime;
-    public bool isRecovering = false;
-    protected int direction = 1;//{ get; protected set; } = 1;
-    protected float moveSpeed = 250;
+    [HideInInspector] public bool canBeHit = true;
+    [HideInInspector] public bool isRecovering = false;
+    [SerializeField] private int direction = 1;//{ get; protected set; } = 1;
+    public Vector2 forceAdded = new Vector2(0, 0);
     protected bool grounded;
+    private float kyoteTimeCounter;
+    private CustomPlatformBase lastPlat = null;
+    [Header("Required Unit States")]
+    //[SerializeField] protected PlayerIdelState idelState;
+    //    [SerializeField] protected ParentMeleeAttack melee;
+    [SerializeField] protected HurtState hurtState;
+    [SerializeField] protected JumpScript jumpScript;
+    [SerializeField] protected FallState fallState;
+    [SerializeField] protected DeathScript dieState;
+    [HideInInspector] public AttackInfo lastAttackToHit;
+    public ParentMeleeAttack currentAttack;
     /*
      * summary:
      * get and sets
      */
     public int GetDirection() => direction;
+    public virtual void SetDirection(int direction) {
+        this.direction = direction;
+        sr.flipX = direction < 0;
+    }
+    [ContextMenu("Flip Directions")]
+    public void FlipDirection() {
+        SetDirection(GetDirection()*-1);
+    }
     public bool GetGroundedState() => grounded;
 
 
@@ -42,15 +61,20 @@ public abstract class Unit : MonoBehaviour
      * a required function for all units to setup the nessessary components,
      * components that are special to that unit are setup in their class
      */
+    protected virtual void Update() {
+        grounded = GroundTouch();
+    }
     protected void ComponentSetup() {
+        state = fallState;
+        includeRBLayers = GetComponent<IncludeRBLayers>();
         health = GetComponent<Health>();
+        TryGetComponent(out stun);
+
         rb = GetComponent<Rigidbody2D>();
-        animatior = GetComponent<Animator>();
-        sr = GetComponent<SpriteRenderer>();
         //mainCollider = GetComponent<BoxCollider2D>();
         hurtState?.Setup(rb, animatior, this);
+        jumpScript?.Setup(rb, animatior, this);
         fallState?.Setup(rb, animatior, this);
-        attackState?.Setup(rb, animatior, this);
         dieState.Setup(rb, animatior, this);
         EventSubscribe();
     }
@@ -67,41 +91,104 @@ public abstract class Unit : MonoBehaviour
      * summary:
      * meant to be inherited and the logic to change the state is stored in here
      */
-    protected abstract void StateChange(State manualSate = null);
+    public abstract void StateChange(State manualSate = null);
     //protected abstract void GetHurt();
 
-    /*
-     * summary:
-     * makes sure the you cant interupt the state,
-     * and when state is done, it forces a change
-     */
-    protected void InteruptrableStateChange() {
-        if (state.interuptable) {
-            StateChange();
-        } else if (state.stateDone) {
-            StateChange();
+    protected State CanSwitchState(State newState, State oldState) {
+        //if you dont have an old state, automaticly siwtch to newstate
+        //Debug.Log("OldState: " + state+"New State: "+newState);
+        if (!oldState) {
+            SwitchStateActions(newState, oldState);
+            return newState;
+        } else if (!newState) {
+            //if (oldState.name == "Attack Hitbox") Debug.Log("Box");
+            //if you arnt switching to a new state
+            //if you are done with the old state then exit
+            if (oldState.IsStateDone()||oldState.interuptable==0) {
+                SwitchStateActions(newState, oldState);
+                return null;
+            }
+            //if not continue
+            return oldState;
+        }
+        //if (oldState.name == "Attack Hitbox") Debug.Log("Box");
+        //if you can switch states
+        if (newState.interuptable >= oldState.interuptable || oldState.IsStateDone() || oldState.interuptable == 0) {
+            //if the states are diffrent
+            if (oldState != newState) {
+                SwitchStateActions(newState, oldState);
+                return newState;
+
+
+            } else if (oldState.IsStateDone() && oldState.canInteruptSelf) {
+                //if they are the same check if it is done, or if you can switch to the same state
+                SwitchStateActions(newState,oldState);
+                return newState;
+            }
+        }
+
+        return oldState;
+    }
+    protected virtual void SwitchStateActions(State newState,State oldState) {
+        //Debug.Log("Calling Exit on" + oldState);
+        if (oldState) {
+            //Debug.Log("should call exit on: "+oldState);
+            oldState.ResetState(newState);
+        } else if(newState) {
+            newState.ResetState(newState,false);
         }
     }
-    
-    /*
-     * summary:
-     * sends a boxcast down to see if you are touching the ground,
-     * you give a box dimentions as a parameter
-     */
+    private void PlatformScriptLogic(CustomPlatformBase scriptCollected) {
+        //if you are on a platform you wernt on last frame
+        if (scriptCollected != lastPlat&&scriptCollected) {
+            scriptCollected.EnterOnCustomPlatform(rb);
+            
+        }
+        scriptCollected?.StayOnCustomPlatform(rb);
+        //if you left a platform this frame
+        if (lastPlat && !scriptCollected) {
+            lastPlat.ExitOnCustomPlatform(rb);
+        }
+        lastPlat = scriptCollected;
+    }
     protected bool GroundTouch() {
         Vector2 BoxDimentions = new Vector2(.1f, .1f);
         //hits walls
-        int layerNumber = 6;
-        float distanceAdditon = 0.1f;
-        RaycastHit2D groundHitLeft = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon, new Vector3(transform.position.x - mainCollider.hitBox.size.x/2, transform.position.y, 0));
-        RaycastHit2D groundHitMiddle = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon,transform.position,true);
-        RaycastHit2D groundHitRight = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon,new Vector3(transform.position.x + mainCollider.hitBox.size.x/2, transform.position.y, 0));
-        
-        if (groundHitMiddle||groundHitMiddle||groundHitRight) {
-            grounded = true;
-        } else {
-            grounded = false;
+        int layerNumber = HelperFunctions.layers["Level"];
+
+        float distanceAdditon = -.4f+mainCollider.hitBox.size.y/2;
+        RaycastHit2D[] rays = new RaycastHit2D[3];
+        CustomPlatformBase platformScript = null;
+        bool grounded = false;
+        for(int i = 0; i < rays.Length; i++) {
+            rays[i] = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon, new Vector3(transform.position.x - (i-1)*(mainCollider.hitBox.size.x / 2), transform.position.y + .2f, 0));
+            if (rays[i]) {
+                rays[i].collider.gameObject.TryGetComponent(out platformScript);
+                grounded = true; 
+                break;
+            }
         }
+        PlatformScriptLogic(platformScript);
+        if (grounded) {
+            kyoteTimeCounter = 0;
+            return true;
+        }
+        kyoteTimeCounter += Time.deltaTime;
+        if (kyoteTimeCounter > jumpScript.kyoteTime) {
+            return false;
+        }
+        PlatformScriptLogic(platformScript);
+        return true;
+
+    }
+
+    protected bool WallCheck(float maxDist) {
+        //layers to hit
+        RaycastHit2D hit = ShootRayDirection(GetDirection()*Vector2.right, HelperFunctions.layers["Level"], maxDist+mainCollider.hitBox.size.x/2, new Vector3(transform.position.x + (mainCollider.hitBox.offset.x * (mainCollider.hitBox.size.x/2-.2f)), transform.position.y+(mainCollider.hitBox.offset.y*(mainCollider.hitBox.size.y/2)),0));
+        if (hit) {
+            return true;
+        }
+
         return false;
     }
 
@@ -123,7 +210,7 @@ public abstract class Unit : MonoBehaviour
         //Debug.DrawRay(startPosition, rayDirection, Color.green, .1f);
         return hit;
     }
-    protected RaycastHit2D ShootRayDirection(Vector2 direction, int layerNumber, float dist, Vector3 startPosition=new Vector3(), bool debugRay = false) {
+    public RaycastHit2D ShootRayDirection(Vector2 direction, int layerNumber, float dist, Vector3 startPosition=new Vector3(), bool debugRay = false) {
         //trasnforms that number into a layer mask
         int layerMask = LayerNumToLayerMask(layerNumber);
         //gets the height of the collider and div by 2 to get the center
@@ -138,20 +225,35 @@ public abstract class Unit : MonoBehaviour
         }
         return hit;
     }
+    public bool IsGroundInFront() {
+        int layerNumber = HelperFunctions.layers["Level"]; ;
+        float distanceAdditon = 0.1f;
+
+        RaycastHit2D groundAvailible = ShootRayDirection(Vector2.down, layerNumber, distanceAdditon*2, new Vector3(transform.position.x + (mainCollider.hitBox.size.x / 2) * direction, transform.position.y+distanceAdditon, 0), true);
+        return groundAvailible;
+    }
+
+    public void SpawnEffect(GameObject effect, Vector2 startPos, Quaternion rotation, float destroyDelay, Vector2 offset = new Vector2(), float effectSpeed = 1) {
+        if(offset == new Vector2())     offset = Vector2.zero;
+        effect = Instantiate(effect, startPos + offset, rotation);
+        effect.GetComponent<Animator>().speed = effectSpeed;
+        Destroy(effect, destroyDelay);
+    }
+
     /*
      * used to flip the sprite
      */
     protected void directionFlip() {
-        sr.flipX = direction < 0;
+        
     }
 
-    protected virtual void GetHurt(bool hit,int damage) {
+    protected virtual void GetHurt(bool hit,DamageScript enemyAttack) {
+
     }
     protected abstract void Die();
-    public void HitCollided(bool hit) {
-        AttackInfo attack = attackState.currentAttack;
-        Debug.Log("Hit");
-        
+
+    public virtual void HitSucsess() {
+
     }
 
     protected void onParry() {

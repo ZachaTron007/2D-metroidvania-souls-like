@@ -3,14 +3,19 @@ using UnityEngine;
 
 public class SlideDustScript : MonoBehaviour
 {
-    private int direction;
+    public int direction;
     private SpriteRenderer sr;
     [SerializeField] private AnimationClip dustClip;
     private Animator animator;
-    void Start() {
+    void Awake() {
         animator = GetComponent<Animator>();
         animator.Play(dustClip.name);
         sr = GetComponent<SpriteRenderer>();
-        sr.flipY = direction > 0;
+        sr.flipY = direction < 0;
+    }
+
+    public void SetDirection(int newDirection) {
+        direction = newDirection;
+        sr.flipY = direction < 0;
     }
 }

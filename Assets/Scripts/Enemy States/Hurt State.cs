@@ -4,26 +4,22 @@ using UnityEngine;
 
 public class HurtState : State
 {
-    [SerializeField] private AnimationClip damageClip;
     [SerializeField] private float recoveryTime;
     private void Start() {
-        
+        clip = unitVariables.animations.HurtAnimation;
     }
     public override void Enter() {
-        if (damageClip.length > recoveryTime) {
-            recoveryTime = damageClip.length;
+        base.Enter();
+        if (unitVariables.animations.HurtAnimation.length > recoveryTime) {
+            recoveryTime = unitVariables.animations.HurtAnimation.length;
         }
-        interuptable = false;
-        animator.Play(damageClip.name);
-        Invoke("Exit", recoveryTime);
+        interuptable = .9f;
+        animator.Play(unitVariables.animations.HurtAnimation.name);
+        Invoke(nameof(Exit), recoveryTime);
     }
 
-    // Update is called once per frame
-    public override void Exit() {
-        stateDone = true;
-        
-    }
     public override void FixedUpdateState() {
+        base.FixedUpdateState();
         rb.linearVelocity = Vector2.zero;
     }
     

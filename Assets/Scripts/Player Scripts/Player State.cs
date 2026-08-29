@@ -3,26 +3,28 @@ using Sirenix.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Resources;
 using System.Threading;
+using TMPro.Examples;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.UIElements;
 
 public class PlayerState : Unit {
     private PlayerControls playerControls;
     private InputAction move;
     private CapsuleCollider2D clipCollider;
-
     //movements
     [Header("Player Variables")]
+    public State xVelState;
+    public State yVelState;
     //public float direction { get; private set; } = 1;
 
     private float dashCount;
     private readonly float dashCool = 0.7f;
-    private bool canParry;
-
 
     //[SerializeField] private bool blood = false;
 
@@ -31,24 +33,45 @@ public class PlayerState : Unit {
     public Vector2 moveVetcor { get; private set; }
     //scrupts
     [Header("States")]
+    [Header("X Axis States")]
     [SerializeField] private dashScript Dash;
-    public jumpScript jumpScript;
-    [SerializeField] private wallActionsScript wallActions;
+    [SerializeField] public DecelerateMoveScript decerateMoveState;
     [SerializeField] public MoveState moveState;
+    [SerializeField] private WallJumpX wallJumpMove;
+
+    [Header("Y Axis States")]
+    [SerializeField] private WallJumpScript wallJumpY;
+    [SerializeField] private WallSlideScript wallSlideScript;
+    [SerializeField] protected GlideState glideState;
+
+    [Header("Action States")]
     [SerializeField] public BlockState blockState;
     [SerializeField] public BlockRecoverState blockRecoverState;
     [SerializeField] public ParryState parryState;
     [SerializeField] protected PlayerIdelState idelState;
+
+    [Header("Attacks")]
+    [SerializeField] protected ParentMeleeAttack[] basicCombo = new ParentMeleeAttack[3];
+    public float attackTime;
+    [SerializeField] private float comboEndTime = 0.2f;
+    
+    private int attackNum;
     private InputScript inputScript;
     //[SerializeField] protected PlayerAttack melee;
 
     //public event Action <bool> parried;
     //buttons 
+    [Header("Attributes")]
+    public float bufferTime = .2f;
+    public float arielForce = 10f;
+    float bufferCounter = 0;
     public KeyCode lastKey;
-    private KeyCode jump = KeyCode.Space;
-    private KeyCode dash = KeyCode.LeftShift;
-    private KeyCode blockButton = KeyCode.Mouse1;
-    private KeyCode attackButton = KeyCode.Mouse0;
+    const KeyCode jump = KeyCode.Space;
+    const KeyCode dash = KeyCode.LeftShift;
+    public const KeyCode glideButton = KeyCode.Space;
+    const KeyCode blockButton = KeyCode.Mouse1;
+    const KeyCode attackButton = KeyCode.Mouse0;
+    private KeyCode[] buttons = new KeyCode[] { jump, dash , blockButton, attackButton, glideButton};
 
 
     protected override void EventSubscribe() {
@@ -60,7 +83,6 @@ public class PlayerState : Unit {
     }
 
     private void Awake() {
-        //CinemachineEffectScript.instance.ScreenShake(0.1f, 0.1f);
         //get the input system
         playerControls = new PlayerControls();
         inputScript = GetComponent<InputScript>();
@@ -70,126 +92,215 @@ public class PlayerState : Unit {
         ComponentSetup();
         move = playerControls.Player.Move;
         move.Enable();
-
+        wallJumpY.Setup(rb,animatior,this);
         jumpScript.Setup(rb, animatior, this);
         fallState.Setup(rb, animatior, this);
         Dash.Setup(rb, animatior, this);
         moveState.Setup(rb, animatior, this);
+        wallJumpMove.Setup(rb, animatior, this);
+        decerateMoveState.Setup(rb, animatior, this);
         idelState.Setup(rb, animatior, this);
         blockState.Setup(rb, animatior, this);
         parryState.Setup(rb, animatior, this);
         blockRecoverState.Setup(rb, animatior,this);
-        //melee.Setup(rb, animatior, this);
+        glideState.Setup(rb, animatior, this);
+        wallSlideScript.Setup(rb, animatior, this);
         hurtState.Setup(rb, animatior, this);
+        for (int i = 0; i < basicCombo.Length; i++) {
+            basicCombo[i].Setup(rb, animatior, this);
+        }
         state = idelState;
 
     }
 
     // Update is called once per frame
 
-    void Update() {
-        GroundTouch();
-        lastKey = GetInput();
+    protected override void Update() {
+        base.Update();
+        
+        lastKey = GetInput(buttons);
         //horizontal movement
-        attackTime += Time.deltaTime;
 
         if (moveVetcor.x != 0) {
-            direction = (int)moveVetcor.x;
+            SetDirection((int)moveVetcor.x);
             directionFlip();
 
         }
         //the iniatal jump, you need to be in kyote time or on the ground
-        dashCount += Time.deltaTime;
+        
         //if you arent on the ground
-        if (state.interuptable) {
-            moveVetcor = move.ReadValue<Vector2>();
-            StateChange();
-        } else if(state.stateDone) {
-            StateChange();
-        }
-        state.UpdateState();
-    }
-
-
-
-    protected override void StateChange(State manualState = null) {
-        State oldState = state;
-        if (grounded && state != jumpScript) {
-            //checks to see if you are moving
-            if (moveVetcor.x != 0) {
-                state = moveState;
-            } else {
-                state = idelState;
-            }
-            if (lastKey == jump) {
-                state = jumpScript;
-            }
-
-            //checks to see if you are falling
-        } else if (rb.linearVelocity.y < 0) {
-            state = fallState;
-        }
-        if (lastKey == dash && dashCount >= dashCool) {
-            state = Dash;
-            dashCount = 0;
-        }
-        attackTime += Time.deltaTime;
-        if (grounded) {
-            if (lastKey == attackButton && attackTime >= attackState.currentAttack.length) {
-                state = attackState;
-            }
-            if (lastKey == blockButton) {
-                state = blockState;
-            }
-        }
-        if (manualState) {
-            state = manualState;
-        }
-        if(oldState!= state) {
-            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
-            state.ResetState(oldState);
-            lastKey = KeyCode.Mouse6;
-        }
-    }
-    private void FixedUpdate() {
-        state.FixedUpdateState();
-        if(state.interuptable) {
-            Run();
-        }
-    }
-
-    
-    private void Run() {
-        if (rb.linearVelocity.x == 0) {
-            rb.linearVelocity = new Vector2(moveVetcor.x * moveSpeed * Time.fixedDeltaTime, rb.linearVelocity.y);
-        } else {
-            rb.linearVelocity = new Vector2(moveVetcor.x * Mathf.Abs(rb.linearVelocity.x), rb.linearVelocity.y);
-        }
+        moveVetcor = move.ReadValue<Vector2>();
+        StateChange();
+        yVelState?.UpdateState();
+        xVelState?.UpdateState();
+        state?.UpdateState();
         
     }
-    public KeyCode GetInput() {
-        if (Input.GetKeyDown(jump)) {
-            lastKey = jump;
-        } else if (Input.GetKeyDown(dash)) {
-            lastKey = dash;
-        } else if (Input.GetKeyDown(attackButton)) {
-            lastKey = attackButton;
-        } else if (Input.GetKeyDown(blockButton)) {
-            lastKey = blockButton;
+    private void FixedUpdate() {
+        state?.FixedUpdateState();
+        if (state == null || state.interuptable < 0.2f) {
+            yVelState?.FixedUpdateState();
+            if (state == null || state.interuptable==0) xVelState?.FixedUpdateState();
+
+        }
+    }
+
+    /*
+     * Summary:
+     * Handles changing of states
+     * runs a selection function for each state machine
+     * then checks if you can switch to that state
+     */
+
+    public override void StateChange(State manualState = null) {
+        State newXVelState = XAxisStateChange();
+        State newYVelState = YAxisStateChange();
+        State newActionState = ActionStateChange();
+        if (manualState != null) { newActionState = manualState;};
+        //Debug.Log(newYVelState);
+        if (!newYVelState && !newXVelState&&!newActionState&&GetGroundedState()) {
+            newActionState = idelState;
+        }
+        state = CanSwitchState(newActionState, state);
+        yVelState = CanSwitchState(newYVelState, yVelState);
+        xVelState = CanSwitchState(newXVelState, xVelState);
+
+    }
+    /*
+     * handles the state changing logic
+     */
+    private State XAxisStateChange() {
+        //move
+        if (moveVetcor.x != 0) {
+            return moveState;
+        }
+        //decelerate
+        if (Mathf.Abs(rb.linearVelocityX) > decerateMoveState.exitSpeed) {
+            return decerateMoveState;
+        }
+        //reset movment
+        if (!xVelState) {
+            //rb.linearVelocity = new Vector2(0, rb.linearVelocityY);
+        }
+        return null;
+    }
+    private State YAxisStateChange() {
+        //jump logic
+        if (lastKey == jump) {
+            //jump
+            if (GetGroundedState()) {
+                return jumpScript;
+            }
+            //double jump
+            if (jumpScript.remainingAirBorneJumps > 0) {
+                return jumpScript;
+            }
+        }
+        //reset jumps
+        if (GetGroundedState()) {
+            jumpScript.ResetJumpAmount();
+
+        }else
+        //wall slide
+        if (WallCheck(.01f) && moveVetcor.x == GetDirection() || WallCheck(.01f) && yVelState == wallSlideScript) {
+            //wall jump
+            if (Input.GetKeyDown(jump)) {
+                return wallJumpY;
+            }
+            return wallSlideScript;
+        }else
+        //fall state
+        if (rb.linearVelocityY <= 0) {
+            return fallState;
+        }
+        return null;
+    }
+    private State ActionStateChange() {
+        dashCount += Time.deltaTime;
+        //wallJump
+        if (yVelState == wallJumpY||state==wallJumpMove&&state.IsStateDone() == false) {
+            return wallJumpMove;
+        }
+        //dash
+        if (lastKey == dash && dashCount >= dashCool) {
+            dashCount = 0;
+            return Dash;
+        }
+        //attack
+        if (lastKey == attackButton) {
+            return basicComboAttackPicker();
+        }
+        //block
+        if (lastKey == blockButton) {
+            return blockState;
+        }
+        return null;
+    }
+    /*
+     * summary: picks an attack from the basic combo
+     */
+    private State basicComboAttackPicker() {
+        if (basicCombo[attackNum] == currentAttack) {
+            attackNum = (attackNum+1) % basicCombo.Length;
+        }
+        //Debug.Log("AttackNum: "+attackNum+1+", attack: "+currentAttack+", AttackNum increased: "+ (currentAttack != basicCombo[attackNum]));
+
+        //resets attackNum to be withijn the combo
+        if (currentAttack) {
+            float comboEndTime = currentAttack.currentAttack.length + this.comboEndTime;
+            attackTime += Time.deltaTime;
+            if (attackTime >= comboEndTime) {
+                attackNum = 0;
+            }
+        }
+        return basicCombo[attackNum];
+    }
+    /*
+     * what todo when you swiutch states
+     */
+    protected override void SwitchStateActions(State newState,State oldState) {
+        base.SwitchStateActions(newState,oldState);
+        lastKey = KeyCode.None;
+    }
+    /*
+     * done with state logic
+     */
+
+    /*
+     * handles the inputs
+     * checks to see if you are pressing one of them
+     * includes an input buffer to add leway
+     */
+    
+    public KeyCode GetInput(KeyCode[]buttons) {
+        
+        for (int i = 0; i < buttons.Length; i++){
+            if (Input.GetKeyDown(buttons[i])){
+                lastKey = buttons[i];
+                bufferCounter = 0;
+            }
+        }
+        bufferCounter += Time.deltaTime;
+        if (bufferCounter >= bufferTime) {
+            lastKey = KeyCode.None;
+            bufferCounter = 0;
         }
         return lastKey;
 
     }
-
-    protected override void GetHurt(bool hit, int damage) {
-        base.GetHurt(hit, damage);
-        if (!hit&&blockState.canParry) {
-            StateChange(parryState);
-            onParry();
-        }else if (!hit) {
-            StateChange(blockRecoverState);
-        }
-        if(hit) {
+    /*
+     * what happens when you get hurt
+     */
+    protected override void GetHurt(bool hit, DamageScript EnemyAttack) {
+        base.GetHurt(hit, EnemyAttack);
+        if (!hit) {
+            if (blockState.canParry) {
+                StateChange(parryState);
+                onParry();
+            } else {
+                StateChange(blockRecoverState);
+            }
+        } else{
             StateChange(hurtState);
         }
     }
@@ -200,6 +311,18 @@ public class PlayerState : Unit {
 
     public void StateChanges() {
         StateChange(blockRecoverState);
+    }
+
+    public override void HitSucsess() {
+
+
+        /*
+        Debug.Log("Buffer");
+        if (!grounded) {
+            rb.linearVelocity = new Vector2(0, 0);
+            rb.AddForce(new Vector2(0, arielForce));
+
+        }*/
     }
 
 

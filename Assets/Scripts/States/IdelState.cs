@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class PlayerIdelState : State
 {
-    [SerializeField] private AnimationClip idelClip;
-    
+    protected void Start() {
+        clip = unitVariables.animations.idelAnimation;
+    }
     public override void Enter() {
-        animator.Play(idelClip.name);
-        rb.linearVelocity = Vector2.zero;
+        base.Enter();
+        
+        //animator.Play(unitVariables.animations.idelAnimation.name);
+        //rb.linearVelocity = Vector2.zero;
     }
 }

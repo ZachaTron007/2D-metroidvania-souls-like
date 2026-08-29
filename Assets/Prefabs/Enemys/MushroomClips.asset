@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 046d082d9e5274a40a3f2af11084966d, type: 3}
+  m_Name: MushroomClips
+  m_EditorClassIdentifier: 
+  runAnimation: {fileID: 7400000, guid: e6f72b5bf5c9a064d8b3f1045c7693f7, type: 2}
+  idelAnimation: {fileID: 7400000, guid: b93675a41286cce41bf3eb46a34171fd, type: 2}
+  HurtAnimation: {fileID: 7400000, guid: a0da54ff6a44f444c8ca206b51b533ad, type: 2}
+  parryAnimation: {fileID: 0}
+  deathAnimation: {fileID: 7400000, guid: cb5ae9683b131ad469b063d89ac4c6ac, type: 2}
+  fallAniamtion: {fileID: 7400000, guid: b93675a41286cce41bf3eb46a34171fd, type: 2}
+  jumpAnimation: {fileID: 0}
+  blockAnimation: {fileID: 0}

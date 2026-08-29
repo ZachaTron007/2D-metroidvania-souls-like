@@ -13,11 +13,14 @@ public class Sensors : MonoBehaviour {
     public BoxCollider2D hitBox;
 
     public event Action <Collision2D> collisionEnter;
+    public event Action <Collision2D> collisionExit;
 
     private void Awake() {
         hitBox = GetComponent<BoxCollider2D>();
+
     }
     private void OnTriggerEnter2D(Collider2D other) {
+        //Debug.Log(other.gameObject.name+" hit "+gameObject.name);
         triggerEnter?.Invoke(other);
     }
     private void OnTriggerStay2D(Collider2D other) {
@@ -27,6 +30,10 @@ public class Sensors : MonoBehaviour {
         triggerExit?.Invoke(other);
     }
     private void OnCollisionEnter2D(Collision2D other) {
+        collisionEnter?.Invoke(other);
+
+    }
+    private void OnCollisionExit2D(Collision2D other) {
         collisionEnter?.Invoke(other);
     }
 }
